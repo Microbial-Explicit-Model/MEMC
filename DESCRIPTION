@@ -1,0 +1,25 @@
+Package: MEMC
+Type: Package
+Title: Microbial Explicit Model Comparison: a R package supporting model exploration
+Version: 0.1.0
+Author: c(person("Kalyn", "Dorheim", email = "kalyn.dorheim@pnnl.gov", role = c("cre", "aut"),  comment = c(ORCID = "0000-0001-8093-8397")),
+  person("Jianqiu", "Zheng", role = "ctb", comment = c(ORCID = "0000-0002-1609-9004")),
+  person("Pacific Northwest National Laboratory", role = "cph"))
+Maintainer: Kalyn Dorheim <kalyn.dorheim@pnnl.gov>
+Description: This is an R package representation of different microbial explicit carbon models in a flexible framework for model comparison exercises. 
+Depends: R (>= 3.6)
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr (>= 1.30),
+    rmarkdown (>= 2.5),
+    ggplot2 (>= 3.3.2), 
+    data.table (>= 1.13.2), 
+    deSolve (>= 1.28)
+Imports: 
+    Rdpack (>= 2.1), 
+    assertthat (>= 0.2.1)
+RoxygenNote: 7.1.1
+VignetteBuilder: knitr

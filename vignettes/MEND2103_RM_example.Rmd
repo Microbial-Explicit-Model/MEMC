@@ -1,0 +1,59 @@
+---
+title: "MEND2013 RM example"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{MEND2013_RM_example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+# Load the package, this requires that it had already been installed. 
+library(MEMC)
+
+# Load other packages used in this vignette
+library(ggplot2)
+library(data.table)
+
+# Set up a common theme for all of the plots
+THEME <- theme_bw()
+```
+
+
+# Background
+
+In this variation of the MEND 2013 model, the mircobial up take of dissolved organic carbon (DOC) is modeled with reverse Michaelis–Menten kinetics (RMM).
+
+![Eq 1: equation for the the flux D to B from Wang et al 2013.](https://esajournals.onlinelibrary.wiley.com/cms/asset/acddee9d-24a9-4aa8-be75-86388c52e091/eap2013231255-math-0009.gif)
+
+
+Equation 1 corresponds to $F_{1}$ (the arrow circled in red in Fig 1), it uses MM kinetics to model the flux between DOC and microbial biomass. This implies the microbial biomass only depends on the availability of DOC and independent on the density of the microbial biomass (competition, waste, etc.) however these can be incorporated into the flux via a R-M-M kinetics representation. Modified $F_{1}$ will look like (eq 2): 
+
+$$F_{1} = \frac{1}{E_c}({V}_{d}*{m}_{r})\frac{D * B }{{K}_{d} + B}$$ 
+
+
+# Solve the Reverse Michaelis–Menten MEND configuration 
+
+
+```{r}
+results <- MEND2013_RM(parameters = MEND2013_params,        # Use the default parameters stored as package data
+                       time = seq(0, 1e3, by = 0.1),        # Define the time vector
+                       inital_state = MEND2013_initalState) # Use the default inital state values stored as package data
+```
+
+Plot the results. 
+
+```{r}
+ggplot(data = results) + 
+  geom_line(aes(time, value, color = variable)) + 
+  facet_wrap('variable', scales = 'free') + 
+  labs(y = unique(results$units)) + 
+  THEME 
+```

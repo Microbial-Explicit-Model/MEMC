@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+analysis/
+*.DS_Store
+MEMC.Rproj
+inst/doc
+doc
+Meta

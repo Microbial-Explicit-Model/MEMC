@@ -1,0 +1,63 @@
+---
+title: "model_intercomparison"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{model_intercomparison}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+# Load the package, this requires that it had already been installed. 
+library(MEMC)
+
+# Load other packages used in this vignette
+library(ggplot2)
+library(data.table)
+
+# Set up a common theme for all of the plots
+THEME <- theme_bw()
+```
+
+
+
+Add some text about how the model intercomparison is important 
+Add some links to the different configurations. 
+
+
+```{r}
+results <- model_intercomparison(parameters = MEND2013_params,         # Use the default parameters stored as package data
+                       time = seq(0, 1e3, by = 0.1),        # Define the time vector
+                       inital_state = MEND2013_initalState) # Use the default inital state values stored as package data
+```
+
+
+```{r}
+ggplot(data = results) + 
+  geom_line(aes(time, value, color = model)) + 
+  facet_wrap('variable', scales = 'free') + 
+  labs(y = unique(results$units)) + 
+  THEME 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

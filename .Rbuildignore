@@ -1,0 +1,11 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^data-raw$
+^analysis$
+^_pkgdown\.yml$
+^pkgdown$
+^\.github/workflows/pkgdown\.yaml$
+^docs$
+^.github$
+^doc$
+^Meta$
