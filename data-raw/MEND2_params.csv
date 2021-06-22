@@ -1,0 +1,27 @@
+parameter,description,units,value
+V.p1,maximum specific decomposition rate for P1 by EP,mgC mgC^-1 h^-1,1.5
+V.p2,maximum specific decomposition rate for P2 by EP,mgC mgC^-1 h^-1,1.5
+K.p1,half-saturation constant for decomposition of P1,mgC / g soil,50
+K.p2,half-saturation constant for decomposition of P2,mgC / g soil,5
+V.m,maximum specific decomposition rate for M by EM,mgC mgC^-1 h^-1,0.1
+K.m,half-saturation constant for decomposition of M,mg C/g soil,250
+V.d1,maximum specific uptake rate of D1 for growth of B,mg C/g soil,5.00E-04
+V.d2,maximum specific uptake rate of D2 for growth of B,mg C/g soil,3.00E-04
+K.d1,half-saturation constant of uptake of D1 for growth of B,mg C/g soil,0.26
+K.d2,half-saturation constant of uptake of D2 for growth of B,mg C/g soil,2.6
+E.c1,carbon use efficiency,NA,0.75
+E.c2,carbon use efficiency,NA,0.25
+f.d,fraction of decomposed P allocated to D,NA,0.5
+g.d,fraction of dead B allocated to D,NA,0.5
+p.ep,fraction of mR for production of EP,NA,0.01
+p.em,fraction of mR for production of EM,NA,0.01
+r.ep,turnover rate of EP,mgC mgC^-1 h^-1,0.001
+r.em,turnover rate of EM,mgC mgC^-1 h^-1,0.001
+Q.max1,maximum DOC1 sorption capacity,mgC / g soil,0.1
+Q.max2,maximum DOC2 sorption capacity,mgC / g soil,1.7
+K.ads,specific adsorption rate,mgC mgC^-1 h^-1,0.006
+K.des,desorption rate,mgC mgC^-1 h^-1,0.001
+I.p1,input rate of P1,mgC mgC^-1 h^-1,2.00E-05
+I.p2,input rate of P2,mgC mgC^-1 h^-1,2.00E-05
+I.d1,input rate of D1,mgC mgC^-1 h^-1,2.00E-05
+I.d2,input rate of D2,mgC mgC^-1 h^-1,2.00E-05
