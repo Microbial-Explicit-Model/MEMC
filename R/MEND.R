@@ -3,7 +3,7 @@
 
 #' Define 2013 MEND carbon pools
 #'
-#' \code{MEND2013_pools} Defines the system of equations that
+#' \code{MEND_pools} Defines the system of equations that
 #' describe the state of the carbon pools from \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 #'
 #' @param t is for time
@@ -16,17 +16,17 @@
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @importFrom Rdpack reprompt
 #' @importFrom assertthat assert_that has_name
-#' @family 2013 MEND model functions
+#' @family MEND
 #' @family carbon pool functions
 #' @noRd
-MEND2013_pools <- function(t, state, parms, flux_function = MEND2013_fluxes){
+MEND_pools <- function(t, state, parms, flux_function = MEND_fluxes){
 
   # Check the inputs
   required_states <- c("P", "M", "Q", "B", "D", "EP", "EM", "IC", "Tot")
   missing_states  <- required_states[!required_states %in% names(state)]
   assert_that(length(missing_states) == 0, msg = paste0('missing states: ', paste(missing_states, collapse = ',  ')))
   assert_that(all(required_states  == names(state)), msg = paste0('state pools must be in the following order: ', paste(required_states, collapse = ',  ')))
-  assert_that(data.table::is.data.table(parms))
+  assert_that(is.data.frame(parms))
   assert_that(has_name(x = parms, which = c("parameter", "description", "units", "value")))
   assert_that(is.function(flux_function))
 
@@ -81,22 +81,21 @@ MEND2013_pools <- function(t, state, parms, flux_function = MEND2013_fluxes){
 
 #' Define the 2013 MEND fluxes.
 #'
-#' \code{MEND2013_fluxes} Defines a system of equations that
+#' \code{MEND_fluxes} Defines a system of equations that
 #' describe the state of the fluxes between the pools from \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 #' By retruning a list of named functions.
 #'
 #' @param state A numeric vector of the different MEND carbon pool states.
 #' @param parms A data frame of the parameters.
 #' @return A list of functions that calculate the fluxes between \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013} carbon pools.
-#' @family 2013 MEND model functions
+#' @family MEND
 #' @family carbon flux functions
 #' @importFrom assertthat assert_that has_name
 #' @noRd
-MEND2013_fluxes <- function(state, parms){
+MEND_fluxes <- function(state, parms){
 
   # Check inputs
   assert_that(has_name(x = state, which = c("B", "D", "P", "Q", "M", "EP", "EM")))
-  assert_that(data.table::is.data.table(parms))
   assert_that(has_name(x = parms, which = c("parameter", "description", "units", "value")))
   req <- c('E.c', 'V.d', 'm.r', 'K.d', 'V.p', 'K.p', 'V.m', 'K.m', 'K.ads',
            'Q.max', 'K.des', 'p.ep', 'p.em', 'r.ep',  'r.em')
@@ -166,23 +165,32 @@ MEND2013_fluxes <- function(state, parms){
 
 #' Solve MEND 2013
 #'
-#' \code{MEND2013} Run and solve MEND 2013 \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
+#' \code{MEND} Run and solve MEND 2013 \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 #'
-#' @param parameters data.table containing the following columns: parameter, value, and units. Default values are stored as pacakge see \code{MEND2013_params}.
+#' @param parameters data.table containing the following columns: parameter, value, and units. Default values are stored as pacakge see \code{MEND_params}.
 #' @param time a vector of the time setps.
-#' @param inital_state a numeric vector of the different MEND carbon pool states. Default values are probvide as package data see \code{MEND2013_initalState}
+#' @param inital_state a numeric vector of the different MEND carbon pool states. Default values are probvide as package data see \code{MEND_initalState}
 #' @return a data frame of MEND output variables
-#' @family 2013 MEND model functions
-#' @family model
+#' @family MEND
+#' @family models
+#' @examples
+#' # define the time vector & load the default parameters and initial state values stored
+#' # as package data.
+#' t <- seq(0, 175200, 24) ##per hour 24hour by 365 days =8760  20year=175200
+#' p <- MEND_params
+#' state <- MEND_initalState
+#'
+#' # Solve MEND
+#' out <- MEND(parameters = p, time = t,  inital_state = state)
 #' @export
-MEND2013 <- function(parameters, time, inital_state){
+MEND <- function(parameters, time, inital_state){
 
 
   out <- solver(params = parameters,
                 time = time,
                 state = inital_state,
-                carbon_pools_func = MEND2013_pools,
-                carbon_fluxes_func = MEND2013_fluxes)
+                carbon_pools_func = MEND_pools,
+                carbon_fluxes_func = MEND_fluxes)
 
   return(out)
 

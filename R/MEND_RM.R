@@ -1,22 +1,22 @@
 #' Define MEND fluxes that use reverse michaelis menten kinetics
 #'
-#' \code{MEND2013_RM_fluxes} Defines a system of equations that
+#' \code{MEND_RM_fluxes} Defines a system of equations that
 #' describe the state of the fluxes between the pools from \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
-#' By retruning a list of named functions. This set of functions differs from \code{MEND2013_fluxes} in its
+#' By retruning a list of named functions. This set of functions differs from \code{MEND_fluxes} in its
 #' represenation of the DOC uptake by microbial biomass. Here this dynamic is driven by reverse michaelis menten kinetics.
 #'
 #' @param state A numeric vector of the different MEND carbon pool states.
 #' @param parms A data frame of the parameters.
 #' @return A list of functions that calculate the fluxes between \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013} carbon pools.
-#' @family 2013 MEND model functions
+#' @family MEND_RM
 #' @family carbon flux functions
 #' @importFrom assertthat assert_that has_name
 #' @noRd
-MEND2013_RM_fluxes <- function(state, parms){
+MEND_RM_fluxes <- function(state, parms){
 
   # Check inputs
   assert_that(has_name(x = state, which = c("B", "D", "P", "Q", "M", "EP", "EM")))
-  assert_that(data.table::is.data.table(parms))
+  assert_that(is.data.frame(parms))
   assert_that(has_name(x = parms, which = c("parameter", "description", "units", "value")))
   req <- c('E.c', 'V.d', 'm.r', 'K.d', 'V.p', 'K.p', 'V.m', 'K.m', 'K.ads',
            'Q.max', 'K.des', 'p.ep', 'p.em', 'r.ep',  'r.em')
@@ -86,24 +86,32 @@ MEND2013_RM_fluxes <- function(state, parms){
 
 #' Solve MEND 2013 with reverse michaelis menten kinetics
 #'
-#' \code{MEND2013_RM} Run and solve MEND 2013  \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013} that
+#' \code{MEND_RM} Run and solve MEND 2013  \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013} that
 #' uses reverse michaelis menten kinetics in microbial uptake of DOC.
 #'
-#' @param parameters data.table containing the following columns: parameter, value, and units. Default values are stored as pacakge see \code{MEND2013_params}.
+#' @param parameters data.table containing the following columns: parameter, value, and units. Default values are stored as pacakge see \code{MEND_params}.
 #' @param time a vector of the time setps.
-#' @param inital_state a numeric vector of the different MEND carbon pool states. Default values are probvide as package data see \code{MEND2013_initalState}
+#' @param inital_state a numeric vector of the different MEND carbon pool states. Default values are probvide as package data see \code{MEND_initalState}
 #' @return a data frame of MEND output variables
-#' @family 2013 MEND model functions
-#' @family model
+#' @family MEND_RM
+#' @family models
+#' # define the time vector & load the default parameters and initial state values stored
+#' # as package data.
+#' t <- seq(0, 175200, 24) ##per hour 24hour by 365 days =8760  20year=175200
+#' p <- MEND_params
+#' state <- MEND_initalState
+#'
+#' # Solve MEND_RM
+#' out <- MEND_RM(parameters = p, time = t,  inital_state = state)
 #' @export
-MEND2013_RM <- function(parameters, time, inital_state){
+MEND_RM <- function(parameters, time, inital_state){
 
 
   out <- solver(params = parameters,
                 time = time,
                 state = inital_state,
-                carbon_pools_func = MEND2013_pools,
-                carbon_fluxes_func = MEND2013_RM_fluxes)
+                carbon_pools_func = MEND_pools,
+                carbon_fluxes_func = MEND_RM_fluxes)
 
   return(out)
 

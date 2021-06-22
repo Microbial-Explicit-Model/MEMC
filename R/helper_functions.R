@@ -8,9 +8,10 @@
 #' @return Nothing, but has defined the elements of the parameter column as objects in
 #' the environment.
 #' @importFrom assertthat assert_that has_name
+#' @noRd
 assign_parameters <- function(dt, req = NULL){
 
-  assert_that(data.table::is.data.table(dt))
+  assert_that(is.data.frame(dt))
   has_name(x = dt, which = c('parameter', 'value', 'units'))
   assert_that(is.character(dt[['parameter']]))
   assert_that(is.numeric(dt[['value']]))
@@ -71,8 +72,10 @@ solver <- function(params, time, state, carbon_pools_func, carbon_fluxes_func, .
   out <- data.table::melt(data.table::as.data.table(rslt),  measure.vars = names(state),
                           variable.name = "variable", value.name = 'value')
   out$units <- 'mg C/g soil'
-  # TODO might want to remove the out units thing
+  # TODO might want to remove the out units consider a data table that has restults organized into
+  # carbon type?
   return(out)
 
 }
+
 
