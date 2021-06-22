@@ -1,11 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.github/workflows/R-CMD-check\.yaml$
 ^data-raw$
-^analysis$
-^_pkgdown\.yml$
-^pkgdown$
-^\.github/workflows/pkgdown\.yaml$
-^docs$
-^.github$
+.github
 ^doc$
 ^Meta$

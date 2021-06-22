@@ -8,18 +8,19 @@ Author: c(person("Kalyn", "Dorheim", email = "kalyn.dorheim@pnnl.gov", role = c(
 Maintainer: Kalyn Dorheim <kalyn.dorheim@pnnl.gov>
 Description: This is an R package representation of different microbial explicit carbon models in a flexible framework for model comparison exercises. 
 Depends: R (>= 3.6)
-License: MIT
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    testthat (>= 3.0.0),
-    knitr (>= 1.30),
-    rmarkdown (>= 2.5),
-    ggplot2 (>= 3.3.2), 
-    data.table (>= 1.13.2), 
-    deSolve (>= 1.28)
+    testthat,
+    knitr,
+    rmarkdown,
+    ggplot2, 
+    data.table, 
+    deSolve, 
+    dplyr
 Imports: 
-    Rdpack (>= 2.1), 
-    assertthat (>= 0.2.1)
+    Rdpack, 
+    assertthat
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
