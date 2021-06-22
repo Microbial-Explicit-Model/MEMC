@@ -36,15 +36,15 @@ state <- c(P = P,  M = M,  Q = Q,  B = B,  D = D,  EP = EP,  EM = EM,  IC = IC, 
 testthat::test_that("solver:", {
 
   # Should run
-  good <- solver(params = MEND2013_params, time = 0:10, state = state,
-                 carbon_pools_func = MEND2013_pools, carbon_fluxes_func = MEND2013_fluxes)
+  good <- solver(params = MEND_params, time = 0:10, state = state,
+                 carbon_pools_func = MEND_pools, carbon_fluxes_func = MEND_fluxes)
   expect_true(is.data.frame(good))
 
   # Should throw error messages
-  expect_error(solver(params = MEND2013_params, time = 0:10, state = state, carbon_pools_func = MEND2013_fluxes, carbon_fluxes_func = MEND2013_fluxes))
-  expect_error(solver(params = MEND2013_params, time = 0:10, state = state, carbon_pools_func = MEND2013_pools, carbon_fluxes_func = MEND2013_pools))
-  expect_error(solver(params = MEND2013_params, time = 0:10, state = state, carbon_pools_func = list(), carbon_fluxes_func = MEND2013_pools))
-  expect_error(solver(params = MEND2013_params[1:10, ], time = 0:10, state = state,
-                      carbon_pools_func = MEND2013_pools, carbon_fluxes_func = MEND2013_fluxes))
+  expect_error(solver(params = MEND_params, time = 0:10, state = state, carbon_pools_func = MEND_fluxes, carbon_fluxes_func = MEND_fluxes))
+  expect_error(solver(params = MEND_params, time = 0:10, state = state, carbon_pools_func = MEND_pools, carbon_fluxes_func = MEND_pools))
+  expect_error(solver(params = MEND_params, time = 0:10, state = state, carbon_pools_func = list(), carbon_fluxes_func = MEND_pools))
+  expect_error(solver(params = MEND_params[1:10, ], time = 0:10, state = state,
+                      carbon_pools_func = MEND_pools, carbon_fluxes_func = MEND_fluxes))
 
 })
