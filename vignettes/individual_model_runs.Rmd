@@ -1,0 +1,268 @@
+---
+title: "Example: Individual Model Runs"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Example: Individual Model Runs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+Here in this example we will walk through how to solve the invidual model configurations included in the `MEMC` pacakge and plot results. This tutorial assumes that the pacakge has already been installed, [see MEMC installation instructions](installation.html).
+
+
+```{r}
+# Load the MEMC package & the other packages used in this tutorial.
+library(MEMC)
+library(ggplot2) # use to make pretty graphs
+library(knitr)   # use to make pretty tables
+```
+
+# MEND
+
+## Basic `MEND` Run
+
+`MEND` is the default cofiguration of the model published in [Wang et. al 2013](https://doi.org/10.1890/12-0681.1), it is a single carbon pool model that models microbial carbon uptake with Michaelis–Menten kinetcs (MM). 
+
+
+Take look at the default inital state values included with the `MEMC` package as `MEND_initalState`. 
+
+```{r}
+state <- MEND_initalState
+state
+```
+
+
+Now take a look at the default paramter  vavlues included in the package.
+
+```{r}
+params <- MEND_params
+kable(params)
+```
+
+
+Run `MEND` with default parameters and inital starting conditions.
+
+```{r}
+t <- seq(1,1e3)
+out <- MEND(parameters = params, time = t, inital_state = state)
+```
+
+
+Plot the resutls. 
+
+```{r}
+ggplot(data = out) + 
+  geom_line(aes(time, value)) + 
+  facet_wrap("variable", scales = "free") + 
+  labs(title = "MEND carbon pool dynamics", y = "mg C/g soil")
+```
+
+
+
+
+## Basic `MEND_RM` Run 
+
+Run `MEND_RM` it is a modified version of [Wang et. al 2013](https://doi.org/10.1890/12-0681.1), models microbial carbon uptake with reverse Michaelis–Menten kinetcs (RM). 
+
+
+```{r}
+# Both MEND and MEND_RM can use the same parameter values and inital 
+state <- MEND_initalState
+params <- MEND_params
+t <- seq(1, 1e3)
+
+out <- MEND_RM(parameters = params, time = t, inital_state = state)
+```
+
+
+Plot the resutls. 
+
+```{r}
+ggplot(data = out) + 
+  geom_line(aes(time, value)) + 
+  facet_wrap("variable", scales = "free") + 
+  labs(title = "MEND RM carbon pool dynamics", y = "mg C/g soil")
+```
+
+
+## Basic `MEND_ECA` Run 
+
+Run `MEND_ECA` it is a modified version of [Wang et. al 2013](https://doi.org/10.1890/12-0681.1), models microbial carbon uptake with TODO (ECA). 
+
+
+```{r}
+# Both MEND and MEND_RM can use the same parameter values and inital 
+state <- MEND_initalState
+params <- MEND_params
+t <- seq(1, 1e3)
+
+out <- MEND_ECA(parameters = params, time = t, inital_state = state)
+```
+
+
+Plot the resutls. 
+
+```{r}
+ggplot(data = out) + 
+  geom_line(aes(time, value)) + 
+  facet_wrap("variable", scales = "free") + 
+  labs(title = "MEND ECA carbon pool dynamics", y = "mg C/g soil")
+```
+
+
+
+## Basic `MEND_MILLEN` Run 
+
+Run `MEND_MILLEN` it is a modified version of [Wang et. al 2013](https://doi.org/10.1890/12-0681.1), models microbial carbon uptake with TODO (MILLEN). 
+
+
+```{r}
+# Both MEND and MEND_RM can use the same parameter values and inital 
+state <- MEND_initalState
+params <- MEND_params
+t <- seq(1, 1e3)
+
+out <- MEND_MILLEN(parameters = params, time = t, inital_state = state)
+```
+
+
+Plot the resutls. 
+
+```{r}
+ggplot(data = out) + 
+  geom_line(aes(time, value)) + 
+  facet_wrap("variable", scales = "free") + 
+  labs(title = "MEND Millennial carbon pool dynamics", y = "mg C/g soil")
+```
+
+
+# 2 Pool MEND
+
+## Basic `MEND2` Run 
+
+`MEND2` is a modified version of [Wang et. al 2013](https://doi.org/10.1890/12-0681.1) that has 2 P pools. 
+
+
+```{r}
+# All of the MEND2 models can use 
+state <- MEND2_initalState
+params <- MEND2_params
+t <- seq(1, 1e3)
+
+out <- MEND2_RM(parameters = params, time = t, inital_state = state)
+```
+
+
+Plot the resutls. 
+
+```{r}
+ggplot(data = out) + 
+  geom_line(aes(time, value)) + 
+  facet_wrap("variable", scales = "free") + 
+  labs(title = "MEND2 RM carbon pool dynamics", y = "mg C/g soil")
+```
+
+
+## Basic `MEND2_RM` Run 
+
+`MEND2_RM` is a modified version of [Wang et. al 2013](https://doi.org/10.1890/12-0681.1) that has 2 P pools and models microbial carbon uptake with reverse Michaelis–Menten kinetcs (RM). 
+
+
+```{r}
+# All of the MEND2 models can use 
+state <- MEND2_initalState
+params <- MEND2_params
+t <- seq(1, 1e3)
+
+out <- MEND2_RM(parameters = params, time = t, inital_state = state)
+```
+
+
+Plot the resutls. 
+
+```{r}
+ggplot(data = out) + 
+  geom_line(aes(time, value)) + 
+  facet_wrap("variable", scales = "free") + 
+  labs(title = "MEND2 RM carbon pool dynamics", y = "mg C/g soil")
+```
+
+
+## Basic `MEND2_ECA` Run 
+
+`MEND2_ECA` is a modified version of [Wang et. al 2013](https://doi.org/10.1890/12-0681.1) that has 2 P pools and models microbial carbon uptake with TODO (ECA). 
+
+
+```{r}
+# All of the MEND2 models can use 
+state <- MEND2_initalState
+params <- MEND2_params
+t <- seq(1, 1e3)
+
+out <- MEND2_ECA(parameters = params, time = t, inital_state = state)
+```
+
+
+Plot the resutls. 
+
+```{r}
+ggplot(data = out) + 
+  geom_line(aes(time, value)) + 
+  facet_wrap("variable", scales = "free") + 
+  labs(title = "MEND2 ECA carbon pool dynamics", y = "mg C/g soil")
+```
+
+
+## Basic `MEND2_MILLEN` Run 
+
+`MEND2_MILLEN` is a modified version of [Wang et. al 2013](https://doi.org/10.1890/12-0681.1) that has 2 P pools and models microbial carbon uptake with TODO (MILLEN). 
+
+
+```{r}
+# All of the MEND2 models can use 
+state <- MEND2_initalState
+params <- MEND2_params
+t <- seq(1, 1e3)
+
+out <- MEND2_MILLEN(parameters = params, time = t, inital_state = state)
+```
+
+
+Plot the resutls. 
+
+```{r}
+ggplot(data = out) + 
+  geom_line(aes(time, value)) + 
+  facet_wrap("variable", scales = "free") + 
+  labs(title = "MEND2 Millennial carbon pool dynamics", y = "mg C/g soil")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

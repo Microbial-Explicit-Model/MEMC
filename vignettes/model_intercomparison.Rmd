@@ -1,63 +1,59 @@
 ---
-title: "model_intercomparison"
+title: "Example: Model intercomparisons"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{model_intercomparison}
+  %\VignetteIndexEntry{Example: Model intercomparison}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 ```
 
-```{r setup}
-# Load the package, this requires that it had already been installed. 
-library(MEMC)
+Here in this example, we will walk through how to use the model comparison functions to quickly compare how changing the microbial biomass uptake of affects a system's carbon pools. This tutorial assumes that the pacakge has already been installed, [see MEMC installation instructions](installation.html). 
 
-# Load other packages used in this vignette
+
+```{r}
 library(ggplot2)
-library(data.table)
-
-# Set up a common theme for all of the plots
-THEME <- theme_bw()
+library(MEMC)
 ```
 
 
+# MEND 
 
-Add some text about how the model intercomparison is important 
-Add some links to the different configurations. 
+Compare the different configurations of the `MEND`, default MEND that uses Michaelis–Menten kinetics, with modified versions that use reverse Michaelis–Menten, ECA, and Millenial kinetics, [see model descriptions for more details](model_descriptions.html).
+
+```{r}
+t   <- seq(0, 175200, 24) ##per hour 24hour by 365 days =8760  20year=175200
+out <- compare_MEND(parameters = MEND_params, time  = t, inital_state = MEND_initalState)
+
+
+ggplot(data = out) + 
+  geom_line(aes(time, value, color = model, linetype = model)) + 
+  labs(y = "mg C/g soil",
+       title = "Compare variations of MEND") +
+  facet_wrap("variable", scale = "free")
+```
+
+
+# MEND2
+
+Compare the different configurations of the `MEND2`, a modified version of [Wang et. al 2013](https://doi.org/10.1890/12-0681.1) that has two 2 POC pools with other modified versions that use different equations to model carbon uptake by microbial biomass, [see model descriptions for more details](model_descriptions.html).
 
 
 ```{r}
-results <- model_intercomparison(parameters = MEND2013_params,         # Use the default parameters stored as package data
-                       time = seq(0, 1e3, by = 0.1),        # Define the time vector
-                       inital_state = MEND2013_initalState) # Use the default inital state values stored as package data
+t   <- seq(0, 175200, 24) ##per hour 24hour by 365 days =8760  20year=175200
+out <- compare_MEND2(parameters = MEND2_params, time = t, inital_state = MEND2_initalState)
+
+
+ggplot(data = out) + 
+  geom_line(aes(time, value, color = model, linetype = model)) + 
+  labs(y = "mg C/g soil",
+       title = "Compare variations of MEND2") +
+  facet_wrap("variable", scale = "free")
 ```
-
-
-```{r}
-ggplot(data = results) + 
-  geom_line(aes(time, value, color = model)) + 
-  facet_wrap('variable', scales = 'free') + 
-  labs(y = unique(results$units)) + 
-  THEME 
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

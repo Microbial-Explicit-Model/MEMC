@@ -1,0 +1,118 @@
+---
+title: "Example: Change Inputs"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{"Example: Change Inputs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+Here in this example we will walk through how to change the inputs to. Starting out by changing a single parameter or inital starting condition at a time. And walk through how to do a run with a custom values. This tutorial assumes that the pacakge has already been installed, [see MEMC installation instructions](installation.html). 
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(MEMC)
+```
+
+# `MEND`
+
+First run the model with default values, so we that we will have something we can compare other runs with. 
+
+```{r}
+t <- seq(1,1e3)
+MEND_out <- MEND(parameters = MEND_params, time = t, inital_state = MEND_initalState)
+MEND_out$name <- "default MEND" # Add a column to keep track of the parameter values that were used.
+```
+
+
+## Change paramter values. 
+
+Now rerun `MEND` but change the half-saturation constant value `K.d` for the Michaelis–Menten kinetics describing microbial (B) uptake of dissolved organic carbon (D). `K.d` has an inverse relationship with the uptake. When `K.d` increases the rate of D uptake by B slows, whereas when `K.d` is decreased the rate of D uptake increases. 
+
+
+```{r}
+# Change the values for K.d in the parameter table. 
+double_kd <- mutate(MEND_params, value = if_else(parameter == "K.d", value * 2, value))
+half_kd   <- mutate(MEND_params, value = if_else(parameter == "K.d", value * 1/2, value))
+
+# Use the parameter new paramter values with `MEND`. 
+MEND(parameters = double_kd, time = t, inital_state = MEND_initalState) %>% 
+  mutate(name = "double K.d") ->
+  MEND_out_double
+  
+MEND(parameters = half_kd, time = t, inital_state = MEND_initalState) %>% 
+  mutate(name = "half K.d") ->
+  MEND_out_half
+```
+
+Plot the results of MEND running with different half-saturation constants. 
+
+```{r}
+# Combine the data frames together
+out <- rbind(MEND_out, MEND_out_double, MEND_out_half)
+```
+
+```{r}
+ggplot(data = out) + 
+  geom_line(aes(time, value, color = name)) + 
+  facet_wrap("variable", scales = "free") + 
+  theme(legend.title = element_blank()) +
+  labs(title = "MEND", 
+       subtitle = "varying half-saturation constant for microbial uptake",
+       y = "mg C/g soil")
+```
+
+
+By changing the `K.d` value the rate of B uptake changes which in turn affects the rest of the system. This approach can be used to change any number of parameter values and even read in a completely new set of parameter values, so long as the parameter table meets all of `MEND` requirements. If a parameter is missing an error will be thrown. Manipulating the parameter `MEND2_params` table to change the parameter values used to solve the two pool version, `MEND2`. 
+
+
+## Change inital conditions. 
+
+
+```{r}
+# Save a copy of default initial conditions 
+state <- MEND_initalState
+
+# Save a copy of the default value of B 
+default_val <- state[which(names(state) == "B")]
+
+# Create a copy of the inital conditions vector and double the value of B.
+double_B <- state
+double_B[names(double_B) == "B"] <- default_val * 2
+
+# Create a copy of the inital conditions vector and half the value of B.
+half_B <- state
+half_B[names(half_B) == "B"] <- default_val * .5
+
+# Run MEND with the different inital starting conditions. 
+MEND(parameters = MEND_params, time = t, inital_state = double_B) %>% 
+  mutate(name = "double B") ->
+  MEND_B_double
+  
+MEND(parameters = MEND_params, time = t, inital_state = half_B) %>% 
+  mutate(name = "half B") ->
+  MEND_B_half
+
+out <- rbind(MEND_out, MEND_B_double, MEND_B_half)
+
+ggplot(data = out) + 
+  geom_line(aes(time, value, color = name)) + 
+  facet_wrap("variable", scales = "free") + 
+  theme(legend.title = element_blank()) +
+  labs(title = "MEND", 
+       subtitle = "varying initial conditions of B",
+       y = "mg C/g soil")
+```
+
+
+This approach can be used to change any number of initial conditions, so long as the state vector meets all of `MEND` requirements. If a value is missing an error will be thrown. Manipulating the parameter `MEND2_initalState` vector can be used to solve the two pool version, `MEND2`. 

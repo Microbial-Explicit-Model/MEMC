@@ -1,0 +1,56 @@
+---
+title: "Installation Instructions"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Installation Instructions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+`MEMC` is an R package designed to facilitate easy exploration of different configurations of soil carbon (C) decomposition with various representations of microbial biomass uptake. To install R, follow these [instructions](https://cloud.r-project.org/) for the platform you are using. Although not necessary we strongly encourage users to also download and install the [Rstuio IDE](https://www.rstudio.com/products/rstudio/download/). 
+
+
+After installing R you should be able to install the package with the following command. 
+
+```{r, eval=FALSE}
+# If the `remotes` isn't installed, first run:
+# install.packages("remotes")
+remotes::install_github("Microbial-Explicit-Model/MEMC")
+```
+After it is done installing you should be able to load the MEMC pacakge and start using it! 
+
+
+Alteratively for users that are interested in using the delvopmental version of the pacakge clone will need to clone the repository and use the “Install and Restart” and “Clean and Rebuild” tools in [Rstudio](https://support.rstudio.com/hc/en-us/articles/200486508-Building-Testing-and-Distributing-Packages).  
+
+
+How to clone the reposidotry via the command line, see [git installation instructions](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). 
+
+```
+git clone https://github.com/Microbial-Explicit-Model/MEMC.git
+
+```
+
+
+
+\
+
+## Helpful Resources 
+
+* [Intro to R manual](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf)
+* [Cookbook to R](http://www.cookbook-r.com/)
+* [Developing R packages](https://r-pkgs.org/)
+* [R Graphics](https://r-graphics.org/)
+* [git reference manual](https://git-scm.com/docs)
+
+
+
+
+
+
+
+
+
+
+
+

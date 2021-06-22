@@ -1,0 +1,78 @@
+---
+title: "Model Descriptions & Configurations"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Model Descriptions & Configurations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+The Microbial-Explicit-Model-Comparison package or `MEMC` is a tool designed to provide an easy-to-use, flexible framework to facilitate the easy exploration of different structures of microbial-explicit models. See below for a description of the different models and structures are currently supported by the package. 
+
+# Models
+
+## `MEND`
+
+The `MEND` function is the coded version of the MEND 2013 model, originally documented in [Wang et. al 2013](https://doi.org/10.1890/12-0681.1). It is a system of differential equations that describe soil carbon dynamics. There are 8 different carbon pools: particulate carbon, mineral-associated carbon, active layers of MOC interacting with dissolved organic carbon through adsorption and desorption, dissolved carbon, microbial
+biomass carbon, and two different types of extracellular enzymes denoted as the circles in the **Fig. 1**. For more information about the MEND 2013 model, we encourage users to read [Wang et. al 2013](https://doi.org/10.1890/12-0681.1). 
+
+
+\
+
+![Figure 1: conceptual diagram of MEND from Wang et al. 2013](https://esajournals.onlinelibrary.wiley.com/cms/asset/b4cc71bd-8987-4226-8ac1-9e5b6d547af2/eap2013231255-fig-0001-m.jpg){width=70%}
+
+
+## `MEND2`
+
+The `MEND2` function is a modfied form of `MEND` that has two POC, MOC, DOC, and enzyme pools as indicated in **Fig. 2.**
+
+
+![Figure 2: conceptual diagram of two pool modified version of MEND, MEND2](https://user-images.githubusercontent.com/27299759/122654233-0b10c200-d118-11eb-9560-0b62fc88072e.jpg){width=75%}
+
+# Structural Variations of Microbial Uptake
+
+There are different ways to represent the carbon uptake by microbial biomass. One of the objectives of this package is to allow users to explore what happens when this flux (highlighted as the green arrow in **Fig 3**) is changed. Modeling microbial uptake with different equations leads to different model behavior by accounting or emphasizing different dynamics. 
+
+![Figure 3: conceptual diagram of MEND highlighting the uptake of carbon by the microbial biomass.](https://user-images.githubusercontent.com/27299759/122770446-71f6be00-d273-11eb-8845-2e7f0e0491a7.jpg){width=75%}
+
+
+
+\
+\
+
+## Michaelis–Menten
+
+The original MEND model uses Michaelis–Menten kinetics (eq. 1) to model microbial uptake of carbon.
+
+
+\
+\
+
+![Equation 1: flux of carbon update from microbial uptake used in [Wang et. al 2013](https://doi.org/10.1890/12-0681.1) the Michaelis-Menten term is highlighted in orange. ](https://user-images.githubusercontent.com/27299759/122785452-67432580-d281-11eb-97c6-ac63cc15fe2f.jpg)
+
+\
+\
+
+## Reverse Michaelis–Menten 
+
+An alterative configuration uses resverse Michaelis–Menten enzyme dynamics (RM). The switch to RM dynamics as in equation 2, assumes within our system that there is a surplus DOC available for microbial uptake. Meaning that now microbial uptake of carbon is limited by the ability of the microbial community to break down and consume DOC. 
+
+![Equation 2: modified flux of carbon update from microbial uptake used in [Wang et. al 2013](https://doi.org/10.1890/12-0681.1) that includes a reverse Michaelis-Menten term highlighted in blue. ](https://user-images.githubusercontent.com/27299759/122785504-7033f700-d281-11eb-8d68-202cfcda8771.jpg)
+
+\
+\
+
+## ECA 
+
+TODO add details 
+
+
+## Millenial
+
+TO Do 
+
+
+
+
