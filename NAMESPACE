@@ -3,7 +3,6 @@
 export(carbon_fluxes)
 export(carbon_pools)
 export(configure_model)
-export(modify_fluxes_func)
 export(solve_model)
 export(update_params)
 importFrom(assertthat,assert_that)

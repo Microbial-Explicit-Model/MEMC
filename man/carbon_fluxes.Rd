@@ -4,16 +4,16 @@
 \alias{carbon_fluxes}
 \title{Define the carbon fluxes.}
 \usage{
-carbon_fluxes(env, state = NULL, params = NULL, F1 = "MM")
+carbon_fluxes(F1 = "MM", env = NULL, state = NULL, params = NULL)
 }
 \arguments{
-\item{env}{an environment of the initial state and parameter values created by \code{internal_load_params}.}
+\item{F1}{string indicating the type of enzyme kinetics used in the microbial decomposition of POM.}
+
+\item{env}{an environment of the initial state and parameter values created by \code{internal_load_params}, by default it is set to an empty environment.}
 
 \item{state}{A numeric vector of the different carbon pool states that will be used to up date the preset values read in from the env, default set to NULL will use the entries in the env object.}
 
 \item{params}{A data frame of the parameters that will be used to up date the entries in the env environment, by default set to NULL.}
-
-\item{F1}{string indicating the type of enzyme kinetics used in the microbial decomposition of POM.}
 }
 \value{
 A list of functions that calculate the fluxes between carbon pools.

@@ -51,6 +51,13 @@ The name of the model configuration.
 MEND_model$name
 ```
 
+
+A table ([kable](https://bookdown.org/yihui/rmarkdown-cookbook/kable.html)) describing the model configuration, which kinetics are used where. 
+```{r}
+MEND_model$config
+```
+
+
 A vector of the initial state values. 
 
 ```{r}

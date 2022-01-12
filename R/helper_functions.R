@@ -71,15 +71,21 @@ modify_env <- function(env, new){
 #' @importFrom assertthat assert_that
 #' @export
 #' @family helper functions
-configure_model <- function(params, state, carbon_pools_func = carbon_pools, carbon_fluxes_func, name = "MEND", F1 = "MM"){
+configure_model <- function(params,
+                            state,
+                            carbon_pools_func = carbon_pools,
+                            carbon_fluxes_func = carbon_fluxes,
+                            name = "MEND",
+                            F1 = "MM"){
 
   # Load all the parameter tables and the state variables into an environment.
   env <- internal_load_params(ptable = params, state = state)
 
   # Make sure that the pools and fluxes are being read in as functions and that
   # the have not been used in place of one another.
-  assert_that(is.function(carbon_pools_func))
+  assert_that(is.function(carbon_fluxes_func))
   flux_func <- carbon_fluxes_func(env = env, F1 = F1)
+  assert_that(flux_func$flux_table$F1 == F1)
   assert_that(is.list(flux_func))
   assert_that(length(flux_func) == 2)
   assert_that(is.function(flux_func[["flux_function"]]))
@@ -90,7 +96,6 @@ configure_model <- function(params, state, carbon_pools_func = carbon_pools, car
   assert_that(is.function(carbon_pools_func))
   req_args <- c('t', 'env', 'flux_function')
   assert_that(has_args(carbon_pools_func, req_args), msg = "problem with carbon_pools_func format")
-
 
 
   # Check to make sure that there are no missing parameter values, an error will be
@@ -207,7 +212,7 @@ update_params <- function(new_params, param_table){
   assert_that(is.numeric(new_params))
 
   # Update the param_table with the new values! To avoid there being a dependency on
-  # the order in which the new_params are read into the function use a for loop to itterate
+  # the order in which the new_params are read into the function use a for loop to iterate
   # over all the parameters to be updated.
   for (p in pnames){
     index <- which(param_table$parameter == p)
@@ -217,73 +222,6 @@ update_params <- function(new_params, param_table){
   return(param_table)
 
 }
-
-
-#' Modify a flux functions
-#'
-#' @param flux_func a function that will return a list of functions that modify how carbon moves between the carbon pools.
-#' @param F1 default set to MM, could be one of "MM", "RMM", "ECA", "LM", each referring to a type of kinetics
-#' @return a list of carbon flux functions
-#' @importFrom assertthat assert_that has_args
-#' @export
-#' @family helper functions
-modify_fluxes_func <- function(flux_func, F1 = "MM"){
-
-  # Check the inputs
-  assert_that(is.function(flux_func))
-  assert_that(has_args(flux_func, "env"))
-  assert_that(has_args(flux_func, "state"))
-  assert_that(has_args(flux_func, "params"))
-
-  assert_that(is.character(F1))
-  assert_that(length(F1) == 1)
-  assert_that(any(F1 %in% c("MM", "RMM", "ECA", "LM")))
-
-  function(env, state=NULL, params=NULL){
-
-    # Update model parameter & initial state values if needed.
-    if(!is.null(params)){
-      p <- params$value
-      names(p) <- params$parameter
-      modify_env(env, p)
-
-    }
-    if(!is.null(state)){
-      modify_env(env, state)
-    }
-    with(as.list(env), {
-
-      # Set up the original functions.
-      fluxes  <- flux_func(env = env)
-
-      if(F1 == "MM"){
-        fluxes[["F1"]] = function(){
-          # DOC uptake by microbial biomass.
-          # Michaelis menten kinetics
-          (1/E.c) * (V.d + m.r) * B * D /(K.d + D)
-        }
-      } else if(F1 == "RMM") {
-        fluxes[["F1"]] = function(){
-          # DOC uptake by microbial biomass.
-          # Reverse michaelis menten kinetics
-          (1/E.c) * (V.d + m.r) * B * D /(K.d + B)
-        }
-      } else if(F1 == "ECA"){
-        fluxes[["F1"]] = function(){
-          # DOC uptake by microbial biomass, note that this uses ECA kinetics.
-          (1/E.c) * (V.d + m.r) * B * D /(K.d + B + D)
-        }
-      } else if(F1 == "LM") {
-        message("needs to be implemented")
-      }
-
-      return(fluxes)
-
-    })
-  }
-
-}
-
 
 #' Using information provided to the \code{configure_model} make a table model of flux information.
 #'
@@ -314,7 +252,7 @@ custom_config_table_message <- function(x){
   assert_that(class(x) ==  "knitr_kable")
 
   # Message!
-  message(paste0(out, collapse = '\n'))
+  message(paste0(x, collapse = '\n'))
 
 }
 

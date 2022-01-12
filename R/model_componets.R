@@ -15,11 +15,11 @@
 #' @importFrom assertthat assert_that has_name
 #' @family carbon pool functions
 #' @export
-carbon_pools <- function(t, env, state = NULL, params = NULL, flux_function = carbon_fluxes){
+carbon_pools <- function(t, env, state = NULL, params = NULL, flux_function = carbon_fluxes(F1 = "MM")){
 
   assert_that(is.numeric(t))
-  fx <- flux_function(env)
-  assert_that(is.list(fx))
+  fx <- flux_function
+  assert_that(is.list(flux_function))
   assert_that(length(fx) == 2)
   assert_that(is.function(fx[["flux_function"]]))
 
@@ -38,7 +38,9 @@ carbon_pools <- function(t, env, state = NULL, params = NULL, flux_function = ca
 
     # Define the fluxes and check to make sure they meet the requirements to be used
     # by the MEND carbon pool structure.
-    ff <- flux_function(env)[["flux_function"]]
+    #ff <- flux_function(env)[["flux_function"]]
+    #fluxes <- ff(env)
+    ff <- fx[["flux_function"]]
     fluxes <- ff(env)
 
     expected_fluxes <- rep('F', length.out = length(1:8))
@@ -162,23 +164,22 @@ carbon_fluxes_internal <- function(env, state = NULL, params = NULL){
 #' describe fluxes between the general 5-pool scheme based on \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 #' By returning a list of named functions. The default configuration is set up to follow the fluxes defined in \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 #' More advanced users may choose to change the flux.
-#'
-#' @param env an environment of the initial state and parameter values created by \code{internal_load_params}.
+
+#' @param F1 string indicating the type of enzyme kinetics used in the microbial decomposition of POM.
+#' @param env an environment of the initial state and parameter values created by \code{internal_load_params}, by default it is set to an empty environment.
 #' @param state A numeric vector of the different carbon pool states that will be used to up date the preset values read in from the env, default set to NULL will use the entries in the env object.
 #' @param params A data frame of the parameters that will be used to up date the entries in the env environment, by default set to NULL.
-#' @param F1 string indicating the type of enzyme kinetics used in the microbial decomposition of POM.
 #' @return A list of functions that calculate the fluxes between carbon pools.
 #' @family carbon flux functions
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @importFrom assertthat assert_that has_name
 #' @export
-carbon_fluxes <- function(env, state = NULL, params = NULL, F1){
+carbon_fluxes <- function(F1 = "MM", env = NULL, state = NULL, params = NULL){
 
-  # # Check the inputs
-  # assert_that(is.function(flux_func))
-  # assert_that(has_args(flux_func, "env"))
-  # assert_that(has_args(flux_func, "state"))
-  # assert_that(has_args(flux_func, "params"))
+  # Check the inputs
+  assert_that(any(is.null(env)|is.environment(env)))
+  assert_that(any(is.null(state)|is.list(state)))
+  assert_that(any(is.null(state)|is.data.frame(params)))
 
   assert_that(is.character(F1))
   assert_that(length(F1) == 1)
@@ -238,74 +239,3 @@ carbon_fluxes <- function(env, state = NULL, params = NULL, F1){
 
 
 }
-
-
-
-
-# carbon_fluxes_old <- function(env, state = NULL, params = NULL){
-#
-#   # Update model parameter & initial state values if needed.
-#   if(!is.null(params)){
-#     p <- params$value
-#     names(p) <- params$parameter
-#     modify_env(env, p)
-#
-#   }
-#   if(!is.null(state)){
-#     modify_env(env, state)
-#   }
-#
-#   with(as.list(env), {
-#
-#     fxn_list <- list(
-#       "F1" = function(){
-#         # DOC uptake by microbial biomass.
-#         (1/E.c) * (V.d + m.r) * B *D /( K.d + D)
-#       },
-#       "F2" = function(){
-#         # POC decomposition
-#         V.p * EP * P / (K.p + P)
-#       },
-#       "F3" = function(){
-#         # Break down of mineralized organic carbon
-#         V.m * EM * M / (K.m + M)
-#       },
-#       "F4" = function(){
-#         # Microbial respiration from biomass growth
-#         (1/E.c - 1) * V.d * B * D /( K.d + D)
-#       },
-#       "F5" = function(){
-#         # Metabolic/maintenance microbial respiration
-#         (1/E.c -1) * m.r * B * D /( K.d + D)
-#       },
-#       "F6" = function(){
-#         # Adsorption of DOC to mineral-associated organic carbon
-#         K.ads * D *(1- Q/ Q.max)
-#       },
-#       "F7" = function(){
-#         # Desorption of mineral-associated organic carbon to DOC
-#         K.des * Q/Q.max
-#       },
-#       "F8" = function(){
-#         # Carbon loss due to microbial biomass mortality
-#         (1 - p.ep - p.em) * m.r * B
-#       },
-#       "F9.ep" = function(){
-#         # Enzyme production
-#         p.ep * m.r *B
-#       },
-#       "F9.em" = function(){
-#         # Enzyme production
-#         p.em * m.r * B },
-#       "F10.ep" = function(){
-#         # Enzyme turn over
-#         r.ep * EP },
-#       "F10.em" = function(){
-#         # Enzyme turn over
-#         r.em * EM })
-#
-#     return(fxn_list)
-#
-#   })
-#
-# }

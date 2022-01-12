@@ -26,7 +26,6 @@ Solve a MEMC configuration
 \seealso{
 Other helper functions: 
 \code{\link{configure_model}()},
-\code{\link{modify_fluxes_func}()},
 \code{\link{update_params}()}
 }
 \concept{helper functions}

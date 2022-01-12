@@ -40,15 +40,15 @@ test_that("configure_model", {
 
 test_that("solve_model", {
 
-  # Start by setting up a model and then solvinng, make sure that the stucture of the object being returned
-  # is correct. Note, we are not checking model solutions here that will be done in the oldnew test to make
+  # Start by setting up a model and then solving, make sure that the structure of the object being returned
+  # is correct. Note, we are not checking model solutions here that will be done in the old new test to make
   # sure that the numerical solutions are robust to coding changes.
   test_time <- 1:5
   mod1 <- configure_model(params = params,
                           state = init,
                           carbon_pools_func = carbon_pools,
                           carbon_fluxes_func = carbon_fluxes)
-  out1 <- solve_model(mod = mod1, time = test_time, params = NULL, state = NULL) ## okay why the heck is is not taking the model
+  out1 <- solve_model(mod = mod1, time = test_time, params = NULL, state = NULL)
 
   expect_equal(unique(out1$time), test_time)
   expect_equal(length(unique(out1$time)) * length(unique(out1$variable)), nrow(out1))
@@ -191,24 +191,5 @@ test_that("modify_env", {
   names(new) <- "test"
   xx <- 2
   expect_error(modify_env(xx, new), "env is not an environment")
-
-})
-
-test_that("modify_fluxes_func", {
-
-  # Test that it works
-  x <- modify_fluxes_func(carbon_fluxes)
-  expect_true(is.function(x))
-  mm <- modify_fluxes_func(carbon_fluxes, F1 = "MM")
-  eca <- modify_fluxes_func(carbon_fluxes, F1 = "ECA")
-  mm_out <- mm(env = env, state = init, params = params)
-  eca_out <- eca(env = env, state = init, params = params)
-  expect_gt(abs(mm_out$F1() - eca_out$F1()), 1e-4)
-
-  # Make sure that errors are thrown
-  expect_error(modify_fluxes_func("d"), "flux_func is not a function")
-  expect_error(modify_fluxes_func(sum), "Function flux_func does not have arguments env")
-  expect_error(modify_fluxes_func(carbon_fluxes, F1 = "fake"),
-               'No elements of F1 %in% c("MM", "RMM", "ECA", "LM") are true', fixed = TRUE)
 
 })

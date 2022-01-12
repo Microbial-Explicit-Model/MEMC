@@ -8,7 +8,7 @@ configure_model(
   params,
   state,
   carbon_pools_func = carbon_pools,
-  carbon_fluxes_func,
+  carbon_fluxes_func = carbon_fluxes,
   name = "MEND",
   F1 = "MM"
 )
@@ -33,7 +33,6 @@ Set up a model configuration
 }
 \seealso{
 Other helper functions: 
-\code{\link{modify_fluxes_func}()},
 \code{\link{solve_model}()},
 \code{\link{update_params}()}
 }

@@ -48,15 +48,16 @@ out %>%
   theme(legend.title = element_blank())
 ```
 
-How do the different model configurations compare with one another? 
+How do the different model configurations compare with one another? Take a look at the model configuration tables, this will tell us what kinetics model was used where. 
 
 
 ```{r}
-
-
-
-
-
+MEND_model$config
 ```
+
+```{r}
+COMISSION_model$config
+```
+
 
 

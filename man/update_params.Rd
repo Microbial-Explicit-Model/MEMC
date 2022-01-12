@@ -20,7 +20,6 @@ Update the parameter table with new values
 \seealso{
 Other helper functions: 
 \code{\link{configure_model}()},
-\code{\link{modify_fluxes_func}()},
 \code{\link{solve_model}()}
 
 Other parameters: 
