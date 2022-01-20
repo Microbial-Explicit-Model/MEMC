@@ -8,7 +8,7 @@ Author: c(person("Kalyn", "Dorheim", email = "kalyn.dorheim@pnnl.gov", role = "c
 Maintainer: Kalyn Dorheim <kalyn.dorheim@pnnl.gov>
 Description: This is an R package representation of different microbial explicit carbon models in a flexible framework for model comparison exercises. 
 Depends: R (>= 3.6)
-License: GPL-2
+License: MIT + file LICENSE 
 Encoding: UTF-8
 LazyData: true
 Suggests: 
@@ -20,7 +20,8 @@ Suggests:
     dplyr
 Imports: 
     assertthat, 
-    deSolve
+    deSolve, 
+    magrittr
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 Collate: 

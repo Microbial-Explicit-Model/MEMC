@@ -9,7 +9,7 @@ carbon_pools(
   env,
   state = NULL,
   params = NULL,
-  flux_function = carbon_fluxes(F1 = "MM")
+  flux_function = carbon_fluxes(POMdecomp = "MM")
 )
 }
 \arguments{

@@ -10,7 +10,7 @@ configure_model(
   carbon_pools_func = carbon_pools,
   carbon_fluxes_func = carbon_fluxes,
   name = "MEND",
-  F1 = "MM"
+  POMdecomp = "MM"
 )
 }
 \arguments{
@@ -24,9 +24,7 @@ configure_model(
 
 \item{name}{default set to MEND, is the string name of the model.}
 
-\item{F1}{string for the F1 carbon flux microbial kinetics, by default set to MM ("Michaelis Menten")}
-
-\item{config}{knitr_kable describing the model configuration}
+\item{POMdecomp}{string for the F1 carbon flux microbial kinetics, by default set to MM ("Michaelis Menten")}
 }
 \description{
 Set up a model configuration

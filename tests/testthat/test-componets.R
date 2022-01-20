@@ -28,7 +28,7 @@ test_that("carbon_fluxes_internal", {
 
 test_that("carbon_pools", {
 
-  out1 <- unlist(carbon_pools(t = 1, env = env, flux_function = carbon_fluxes(F1 = "MM")))
+  out1 <- unlist(carbon_pools(t = 1, env = env, flux_function = carbon_fluxes(POMdecomp = "MM")))
   expect_true(all(is.numeric(out1)))
 
   # change parameters, make sure that the changing a parameter involved in B update
@@ -40,11 +40,11 @@ test_that("carbon_pools", {
 
   changes_expected_in <- c("B", "D", "IC")
   index <- which(names(index) %in% changes_expected_in)
-  out2 <- unlist(carbon_pools(t = 10, env = env, params = new_table, flux_function = carbon_fluxes(F1 = "MM")))
+  out2 <- unlist(carbon_pools(t = 10, env = env, params = new_table, flux_function = carbon_fluxes(POMdecomp = "MM")))
   expect_true(all(abs(out1[index] - out2[index]) >= 1e-4))
 
 
-  out3 <- unlist(carbon_pools(t = 10, env = env, params = new_table, flux_function = carbon_fluxes(F1 = "RMM")))
+  out3 <- unlist(carbon_pools(t = 10, env = env, params = new_table, flux_function = carbon_fluxes(POMdecomp = "RMM")))
   expect_true(mean(abs(out1 - out2)) >= 1e-4)
 
 
@@ -54,15 +54,15 @@ test_that("carbon_pools", {
   expect_true(any(out1 != out3))
 
   # Make sure that error messages are thrown!
-  expect_error(object = carbon_pools(t = "l", env, flux_function = carbon_fluxes(F1 = "MM")),
+  expect_error(object = carbon_pools(t = "l", env, flux_function = carbon_fluxes(POMdecomp = "MM")),
                regexp = "t is not a numeric or integer vector", fixed = TRUE)
 
   bad_env <- internal_load_params(ptable = params, state = init[1:2])
-  expect_error(object = carbon_pools(t = 1, env =  bad_env, flux_function = carbon_fluxes(F1 = "MM")),
+  expect_error(object = carbon_pools(t = 1, env =  bad_env, flux_function = carbon_fluxes(POMdecomp = "MM")),
                regexp = "object 'B' not found", fixed = TRUE)
 
   bad_env2 <- internal_load_params(ptable = params[1:3,], state =  init)
-  expect_error(object = carbon_pools(t = 1, env =  bad_env2, flux_function = carbon_fluxes(F1 = "MM")),
+  expect_error(object = carbon_pools(t = 1, env =  bad_env2, flux_function = carbon_fluxes(POMdecomp = "MM")),
                regexp = "object 'I.p' not found", fixed = TRUE)
 })
 

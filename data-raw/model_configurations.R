@@ -17,7 +17,7 @@ COMISSION_model <- configure_model(params = default_params,
                                    carbon_pools_func = carbon_pools,
                                    carbon_fluxes_func = carbon_fluxes,
                                    name = "COMISSION",
-                                   F1 = "RMM")
+                                   POMdecomp = "RMM")
 usethis::use_data(COMISSION_model, overwrite = TRUE, internal = FALSE)
 
 

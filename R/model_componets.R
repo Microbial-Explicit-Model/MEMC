@@ -15,7 +15,7 @@
 #' @importFrom assertthat assert_that has_name
 #' @family carbon pool functions
 #' @export
-carbon_pools <- function(t, env, state = NULL, params = NULL, flux_function = carbon_fluxes(F1 = "MM")){
+carbon_pools <- function(t, env, state = NULL, params = NULL, flux_function = carbon_fluxes(POMdecomp = "MM")){
 
   assert_that(is.numeric(t))
   fx <- flux_function
@@ -165,7 +165,7 @@ carbon_fluxes_internal <- function(env, state = NULL, params = NULL){
 #' By returning a list of named functions. The default configuration is set up to follow the fluxes defined in \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 #' More advanced users may choose to change the flux.
 
-#' @param F1 string indicating the type of enzyme kinetics used in the microbial decomposition of POM.
+#' @param POMdecomp string indicating the type of enzyme kinetics used in the microbial decomposition of POM.
 #' @param env an environment of the initial state and parameter values created by \code{internal_load_params}, by default it is set to an empty environment.
 #' @param state A numeric vector of the different carbon pool states that will be used to up date the preset values read in from the env, default set to NULL will use the entries in the env object.
 #' @param params A data frame of the parameters that will be used to up date the entries in the env environment, by default set to NULL.
@@ -174,22 +174,22 @@ carbon_fluxes_internal <- function(env, state = NULL, params = NULL){
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @importFrom assertthat assert_that has_name
 #' @export
-carbon_fluxes <- function(F1 = "MM", env = NULL, state = NULL, params = NULL){
+carbon_fluxes <- function(POMdecomp = "MM", env = NULL, state = NULL, params = NULL){
 
   # Check the inputs
   assert_that(any(is.null(env)|is.environment(env)))
   assert_that(any(is.null(state)|is.list(state)))
   assert_that(any(is.null(state)|is.data.frame(params)))
 
-  assert_that(is.character(F1))
-  assert_that(length(F1) == 1)
-  assert_that(any(F1 %in% c("MM", "RMM", "ECA", "LM")))
+  assert_that(is.character(POMdecomp))
+  assert_that(length(POMdecomp) == 1)
+  assert_that(any(POMdecomp %in% c("MM", "RMM", "ECA", "LM")))
 
   # Create the list to store the output.
   out <- list()
 
   # Store information about the fluxes being used.
-  out[["flux_table"]] <- data.table::data.table("F1" = F1)
+  out[["flux_table"]] <- data.table::data.table("POMdecomp" = POMdecomp)
 
   # Store the fluxes.
   out[["flux_function"]] <- function(env, state=NULL, params=NULL){
@@ -209,24 +209,24 @@ carbon_fluxes <- function(F1 = "MM", env = NULL, state = NULL, params = NULL){
       # Set up the original functions.
       fluxes  <- carbon_fluxes_internal(env = env)
 
-      if(F1 == "MM"){
+      if(POMdecomp == "MM"){
         fluxes[["F1"]] = function(){
           # DOC uptake by microbial biomass.
           # Michaelis menten kinetics
           (1/E.c) * (V.d + m.r) * B * D /(K.d + D)
         }
-      } else if(F1 == "RMM") {
+      } else if(POMdecomp == "RMM") {
         fluxes[["F1"]] = function(){
           # DOC uptake by microbial biomass.
           # Reverse michaelis menten kinetics
           (1/E.c) * (V.d + m.r) * B * D /(K.d + B)
         }
-      } else if(F1 == "ECA"){
+      } else if(POMdecomp == "ECA"){
         fluxes[["F1"]] = function(){
           # DOC uptake by microbial biomass, note that this uses ECA kinetics.
           (1/E.c) * (V.d + m.r) * B * D /(K.d + B + D)
         }
-      } else if(F1 == "LM") {
+      } else if(POMdecomp == "LM") {
         message("needs to be implemented")
       }
 

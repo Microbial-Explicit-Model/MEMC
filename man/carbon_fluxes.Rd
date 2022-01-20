@@ -4,10 +4,10 @@
 \alias{carbon_fluxes}
 \title{Define the carbon fluxes.}
 \usage{
-carbon_fluxes(F1 = "MM", env = NULL, state = NULL, params = NULL)
+carbon_fluxes(POMdecomp = "MM", env = NULL, state = NULL, params = NULL)
 }
 \arguments{
-\item{F1}{string indicating the type of enzyme kinetics used in the microbial decomposition of POM.}
+\item{POMdecomp}{string indicating the type of enzyme kinetics used in the microbial decomposition of POM.}
 
 \item{env}{an environment of the initial state and parameter values created by \code{internal_load_params}, by default it is set to an empty environment.}
 
