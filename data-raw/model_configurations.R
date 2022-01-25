@@ -4,7 +4,7 @@ devtools::load_all()
 # library(MEMC)
 
 # The basic MEND 2013 model
-MEND_model <- configure_model(params = default_params, state = default_inital,
+MEND_model <- configure_model(params = default_params, state = default_initial,
                               carbon_pools_func = carbon_pools,
                               carbon_fluxes_func = carbon_fluxes,
                               name = "MEND")
@@ -13,7 +13,7 @@ usethis::use_data(MEND_model, overwrite = TRUE, internal = FALSE)
 
 # Commission model configuration.
 COMISSION_model <- configure_model(params = default_params,
-                                   state = default_inital,
+                                   state = default_initial,
                                    carbon_pools_func = carbon_pools,
                                    carbon_fluxes_func = carbon_fluxes,
                                    name = "COMISSION",

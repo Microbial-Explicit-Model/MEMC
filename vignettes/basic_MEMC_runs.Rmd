@@ -64,7 +64,7 @@ A vector of the initial state values.
 MEND_model$state
 ```
 
-An environment where the parameters and inital state values are defined, this is made with `configure_model`. 
+An environment where the parameters and initial state values are defined, this is made with `configure_model`. 
 
 ```{r}
 class(MEND_model$env)
@@ -91,7 +91,7 @@ Run the default MEND configuration and plot the results.
 t <- seq(from = 1, to = 1e4, by = 10)
 
 # Solve the MEND_model configuration, unless a new parameter table or vector of initial state values are
-# specified as arguments the MEND_model configuration will use the default_params and default_inital inputs. 
+# specified as arguments the MEND_model configuration will use the default_params and default_initial inputs. 
 out1 <- solve_model(mod = MEND_model, time =  t)
 ```
 
@@ -148,11 +148,11 @@ rbind(out1, out2) %>%
   facet_wrap("variable", scales = "free")
 ```
 
-# Use a different inital condition
+# Use a different initial condition
 
 ```{r}
 # save a copy of the default initial conditions to manipulate. 
-initial_cond <- default_inital
+initial_cond <- default_initial
 
 # Double the microbial bio mass 
 initial_cond[["M"]] <- initial_cond[["M"]] * 2
@@ -163,11 +163,11 @@ out3 <- solve_model(mod = MEND_model, time = t, params = default_params, state =
 
 
 ```{r}
-out1$inital <- "default inital"
-out3$inital <- "double M inital"
+out1$initial <- "default initial"
+out3$initial <- "double M initial"
 
 rbind(out1, out3, fill = TRUE) %>% 
-    ggplot(aes(time, value, color = inital)) + 
+    ggplot(aes(time, value, color = initial)) + 
   geom_line() + 
   facet_wrap("variable", scales = "free") + 
     labs(title = "MEND Output", 

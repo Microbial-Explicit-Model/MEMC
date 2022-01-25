@@ -1,6 +1,6 @@
 
 params <- MEMC::default_params
-init   <- MEMC::default_inital
+init   <- MEMC::default_initial
 env <- internal_load_params(params, init)
 
 test_that("configure_model", {
@@ -126,7 +126,7 @@ test_that("solve_model", {
   names(out2) <- c("time", "variable", "value2", "units", "name")
   joined_df <- merge(out1, out2, all=FALSE)
 
-  # Since all starting with the same inital states make sure that the values
+  # Since all starting with the same initial states make sure that the values
   # being returned at time step 1 are all equal
   time1 <- joined_df[joined_df$time == t[1], ]
   expect_equal(time1$value1, time1$value2)

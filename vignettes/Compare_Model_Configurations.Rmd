@@ -30,8 +30,8 @@ In this example we will compare default model configurations included with the p
 
 ```{r}
 time <- seq(from = 1, to = 1e4, by = 10)
-mend_out <- solve_model(MEND_model, time = time, params = default_params, state = default_inital)
-comiss_out <- solve_model(COMISSION_model, time = time, params = default_params, state = default_inital)
+mend_out <- solve_model(MEND_model, time = time, params = default_params, state = default_initial)
+comiss_out <- solve_model(COMISSION_model, time = time, params = default_params, state = default_initial)
 
 out <- rbind(mend_out, comiss_out)
 ```

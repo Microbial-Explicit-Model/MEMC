@@ -1,6 +1,6 @@
 
 params <- MEMC::default_params
-init   <- MEMC::default_inital
+init   <- MEMC::default_initial
 env    <- internal_load_params(ptable = params, state = init)
 
 test_that("carbon_fluxes_internal", {
@@ -25,6 +25,21 @@ test_that("carbon_fluxes_internal", {
   expect_gte(abs(out3$F1() -  out2$F1()), 0e-8)
 
 })
+
+
+test_that("DOM decomp kinetics", {
+
+  test_MM <- carbon_fluxes(POMdecomp = "MM", env = env)$flux_function(env = env)
+  test_RMM <- carbon_fluxes(POMdecomp = "RMM", env = env)$flux_function(env = env)
+  test_ECA <- carbon_fluxes(POMdecomp = "ECA", env = env)$flux_function(env = env)
+  test_LM <- carbon_fluxes(POMdecomp = "LM", env = env)$flux_function(env = env)
+
+  # We expect all of the values to be returned to be different from one another.
+  dom_out <- c(test_MM$F1(), test_RMM$F1(), test_ECA$F1(), test_LM$F1())
+  expect_equal(length(dom_out), length(unique(dom_out)))
+
+})
+
 
 test_that("carbon_pools", {
 
