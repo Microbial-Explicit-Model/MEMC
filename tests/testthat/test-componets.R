@@ -27,16 +27,33 @@ test_that("carbon_fluxes_internal", {
 })
 
 
-test_that("DOM decomp kinetics", {
+test_that("POM_decomp kinetics", {
 
-  test_MM <- carbon_fluxes(POMdecomp = "MM", env = env)$flux_function(env = env)
+  test_MM  <- carbon_fluxes(POMdecomp = "MM", env = env)$flux_function(env = env)
   test_RMM <- carbon_fluxes(POMdecomp = "RMM", env = env)$flux_function(env = env)
   test_ECA <- carbon_fluxes(POMdecomp = "ECA", env = env)$flux_function(env = env)
-  test_LM <- carbon_fluxes(POMdecomp = "LM", env = env)$flux_function(env = env)
+  test_LM  <- carbon_fluxes(POMdecomp = "LM", env = env)$flux_function(env = env)
+
+  # We expect all of the values to be returned to be different from one another.
+  # The DOM output should all be the same but the POM output should all be unique.
+  dom_out <- c(test_MM$F1(), test_RMM$F1(), test_ECA$F1(), test_LM$F1())
+  expect_equal(length(unique(dom_out)), 1)
+  pom_out <- c(test_MM$F2(), test_RMM$F2(), test_ECA$F2(), test_LM$F2())
+  expect_equal(length(unique(pom_out)), length(pom_out))
+
+})
+
+test_that("DOM_decomp kinetics", {
+
+  test_MM  <- carbon_fluxes(DOMdecomp  = "MM", env = env)$flux_function(env = env)
+  test_RMM <- carbon_fluxes(DOMdecomp = "RMM", env = env)$flux_function(env = env)
+  test_ECA <- carbon_fluxes(DOMdecomp = "ECA", env = env)$flux_function(env = env)
+  test_LM  <- carbon_fluxes(DOMdecomp = "LM", env = env)$flux_function(env = env)
 
   # We expect all of the values to be returned to be different from one another.
   dom_out <- c(test_MM$F1(), test_RMM$F1(), test_ECA$F1(), test_LM$F1())
   expect_equal(length(dom_out), length(unique(dom_out)))
+
 
 })
 
