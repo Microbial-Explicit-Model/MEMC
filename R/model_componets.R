@@ -202,12 +202,10 @@ carbon_fluxes <-
     assert_that(any(is.null(env) | is.environment(env)))
     assert_that(any(is.null(state) | is.list(state)))
     assert_that(any(is.null(state) | is.data.frame(params)))
-
     assert_that(all(sapply(list(POMdecomp, DOMdecomp, MBdecay), is.character)))
     assert_that(sum(DOMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1)
     assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1)
     assert_that(sum(MBdecay %in% c("MM", "RMM", "ECA", "LM")) == 1)
-
 
     # Create the list to store the output.
     out <- list()
