@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">MEMC</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
       </span>
     </div>
 
@@ -48,13 +50,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/MEND2103_RM_example.html">MEND2013 RM example</a>
+      <a href="articles/Compare_Model_Configurations.html">Compare Model Configurations</a>
     </li>
     <li>
-      <a href="articles/MEND_2013_example.html">MEND 2013 Example</a>
+      <a href="articles/Installation.html">Installation</a>
     </li>
     <li>
-      <a href="articles/model_intercomparison.html">model_intercomparison</a>
+      <a href="articles/MEND.html">MEND</a>
+    </li>
+    <li>
+      <a href="articles/basic_MEMC_runs.html">Getting Started</a>
     </li>
   </ul>
 </li>
@@ -72,40 +77,70 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="about" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#about" class="anchor"></a>About</h1></div>
-<p>MEMC is a R package representation of different microbial explicit carbon models in a flexible framework for model comparison exercises.</p>
+<div class="section level1">
+<div class="page-header"><h1 id="in-development">IN DEVELOPMENT!<a class="anchor" aria-label="anchor" href="#in-development"></a>
+</h1></div>
+
 </div>
-<div id="installation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h1>
-<p>Use <code>devtools</code> to install MEMC as a built R package directory from github.</p>
-<pre><code><a href="https://rdrr.io/r/base/library.html">library(devtools) # make sure that this package is installed 
-install_github('Microbial-Explicit-Model/MEMC')</a></code></pre>
+<div class="section level1">
+<h1 id="about">About<a class="anchor" aria-label="anchor" href="#about"></a>
+</h1>
+<p><code>MEMC</code> is a R package representation of different microbial explicit carbon models in a flexible framework for model comparison exercises.</p>
+<div class="section level2">
+<h2 id="getting-started-using-memc">Getting Started Using <code>MEMC</code>
+<a class="anchor" aria-label="anchor" href="#getting-started-using-memc"></a>
+</h2>
+<p>Follow the download and installation insturctions for <a href="https://cloud.r-project.org/" class="external-link">R</a> and <a href="https://www.rstudio.com/products/rstudio/download/" class="external-link">R studio</a>.</p>
+<div class="section level4">
+<h4 id="for-developers">For developers<a class="anchor" aria-label="anchor" href="#for-developers"></a>
+</h4>
+<p>Clone the repository to install the package in development mode using the <code>devtools::load_all()</code> call in R studio from the root directory. Please refer to <a href="https://r-pkgs.org/" class="external-link">r-pkgs</a> for more information on how to build and develop R packages.</p>
 </div>
-<div id="development" class="section level1">
-<h1 class="hasAnchor">
-<a href="#development" class="anchor"></a>Development</h1>
+<div class="section level4">
+<h4 id="for-users">For users<a class="anchor" aria-label="anchor" href="#for-users"></a>
+</h4>
+<p>Use <code>remotes</code> to install MEMC as a built R package directory from github.</p>
+<pre><code><span class="co"># use install.packages("remotes") to install this package the first time.</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span>
+
+<span class="co"># Now build and install the R package on your local machine.</span>
+<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'Microbial-Explicit-Model/MEMC'</span><span class="op">)</span></code></pre>
 </div>
-<div id="open-source" class="section level1">
-<h1 class="hasAnchor">
-<a href="#open-source" class="anchor"></a>Open Source</h1>
+</div>
 </div>
 
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://opensource.org/licenses/mit-license.php">MIT</a></li>
+<li>
+<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a> </li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing MEMC</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Kalyn Dorheim <br><small class="roles"> Maintainer </small>  </li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/test_rcmd.yml" class="external-link"><img src="https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/test_rcmd.yml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://codecov.io/gh/kdorheim/MEMC" class="external-link"><img src="https://codecov.io/gh/kdorheim/MEMC/branch/main/graph/badge.svg?token=ia2NHHtpJs" alt="codecov"></a></li>
+<li><a href="https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/pkgdown.yaml/badge.svg" alt="Documentation"></a></li>
 </ul>
 </div>
 
@@ -114,11 +149,13 @@ install_github('Microbial-Explicit-Model/MEMC')</a></code></pre>
 
 
       <footer><div class="copyright">
-  <p>Developed by Kalyn Dorheim.</p>
+  <p></p>
+<p>Developed by Kalyn Dorheim.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
 </div>
 
       </footer>
@@ -126,6 +163,8 @@ install_github('Microbial-Explicit-Model/MEMC')</a></code></pre>
 
   
 
+
+  
 
   </body>
 </html>

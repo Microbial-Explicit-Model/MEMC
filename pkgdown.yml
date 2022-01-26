@@ -1,9 +1,10 @@
 pandoc: 2.7.3
-pkgdown: 1.6.1.9000
-pkgdown_sha: 84f234cf19153ce99bf1bcf875dc56248ddf0cbe
+pkgdown: 2.0.2.9000
+pkgdown_sha: 25a1ab2d04c2b8251214b5189fa6735896468cd7
 articles:
-  MEND2103_RM_example: MEND2103_RM_example.html
-  MEND_2013_example: MEND_2013_example.html
-  model_intercomparison: model_intercomparison.html
-last_built: 2021-01-22T04:15Z
+  Compare_Model_Configurations: Compare_Model_Configurations.html
+  Installation: Installation.html
+  MEND: MEND.html
+  basic_MEMC_runs: basic_MEMC_runs.html
+last_built: 2022-01-26T17:29Z
 
