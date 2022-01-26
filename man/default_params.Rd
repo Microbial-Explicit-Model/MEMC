@@ -3,16 +3,16 @@
 \docType{data}
 \name{default_params}
 \alias{default_params}
-\title{The parameter values for the basic MEMC model configurations from Wang et al. 2013}
+\title{Default parameter values used in MEMC model configurations}
 \format{
-A data table consisting of 4 columns with inputs from \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
+A data table consisting of 4 columns with inputs
 }
 \usage{
 data(default_params)
 }
 \description{
-These identifiers correspond to the various kinetics users can use in \code{\link{carbon_fluxes}} to
-select for different kinetic dynamics.
+Default parameter values used in MEMC model configurations,
+from \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 }
 \section{Columns}{
 
@@ -27,4 +27,9 @@ select for different kinetic dynamics.
 \references{
 \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 }
+\seealso{
+Other parameters: 
+\code{\link{update_params}()}
+}
+\concept{parameters}
 \keyword{datasets}

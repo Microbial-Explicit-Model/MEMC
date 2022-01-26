@@ -3,24 +3,21 @@
 \docType{data}
 \name{MEND_model}
 \alias{MEND_model}
-\title{MEMC MEND model configuration based on \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.}
+\title{MEMC MEND model configuration based on \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}}
 \format{
-an object created form \code{configure_model}.
+an object created by \code{configure_model}.
 \describe{
 \item{name}{MEND}
 \item{params}{the default MEMC parameter table}
 \item{state}{the default inital state values for MEMC}
-\item{carbon_pools_func}{carbon pools based on Wang et al. 2013.}
-\item{carbon_fluxes_func}{carbon fluxes based on Wang et al. 2013. The MEND_model MEMC
-configuration uses MM kinetics for DOMdecomp, MM for  POMdecomp, and LM for MBdecay.
-see \code{\link{kinetics}} for more details.}
-}
+\item{carbon_pools_func}{carbon pools based on Wang et al. 2013}
+\item{carbon_fluxes_func}{carbon fluxes based on Wang et al. 2013.}}
 }
 \usage{
 MEND_model
 }
 \description{
-MEMC MEND model configuration based on \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
+MEMC MEND model configuration based on \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 }
 \examples{
 MEND_model

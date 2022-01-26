@@ -36,5 +36,3 @@ CORPSE_model <- configure_model(params = default_params,
                                 POMdecomp = "LM",
                                 MBdecay = "LM")
 usethis::use_data(CORPSE_model, overwrite = TRUE, internal = FALSE)
-
-

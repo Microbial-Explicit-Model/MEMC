@@ -84,8 +84,6 @@ configure_model <- function(params,
   # Load all the parameter tables and the state variables into an environment.
   env <- internal_load_params(ptable = params, state = state)
 
-  # Make sure that the pools and fluxes are being read in as functions and that
-  # the have not been used in place of one another.
   assert_that(is.function(carbon_fluxes_func))
   flux_func <- carbon_fluxes_func(env = env, POMdecomp = POMdecomp, DOMdecomp = DOMdecomp, MBdecay = MBdecay)
   assert_that(flux_func$flux_table$POMdecom == POMdecomp)
@@ -94,8 +92,6 @@ configure_model <- function(params,
   assert_that(is.function(flux_func[["flux_function"]]))
   req_args <-c('env', 'state', 'params')
   assert_that(has_args(flux_func[["flux_function"]], req_args), msg = "problem with carbon_pools_func format")
-
-  # Make sure that the carbon pools function.
   assert_that(is.function(carbon_pools_func))
   req_args <- c('t', 'env', 'flux_function')
   assert_that(has_args(carbon_pools_func, req_args), msg = "problem with carbon_pools_func format")
@@ -226,6 +222,7 @@ update_params <- function(new_params, param_table){
 
 }
 
+
 #' Using information provided to the \code{configure_model} make a table model of flux information.
 #'
 #' @param name string for the model configuration.
@@ -259,8 +256,4 @@ custom_config_table_message <- function(x){
   message(paste0(out, collapse = '\n'))
 
 }
-
-
-
-
 

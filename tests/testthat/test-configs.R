@@ -15,4 +15,3 @@ test_that("model configurations solve", {
   expect_true(is.data.frame(out))
 
 })
-

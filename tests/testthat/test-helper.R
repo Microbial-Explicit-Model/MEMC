@@ -1,4 +1,3 @@
-
 params <- MEMC::default_params
 init   <- MEMC::default_initial
 env <- internal_load_params(params, init)

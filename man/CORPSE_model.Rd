@@ -5,7 +5,7 @@
 \alias{CORPSE_model}
 \title{MEMC CORPSE model configuration based on \href{https://doi.org/10.1038/nclimate2436}{Sulman et al. 2014}}
 \format{
-an object created form \code{configure_model}.
+an object created by \code{configure_model}.
 \describe{
 \item{name}{CORPSE}
 \item{params}{the default MEMC parameter table}

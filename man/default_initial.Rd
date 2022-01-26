@@ -3,9 +3,9 @@
 \docType{data}
 \name{default_initial}
 \alias{default_initial}
-\title{The default initial carbon pool values the basic MEMC model configurations from Wang et al. 2013}
+\title{The initial carbon pool values used as the default for the MEMC model configurations}
 \format{
-A vector of the initial states of the Carbon pools from MEND 2013 \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
+A vector of the initial states of the Carbon pools from  \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 \describe{
 \item{P}{Particulate organic carbon or POC}
 \item{M}{Mineral associated organic carbon or MOC, note that this excludes Q}
@@ -22,7 +22,8 @@ A vector of the initial states of the Carbon pools from MEND 2013 \href{doi.org/
 default_initial
 }
 \description{
-The default initial carbon pool values the basic MEMC model configurations from Wang et al. 2013
+The initial carbon pool values used as the default for the MEMC model configurations,
+from \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 }
 \examples{
 default_initial

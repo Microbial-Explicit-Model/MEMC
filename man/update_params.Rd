@@ -21,6 +21,9 @@ Update the parameter table with new values
 Other helper functions: 
 \code{\link{configure_model}()},
 \code{\link{solve_model}()}
+
+Other parameters: 
+\code{\link{default_params}}
 }
 \concept{helper functions}
 \concept{parameters}

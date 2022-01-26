@@ -5,7 +5,7 @@
 \alias{COMISSION_model}
 \title{MEMC COMISSION model configuration based on  \href{https://doi.org/10.1016/j.soilbio.2020.107912}{Ahrens et al. 2020}}
 \format{
-an object created form \code{configure_model}.
+an object created by \code{configure_model}.
 \describe{
 \item{name}{COMISSION}
 \item{params}{the default MEMC parameter table}

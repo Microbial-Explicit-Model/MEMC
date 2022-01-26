@@ -28,5 +28,3 @@ test_that("CORPSE_model behavivor is preserved", {
   expect_equal(compdf$value, compdf$old_value)
 
 })
-
-

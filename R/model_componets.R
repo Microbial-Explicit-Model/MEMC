@@ -8,8 +8,8 @@
 #' @param env environment created by \code{internal_load_params}
 #' @param state A numeric vector of the different carbon pool states to update the env, by default set to NULL
 #' @param params A data frame of the parameters to update the env, by default set to NULL
-#' @param flux_function a function that will return a list of functions that modify how carbon moves between
-#' the carbon pools.
+#' @param flux_function(kinetics) a function that will return a list of functions that modify how carbon moves between
+#' the carbon pools, will need to read in the kinetics options.
 #' @return A list of the state variables
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @importFrom assertthat assert_that has_name
@@ -20,7 +20,7 @@ carbon_pools <-
            env,
            state = NULL,
            params = NULL,
-           flux_function = carbon_fluxes(POMdecomp = "MM")) {
+           flux_function = carbon_fluxes(POMdecomp = "MM", DOMdecomp = "MM", MBdecay = "LM")) {
     assert_that(is.numeric(t))
     fx <- flux_function
     assert_that(is.list(flux_function))
@@ -39,10 +39,9 @@ carbon_pools <-
     }
 
     with(as.list(env), {
+
       # Define the fluxes and check to make sure they meet the requirements to be used
       # by the MEND carbon pool structure.
-      #ff <- flux_function(env)[["flux_function"]]
-      #fluxes <- ff(env)
       ff <- fx[["flux_function"]]
       fluxes <- ff(env)
 
@@ -68,11 +67,9 @@ carbon_pools <-
       # Q = active layer of MOC
       dQ <- fluxes$F6() - fluxes$F7()
       # B = microbial biomass carbon
-      dB <-
-        fluxes$F1() - (fluxes$F4() + fluxes$F5()) - fluxes$F8() - (fluxes$F9.ep() + fluxes$F9.em())
+      dB <- fluxes$F1() - (fluxes$F4() + fluxes$F5()) - fluxes$F8() - (fluxes$F9.ep() + fluxes$F9.em())
       # D = dissolved organic carbon
-      dD <-
-        I.d + f.d * fluxes$F2() + g.d * fluxes$F8() + fluxes$F3() + (fluxes$F10.em() + fluxes$F10.ep()) - fluxes$F1() - (fluxes$F6() - fluxes$F7())
+      dD <- I.d + f.d * fluxes$F2() + g.d * fluxes$F8() + fluxes$F3() + (fluxes$F10.em() + fluxes$F10.ep()) - fluxes$F1() - (fluxes$F6() - fluxes$F7())
       # EP = carbon stored as extra-cellular enzymes
       dEP <- fluxes$F9.em() - fluxes$F10.ep()
       # EM = carbon stored as extra-cellular enzymes
