@@ -9,7 +9,7 @@ carbon_pools(
   env,
   state = NULL,
   params = NULL,
-  flux_function = carbon_fluxes(POMdecomp = "MM")
+  flux_function = carbon_fluxes(POMdecomp = "MM", DOMdecomp = "MM", MBdecay = "LM")
 )
 }
 \arguments{
@@ -21,8 +21,8 @@ carbon_pools(
 
 \item{params}{A data frame of the parameters to update the env, by default set to NULL}
 
-\item{flux_function}{a function that will return a list of functions that modify how carbon moves between
-the carbon pools.}
+\item{flux_function}{function that will return a list of functions that modify how carbon moves between
+the carbon pools, will need to read in the kinetics options.}
 }
 \value{
 A list of the state variables

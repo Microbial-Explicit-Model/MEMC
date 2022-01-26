@@ -44,6 +44,18 @@ git clone https://github.com/Microbial-Explicit-Model/MEMC.git
 
 ```
 
+The build the package from within R. 
+
+```{r, eval=FALSE}
+# This will build the package on your machine, users will be able to
+# call library(MEMC) from any R session on your machine.
+devtools::build() 
+library(MEMC)
+
+# Alternatively you could build the package in a local R session.
+devtools::load_all()
+```
+
 
 ## Helpful Resources 
 

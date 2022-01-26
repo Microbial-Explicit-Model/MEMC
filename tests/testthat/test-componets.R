@@ -23,8 +23,10 @@ test_that("carbon_fluxes_internal", {
   out3 <- carbon_fluxes_internal(env = env, params = p2)
   expect_gte(abs(out3$F1() -  out2$F1()), 0e-8)
 
+  # An error should be thrown if not all inputs are read in.
   bad_env  <- internal_load_params(ptable = params, state = init[1])
   x <- carbon_fluxes_internal(env = bad_env)
+  expect_error(x$F10.em(), "object 'EM' not found", fixed=TRUE)
 
 
 })

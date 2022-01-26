@@ -8,19 +8,16 @@
 #' @param env environment created by \code{internal_load_params}
 #' @param state A numeric vector of the different carbon pool states to update the env, by default set to NULL
 #' @param params A data frame of the parameters to update the env, by default set to NULL
-#' @param flux_function(kinetics) a function that will return a list of functions that modify how carbon moves between
+#' @param flux_function function that will return a list of functions that modify how carbon moves between
 #' the carbon pools, will need to read in the kinetics options.
 #' @return A list of the state variables
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @importFrom assertthat assert_that has_name
 #' @family carbon pool functions
 #' @export
-carbon_pools <-
-  function(t,
-           env,
-           state = NULL,
-           params = NULL,
+carbon_pools <-function(t, env, state = NULL, params = NULL,
            flux_function = carbon_fluxes(POMdecomp = "MM", DOMdecomp = "MM", MBdecay = "LM")) {
+
     assert_that(is.numeric(t))
     fx <- flux_function
     assert_that(is.list(flux_function))
@@ -46,16 +43,9 @@ carbon_pools <-
       fluxes <- ff(env)
 
       expected_fluxes <- rep('F', length.out = length(1:8))
-      expected_fluxes <-
-        c(paste0(expected_fluxes, 1:8),
-          'F9.ep',
-          'F9.em',
-          'F10.ep',
-          'F10.em')
+      expected_fluxes <- c(paste0(expected_fluxes, 1:8), 'F9.ep', 'F9.em', 'F10.ep', 'F10.em')
       assertthat::assert_that(assertthat::has_name(x = fluxes, which = expected_fluxes))
-      assertthat::assert_that(all(unlist(lapply(
-        fluxes, is.function
-      ))), msg = 'fluxes input must be a list of functions')
+      assertthat::assert_that(all(unlist(lapply(fluxes, is.function))), msg = 'fluxes input must be a list of functions')
 
       # Define the system of differential equations to describes the
       # changes in the carbon pool states.
@@ -99,8 +89,7 @@ carbon_pools <-
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @importFrom assertthat assert_that has_name
 #' @noRd
-carbon_fluxes_internal <-
-  function(env, state = NULL, params = NULL) {
+carbon_fluxes_internal <-function(env, state = NULL, params = NULL) {
     # Update model parameter & initial state values if needed.
     if (!is.null(params)) {
       p <- params$value
