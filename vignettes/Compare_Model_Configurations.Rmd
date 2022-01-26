@@ -17,23 +17,26 @@ knitr::opts_chunk$set(
 
 
 ```{r setup}
-library(MEMC)     # MEMC should already be installed, see installation instructions. 
 library(ggplot2)  # package used to visualize results 
 library(knitr)    # makes nice tables
 library(magrittr) # import the %>% pipeline
+
+library(MEMC)     # MEMC should already be installed, see installation instructions. 
 
 theme_set(theme_bw())  # set a theme to use in all the plots
 ```
 
 
-In this example we will compare default model configurations included with the package `MEND_model` and `COMISSION_model`. 
+In this example we will compare there default model configurations included with the package `MEND_model`, `COMISSION_model`, 
+`CORPSE_model`.
 
 ```{r}
-time <- seq(from = 1, to = 1e4, by = 10)
+time <- seq(from = 1, to = 3000, by = 10)
 mend_out <- solve_model(MEND_model, time = time, params = default_params, state = default_initial)
 comiss_out <- solve_model(COMISSION_model, time = time, params = default_params, state = default_initial)
+corpse_out <- solve_model(CORPSE_model, time = time, params = default_params, state = default_initial)
 
-out <- rbind(mend_out, comiss_out)
+out <- rbind(mend_out, comiss_out, corpse_out)
 ```
 
 Visualize the outputs. 
@@ -48,16 +51,10 @@ out %>%
   theme(legend.title = element_blank())
 ```
 
-How do the different model configurations compare with one another? Take a look at the model configuration tables, this will tell us what kinetics model was used where. 
+How do the different model configurations compare with one another? Take a look at the model configuration tables, this will tell us what kinetics model were used where.
 
 
 ```{r}
-MEND_model$config
+knitr::kable(rbind(MEND_model$config, COMISSION_model$config, CORPSE_model$config))
 ```
-
-```{r}
-COMISSION_model$config
-```
-
-
 

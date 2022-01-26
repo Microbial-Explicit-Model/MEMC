@@ -3,7 +3,7 @@
 \docType{data}
 \name{COMISSION_model}
 \alias{COMISSION_model}
-\title{MEMC model configurations for MEND Wang et al. 2013}
+\title{MEMC COMISSION model configuration.}
 \format{
 an object created form \code{configure_model}.
 \describe{
@@ -11,14 +11,16 @@ an object created form \code{configure_model}.
 \item{params}{the default MEMC parameter table}
 \item{state}{the default inital state values for MEMC}
 \item{carbon_pools_func}{carbon pools based on Wang et al. 2013}
-\item{carbon_fluxes_func}{TBD}
+\item{carbon_fluxes_func}{carbon fluxes based on Wang et al. 2013. The COMISSION_model MEMC
+configuration uses RMM kinetics for DOMdecomp, MM for  POMdecomp, and LM for MBdecay.
+see \code{\link{kinetics}} for more details.}
 }
 }
 \usage{
 COMISSION_model
 }
 \description{
-MEMC model configurations for MEND Wang et al. 2013
+MEMC COMISSION model configuration.
 }
 \examples{
 COMISSION_model
@@ -31,6 +33,7 @@ solve_model(mod = COMISSION_model, time = 1:10)
 }
 \seealso{
 Other MEMC configurations: 
+\code{\link{CORPSE_model}},
 \code{\link{MEND_model}}
 }
 \concept{MEMC configurations}

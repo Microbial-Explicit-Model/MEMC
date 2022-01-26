@@ -41,14 +41,15 @@
 
 #' MEMC model configurations for MEND Wang et al. 2013
 #'
-#'
 #' @format an object created form \code{configure_model}.
 #' \describe{
 #' \item{name}{MEND}
 #' \item{params}{the default MEMC parameter table}
 #' \item{state}{the default inital state values for MEMC}
-#' \item{carbon_pools_func}{carbon pools based on Wang et al. 2013}
-#' \item{carbon_fluxes_func}{carbon fluxes based on Wang et al. 2013}
+#' \item{carbon_pools_func}{carbon pools based on Wang et al. 2013.}
+#' \item{carbon_fluxes_func}{carbon fluxes based on Wang et al. 2013. The MEND_model MEMC
+#' configuration uses MM kinetics for DOMdecomp, MM for  POMdecomp, and LM for MBdecay.
+#' see \code{\link{kinetics}} for more details.}
 #' }
 #' @family MEMC configurations
 #' @name MEND_model
@@ -58,8 +59,7 @@
 #' solve_model(mod = MEND_model, time = 1:10)
 "MEND_model"
 
-#' MEMC model configurations for MEND Wang et al. 2013
-#'
+#' MEMC COMISSION model configuration.
 #'
 #' @format an object created form \code{configure_model}.
 #' \describe{
@@ -67,7 +67,9 @@
 #' \item{params}{the default MEMC parameter table}
 #' \item{state}{the default inital state values for MEMC}
 #' \item{carbon_pools_func}{carbon pools based on Wang et al. 2013}
-#' \item{carbon_fluxes_func}{TBD}
+#' \item{carbon_fluxes_func}{carbon fluxes based on Wang et al. 2013. The COMISSION_model MEMC
+#' configuration uses RMM kinetics for DOMdecomp, MM for  POMdecomp, and LM for MBdecay.
+#' see \code{\link{kinetics}} for more details.}
 #' }
 #' @family MEMC configurations
 #' @name COMISSION_model
@@ -77,6 +79,28 @@
 #' COMISSION_model
 #' solve_model(mod = COMISSION_model, time = 1:10)
 "COMISSION_model"
+
+
+#' MEMC CORPSE model configuration.
+#'
+#' @format an object created form \code{configure_model}.
+#' \describe{
+#' \item{name}{CORPSE}
+#' \item{params}{the default MEMC parameter table}
+#' \item{state}{the default inital state values for MEMC}
+#' \item{carbon_pools_func}{carbon pools based on Wang et al. 2013}
+#' \item{carbon_fluxes_func}{carbon fluxes based on Wang et al. 2013. The CORPSE_model MEMC
+#' configuration uses RMM kinetics for DOMdecomp, LM for POMdecomp, and LM for MBdecay.
+#' see \code{\link{kinetics}} for more details.}
+#' }
+#' @family MEMC configurations
+#' @name CORPSE_model
+#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+#' @references \href{https://doi.org/10.1890/12-0681.1}{update with the CORPSE documetation}
+#' @examples
+#' CORPSE_model
+#' solve_model(mod = CORPSE_model, time = 1:10)
+"CORPSE_model"
 
 
 

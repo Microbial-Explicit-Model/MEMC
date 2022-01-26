@@ -65,8 +65,10 @@ modify_env <- function(env, new){
 #' @param state a vector of the initial state values, must be named
 #' @param carbon_pools_func a function defining the carbon pools, by default is set to the \code{carbon_pools}
 #' @param carbon_fluxes_func a function defining the carbon fluxes between pools, by default is set to \code{carbon_fluxes}
-#' @param name default set to MEND, is the string name of the model.
-#' @param POMdecomp string for the F1 carbon flux microbial kinetics, by default set to MM ("Michaelis Menten")
+#' @param name string name of the model configuration, default set to "MEND".
+#' @param DOMdecomp string indicating the type of enzyme kinetics used in the microbial decomposition of DOM, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.
+#' @param POMdecomp string indicating the type of enzyme kinetics used in the microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.
+#' @param MBdecay string indicating microbial decay, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.
 #' @importFrom assertthat assert_that
 #' @export
 #' @family helper functions
@@ -75,7 +77,9 @@ configure_model <- function(params,
                             carbon_pools_func = carbon_pools,
                             carbon_fluxes_func = carbon_fluxes,
                             name = "MEND",
-                            POMdecomp = "MM"){
+                            DOMdecomp = "MM",
+                            POMdecomp = "MM",
+                            MBdecay = "LM"){
 
   # Load all the parameter tables and the state variables into an environment.
   env <- internal_load_params(ptable = params, state = state)
@@ -83,7 +87,7 @@ configure_model <- function(params,
   # Make sure that the pools and fluxes are being read in as functions and that
   # the have not been used in place of one another.
   assert_that(is.function(carbon_fluxes_func))
-  flux_func <- carbon_fluxes_func(env = env, POMdecomp = POMdecomp)
+  flux_func <- carbon_fluxes_func(env = env, POMdecomp = POMdecomp, DOMdecomp = DOMdecomp, MBdecay = MBdecay)
   assert_that(flux_func$flux_table$POMdecom == POMdecomp)
   assert_that(is.list(flux_func))
   assert_that(length(flux_func) == 2)
@@ -233,9 +237,9 @@ make_config_table <- function(name, Fs){
 
   assert_that(is.data.frame(Fs))
   table <- cbind("Model" = name, Fs)
-  out <- knitr::kable(table)
 
-  return(out)
+
+  return(table)
 
 }
 
@@ -248,10 +252,11 @@ make_config_table <- function(name, Fs){
 custom_config_table_message <- function(x){
 
   # Make sure that the table was created by make_config_table
-  assert_that(class(x) ==  "knitr_kable")
+  assert_that(is.data.frame(x))
+  out <- knitr::kable(x)
 
   # Message!
-  message(paste0(x, collapse = '\n'))
+  message(paste0(out, collapse = '\n'))
 
 }
 

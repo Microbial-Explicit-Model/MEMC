@@ -20,4 +20,13 @@ test_that("COMISSION_model behavivor is preserved", {
 
 })
 
+test_that("CORPSE_model behavivor is preserved", {
+
+  corpse_out <- solve_model(mod = CORPSE_model, time = t)
+  old_df<- old[old["name"] == "CORPSE", ]
+  compdf <- merge(corpse_out, old_df, by = c("time", "variable", "units", "name"))
+  expect_equal(compdf$value, compdf$old_value)
+
+})
+
 

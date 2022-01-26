@@ -12,22 +12,22 @@ test_that("configure_model", {
   expect_true(length(out1) == 7)
   expect_true(is.character(out1$name))
 
-  # Make sure that we can reset the model name behavior.
-  test_name <- "test"
-  out2 <- configure_model(params = params, state = init, carbon_pools_func = carbon_pools,
-                          carbon_fluxes_func = carbon_fluxes, name = test_name)
-  expect_equal(out2$name, test_name)
-
   # Checks to make sure that the appropriate errors are being thrown when the incorrect inputs are being read in.
   expect_error(configure_model(params = params, state = init, carbon_pools_func = carbon_fluxes,
-                               carbon_fluxes_func = carbon_fluxes),
-               regexp = "problem with carbon_pools_func format")
+                               carbon_fluxes_func = carbon_fluxes), regexp = "problem with carbon_pools_func format")
   expect_error(configure_model(params = params, state = init[1:3], carbon_pools_func = carbon_pools,
-                               carbon_fluxes_func = carbon_fluxes, name = test_name),
-               regexp = "object 'B' not found")
+                               carbon_fluxes_func = carbon_fluxes, name = test_name), regexp = "object 'B' not found")
   expect_error(configure_model(params = params[1:5, ], state = init, carbon_pools_func = carbon_pools,
-                               carbon_fluxes_func = carbon_fluxes, name = test_name),
-               regexp = "object 'I.p' not found")
+                               carbon_fluxes_func = carbon_fluxes, name = test_name), regexp = "object 'I.p' not found")
+  expect_error(configure_model(params, init, carbon_pools, carbon_fluxes, DOMdecomp = "fake"), 'DOMdecomp must be "MM", "RMM", "ECA", "LM"', fixed = TRUE)
+  expect_error(configure_model(params, init, carbon_pools, carbon_fluxes, POMdecomp = "fake"), 'POMdecomp must be "MM", "RMM", "ECA", "LM"', fixed = TRUE)
+  expect_error(configure_model(params, init, carbon_pools, carbon_fluxes, MBdecay = "fake"), 'MBdecay must be "MM", "RMM", "ECA", "LM"', fixed = TRUE)
+  expect_error(configure_model(params, init, carbon_pools, carbon_fluxes, MBdecay = "RMM"), 'MBdecay not implemented yet')
+
+  # Make sure that we can reset the model name behavior.
+  test_name <- "test"
+  out2 <- configure_model(params = params, state = init, carbon_pools_func = carbon_pools, carbon_fluxes_func = carbon_fluxes, name = test_name)
+  expect_equal(out2$name, test_name)
 
   # Check to make sure that when new parameter values are being used.
   x <- configure_model(params, init, carbon_pools, carbon_fluxes)
@@ -36,6 +36,22 @@ test_that("configure_model", {
   y <- configure_model(new_table, init, carbon_pools, carbon_fluxes)
   expect_true(all(y$params$value != x$params$value))
   expect_gt(abs(x$env$E.c - y$env$E.c), 0)
+
+  # Check to make sure changing the kinetics it has down stream changes.
+  DOM_MM <- configure_model(params, init, DOMdecomp = "MM")
+  DOM_RMM <- configure_model(params, init, DOMdecomp = "RMM")
+  expect_true(any(DOM_MM$config != DOM_RMM$config))
+  DOM_MM_out <- solve_model(DOM_MM, time = 0:5)
+  DOM_RMM_out <- solve_model(DOM_RMM, time = 0:5)
+  expect_gte(mean(abs(DOM_MM_out$value - DOM_RMM_out$value)), 0)
+
+  POM_MM <- configure_model(params, init, POMdecomp = "MM")
+  POM_LM <- configure_model(params, init, POMdecomp = "LM")
+  expect_true(any(POM_MM$config != POM_LM$config))
+  POM_MM_out <- solve_model(POM_MM, time = 0:5)
+  POM_LM_out <- solve_model(POM_LM, time = 0:5)
+  expect_gte(mean(abs(POM_MM_out$value - POM_LM_out$value)), 0)
+
 })
 
 test_that("solve_model", {

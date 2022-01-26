@@ -10,7 +10,9 @@ configure_model(
   carbon_pools_func = carbon_pools,
   carbon_fluxes_func = carbon_fluxes,
   name = "MEND",
-  POMdecomp = "MM"
+  DOMdecomp = "MM",
+  POMdecomp = "MM",
+  MBdecay = "LM"
 )
 }
 \arguments{
@@ -22,9 +24,13 @@ configure_model(
 
 \item{carbon_fluxes_func}{a function defining the carbon fluxes between pools, by default is set to \code{carbon_fluxes}}
 
-\item{name}{default set to MEND, is the string name of the model.}
+\item{name}{string name of the model configuration, default set to "MEND".}
 
-\item{POMdecomp}{string for the F1 carbon flux microbial kinetics, by default set to MM ("Michaelis Menten")}
+\item{DOMdecomp}{string indicating the type of enzyme kinetics used in the microbial decomposition of DOM, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.}
+
+\item{POMdecomp}{string indicating the type of enzyme kinetics used in the microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.}
+
+\item{MBdecay}{string indicating microbial decay, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.}
 }
 \description{
 Set up a model configuration

@@ -203,16 +203,17 @@ carbon_fluxes <-
     assert_that(any(is.null(state) | is.list(state)))
     assert_that(any(is.null(state) | is.data.frame(params)))
     assert_that(all(sapply(list(POMdecomp, DOMdecomp, MBdecay), is.character)))
-    assert_that(sum(DOMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1)
-    assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1)
-    assert_that(sum(MBdecay %in% c("MM", "RMM", "ECA", "LM")) == 1)
+    assert_that(sum(DOMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'DOMdecomp must be "MM", "RMM", "ECA", "LM"')
+    assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'POMdecomp must be "MM", "RMM", "ECA", "LM"')
+    assert_that(sum(MBdecay %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'MBdecay must be "MM", "RMM", "ECA", "LM"')
 
     # Create the list to store the output.
     out <- list()
 
     # Store information about the fluxes being used.
     out[["flux_table"]] <- data.table::data.table("DOMdecomp" = DOMdecomp,
-                             "POMdecomp" = POMdecomp)
+                                                  "POMdecomp" = POMdecomp,
+                                                  "MBdecay" = MBdecay)
 
     # Store the fluxes.
     out[["flux_function"]] <- function(env,
