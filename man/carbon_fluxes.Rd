@@ -7,6 +7,7 @@
 carbon_fluxes(
   DOMdecomp = "MM",
   POMdecomp = "MM",
+  MBdecay = "LM",
   env = NULL,
   state = NULL,
   params = NULL
@@ -16,6 +17,8 @@ carbon_fluxes(
 \item{DOMdecomp}{string indicating the type of enzyme kinetics used in the microbial decomposition of DOM, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.}
 
 \item{POMdecomp}{string indicating the type of enzyme kinetics used in the microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.}
+
+\item{MBdecay}{string indicating microbial decay, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.}
 
 \item{env}{an environment of the initial state and parameter values created by \code{internal_load_params}, by default it is set to an empty environment.}
 

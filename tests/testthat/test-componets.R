@@ -26,7 +26,6 @@ test_that("carbon_fluxes_internal", {
 
 })
 
-
 test_that("POM_decomp kinetics", {
 
   test_MM  <- carbon_fluxes(POMdecomp = "MM", env = env)$flux_function(env = env)
@@ -56,7 +55,6 @@ test_that("DOM_decomp kinetics", {
 
 
 })
-
 
 test_that("carbon_pools", {
 

@@ -182,6 +182,7 @@ carbon_fluxes_internal <-
 
 #' @param DOMdecomp string indicating the type of enzyme kinetics used in the microbial decomposition of DOM, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.
 #' @param POMdecomp string indicating the type of enzyme kinetics used in the microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.
+#' @param MBdecay string indicating microbial decay, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.
 #' @param env an environment of the initial state and parameter values created by \code{internal_load_params}, by default it is set to an empty environment.
 #' @param state A numeric vector of the different carbon pool states that will be used to up date the preset values read in from the env, default set to NULL will use the entries in the env object.
 #' @param params A data frame of the parameters that will be used to up date the entries in the env environment, by default set to NULL.
@@ -193,6 +194,7 @@ carbon_fluxes_internal <-
 carbon_fluxes <-
   function(DOMdecomp = "MM",
            POMdecomp = "MM",
+           MBdecay = "LM",
            env = NULL,
            state = NULL,
            params = NULL) {
@@ -201,9 +203,10 @@ carbon_fluxes <-
     assert_that(any(is.null(state) | is.list(state)))
     assert_that(any(is.null(state) | is.data.frame(params)))
 
-    assert_that(all(sapply(list(POMdecomp, DOMdecomp), is.character)))
+    assert_that(all(sapply(list(POMdecomp, DOMdecomp, MBdecay), is.character)))
     assert_that(sum(DOMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1)
     assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1)
+    assert_that(sum(MBdecay %in% c("MM", "RMM", "ECA", "LM")) == 1)
 
 
     # Create the list to store the output.
@@ -256,7 +259,7 @@ carbon_fluxes <-
           }
         }
 
-        # If else statement determining the kinetics used in the decompostion of the POM.
+        # If else statement determining the kinetics used in the decomposition of the POM.
         if (POMdecomp == "MM") {
           fluxes[["F2"]] = function() {
             # POC decomposition
@@ -279,6 +282,20 @@ carbon_fluxes <-
           fluxes[["F2"]] = function() {
             # POC uptake by microbial biomass, note that this uses a linear model of kinetics.
             V.p * EP * P / (K.p + B)
+          }
+        }
+
+        # If else statement determining the kinetics used in decay of the MB.
+        if (MBdecay == "MM") {
+          stop("MBdecay not implemented yet")
+        } else if (MBdecay == "RMM") {
+          stop("MBdecay not implemented yet")
+        } else if (MBdecay == "ECA") {
+          stop("MBdecay not implemented yet")
+        } else if (MBdecay == "LM") {
+          fluxes[["F8"]] = function() {
+            # Carbon loss due to microbial biomass mortality
+            (1 - p.ep - p.em) * m.r * B
           }
         }
 
