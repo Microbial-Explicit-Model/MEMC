@@ -3,7 +3,7 @@
 \docType{data}
 \name{MEND_model}
 \alias{MEND_model}
-\title{MEMC model configurations for MEND Wang et al. 2013}
+\title{MEMC MEND model configuration based on \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.}
 \format{
 an object created form \code{configure_model}.
 \describe{
@@ -20,7 +20,7 @@ see \code{\link{kinetics}} for more details.}
 MEND_model
 }
 \description{
-MEMC model configurations for MEND Wang et al. 2013
+MEMC MEND model configuration based on \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 }
 \examples{
 MEND_model

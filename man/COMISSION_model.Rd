@@ -3,7 +3,7 @@
 \docType{data}
 \name{COMISSION_model}
 \alias{COMISSION_model}
-\title{MEMC COMISSION model configuration.}
+\title{MEMC COMISSION model configuration based on  \href{https://doi.org/10.1016/j.soilbio.2020.107912}{Ahrens et al. 2020}}
 \format{
 an object created form \code{configure_model}.
 \describe{
@@ -20,16 +20,16 @@ see \code{\link{kinetics}} for more details.}
 COMISSION_model
 }
 \description{
-MEMC COMISSION model configuration.
+MEMC COMISSION model configuration based on  \href{https://doi.org/10.1016/j.soilbio.2020.107912}{Ahrens et al. 2020}
 }
 \examples{
 COMISSION_model
 solve_model(mod = COMISSION_model, time = 1:10)
 }
 \references{
-\href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+\href{https://doi.org/10.1016/j.soilbio.2020.107912}{Ahrens et al. 2020}
 
-\href{https://doi.org/10.1890/12-0681.1}{update with the comission documetation}
+\href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 }
 \seealso{
 Other MEMC configurations: 

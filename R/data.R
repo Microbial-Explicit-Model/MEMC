@@ -39,7 +39,7 @@
 #' print(default_initial)
 "default_initial"
 
-#' MEMC model configurations for MEND Wang et al. 2013
+#' MEMC MEND model configuration based on \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 #'
 #' @format an object created form \code{configure_model}.
 #' \describe{
@@ -59,7 +59,7 @@
 #' solve_model(mod = MEND_model, time = 1:10)
 "MEND_model"
 
-#' MEMC COMISSION model configuration.
+#' MEMC COMISSION model configuration based on  \href{https://doi.org/10.1016/j.soilbio.2020.107912}{Ahrens et al. 2020}
 #'
 #' @format an object created form \code{configure_model}.
 #' \describe{
@@ -73,15 +73,15 @@
 #' }
 #' @family MEMC configurations
 #' @name COMISSION_model
+#' @references \href{https://doi.org/10.1016/j.soilbio.2020.107912}{Ahrens et al. 2020}
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
-#' @references \href{https://doi.org/10.1890/12-0681.1}{update with the comission documetation}
 #' @examples
 #' COMISSION_model
 #' solve_model(mod = COMISSION_model, time = 1:10)
 "COMISSION_model"
 
 
-#' MEMC CORPSE model configuration.
+#' MEMC CORPSE model configuration based on \href{https://doi.org/10.1038/nclimate2436}{Sulman et al. 2014}
 #'
 #' @format an object created form \code{configure_model}.
 #' \describe{
@@ -95,8 +95,8 @@
 #' }
 #' @family MEMC configurations
 #' @name CORPSE_model
+#' @references \href{https://doi.org/10.1038/nclimate2436}{Sulman et al. 2014}
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
-#' @references \href{https://doi.org/10.1890/12-0681.1}{update with the CORPSE documetation}
 #' @examples
 #' CORPSE_model
 #' solve_model(mod = CORPSE_model, time = 1:10)

@@ -3,7 +3,7 @@
 \docType{data}
 \name{CORPSE_model}
 \alias{CORPSE_model}
-\title{MEMC CORPSE model configuration.}
+\title{MEMC CORPSE model configuration based on \href{https://doi.org/10.1038/nclimate2436}{Sulman et al. 2014}}
 \format{
 an object created form \code{configure_model}.
 \describe{
@@ -20,16 +20,16 @@ see \code{\link{kinetics}} for more details.}
 CORPSE_model
 }
 \description{
-MEMC CORPSE model configuration.
+MEMC CORPSE model configuration based on \href{https://doi.org/10.1038/nclimate2436}{Sulman et al. 2014}
 }
 \examples{
 CORPSE_model
 solve_model(mod = CORPSE_model, time = 1:10)
 }
 \references{
-\href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+\href{https://doi.org/10.1038/nclimate2436}{Sulman et al. 2014}
 
-\href{https://doi.org/10.1890/12-0681.1}{update with the CORPSE documetation}
+\href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 }
 \seealso{
 Other MEMC configurations: 
