@@ -57,3 +57,8 @@ How do the different model configurations compare with one another? Take a look 
 ```{r}
 knitr::kable(rbind(MEND_model$config, COMISSION_model$config, CORPSE_model$config))
 ```
+
+
+
+For an example of how build your own model see the vignette on how to [build a toy model](build_toy_model.html). 
+

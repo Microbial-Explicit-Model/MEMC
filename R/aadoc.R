@@ -20,3 +20,17 @@
 #' @seealso carbon_fluxes
 NULL
 
+
+#' Identifiers for MEMC supported decay
+#'
+#' These identifiers correspond to the types of decays users can select in \code{\link{carbon_fluxes}}.
+#'
+#' @section decay:
+#' \describe{
+#' \item{DD}{Density dependent}
+#' \item{LM}{Linear kinetics}
+#' }
+#' @name decay
+#' @references \href{doi}{ref}
+#' @seealso carbon_fluxes
+NULL

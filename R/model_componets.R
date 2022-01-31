@@ -168,7 +168,7 @@ carbon_fluxes_internal <-function(env, state = NULL, params = NULL) {
 
 #' @param DOMdecomp string indicating the type of enzyme kinetics used in the microbial decomposition of DOM, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.
 #' @param POMdecomp string indicating the type of enzyme kinetics used in the microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.
-#' @param MBdecay string indicating microbial decay, one  of the following "MM", "RMM", "ECA", or "LM", see \code{\link{kinetics}} for more details.
+#' @param MBdecay string indicating microbial decay, one  of the following "LM" or "DD", see \code{\link{decay}} for more details.
 #' @param env an environment of the initial state and parameter values created by \code{internal_load_params}, by default it is set to an empty environment.
 #' @param state A numeric vector of the different carbon pool states that will be used to up date the preset values read in from the env, default set to NULL will use the entries in the env object.
 #' @param params A data frame of the parameters that will be used to up date the entries in the env environment, by default set to NULL.
@@ -191,7 +191,7 @@ carbon_fluxes <-
     assert_that(all(sapply(list(POMdecomp, DOMdecomp, MBdecay), is.character)))
     assert_that(sum(DOMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'DOMdecomp must be "MM", "RMM", "ECA", "LM"')
     assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'POMdecomp must be "MM", "RMM", "ECA", "LM"')
-    assert_that(sum(MBdecay %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'MBdecay must be "MM", "RMM", "ECA", "LM"')
+    assert_that(sum(MBdecay %in% c("LM", "DD")) == 1, msg = 'MBdecay must be "LM" or "DD"')
 
     # Create the list to store the output.
     out <- list()
@@ -271,15 +271,16 @@ carbon_fluxes <-
         }
 
         # If else statement determining the kinetics used in decay of the MB.
-        if (MBdecay == "MM") {
-          stop("MBdecay not implemented yet")
-        } else if (MBdecay == "RMM") {
-          stop("MBdecay not implemented yet")
-        } else if (MBdecay == "ECA") {
-          stop("MBdecay not implemented yet")
+        if (MBdecay == "DD") {
+          stop("DD  MBdecay not implemented yet")
+          # Density dependent
+          # Carbon loss due to microbial biomass mortality.
+          # TODO need some way to indicate that additional parameters must be defined....
+          (1 - p.ep - p.em) * m.r * B * (1 - B/K)
         } else if (MBdecay == "LM") {
           fluxes[["F8"]] = function() {
-            # Carbon loss due to microbial biomass mortality
+            # Linear relationship
+            # Carbon loss due to microbial biomass mortality.
             (1 - p.ep - p.em) * m.r * B
           }
         }

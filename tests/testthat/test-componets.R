@@ -63,7 +63,7 @@ test_that("DOMdecomp kinetics", {
 
 test_that("MBdecay kinetics", {
 
-  expect_error(carbon_fluxes(MBdecay = "fake", env = env)$flux_function(env = env), 'MBdecay must be "MM", "RMM", "ECA", "LM"', fixed = TRUE)
+  expect_error(carbon_fluxes(MBdecay = "fake", env = env)$flux_function(env = env), 'MBdecay must be "LM" or "DD"', fixed = TRUE)
 
 })
 

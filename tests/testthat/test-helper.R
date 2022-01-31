@@ -20,8 +20,8 @@ test_that("configure_model", {
                                carbon_fluxes_func = carbon_fluxes, name = test_name), regexp = "object 'I.p' not found")
   expect_error(configure_model(params, init, carbon_pools, carbon_fluxes, DOMdecomp = "fake"), 'DOMdecomp must be "MM", "RMM", "ECA", "LM"', fixed = TRUE)
   expect_error(configure_model(params, init, carbon_pools, carbon_fluxes, POMdecomp = "fake"), 'POMdecomp must be "MM", "RMM", "ECA", "LM"', fixed = TRUE)
-  expect_error(configure_model(params, init, carbon_pools, carbon_fluxes, MBdecay = "fake"), 'MBdecay must be "MM", "RMM", "ECA", "LM"', fixed = TRUE)
-  expect_error(configure_model(params, init, carbon_pools, carbon_fluxes, MBdecay = "RMM"), 'MBdecay not implemented yet')
+  expect_error(configure_model(params, init, carbon_pools, carbon_fluxes, MBdecay = "fake"), 'MBdecay must be "LM" or "DD"', fixed = TRUE)
+  expect_error(configure_model(params, init, carbon_pools, carbon_fluxes, MBdecay = "DD"), 'MBdecay not implemented yet')
 
   # Make sure that we can reset the model name behavior.
   test_name <- "test"

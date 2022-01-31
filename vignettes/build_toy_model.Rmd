@@ -1,0 +1,82 @@
+---
+title: "Build Toy Model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Build Toy Model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width = 6, fig.height = 5, 
+  warning = FALSE
+)
+```
+
+```{r setup}
+library(MEMC)     # MEMC should already be installed, see installation instructions. 
+library(ggplot2)  # package used to visualize results 
+library(knitr)    # makes nice tables
+library(magrittr) # import the %>% pipeline
+
+# set a theme to use in all the plots
+theme_set(theme_bw()) 
+```
+
+This example will walk you through how to build your own toy model, which you can compare with one of the pre built model configurations. 
+
+Save a copy of the default parameters and initial state values included in the package.
+
+```{r}
+param_table <- MEMC::default_params
+initial_state <- MEMC::default_initial
+```
+
+Set up a time vector. 
+```{r}
+# Set up a time vector 
+t <- seq(from = 1, to = 1e4, by = 10)
+```
+
+Using the `configure_model` function set up a toy model selecting different configurations. 
+
+```{r}
+toy_model <- configure_model(params = param_table, 
+                             state = initial_state, 
+                             name = "Toy", 
+                             DOMdecomp = "RMM", 
+                             POMdecomp = "RMM")
+```
+
+Solve the toy model and the default MEND configuration. 
+```{r}
+toy_out  <- solve_model(toy_model, t, param_table, initial_state)
+mend_out <- solve_model(MEND_model, t, param_table, initial_state)
+```
+
+Compare configurations 
+
+```{r}
+kable(rbind(toy_model$config, MEND_model$config))
+```
+
+Compare model outputs. 
+
+
+```{r}
+rbind(toy_out, mend_out) %>% 
+     ggplot(aes(time, value, color = name)) + 
+  geom_line() + 
+  facet_wrap("variable", scales = "free") + 
+    labs(title = "Comparison of MEND & Toy Model ", 
+       y = unique(toy_out$units)) + 
+  facet_wrap("variable", scales = "free")
+```
+
+
+
+
+
