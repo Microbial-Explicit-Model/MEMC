@@ -33,6 +33,6 @@ describe the state of the carbon pools, it follows a general 5-pool scheme that 
 adopted in microbial-explicit models following \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 }
 \references{
-\href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+\href{https://doi.org/10.1890/12-0681.1}{Wang, G., Post, W.M. and Mayes, M.A. (2013), Development of microbial-enzyme-mediated decomposition model parameters through steady-state and dynamic analyses. Ecological Applications, 23: 255-272. https://doi.org/10.1890/12-0681.1}
 }
 \concept{carbon pool functions}

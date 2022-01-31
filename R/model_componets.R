@@ -11,7 +11,7 @@
 #' @param flux_function function that will return a list of functions that modify how carbon moves between
 #' the carbon pools, will need to read in the kinetics options.
 #' @return A list of the state variables
-#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang, G., Post, W.M. and Mayes, M.A. (2013), Development of microbial-enzyme-mediated decomposition model parameters through steady-state and dynamic analyses. Ecological Applications, 23: 255-272. https://doi.org/10.1890/12-0681.1}
 #' @importFrom assertthat assert_that has_name
 #' @family carbon pool functions
 #' @export
@@ -86,7 +86,7 @@ carbon_pools <-function(t, env, state = NULL, params = NULL,
 #' @param params A data frame of the parameters that will be used to up date the entries in the env environment, by default set to NULL.
 #' @return A list of functions that calculate the fluxes between carbon pools.
 #' @family carbon flux functions
-#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang, G., Post, W.M. and Mayes, M.A. (2013), Development of microbial-enzyme-mediated decomposition model parameters through steady-state and dynamic analyses. Ecological Applications, 23: 255-272. https://doi.org/10.1890/12-0681.1}
 #' @importFrom assertthat assert_that has_name
 #' @noRd
 carbon_fluxes_internal <-function(env, state = NULL, params = NULL) {

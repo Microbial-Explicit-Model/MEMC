@@ -13,7 +13,7 @@
 #' }
 #' @name default_params
 #' @family parameters
-#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang, G., Post, W.M. and Mayes, M.A. (2013), Development of microbial-enzyme-mediated decomposition model parameters through steady-state and dynamic analyses. Ecological Applications, 23: 255-272. https://doi.org/10.1890/12-0681.1}
 #' @usage data(default_params)
 #' @keywords datasets
 "default_params"
@@ -37,7 +37,7 @@
 #' }
 #' @family initial values
 #' @name default_initial
-#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang, G., Post, W.M. and Mayes, M.A. (2013), Development of microbial-enzyme-mediated decomposition model parameters through steady-state and dynamic analyses. Ecological Applications, 23: 255-272. https://doi.org/10.1890/12-0681.1}
 #' @examples
 #' default_initial
 #' print(default_initial)
@@ -54,7 +54,7 @@
 #' \item{carbon_fluxes_func}{carbon fluxes based on Wang et al. 2013.}}
 #' @family MEMC configurations
 #' @name MEND_model
-#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang, G., Post, W.M. and Mayes, M.A. (2013), Development of microbial-enzyme-mediated decomposition model parameters through steady-state and dynamic analyses. Ecological Applications, 23: 255-272. https://doi.org/10.1890/12-0681.1}
 #' @examples
 #' MEND_model
 #' solve_model(mod = MEND_model, time = 1:10)
@@ -74,8 +74,8 @@
 #' }
 #' @family MEMC configurations
 #' @name COMISSION_model
-#' @references \href{https://doi.org/10.1016/j.soilbio.2020.107912}{Ahrens et al. 2020}
-#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+#' @references \href{https://doi.org/10.1016/j.soilbio.2020.107912}{Ahrens, Bernhard, Georg Guggenberger, Janet Rethemeyer, Stephan John, Bernd Marschner, Stefanie Heinze, Gerrit Angst, et al. 2020. “Combination of Energy Limitation and Sorption Capacity Explains 14C Depth Gradients.” Soil Biology & Biochemistry 148 (September): 107912.}
+#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang, G., Post, W.M. and Mayes, M.A. (2013), Development of microbial-enzyme-mediated decomposition model parameters through steady-state and dynamic analyses. Ecological Applications, 23: 255-272. https://doi.org/10.1890/12-0681.1}
 #' @examples
 #' COMISSION_model
 #' solve_model(mod = COMISSION_model, time = 1:10)
@@ -95,8 +95,8 @@
 #' }
 #' @family MEMC configurations
 #' @name CORPSE_model
-#' @references \href{https://doi.org/10.1038/nclimate2436}{Sulman et al. 2014}
-#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+#' @references \href{doi:10.1038/nclimate2436}{Sulman, B. N., R. P. Phillips, A. C. Oishi, E. Shevliakova, and S. W. Pacala (2014), Microbe-driven turnover offsets mineral-mediated storage of soil carbon under elevated CO2, Nat. Clim. Change, 4(12), 1099–1102, doi:10.1038/nclimate2436.}
+#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang, G., Post, W.M. and Mayes, M.A. (2013), Development of microbial-enzyme-mediated decomposition model parameters through steady-state and dynamic analyses. Ecological Applications, 23: 255-272. https://doi.org/10.1890/12-0681.1}
 #' @examples
 #' CORPSE_model
 #' solve_model(mod = CORPSE_model, time = 1:10)

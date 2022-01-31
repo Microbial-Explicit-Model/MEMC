@@ -27,9 +27,9 @@ COMISSION_model
 solve_model(mod = COMISSION_model, time = 1:10)
 }
 \references{
-\href{https://doi.org/10.1016/j.soilbio.2020.107912}{Ahrens et al. 2020}
+\href{https://doi.org/10.1016/j.soilbio.2020.107912}{Ahrens, Bernhard, Georg Guggenberger, Janet Rethemeyer, Stephan John, Bernd Marschner, Stefanie Heinze, Gerrit Angst, et al. 2020. “Combination of Energy Limitation and Sorption Capacity Explains 14C Depth Gradients.” Soil Biology & Biochemistry 148 (September): 107912.}
 
-\href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+\href{https://doi.org/10.1890/12-0681.1}{Wang, G., Post, W.M. and Mayes, M.A. (2013), Development of microbial-enzyme-mediated decomposition model parameters through steady-state and dynamic analyses. Ecological Applications, 23: 255-272. https://doi.org/10.1890/12-0681.1}
 }
 \seealso{
 Other MEMC configurations: 
