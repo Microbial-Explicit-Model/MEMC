@@ -16,12 +16,12 @@ test_that("configure_model", {
                                carbon_fluxes_func = carbon_fluxes), regexp = "problem with carbon_pools_func format")
   expect_error(configure_model(params = params, state = init[1:3], carbon_pools_func = carbon_pools,
                                carbon_fluxes_func = carbon_fluxes, name = test_name), regexp = "object 'B' not found")
-  expect_error(configure_model(params = params[1:5, ], state = init, carbon_pools_func = carbon_pools,
+
+  expect_error(configure_model(params = params[20:22, ], state = init, carbon_pools_func = carbon_pools,
                                carbon_fluxes_func = carbon_fluxes, name = test_name), regexp = "object 'I.p' not found")
   expect_error(configure_model(params, init, carbon_pools, carbon_fluxes, DOMdecomp = "fake"), 'DOMdecomp must be "MM", "RMM", "ECA", "LM"', fixed = TRUE)
   expect_error(configure_model(params, init, carbon_pools, carbon_fluxes, POMdecomp = "fake"), 'POMdecomp must be "MM", "RMM", "ECA", "LM"', fixed = TRUE)
   expect_error(configure_model(params, init, carbon_pools, carbon_fluxes, MBdecay = "fake"), 'MBdecay must be "LM" or "DD"', fixed = TRUE)
-  expect_error(configure_model(params, init, carbon_pools, carbon_fluxes, MBdecay = "DD"), 'MBdecay not implemented yet')
 
   # Make sure that we can reset the model name behavior.
   test_name <- "test"
@@ -32,7 +32,7 @@ test_that("configure_model", {
   x <- configure_model(params, init, carbon_pools, carbon_fluxes)
   new_table <- params
   new_table$value <- new_table$value * 2
-  y <- configure_model(new_table, init, carbon_pools, carbon_fluxes)
+  y <- configure_model(new_table, init, carbon_pools, carbon_fluxes, MBdecay = "DD")
   expect_true(all(y$params$value != x$params$value))
   expect_gt(abs(x$env$E.c - y$env$E.c), 0)
 
@@ -73,7 +73,7 @@ test_that("solve_model", {
   # Test to see that additional arguments works, aka passing in new parameter values
   # should change the numeric results.
   new_params <- MEMC::default_params
-  new_params$value <- new_params$value * 2
+  new_params$value[1:20] <- new_params$value[1:20] * 2
   out2 <- solve_model(mod = mod1, time = test_time, params = new_params)
   expect_gt(mean(abs(out2$value - out1$value)), 0)
 

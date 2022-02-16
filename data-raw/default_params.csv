@@ -20,3 +20,4 @@ K.ba,binding affinity,(mgC/soil)^-1,6
 I.p,input rate of P,mgC mgC^-1 h^-1,8.00E-05
 I.d,input rate of D,mgC mgC^-1 h^-1,8.00E-05
 fI.d,ratio of ID to IP,NA,1
+dd.beta,strength of density dependent microbial decay,NA,1
