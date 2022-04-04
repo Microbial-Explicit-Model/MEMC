@@ -1,4 +1,21 @@
 
+#' Checks that it is a MEMC model configuration
+#'
+#' @param obj list object to check to see if it is a model configuration
+#' @return TRUE or FALSE indicator
+#' @importFrom assertthat has_name
+#' @family helper functions
+#' @noRd
+is_memc_config <- function(obj){
+
+  cond <- is.list(obj)
+  cond <- c(cond, has_name(x = obj, which = c("name", "config", "params", "state", "env",
+                                          "carbon_pools_func", "carbon_fluxes_func")))
+  return(all(cond))
+}
+
+
+
 #' Load the parameter values into a environment
 #'
 #' @param ptable data.table containing the following columns: parameter, value, and units.
@@ -122,7 +139,7 @@ configure_model <- function(params,
 #' Solve a MEMC configuration
 #'
 #' @param mod model object created by \code{make_model}
-#' @param time a vector of the time setps
+#' @param time a vector of the time steps
 #' @param params default set to NULL, will then use the parameter table read in with the "mod" object.
 #' @param state default set to NULL, will then use the state read read in with the "mod" object.
 #' @param ... additional arguments that can be read into \code{deSolve::ode}
@@ -133,9 +150,7 @@ configure_model <- function(params,
 #' @family helper functions
 solve_model <- function(mod, time, params = NULL, state = NULL, ...){
 
-  assert_that(is.list(mod))
-  req_names <-  c("name", "params", "state" ,"env", "carbon_pools_func", "carbon_fluxes_func")
-  assert_that(has_name(x = mod, which = req_names), msg = "mod must a model object created by configure_model")
+  assert_that(is_memc_config(mod), msg = "mod must a model object created by configure_model")
   assert_that((is.null(params) | is.data.frame(params)))
   assert_that((is.null(state) | is.vector(state)))
   assert_that(all(is.numeric(time)))

@@ -12,7 +12,7 @@
 
 ## Getting Started Using `MEMC`
 
-Follow the download and installation insturctions for [R](https://cloud.r-project.org/) and [R studio](https://www.rstudio.com/products/rstudio/download/). 
+Follow the download and installation instructions for [R](https://cloud.r-project.org/) and [R studio](https://www.rstudio.com/products/rstudio/download/). 
 
 
 #### For users

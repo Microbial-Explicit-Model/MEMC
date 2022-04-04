@@ -1,16 +1,11 @@
 ---
-title: "Compare Model Configurations"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Compare Model Configurations}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+title: "Compare Model Configuration"
 ---
+
 ```{r, include = FALSE, warning=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
-  fig.width = 6, fig.height = 5, 
   warning = FALSE
   )
 ```

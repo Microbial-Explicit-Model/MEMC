@@ -78,7 +78,7 @@ head(MEND_model$carbon_pools_func)
 ```
 
 
-A function defining the carbon fluxes, this is returned by `carbon_fluxes` and cacn be modified by `modify_fluxes_func`.
+A function defining the carbon fluxes, this is returned by `carbon_fluxes` and can be modified by `modify_fluxes_func`.
 
 ```{r}
 head(MEND_model$carbon_fluxes_func)

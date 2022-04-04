@@ -1,20 +1,14 @@
 ---
-title: "Build Toy Model"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Build Toy Model}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+title: "Build a Toy Model"
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>", 
-  fig.width = 6, fig.height = 5, 
-  warning = FALSE
+  comment = "#>"
 )
 ```
+
 
 ```{r setup}
 library(MEMC)     # MEMC should already be installed, see installation instructions. 
@@ -74,9 +68,3 @@ rbind(toy_out, mend_out) %>%
     labs(title = "Comparison of MEND & Toy Model ", 
        y = unique(toy_out$units)) + 
   facet_wrap("variable", scales = "free")
-```
-
-
-
-
-

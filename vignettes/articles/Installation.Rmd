@@ -1,10 +1,5 @@
 ---
 title: "Installation"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{installation}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
@@ -13,6 +8,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+
 
 `MEMC` is an R package designed to facilitate easy exploration of different configurations of soil carbon (C) decomposition with various representations of microbial biomass uptake. To install R, follow these [instructions](https://cloud.r-project.org/) for the platform you are using. Although not necessary we strongly encourage users to also download and install the [Rstuio IDE](https://www.rstudio.com/products/rstudio/download/). 
 
@@ -32,7 +28,7 @@ library(MEMC)
 After it is done installing you should be able to load the MEMC package and start using it! Check out the package vignettes for some examples.  
 
 
-## For Devlopers 
+## For Developers 
 
 Alternatively for users that are interested in using the developmental version of the package clone will need to clone the repository and use the “Install and Restart” and “Clean and Rebuild” tools in [Rstudio](https://support.rstudio.com/hc/en-us/articles/200486508-Building-Testing-and-Distributing-Packages).  
 

@@ -1,0 +1,51 @@
+---
+title: "Fit Data"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+# Load the package
+library(MEMC)
+
+# Load packages for the example
+library(FME)
+library(ggplot2)
+library(data.table) # Helps format the data 
+```
+
+```{r, warning=FALSE, message=FALSE}
+example_data <- system.file("example/Ultisol_control.csv", package = "MEMC")
+obs <- read.csv(example_data)
+obs_long <- melt(obs, "time")
+```
+
+
+```{r}
+Ultisol_state <- c(P = 4.71, M = 17.67, Q = 0, D = 0.148, B = 0.82, EP = 0.0082, EM = 0.0082, IC = 0, Tot = 23.484)
+```
+
+```{r}
+mod1 <- configure_model(params = default_params, state = Ultisol_state, name = "MEND")
+objective1 <- make_objective_function(obs = obs, config = mod1)
+fit1 <- modFit(f = objective1, p = c(V.d = 2, V.p = 25, V.m = 0.4), lower = c(0, 0, 0))
+```
+
+```{r}
+mod2 <- COMISSION_model
+mod2$state <- Ultisol_state
+objective2 <- make_objective_function(obs = obs, config = mod2)
+fit2 <- modFit(f = objective2, p = fit1$par, lower = c(0, 0, 0))
+```
+
+```{r}
+mod3 <- CORPSE_model
+mod3$state <- Ultisol_state
+objective3 <- make_objective_function(obs = obs, config = mod3)
+fit3 <- modFit(f = objective3, p = c(V.d = 10, V.p = 10, V.m = 10), lower = c(0, 0, 0))
+```

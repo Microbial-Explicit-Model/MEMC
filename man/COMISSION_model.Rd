@@ -9,7 +9,7 @@ an object created by \code{configure_model}.
 \describe{
 \item{name}{COMISSION}
 \item{params}{the default MEMC parameter table}
-\item{state}{the default inital state values for MEMC}
+\item{state}{the default initial state values for MEMC}
 \item{carbon_pools_func}{carbon pools based on Wang et al. 2013}
 \item{carbon_fluxes_func}{carbon fluxes based on Wang et al. 2013. The COMISSION_model MEMC
 configuration uses RMM kinetics for DOMdecomp, MM for  POMdecomp, and LM for MBdecay.

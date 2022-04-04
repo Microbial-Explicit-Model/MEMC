@@ -9,7 +9,7 @@ solve_model(mod, time, params = NULL, state = NULL, ...)
 \arguments{
 \item{mod}{model object created by \code{make_model}}
 
-\item{time}{a vector of the time setps}
+\item{time}{a vector of the time steps}
 
 \item{params}{default set to NULL, will then use the parameter table read in with the "mod" object.}
 

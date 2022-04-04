@@ -13,7 +13,7 @@ A vector of the initial states of the Carbon pools from  \href{doi.org/10.1890/1
 \item{B}{Microbial biomass carbon or MBC}
 \item{D}{Dissolved organic carbon or DOC}
 \item{EP}{Enzyme for decomposition of P}
-\item{EM}{Ensyme for decomposition of M}
+\item{EM}{Enzyme for decomposition of M}
 \item{IC}{Accumulated CO2 flux}
 \item{Tot}{Total carbon in the patch}
 }
