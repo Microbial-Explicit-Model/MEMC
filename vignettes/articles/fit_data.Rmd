@@ -13,26 +13,33 @@ knitr::opts_chunk$set(
 # Load the package
 library(MEMC)
 
-# Load packages for the example
+# Load other R package that will use 
 library(FME)
 library(ggplot2)
 library(data.table) # Helps format the data 
 ```
 
+
+Load the example observations and the initial state values. 
+
 ```{r, warning=FALSE, message=FALSE}
-example_data <- system.file("example/Ultisol_control.csv", package = "MEMC")
-obs <- read.csv(example_data)
-obs_long <- melt(obs, "time")
+# The observations
+obs <- read.csv(system.file("example/exmaple_data.csv", package = "MEMC"))
+
+# Load the initial state values and format them as a list. 
+obs_initial_val_data <- read.csv(system.file("example/exmaple_initial.csv", package = "MEMC"))
+obs_initial_values <- obs_initial_val_data$value
+names(obs_initial_values) <- obs_initial_val_data$state
 ```
 
 
 ```{r}
-Ultisol_state <- c(P = 4.71, M = 17.67, Q = 0, D = 0.148, B = 0.82, EP = 0.0082, EM = 0.0082, IC = 0, Tot = 23.484)
-```
-
-```{r}
-mod1 <- configure_model(params = default_params, state = Ultisol_state, name = "MEND")
+mod1 <- configure_model(params = default_params, state = initial_values, name = "MEND")
 objective1 <- make_objective_function(obs = obs, config = mod1)
+
+objective1
+objective1(c(V.d = 2, V.p = 25, V.m = 0.4))
+
 fit1 <- modFit(f = objective1, p = c(V.d = 2, V.p = 25, V.m = 0.4), lower = c(0, 0, 0))
 ```
 

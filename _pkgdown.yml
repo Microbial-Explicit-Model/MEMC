@@ -1,0 +1,60 @@
+url: https://microbial-explicit-model.github.io/MEMC/
+
+navbar:
+  type: default
+  left:
+    - icon: fa-home fa-lg
+      href: "index.html"
+    - text: Manual
+      href: "articles/manual.html"
+    - text: Getting Started
+      menu:
+       - text: "Installation"
+         href: articles/Installation.html
+       - text: "How to do a basic run and change model inputs"
+         href: articles/basic_MEMC_runs.html
+    - text: Examples
+      menu:
+        - text: "Example: Compare model configurations"
+          href: articles/Compare_Model_Configuration.html
+        - text: "Example: Fit data to models"
+          href: articles/fit_data.html
+        - text: "Example: Build a toy model"
+          href: articles/build_toy_model.html
+    - text: Reference
+      href: "reference/index.html"
+    - text: News
+      href: "news/index.html"
+  right:
+    - icon: fa-github fa-lg
+      href: "https://github.com/Microbial-Explicit-Model/MEMC"
+
+# Organize reference index
+reference:
+- title: Model Configurations
+  contents:
+  - "COMISSION_model"
+  - "CORPSE_model"
+  - "MEND_model"
+- title: Model Structure Options
+  contents:
+  - "kinetics"
+  - "decay"
+  - "carbon_fluxes"
+  - "carbon_pools"
+- title: Default Values
+  contents:
+  - "default_initial"
+  - "default_params"
+- title: Helper Functions
+  contents:
+  - "configure_model"
+  - "update_params"
+  - "solve_model"
+  - "make_objective_function"
+
+  # Organize the articles index, set it up so that all of the vignettes are listed.
+articles:
+- title: Index
+  contents:
+  - matches("[a-z]")

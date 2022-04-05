@@ -1,5 +1,5 @@
 ---
-title: "Compare Model Configuration"
+title: "Compare Model Configurations"
 ---
 
 ```{r, include = FALSE, warning=FALSE}
