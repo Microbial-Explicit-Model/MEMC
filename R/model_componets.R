@@ -159,7 +159,7 @@ carbon_fluxes_internal <-function(env, state = NULL, params = NULL) {
 
 }
 
-#' Define the carbon fluxes.
+#' Define the carbon fluxes
 #'
 #' \code{carbon_fluxes} Defines a system of equations that
 #' describe fluxes between the general 5-pool scheme based on \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}.

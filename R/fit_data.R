@@ -10,7 +10,8 @@
 make_objective_function <- function(obs, config){
 
   assert_that(is.data.frame(obs))
-  assert_that(all(names(obs) %in% c("time", names(MEMC::default_initial))))
+  assert_that(all(names(obs) %in% c("time", "variable", "value")))
+  assert_that(all(unique(obs$variable) %in% names(MEMC::default_initial)))
   assert_that(is_memc_config(config), msg = "obj is a model configuration created by configure_model")
 
   out <- function(p){
