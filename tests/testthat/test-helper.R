@@ -53,45 +53,6 @@ test_that("configure_model", {
 
 })
 
-test_that("solve_model", {
-
-  # Start by setting up a model and then solving, make sure that the structure of the object being returned
-  # is correct. Note, we are not checking model solutions here that will be done in the old new test to make
-  # sure that the numerical solutions are robust to coding changes.
-  test_time <- 1:5
-  mod1 <- configure_model(params = params,
-                          state = init,
-                          carbon_pools_func = carbon_pools,
-                          carbon_fluxes_func = carbon_fluxes)
-  out1 <- solve_model(mod = mod1, time = test_time, params = NULL, state = NULL)
-
-  expect_equal(unique(out1$time), test_time)
-  expect_equal(length(unique(out1$time)) * length(unique(out1$variable)), nrow(out1))
-  expect_equal(unique(out1$name), "MEND")
-  expect_named(out1, c("time", "variable", "value", "units", "name"))
-
-  # Test to see that additional arguments works, aka passing in new parameter values
-  # should change the numeric results.
-  new_params <- MEMC::default_params
-  new_params$value[1:20] <- new_params$value[1:20] * 2
-  out2 <- solve_model(mod = mod1, time = test_time, params = new_params)
-  expect_gt(mean(abs(out2$value - out1$value)), 0)
-
-  # Check to make sure that additional arguments can be pased into the ode solver.
-  # Using the different solver methods should have a trivial impact on the numerical output.
-  lsode <- solve_model(mod = mod1, time = test_time, method = "lsode")
-  ode45 <- solve_model(mod = mod1, time = test_time, method = "ode45")
-  expect_lte(mean(abs(lsode$value - ode45$value)), 1e-5)
-  expect_lte(mean(abs(lsode$value - ode45$value)), 1e-5)
-
-  # Check that appropriate error are being thrown.
-  expect_error(solve_model(mod = mod1, time = "f"))
-  expect_error(solve_model(mod = mod1[1:2], time = test_time), regexp = "mod must a model object created by configure_model")
-  expect_error(solve_model(mod = mod1, time = test_time, method = "fake"))
-  expect_error(solve_model(mod = mod1, time = test_time, fake = "fake"))
-
-})
-
 test_that("update_params", {
 
   # make up a test data frame to work with, note that it needs to have the MEMC default parameter table
