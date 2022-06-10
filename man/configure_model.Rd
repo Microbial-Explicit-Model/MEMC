@@ -37,7 +37,8 @@ Set up a model configuration
 }
 \seealso{
 Other helper functions: 
-\code{\link{solve_model}()},
+\code{\link{sm_format_out}()},
+\code{\link{sm_internal}()},
 \code{\link{update_params}()}
 }
 \concept{helper functions}

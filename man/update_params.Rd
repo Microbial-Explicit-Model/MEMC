@@ -20,7 +20,8 @@ Update the parameter table with new values
 \seealso{
 Other helper functions: 
 \code{\link{configure_model}()},
-\code{\link{solve_model}()}
+\code{\link{sm_format_out}()},
+\code{\link{sm_internal}()}
 
 Other parameters: 
 \code{\link{default_params}}

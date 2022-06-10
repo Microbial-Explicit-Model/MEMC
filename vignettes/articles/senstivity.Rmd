@@ -1,0 +1,212 @@
+---
+title: "Global Senstivity Analysis"
+---
+
+<!----
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(MEMC)
+library(FME)
+```
+
+
+```{r}
+params <- c("V.d", "V.p", "V.m")
+param_df <- default_params[default_params$parameter %in% params, ]
+pmin <- param_df$value * 0.5 
+pmax <- param_df$value * 1.5
+
+pranges <- data.frame(min = pmin, max = pmax, row.names = param_df$parameter)
+
+times <- seq(0, 365, by = 1)
+
+
+
+
+
+print(system.time(sR <- sensRange(func = solveLIN, parms = pars, dist ="norm",parMean=mean, parCovar=covar, 
+                                  sensvar = c("DOM", "POM","MOM","MB"), parRange = parRanges, num = 100)))
+
+
+
+# assume normal distributed prior
+
+
+```
+
+
+
+#global sensitivity analysis
+```{r sen}
+
+library(FME)
+##define parameter range as +-50%
+pars[c("Vd","Vp","Vm")]<-Fit$par
+params<-t(data.frame(pars))
+pmin<-params*0.5
+pmax<-params*1.5
+
+parRanges <- data.frame(min = pmin, max = pmax)
+
+##define broad parameter range
+parRanges <- data.frame(min = c(0,0,0), max = c(10,50,1))
+rownames(parRanges) <- c("Vd","Vp","Vm")
+parRanges
+
+times <- seq(0, 365, by = 1)
+#get sensitivity of vmax
+tout <- 0:100  # run the model for 100 times (num)
+
+
+
+###normal distributed prior
+SF<-summary(Fit)
+mean<-t(SF$par[,1])
+covar<-SF$cov.scaled*2.4^2/3
+
+
+
+
+
+
+
+print(system.time(sR <- sensRange(func = solveLIN, parms = pars, dist ="norm",parMean=mean, parCovar=covar, 
+                                  sensvar = c("DOM", "POM","MOM","MB"), parRange = parRanges, num = 100)))
+
+head(summary(sR))
+
+# plotting the result
+summ.sR <- summary(sR)
+
+pdf("sens_COM.pdf", width=6, height=6)
+par(mfrow=c(2, 2))
+#plot(summ.sR, xlab = "time, hour", ylab = "mM",legpos = "topright", mfrow = NULL)
+plot(summ.sR, xlab = "time, hour", ylab = "mM", mfrow = NULL,quant = TRUE, col = c("lightblue", "dodgerblue4"), legpos = "topright")
+mtext(outer = TRUE, line = -1.5, side = 3, "Sensitivity to parameter uncertainty", cex = 1.25)
+dev.off()
+
+
+#----------
+##random sampling
+SF<-summary(Fit)
+mean<-t(SF$par[,1])
+covar<-SF$cov.scaled*2.4^2/3
+
+print(system.time(sR <- sensRange(func = solveCOM, parms = pars, dist ="unif",parMean=mean, parCovar=covar, sensvar = c("DOM", "POM","MOM","MB"), parRange = parRanges, num = 100)))
+
+head(summary(sR))
+
+# plotting the result
+summ.sR <- summary(sR)
+
+pdf("sens_rand_COM.pdf", width=6, height=6)
+par(mfrow=c(2, 2))
+#plot(summ.sR, xlab = "time, hour", ylab = "mM",legpos = "topright", mfrow = NULL)
+plot(summ.sR, xlab = "time, hour", ylab = "mM", mfrow = NULL,quant = TRUE, col = c("lightblue", "dodgerblue4"), legpos = "topright")
+mtext(outer = TRUE, line = -1.5, side = 3, "Sensitivity to parameter uncertainty", cex = 1.25)
+dev.off()
+
+```
+
+
+
+
+
+
+##graph all models
+```{r plot}
+
+times <- seq(0, 3650, by = 1) ## output times
+
+pars1<- list (Vd=4.25,Vp=33.41,Vm=0.38)
+output1<-solveMEND(pars1, times)  
+mfit1<-as.data.frame(output1[, 1:10])
+colnames(mfit1) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
+head(mfit1)
+
+pars2<- list (Vd=2.43,Vp=26.32,Vm=0.40)
+output2<-solveCOM(pars2, times)  
+mfit2<-as.data.frame(output2[, 1:10])
+colnames(mfit2) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
+head(mfit2)
+
+pars3<- list (Vd=0.14,Vp=2.085,Vm=1.25)
+output3<-solveLIN(pars3, times)  
+mfit3<-as.data.frame(output3[, 1:10])
+colnames(mfit3) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
+head(mfit3)
+
+pars4<- list (Vd=13.24,Vp=16.99,Vm=0)
+output4<-solveTOY(pars4, times)  
+mfit4<-as.data.frame(output4[, 1:10])
+colnames(mfit4) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
+head(mfit4)
+
+pdf("allmodel.pdf", width=6, height=4)
+par(xpd = T, mar = par()$mar + c(0,0,0,10))
+plot(Data$time,Data$IC, xlab = "Time (d)", ylab = "Respiration (mgC g-1 soil)", pch=16, cex=1.2,col="#2d004b", xlim=c(0,365), ylim=c(0,5),cex.lab=1.2, cex.axis=1.2)
+lines(mfit1$time, mfit1$IC, lwd=2, col="#fdb863")+lines(mfit2$time, mfit2$IC, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$IC, lwd=2, col="#b35806")+lines(mfit4$time, mfit4$IC, lwd=2, col="#7f3b08")
+legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE","*TOY*"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806","#7f3b08"))
+dev.off()
+
+
+pdf("3model_input.pdf", width=6, height=4)
+par(xpd = T, mar = par()$mar + c(0,0,0,10))
+plot(Data$time,Data$IC, xlab = "Time (d)", ylab = "Respiration (mgC g-1 soil)", pch=23, cex=1,lwd=1.6,col="#8073ac", xlim=c(0,3650), ylim=c(0,5),cex.lab=1.2, cex.axis=1.2)
+lines(mfit1$time, mfit1$IC, lwd=3, col="#fdb863")+lines(mfit2$time, mfit2$IC, lwd=3, col="#e08214")+lines(mfit3$time, mfit3$IC, lwd=2.5, col="#b35806")
+legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=3, lty=1,col=c("#fdb863","#e08214","#b35806"))
+dev.off()
+
+pdf("POM.pdf", width=6, height=4)
+par(xpd = T, mar = par()$mar + c(0,0,0,10))
+plot(mfit1$time, mfit1$POM, xlab = "Time (d)", ylab = "POM (mgC g-1 soil)",type="l",lwd=2,col="#fdb863",xlim=c(0,365), ylim=c(0,5))
+lines(mfit2$time, mfit2$POM, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$POM, lwd=2, col="#b35806")
+legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
+dev.off()
+
+pdf("MOM.pdf", width=6, height=4)
+par(xpd = T, mar = par()$mar + c(0,0,0,10))
+plot(mfit1$time, mfit1$MOM, xlab = "Time (d)", ylab = "MOM (mgC g-1 soil)",type="l",lwd=2,col="#fdb863",xlim=c(0,365), ylim=c(15,25))
+lines(mfit2$time, mfit2$MOM, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$MOM, lwd=2, col="#b35806")
+legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
+dev.off()
+
+
+
+###with fresh C input
+pdf("pct_MOM_input05.pdf", width=6, height=4)
+par(xpd = T, mar = par()$mar + c(0,0,0,10))
+plot(mfit1$time, mfit1$MOM/mfit1$Tot, xlab = "Time (d)", ylab = "MOM%",type="l",lwd=2,col="#fdb863",xlim=c(0,3650), ylim=c(0,1))
+lines(mfit2$time, mfit2$MOM/mfit2$Tot, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$MOM/mfit3$Tot, lwd=2, col="#b35806")
+legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
+dev.off()
+
+
+pdf("Tot_input05.pdf", width=6, height=4)
+par(xpd = T, mar = par()$mar + c(0,0,0,10))
+plot(mfit1$time, mfit1$Tot, xlab = "Time (d)", ylab = "Total SOM (mgC g-1 soil)",type="l",lwd=2,col="#fdb863",xlim=c(0,3650), ylim=c(10,40))
+lines(mfit2$time, mfit2$Tot, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$Tot, lwd=2, col="#b35806")
+legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
+dev.off()
+
+
+##print model information
+cat("Model----------POMdecom----------DOMdecom----------MBdecay \nMEND-----------MM----------------MM-----------------Linear \nCOMISSION------rMM---------------MM-----------------Linear \nCORPSE---------Linear------------rMM----------------Linear " )
+
+##print toy model setup
+cat("Model----------POMdecom----------DOMdecom----------MBdecay \nMEND-----------MM----------------MM-----------------Linear \nCOMISSION------rMM---------------MM-----------------Linear \nCORPSE---------Linear------------rMM----------------Linear \n*TOY1*---------MM----------------rMM----------------Linear " )
+
+
+
+
+
+
+
+```
+----> 

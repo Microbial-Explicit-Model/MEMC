@@ -2,7 +2,7 @@
 % Please edit documentation in R/model_componets.R
 \name{carbon_fluxes}
 \alias{carbon_fluxes}
-\title{Define the carbon fluxes.}
+\title{Define the carbon fluxes}
 \usage{
 carbon_fluxes(
   DOMdecomp = "MM",

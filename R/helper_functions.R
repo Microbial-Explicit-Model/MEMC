@@ -1,4 +1,3 @@
-
 #' Checks that it is a MEMC model configuration
 #'
 #' @param obj list object to check to see if it is a model configuration
@@ -13,7 +12,6 @@ is_memc_config <- function(obj){
                                           "carbon_pools_func", "carbon_fluxes_func")))
   return(all(cond))
 }
-
 
 
 #' Load the parameter values into a environment
@@ -153,6 +151,10 @@ update_params <- function(new_params, param_table){
 
   assert_that(!is.null(names(new_params)), msg = "new params must be named")
   pnames <- names(new_params)
+  dne <- pnames[!pnames %in% param_table$parameter]
+  assert_that(length(dne) < 1, msg = paste0( "new_params must refer to a parameter already existing in param_table \n the following params are not recognized: ",
+                                              paste0(dne, collapse = ', ')))
+
   assert_that(all(pnames %in% param_table$parameter), msg = "new_params must refer to a parameter already existing in param_table")
   assert_that(is.numeric(new_params))
 
@@ -185,6 +187,7 @@ make_config_table <- function(name, Fs){
   return(table)
 
 }
+
 
 #' Message the configuration table
 #'

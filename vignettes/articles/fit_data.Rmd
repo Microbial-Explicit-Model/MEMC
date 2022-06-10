@@ -2,6 +2,8 @@
 title: "Fit Data"
 ---
 
+<!---- 
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -9,50 +11,52 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-# Load the package
+```{r setup, warning = FALSE, message=FALSE}
+# Load the packages for this example
 library(MEMC)
-
-# Load other R package that will use 
-library(FME)
 library(ggplot2)
-library(data.table) # Helps format the data 
+library(data.table)
 ```
 
 
 Load the example observations and the initial state values. 
 
 ```{r, warning=FALSE, message=FALSE}
-# The observations
-obs <- read.csv(system.file("example/exmaple_data.csv", package = "MEMC"))
+# Import the observations
+obs <- read.csv(system.file("example/example_data.csv", package = "MEMC"))
 
-# Load the initial state values and format them as a list. 
-obs_initial_val_data <- read.csv(system.file("example/exmaple_initial.csv", package = "MEMC"))
-obs_initial_values <- obs_initial_val_data$value
-names(obs_initial_values) <- obs_initial_val_data$state
+# Select the time 0 observations for the initial state. 
+obs_state <- as.numeric(obs[obs$time == 0, names(default_initial)])
+names(obs_state) <- names(default_initial)
+t <- 0:365
+
+# Select the IC observations to use in the model fit. 
+# Get the average of 
+IC_obs <- as.data.table(obs[obs$time != 0, c("time", "IC")])
+IC_obs <- IC_obs[, list(IC = mean(IC)), by = time]
 ```
+
 
 
 ```{r}
-mod1 <- configure_model(params = default_params, state = initial_values, name = "MEND")
-objective1 <- make_objective_function(obs = obs, config = mod1)
 
-objective1
-objective1(c(V.d = 2, V.p = 25, V.m = 0.4))
 
-fit1 <- modFit(f = objective1, p = c(V.d = 2, V.p = 25, V.m = 0.4), lower = c(0, 0, 0))
+mod <- MEND_model
+mod$state <- obs_state
+to_fit <- c(V.d = 2, V.p = 5, V.m = 0.01)
+
+mend_fit <- memc_modfit(mod = mod, obs = IC_obs, x = to_fit, upper = c(100, 100, 100))
+
+
+ptable <- update_params(new_params = mend_fit$par, param_table = MEND_model$params)
+mend_fit_results <- solve_model(MEND_model, time = t, params = ptable)
+
+
+ggplot() + 
+  geom_line(data = mend_fit_results[variable == "IC", ], aes(time, value, color = "MEND fit")) + 
+  geom_point(data = IC_obs, aes(time, IC))
+
 ```
 
-```{r}
-mod2 <- COMISSION_model
-mod2$state <- Ultisol_state
-objective2 <- make_objective_function(obs = obs, config = mod2)
-fit2 <- modFit(f = objective2, p = fit1$par, lower = c(0, 0, 0))
-```
+----> 
 
-```{r}
-mod3 <- CORPSE_model
-mod3$state <- Ultisol_state
-objective3 <- make_objective_function(obs = obs, config = mod3)
-fit3 <- modFit(f = objective3, p = c(V.d = 10, V.p = 10, V.m = 10), lower = c(0, 0, 0))
-```
