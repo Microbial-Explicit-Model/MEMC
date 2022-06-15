@@ -15,8 +15,8 @@ corpse_out <- solve_model(CORPSE_model, t)
 out <- rbind(mend_out, comission_out, corpse_out)
 names(out) <-  c("time", "variable", "old_value", "units", "name")
 
-out_dir <- here::here('tests',  'testthat', 'compdata')
+out_dir <- here::here('tests',  'testthat')
 dir.create(out_dir, showWarnings = FALSE)
 
-ofile <- file.path(out_dir, "com-new.csv")
+ofile <- file.path(out_dir, "compdata.csv")
 write.csv(out, ofile, row.names = FALSE)
