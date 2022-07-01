@@ -2,7 +2,7 @@
 title: "Fit Data"
 ---
 
-<!---- 
+
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -41,7 +41,7 @@ IC_obs <- IC_obs[, list(IC = mean(IC)), by = time]
 ```{r}
 
 
-mod <- MEND_model
+mod <- COMISSION_model
 mod$state <- obs_state
 to_fit <- c(V.d = 2, V.p = 5, V.m = 0.01)
 
@@ -57,6 +57,4 @@ ggplot() +
   geom_point(data = IC_obs, aes(time, IC))
 
 ```
-
-----> 
 

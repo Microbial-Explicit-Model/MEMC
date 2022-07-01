@@ -14,6 +14,7 @@ solve_model <- function(mod, time, params = NULL, state = NULL, ...){
 
   # Check the function arguments
   assert_that(sm_internal_check_args(mod = mod, time = time, params = params, state = state))
+  assert_that(!any(duplicated(time)), msg = "time should be a vector with unqiue entires")
 
   results <- sm_internal(mod = mod, time = time, params = params, state = state)
 

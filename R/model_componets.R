@@ -105,23 +105,23 @@ carbon_fluxes_internal <-function(env, state = NULL, params = NULL) {
     fxn_list <- list(
       "F1" = function() {
         # DOC uptake by microbial biomass.
-        (1 / E.c) * (V.d + m.r) * B * D / (K.d + D)
+        (1 / E.c) * (V.d + m.r) * ((B * D ) / (K.d + D))
       },
       "F2" = function() {
         # POC decomposition
-        V.p * EP * P / (K.p + P)
+       (V.p * EP * P) / (K.p + P)
       },
       "F3" = function() {
         # Break down of mineralized organic carbon
-        V.m * EM * M / (K.m + M)
+        (V.m * EM * M) / (K.m + M)
       },
       "F4" = function() {
         # Microbial respiration from biomass growth
-        (1 / E.c - 1) * V.d * B * D / (K.d + D)
+        ((1 / E.c) - 1) * (V.d * B * D) / (K.d + D)
       },
       "F5" = function() {
         # Metabolic/maintenance microbial respiration
-        (1 / E.c - 1) * m.r * B * D / (K.d + D)
+        ((1 / E.c) - 1) * (m.r * B * D) / (K.d + D)
       },
       "F6" = function() {
         # Adsorption of DOC to mineral-associated organic carbon
@@ -129,7 +129,7 @@ carbon_fluxes_internal <-function(env, state = NULL, params = NULL) {
       },
       "F7" = function() {
         # Desorption of mineral-associated organic carbon to DOC
-        K.des * Q / Q.max
+        K.des * (Q / Q.max)
       },
       "F8" = function() {
         # Carbon loss due to microbial biomass mortality
