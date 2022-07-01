@@ -25,7 +25,7 @@ Here we will only be working with one of the pre-configured MEMC models `MEND_mo
 
 ![Conceptual diagram of MEND from Wang et al. 2013](https://esajournals.onlinelibrary.wiley.com/cms/asset/b4cc71bd-8987-4226-8ac1-9e5b6d547af2/eap2013231255-fig-0001-m.jpg){width=70%}
 
-\
+
 
 
 
@@ -89,6 +89,8 @@ Run the default MEND configuration and plot the results.
 ```{r}
 # Set up a time vector 
 t <- seq(from = 1, to = 1e4, by = 10)
+
+MEND_model$state <- c(P=4.71, M=17.67, Q=0,  B=0.82, D=0.148, EP=0.0082, EM=0.0082, IC=0, Tot=23.484)
 
 # Solve the MEND_model configuration, unless a new parameter table or vector of initial state values are
 # specified as arguments the MEND_model configuration will use the default_params and default_initial inputs. 

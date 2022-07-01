@@ -60,15 +60,23 @@ state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.82, EP=0.0082, EM=0.0082, I
 #state<-c(POM=20.06, MOM=64.86, QOM=0, DOM=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
 
 #solved the mode
-times <- seq(0, 365, by = 1)
+#times <- seq(0, 365, by = 1)
 return(ode(y=state, times=times, func=derivs, parms=pars))
 
 }
 
-times=seq(0,36500, by=1) 
+times=seq(from = 1, to = 1e4, by = 10)
 output<-solveMEND(pars, times) 
-result<-data.frame(output[, 1:10])
-plot(result$time,result$Tot, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,36500), ylim=c(0,50))
+result<-as.data.frame(output)
+
+  # Now format the results into a nice data frame instead of a wide  matrix.
+  out_jz <- data.table::melt(data.table::as.data.table(output),
+                          measure.vars = names(mod$state),
+                          variable.name = "variable",
+                          value.name = 'value')
+  out_jz$units <- 'mg C/g soil'
+
+plot(result$time,result$D, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08")
 ```
 
 
@@ -134,7 +142,12 @@ return(ode(y=state, times=times, func=derivs, parms=pars))
 times=seq(0,36500, by=1) 
 output<-solveCOM(pars, times) 
 
-result<-data.frame(output[, 1:10])
+
+
+
+
+
+result<-output
 plot(result$time,result$Tot, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,36500), ylim=c(0,50))
 ```
 

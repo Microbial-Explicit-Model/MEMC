@@ -1,10 +1,10 @@
 parameter,description,units,value
-V.p,maximum specific decomposition rate for P by EP,mgC mgC^-1 h^-1,2.5
+V.p,maximum specific decomposition rate for P by EP,mgC mgC^-1 h^-1,14
 K.p,half-saturation constant for decomposition of P,mgC / g soil,50
-V.m,maximum specific decomposition rate for M by EM,mgC mgC^-1 h^-1,1
+V.m,maximum specific decomposition rate for M by EM,mgC mgC^-1 h^-1,0.25
 K.m,half-saturation constant for decomposition of M,mg C/g soil,250
-V.d,maximum specific uptake rate of D for growth of B,mgC mgC^-1 h^-1,5.00E-04
-K.d,half-saturation constant of uptake of D for growth of B,mg C/g soil,0.26
+V.d,maximum specific uptake rate of D for growth of B,mgC mgC^-1 h^-1,3.00E+00
+K.d,half-saturation constant of uptake of D for growth of B,mg C/g soil,0.25
 m.r,specific maintenance factor or rate,mgC mgC^-1 h^-1,0.00028
 E.c,carbon use efficiency,NA,0.47
 f.d,fraction of decomposed P allocated to D,NA,0.5
@@ -13,11 +13,9 @@ p.ep,fraction of mR for production of EP,NA,0.01
 p.em,fraction of mR for production of EM,NA,0.01
 r.ep,turnover rate of EP,mgC mgC^-1 h^-1,0.001
 r.em,turnover rate of EM,mgC mgC^-1 h^-1,0.001
-Q.max,maximum DOC sorption capacity,mgC / g soil,1.7
+Q.max,maximum DOC sorption capacity,mgC / g soil,3.4
 K.ads,specific adsorption rate,mgC mgC^-1 h^-1,0.006
 K.des,desorption rate,mgC mgC^-1 h^-1,0.001
-K.ba,binding affinity,(mgC/soil)^-1,6
-I.p,input rate of P,mgC mgC^-1 h^-1,8.00E-05
-I.d,input rate of D,mgC mgC^-1 h^-1,8.00E-05
-fI.d,ratio of ID to IP,NA,1
 dd.beta,strength of density dependent microbial decay,NA,1
+Input,input ,NA,0
+CUE,carbon use efficiency,,0.4
