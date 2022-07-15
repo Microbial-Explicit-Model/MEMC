@@ -79,6 +79,14 @@ update_state <- function(new_vals, state){
 }
 
 
+#' TODO
+#'
+#' @param mod TODO
+#' @param params TODO
+#' @param state TODO
+#' @import assertthat
+#' @family helper functions
+#' @noRd
 update_config <- function(mod, params = NULL, state = NULL){
 
   assert_that(is_memc_config(mod))
@@ -96,6 +104,3 @@ update_config <- function(mod, params = NULL, state = NULL){
   return(mod)
 
 }
-
-
-
