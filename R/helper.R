@@ -1,19 +1,3 @@
-#' Checks that it is a MEMC model configuration
-#'
-#' @param obj list object to check to see if it is a model configuration
-#' @return TRUE or FALSE indicator
-#' @importFrom assertthat has_name
-#' @family helper functions
-#' @noRd
-# TODO should add check to see if the types of objects are correct
-is_memc_config <- function(obj){
-
-  cond <- is.list(obj)
-  cond <- c(cond, has_name(x = obj, which = c("name", "table", "params", "state", "derivs")))
-  return(all(cond))
-}
-
-
 #' Update the parameter table with new values
 #'
 #' @param new_params a named vector of parameter values to update the param table.
@@ -25,11 +9,7 @@ is_memc_config <- function(obj){
 #' @family parameters
 update_params <- function(new_params, param_table){
 
-  req_paramtable_names <- c("parameter", "description", "units", "value")
-  assert_that(has_name(x = param_table, which = req_paramtable_names),
-              msg = paste0("param_table is missing a required column: ", paste0(req_paramtable_names, collapse = ", ")))
-
-
+  assert_that(is_param_table(param_table))
   assert_that(!is.null(names(new_params)), msg = "new params must be named")
   pnames <- names(new_params)
   dne <- pnames[!pnames %in% param_table$parameter]
@@ -52,7 +32,7 @@ update_params <- function(new_params, param_table){
 }
 
 
-#' TODO update
+#' Update the state vector values this is for internal function use
 #'
 #' @param new_vals update
 #' @param state update
@@ -60,11 +40,9 @@ update_params <- function(new_params, param_table){
 #' @family helper functions
 update_state <- function(new_vals, state){
 
-  req_names <- c("P", "M", "Q", "B", "D", "EP", "EM", "IC", "Tot")
-  assert_that(has_name(x = state, which = req_names),
-              msg = paste0("state is missing a required column: ", paste0(req_names, collapse = ", ")))
-  assert_that(is.vector(state))
+  assert_that(is_state_vector(state))
 
+  req_names <- c("P", "M", "Q", "B", "D", "EP", "EM", "IC", "Tot")
   assert_that(is.vector(new_vals))
   assert_that(all(names(new_vals) %in% req_names))
 
@@ -79,7 +57,7 @@ update_state <- function(new_vals, state){
 }
 
 
-#' TODO
+#' Update a model configuration this is for internal function use
 #'
 #' @param mod TODO
 #' @param params TODO
@@ -104,3 +82,63 @@ update_config <- function(mod, params = NULL, state = NULL){
   return(mod)
 
 }
+
+
+#' Message the configuration table
+#'
+#' @param x knitr_kable \code{make_config_table}
+#' @return message to the terminal
+#' @importFrom assertthat assert_that
+#' @noRd
+custom_config_table_message <- function(x){
+
+  # Make sure that the table was created by make_config_table
+  assert_that(is.data.frame(x))
+  out <- knitr::kable(x)
+
+  # Message!
+  message(paste0(out, collapse = '\n'))
+
+}
+
+#' Set up a model configuration
+#'
+#' @param params data.table containing the following columns: parameter, value, and units.
+#' @param state a vector of the initial state values, must be named
+#' @param name string name of the model configuration, default set to "MEND".
+#' @param DOMdecomp string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"
+#' @param POMdecomp string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"
+#' @param MBdecay string indicating microbial decay, one  of the following ""LM" or "DD"
+#' @importFrom assertthat assert_that
+#' @export
+#' @family helper functions
+configure_model <- function(params,
+                            state,
+                            name = "unnamed",
+                            DOMdecomp = "MM",
+                            POMdecomp = "MM",
+                            MBdecay = "DD"){
+
+  # Check the arguments
+  assert_that(is_param_table(params))
+  assert_that(all(sapply(list(POMdecomp, DOMdecomp, MBdecay), is.character)))
+  assert_that(sum(DOMdecomp %in% c("MM", "RMM", "ECA")) == 1, msg = 'DOMdecomp must be "MM", "RMM", "ECA"')
+  assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'POMdecomp must be "MM", "RMM", "ECA", "LM"')
+  assert_that(sum(MBdecay %in% c("LM", "DD")) == 1, msg = 'MBdecay must be "LM" or "DD"')
+
+  # Format the table
+  table <- data.frame("model" = name,
+                      "DOMdecomp" = DOMdecomp,
+                      "POMdecomp" = POMdecomp,
+                      "MBdecay" = MBdecay)
+  custom_config_table_message(table)
+
+  model_object <- list("name" = name,
+                       "table" = table,
+                       "params" = params,
+                       "state" = state)
+
+  return(model_object)
+
+}
+

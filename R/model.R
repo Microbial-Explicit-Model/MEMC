@@ -1,23 +1,98 @@
+#' Define the carbon pool fluxes
+#'
+#' @param parms MEMC parameter table
+#' @param DOMdecomp string indicator for type of dynamics used for the DOM decomposition
+#' @param POMdecomp string indicator for type of dynamics used for the POM decomposition
+#' @param MBdecay string indicator for type of dynamics used to model MB decay
+#' @noRd
+#' @family internal
+carbon_fluxes_internal <- function(parms, DOMdecomp = "MM", POMdecomp = "MM", MBdecay = "DD"){
 
-derivs <- function(t, state, parms){
+  assert_that(all(sapply(list(POMdecomp, DOMdecomp, MBdecay), is.character)))
+  assert_that(sum(DOMdecomp %in% c("MM", "RMM", "ECA")) == 1, msg = 'DOMdecomp must be "MM", "RMM", "ECA"')
+  assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'POMdecomp must be "MM", "RMM", "ECA", "LM"')
+  assert_that(sum(MBdecay %in% c("LM", "DD")) == 1, msg = 'MBdecay must be "LM" or "DD"')
+
+  # Parse out the parameter values so they can be be used in the fluxes
+  pars <- parms$value
+  names(pars) <- parms$parameter
+
+  with(as.list(pars),{
+
+    # Create an empty to store all of the flux functions in
+    fluxes <- list()
+
+    if (DOMdecomp == "MM") {
+      fluxes[["F1"]] = function(B, D){V.d * B * D / (K.d + D)}
+    } else if (DOMdecomp == "RMM") {
+      fluxes[["F1"]] = function(B, D){V.d * B * D / (K.d + B)}
+    } else if (DOMdecomp == "ECA"){
+      fluxes[["F1"]] = function(B, D){V.d * B * D / (K.d + D + B)}
+    }
+
+    if (POMdecomp == "MM") {
+      fluxes[["F2"]] = function(EP, P){(V.p * EP * P) / (K.p + P)}
+    } else if (POMdecomp == "RMM") {
+      fluxes[["F2"]] = function(P, EP){(V.p * EP * P) / (K.p + EP)}
+    } else if (POMdecomp == "ECA") {
+      fluxes[["F2"]] = function(P, EP){(V.p * EP * P) / (K.p + P + EP)}
+    } else if (POMdecomp == "LM") {
+      fluxes[["F2"]] = function(P, EP) {V.p * P}
+    }
+
+    fluxes[["F3"]] = function(EM, M){(V.m * EM * M) / (K.m + M)}
+    fluxes[["F6"]] = function(D, Q){ K.ads * D * (1 - Q / Q.max)}
+    fluxes[["F7"]] = function(Q){K.des * Q / Q.max}
+
+    if (MBdecay == "DD") {
+      assert_that(dd.beta > 1)
+      fluxes[["F8"]] = function(B){(1 - p.ep - p.em) * 0.4 * V.d * (B ^ dd.beta)}
+    } else if (MBdecay == "LM"){
+      assert_that(dd.beta == 1)
+      fluxes[["F8"]] = function(B){(1 - p.ep - p.em) * 0.4 * V.d * (B ^ dd.beta)}
+    }
+
+    fluxes[["F9.ep"]] = function(B){p.ep * B * 0.4 * V.d}
+    fluxes[["F9.em"]] = function(B){p.em * B * 0.4 * V.d}
+    fluxes[["F10.ep"]] = function(EP){r.ep * EP}
+    fluxes[["F10.em"]] = function(EM){r.em * EM}
+
+    return(fluxes)
+
+  })
+
+}
+
+
+#' Define the carbon pool model
+#'
+#' @param t numeric when to solve the model
+#' @param state MEMC vector of the pool values
+#' @param parms MEMC parameter table
+#' @param DOMdecomp string indicator for type of dynamics used for the DOM decomposition
+#' @param POMdecomp string indicator for type of dynamics used for the POM decomposition
+#' @param MBdecay string indicator for type of dynamics used to model MB decay
+#' @noRd
+#' @family internal
+carbon_pool_derivs <- function(t, state, parms, DOMdecomp, POMdecomp, MBdecay){
 
   pars <- parms$value
   names(pars) <- parms$parameter
 
+  fluxes <- carbon_fluxes_internal(parms, DOMdecomp, POMdecomp, MBdecay)
 
   with(as.list(c(state, pars)),{
 
-    F1 <- V.d * B * D / (K.d + D)             # DOC uptake by microbial biomass.
-    F2 <- (V.p * EP * P) / (K.p + P)
-    F3 <- (V.m * EM * M) / (K.m + M)
-    F6 <- K.ads * D * (1 - Q / Q.max)
-    F7 <- K.des * Q / Q.max
-    F8 <- (1 - p.ep - p.em) * B * 0.4 * V.d * B
-    F9.ep <- p.ep * B * 0.4 * V.d
-    F9.em <- p.em * B * 0.4 * V.d
-    F10.ep <- r.ep * EP
-    F10.em <- r.em * EM
-
+    F1 <- fluxes$F1(B, D)
+    F2 <- fluxes$F2(EP, P)
+    F3 <- fluxes$F3(EM, M)
+    F6 <- fluxes$F6(D, Q)
+    F7 <- fluxes$F7(Q)
+    F8 <- fluxes$F8(B)
+    F9.ep <- fluxes$F9.ep(B)
+    F9.em <- fluxes$F9.em(B)
+    F10.ep <- fluxes$F10.ep(EP)
+    F10.em <- fluxes$F10.em(EM)
 
     # Define the system of differential equations to describes the
     # changes in the carbon pool states.
@@ -42,25 +117,41 @@ derivs <- function(t, state, parms){
     dTot <- -F1 * (1-CUE) + Input * 2
 
     # Return outputs
-    list(c(dP, dM, dQ, dB, dD, dEP, dEM, dIC, dTot))
+    return(list(c(dP, dM, dQ, dB, dD, dEP, dEM, dIC, dTot)))
 
   })
 
 
 }
 
+
+#' Internal solve model function
+#'
+#' @param mod object created from \code{configure_model}
+#' @param time numeric vector of the time stamps of when to solve the model
+#' @noRd
+#' @family internal
 sm_internal <- function(mod, time, ...){
 
   rslt <- deSolve::ode(y = mod[["state"]],
                        times = time,
-                       func = mod[["derivs"]],
+                       func = carbon_pool_derivs,
                        parms = mod[["params"]],
-                       ...)
+                       DOMdecomp = mod[["table"]][["DOMdecomp"]],
+                       POMdecomp = mod[["table"]][["POMdecomp"]],
+                       MBdecay = mod[["table"]][["MBdecay"]])
 
   return(rslt)
 
 }
 
+
+#' Format the output into something that is nice to return to solve model
+#'
+#' @param rslt object returned from \code{sm_internal}
+#' @param mod object created from \code{configure_model}
+#' @noRd
+#' @family internal
 sm_format_out <- function(rslt, mod){
 
   # Now format the results into a nice data frame instead of a wide  matrix.
@@ -92,7 +183,7 @@ sm_format_out <- function(rslt, mod){
 #' @importFrom assertthat assert_that has_args
 #' @importFrom deSolve ode
 #' @export
-#' @family helper function
+#' @family helper
 solve_model <- function(mod, time, params = NULL, state = NULL, ...){
 
   mod <- update_config(mod = mod, params = params, state = state)
@@ -100,4 +191,5 @@ solve_model <- function(mod, time, params = NULL, state = NULL, ...){
   out <- sm_format_out(rslt = results, mod = mod)
 
   return(list("model" = mod, "results" = out))
+
 }

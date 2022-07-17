@@ -19,6 +19,7 @@ Update the parameter table with new values
 }
 \seealso{
 Other helper functions: 
+\code{\link{configure_model}()},
 \code{\link{update_state}()}
 }
 \concept{helper functions}
