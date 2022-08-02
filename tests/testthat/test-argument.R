@@ -1,3 +1,5 @@
+# Test the functions that check to make sure the inputs to functions are correct!
+
 # test_that("is_memc_config works", {
 #
 # })

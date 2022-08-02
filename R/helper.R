@@ -142,3 +142,38 @@ configure_model <- function(params,
 
 }
 
+
+#' Split up a vector into parameters and state values
+#'
+#' @param x input vector containing state/parameter values to use in a model run
+#' @return list containing the state and param vectors
+#' @importFrom assertthat assert_that
+#' @noRd
+#' @family internal
+split_param_state <- function(x){
+
+  assert_that(is.character(names(x)))
+  assert_that(is.numeric(x))
+  assert_that(all(names(x) %in% c(names(MEMC::default_initial), MEMC::default_params$parameter)),
+              msg = "value not recognized as a parameter or state")
+
+  params_index <- which(names(x) %in% MEMC::default_params$parameter)
+  state_index <- which(names(x) %in% names(MEMC::default_initial))
+
+  if(length(params_index) == 0){
+    params <- NULL
+  } else {
+    params <- x[params_index]
+  }
+
+  if(length(state_index) == 0){
+    state <- NULL
+  } else {
+    state <- x[state_index]
+  }
+
+  out <- list(params = params, state = state)
+
+  return(out)
+
+}

@@ -2,10 +2,10 @@
 # running under different conditions has an affect on the output
 ptable <- MEMC::default_params
 state <- MEMC::default_initial
+time <- seq(0, 1000, length.out = 10)
 
 test_that("change inputs", {
 
-  time <- seq(0, 100, length.out = 10)
   config <- configure_model(params = ptable,
                             state = state)
 
@@ -29,21 +29,38 @@ test_that("change inputs", {
 
 test_that("change model configuration", {
 
+  # The default model configuration
   config <- configure_model(params = ptable, state = state)
   out1 <- solve_model(mod = config, time)
 
+  # Test how changing the DOMdecomp dynamics affects output.
   config <- configure_model(params = ptable, state = state, DOMdecomp = "RMM")
-  out2 <- solve_model(mod = config, time)
-  expect_gt(mean(abs(out1$results$value - out2$results$value)), 0)
+  out_alt2 <- solve_model(mod = config, time)
+  expect_gt(mean(abs(out1$results$value - out_alt2$results$value)), 1e-8)
 
+  config <- configure_model(params = ptable, state = state, DOMdecomp = "ECA")
+  out_alt3 <- solve_model(mod = config, time)
+  expect_gt(mean(abs(out1$results$value - out_alt3$results$value)), 1e-8)
+
+
+  # Test how changing the POMdecomp dynamics affects output.
   config <- configure_model(params = ptable, state = state, POMdecomp = "RMM")
-  out3 <- solve_model(mod = config, time)
-  expect_gt(mean(abs(out1$results$value - out3$results$value)), 0)
+  out_alt4 <- solve_model(mod = config, time)
+  expect_gt(mean(abs(out1$results$value - out_alt4$results$value)), 1e-8)
 
+  config <- configure_model(params = ptable, state = state, POMdecomp = "LM")
+  out_alt5 <- solve_model(mod = config, time)
+  expect_gt(mean(abs(out1$results$value - out_alt5$results$value)), 1e-8)
+
+  config <- configure_model(params = ptable, state = state, POMdecomp = "ECA")
+  out_alt6 <- solve_model(mod = config, time)
+  expect_gt(mean(abs(out1$results$value - out_alt6$results$value)), 1e-8)
+
+  # Test how changing the MBdecay dynamics affects output.
   config <- configure_model(params = ptable, state = state,  MBdecay = "LM")
   expect_error(solve_model(mod = config, time), "dd.beta not equal to 1")
 
-  out4 <- solve_model(mod = config, params = c("dd.beta" = 1), time = time)
-  expect_gt(mean(abs(out1$results$value - out4$results$value)), 0)
+  out_alt7 <- solve_model(mod = config, params = c("dd.beta" = 1), time = time)
+  expect_gt(mean(abs(out1$results$value - out_alt7$results$value)), 1e-8)
 
 })

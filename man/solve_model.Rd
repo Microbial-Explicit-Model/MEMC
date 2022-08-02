@@ -23,4 +23,4 @@ a long formatted data.table of the simulation results
 \description{
 Solve a MEMC configuration
 }
-\concept{helper function}
+\concept{helper}

@@ -48,3 +48,25 @@ test_that("configuration related fxns", {
 
 
 })
+
+test_that("split_param_state", {
+
+  out <- split_param_state(x = c("V.d" = 10))
+  expect_equal(length(out), 2)
+  expect_true(is.numeric(out$params))
+  expect_null(out$state)
+
+  out <- split_param_state(x = c("B" = 10))
+  expect_equal(length(out), 2)
+  expect_true(is.numeric(out$state))
+  expect_null(out$params)
+
+  out <- split_param_state(x = c("B" = 10, "V.d" = 10))
+  expect_equal(length(out), 2)
+  expect_equal(length(out$params), 1)
+  expect_equal(names(out$params), "V.d")
+  expect_equal(names(out$state), "B")
+
+  expect_error(split_param_state(x = c("fake" = 10)), "value not recognized as a parameter or state")
+
+})

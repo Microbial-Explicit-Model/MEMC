@@ -1,46 +1,64 @@
-# TODO remove the dplyr dependency
-library(dplyr)
+# Read in the comparison data and figure out the time vector.
+old <- read.csv("old-new.csv")
+t <- unique(old$time)
 
-test_that("internal package data is consistent", {
+# Helper function that calculates the difference between two data frame
+# Args
+#   old: dataframe of the old comparison data
+#   new: dataframe of the new data
+# Return: dataframe of the new, old, and different data
+old_new_diff <- function(old, new){
 
-  # Make sure that the internal package data is stable & consistent with the entries in the data-raw.
-  # Start with the state values
-  state <- MEMC::default_initial
+ cond <- all(names(old) == c("time", "variable", "old_value", "units", "name"))
+ assertthat::assert_that(cond)
 
-  hard_coded <- c(10.00000, 5.00000, 0.10000, 2.00000, 1.00000, 0.00001, 0.00001, 0.00000, 18.10002)
-  names(hard_coded) <- c("P", "M", "Q", "B", "D", "EP", "EM", "IC", "Tot")
+ cond <- all(names(new) == c("time", "variable", "value", "units", "name"))
+ assertthat::assert_that(cond)
 
-  expect_true(all(names(state) == names(hard_coded)))
-  MSE <- mean(state - hard_coded)^2
-  expect_lte(MSE, 0)
+ cond <- all(old[["time"]] == new[["time"]])
+ assertthat::assert_that(cond)
+
+ cond <- all(old[["variable"]] == new[["variable"]])
+ assertthat::assert_that(cond)
+
+ new[["old_value"]] <- old[["old_value"]]
+ new[["diff"]] <- old[["old_value"]] - new[["value"]]
+ return(new)
+
+}
 
 
-  # Now check to see if the parameter values are
-  ptable <- MEMC::default_params
-  out <-  read.csv("../../data-raw/default_params.csv")
-  expect_equal(out$value, ptable$value)
-  expect_equal(out$parameter, ptable$parameter)
+
+test_that("MEND behavior", {
+
+  new <- solve_model(mod = MEMC::MEND_model, time = t)[["results"]]
+  old_comp <- old[old$name == "MEND", ]
+
+  out <- old_new_diff(old_comp, new)
+
+  expect_true(all(out$diff <= 1e-8))
 
 })
 
+test_that("COMISSION behavior", {
 
-test_that("old new mend behavior", {
+  new <- solve_model(mod = MEMC::COMISSION_model, time = t)[["results"]]
+  old_comp <- old[old$name == "COMISSION", ]
 
-  old_out <- read.csv("old_mend.csv")
+  out <- old_new_diff(old_comp, new)
 
-  t <- unique(old_out$time)
-  config <- configure_model(params = MEMC::default_params,
-                            state = MEMC::default_initial)
+  expect_true(all(out$diff <= 1e-8))
 
-  mend_out <- solve_model(mod = config, time = t)[["results"]]
-
-  inner_join(old_out, mend_out) %>%
-    mutate(dif = abs(old_value - value)) %>%
-    group_by(variable) %>%
-    summarise(mean_abs = mean(dif)) %>%
-    ungroup %>%
-    pull(mean_abs) ->
-    vals
-
-  expect_true(all(vals <= 1e-8))
 })
+
+test_that("CORPSE behavior", {
+
+  new <- solve_model(mod = MEMC::CORPSE_model, time = t)[["results"]]
+  old_comp <- old[old$name == "CORPSE", ]
+
+  out <- old_new_diff(old_comp, new)
+
+  expect_true(all(out$diff <= 1e-8))
+
+})
+

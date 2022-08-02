@@ -33,11 +33,11 @@ carbon_fluxes_internal <- function(parms, DOMdecomp = "MM", POMdecomp = "MM", MB
     if (POMdecomp == "MM") {
       fluxes[["F2"]] = function(EP, P){(V.p * EP * P) / (K.p + P)}
     } else if (POMdecomp == "RMM") {
-      fluxes[["F2"]] = function(P, EP){(V.p * EP * P) / (K.p + EP)}
+      fluxes[["F2"]] = function(EP, P){(V.p * EP * P) / (K.p + EP)}
     } else if (POMdecomp == "ECA") {
-      fluxes[["F2"]] = function(P, EP){(V.p * EP * P) / (K.p + P + EP)}
+      fluxes[["F2"]] = function(EP, P){(V.p * EP * P) / (K.p + P + EP)}
     } else if (POMdecomp == "LM") {
-      fluxes[["F2"]] = function(P, EP) {V.p * P}
+      fluxes[["F2"]] = function(EP, P) {V.p * P}
     }
 
     fluxes[["F3"]] = function(EM, M){(V.m * EM * M) / (K.m + M)}
@@ -83,16 +83,16 @@ carbon_pool_derivs <- function(t, state, parms, DOMdecomp, POMdecomp, MBdecay){
 
   with(as.list(c(state, pars)),{
 
-    F1 <- fluxes$F1(B, D)
-    F2 <- fluxes$F2(EP, P)
-    F3 <- fluxes$F3(EM, M)
-    F6 <- fluxes$F6(D, Q)
-    F7 <- fluxes$F7(Q)
-    F8 <- fluxes$F8(B)
-    F9.ep <- fluxes$F9.ep(B)
-    F9.em <- fluxes$F9.em(B)
-    F10.ep <- fluxes$F10.ep(EP)
-    F10.em <- fluxes$F10.em(EM)
+    F1 <- fluxes$F1(B = B, D = D)
+    F2 <- fluxes$F2(EP = EP, P = P)
+    F3 <- fluxes$F3(EM = EM, M = M)
+    F6 <- fluxes$F6(D = D, Q = Q)
+    F7 <- fluxes$F7(Q = Q)
+    F8 <- fluxes$F8(B = B)
+    F9.ep <- fluxes$F9.ep(B = B)
+    F9.em <- fluxes$F9.em(B = B)
+    F10.ep <- fluxes$F10.ep(EP = EP)
+    F10.em <- fluxes$F10.em(EM = EM)
 
     # Define the system of differential equations to describes the
     # changes in the carbon pool states.
@@ -139,7 +139,7 @@ sm_internal <- function(mod, time, ...){
                        parms = mod[["params"]],
                        DOMdecomp = mod[["table"]][["DOMdecomp"]],
                        POMdecomp = mod[["table"]][["POMdecomp"]],
-                       MBdecay = mod[["table"]][["MBdecay"]])
+                       MBdecay = mod[["table"]][["MBdecay"]], ...)
 
   return(rslt)
 
@@ -187,7 +187,7 @@ sm_format_out <- function(rslt, mod){
 solve_model <- function(mod, time, params = NULL, state = NULL, ...){
 
   mod <- update_config(mod = mod, params = params, state = state)
-  results <- sm_internal(mod = mod, time = time)
+  results <- sm_internal(mod = mod, time = time, ...)
   out <- sm_format_out(rslt = results, mod = mod)
 
   return(list("model" = mod, "results" = out))
