@@ -7,11 +7,10 @@
 \format{
 an object created form \code{configure_model}.
 \describe{
-\item{name}{MEND}
+\item{name}{MEND, the model name}
+\item{table}{table describing the user selected kinetics}
 \item{params}{the default MEMC parameter table}
 \item{state}{the default inital state values for MEMC}
-\item{carbon_pools_func}{carbon pools based on Wang et al. 2013}
-\item{carbon_fluxes_func}{carbon fluxes based on Wang et al. 2013}
 }
 }
 \usage{
@@ -24,12 +23,10 @@ MEMC model configurations for MEND Wang et al. 2013
 MEND_model
 solve_model(mod = MEND_model, time = 1:10)
 }
-\references{
-\href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
-}
 \seealso{
 Other MEMC configurations: 
-\code{\link{COMISSION_model}}
+\code{\link{COMISSION_model}},
+\code{\link{CORPSE_model}}
 }
 \concept{MEMC configurations}
 \keyword{datasets}

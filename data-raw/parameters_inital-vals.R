@@ -25,5 +25,5 @@ EM = 0.00001
 IC = 0
 Tot = 18.10002
 
-default_inital <- c(P = P,  M = M,  Q = Q,  B = B,  D = D,  EP = EP,  EM = EM,  IC = IC,  Tot = Tot)
-usethis::use_data(default_inital, overwrite = TRUE, internal = FALSE)
+default_initial <- c(P = P,  M = M,  Q = Q,  B = B,  D = D,  EP = EP,  EM = EM,  IC = IC,  Tot = Tot)
+usethis::use_data(default_initial, overwrite = TRUE, internal = FALSE)

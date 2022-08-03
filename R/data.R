@@ -35,9 +35,9 @@
 #' @family inital values
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @examples
-#' default_inital
-#' print(default_inital)
-"default_inital"
+#' default_initial
+#' print(default_initial)
+"default_initial"
 
 
 #' MEMC model configurations for MEND Wang et al. 2013
@@ -45,14 +45,12 @@
 #'
 #' @format an object created form \code{configure_model}.
 #' \describe{
-#' \item{name}{MEND}
+#' \item{name}{MEND, the model name}
+#' \item{table}{table describing the user selected kinetics}
 #' \item{params}{the default MEMC parameter table}
 #' \item{state}{the default inital state values for MEMC}
-#' \item{carbon_pools_func}{carbon pools based on Wang et al. 2013}
-#' \item{carbon_fluxes_func}{carbon fluxes based on Wang et al. 2013}
 #' }
 #' @family MEMC configurations
-#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @examples
 #' MEND_model
 #' solve_model(mod = MEND_model, time = 1:10)
@@ -63,20 +61,30 @@
 #'
 #' @format an object created form \code{configure_model}.
 #' \describe{
-#' \item{name}{COMISSION}
+#' \item{name}{COMISSION, the model name}
+#' \item{table}{table describing the user selected kinetics}
 #' \item{params}{the default MEMC parameter table}
 #' \item{state}{the default inital state values for MEMC}
-#' \item{carbon_pools_func}{carbon pools based on Wang et al. 2013}
-#' \item{carbon_fluxes_func}{TBD}
 #' }
 #' @family MEMC configurations
-#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
-#' @references \href{https://doi.org/10.1890/12-0681.1}{update with the comission documetation}
 #' @examples
 #' COMISSION_model
 #' solve_model(mod = COMISSION_model, time = 1:10)
 "COMISSION_model"
 
 
-
-
+#' MEMC model configurations
+#'
+#'
+#' @format an object created form \code{configure_model}.
+#' \describe{
+#' \item{name}{CORPSE, the model name}
+#' \item{table}{table describing the user selected kinetics}
+#' \item{params}{the default MEMC parameter table}
+#' \item{state}{the default inital state values for MEMC}
+#' }
+#' @family MEMC configurations
+#' @examples
+#' CORPSE_model
+#' solve_model(mod = CORPSE_model, time = 1:10)
+"CORPSE_model"
