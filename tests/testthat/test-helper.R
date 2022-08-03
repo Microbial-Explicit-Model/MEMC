@@ -6,11 +6,11 @@ state <- MEMC::default_initial
 test_that("update_params", {
 
   # Test that it works
-  new_table <- update_params(c("V.p" = 10, "K.d" = 10, Input = 10), param_table = ptable)
+  new_table <- update_params(c("V.p" = 10, "K.d" = 10, Input.P = 10), param_table = ptable)
   expect_equal(sum(abs(new_table$value - MEMC::default_params$value) > 0), 3)
 
   # Expect an error if conditions aren't met
-  expect_error(update_params(c("fake" = 10, "K.d" = 10, Input = 10), param_table = ptable),
+  expect_error(update_params(c("fake" = 10, "K.d" = 10, Input.P = 10), param_table = ptable),
                "new_params must refer to a parameter already existing in param_table \n the following params are not recognized: fake", fixed = TRUE)
 
 })
@@ -36,7 +36,7 @@ test_that("configuration related fxns", {
   expect_true(out1[["table"]][["MBdecay"]] != out2[["table"]][["MBdecay"]])
 
   # Errors should be thrown
-  expect_error(configure_model(ptable[1:9, ], state), 'param_table is missing a parameter value(s) for: g.d, p.ep, p.em, r.ep, r.em, Q.max, K.ads, K.des, dd.beta, Input, CUE', fixed = TRUE)
+  expect_error(configure_model(ptable[1:9, ], state), 'param_table is missing a parameter value(s) for: g.d, p.ep, p.em, r.ep, r.em, Q.max, K.ads, K.des, dd.beta, Input.P, Input.D, Input.M, CUE', fixed = TRUE)
   expect_error(configure_model(ptable, state, DOMdecomp = "fake"), 'DOMdecomp must be "MM", "RMM", "ECA"', fixed = TRUE)
   expect_error(configure_model(ptable, state, POMdecomp = "fake"), 'POMdecomp must be "MM", "RMM", "ECA", "LM"', fixed = TRUE)
   expect_error( configure_model(ptable, state, MBdecay = "fake"), 'MBdecay must be "LM" or "DD"', fixed = TRUE)
