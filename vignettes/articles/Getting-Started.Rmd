@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-After following the [installation instructions](Install-Build.html) you should be ready to follow along with this tutorial where we will walk thorough basic MEMC run, change parameter values, initial conditions, and change model dynamics. 
+After following the [installation instructions](Install-Build.html) you should be ready to follow along with this tutorial where we will walk thorough basic MEMC run, change parameter values, and initial conditions.
 
 
 # Model Overview
@@ -48,7 +48,7 @@ Visualize the run results.
 
 ```{r}
 ggplot(data = out1$results) + 
-  geom_line(aes(time, value, color = name)) + 
+  geom_line(aes(time, value, color = name), size = 0.75) + 
   facet_wrap("variable", scales = "free") + 
   labs(y = "mg C/g soil", 
        title = "Default MEMC Run")
@@ -75,7 +75,7 @@ out2$results$name <- "Double B"
 to_plot <- rbind(out1$results, out2$results) 
 
 ggplot(to_plot) +
-  geom_line(aes(time, value, color = name)) + 
+  geom_line(aes(time, value, color = name, linetype = name), size = 0.75) + 
   facet_wrap("variable", scales = "free") + 
   labs(y = "mg C/g soil", 
        title = "Change Initial State Conditions")
@@ -96,7 +96,7 @@ Visualize model runs.
 to_plot <- rbind(out1$results, out3$results) 
 
 ggplot(to_plot) +
-  geom_line(aes(time, value, color = name)) + 
+  geom_line(aes(time, value, color = name, linetype = name), size = 0.75) + 
   facet_wrap("variable", scales = "free") + 
   labs(y = "mg C/g soil", 
        title = "Change V.d")

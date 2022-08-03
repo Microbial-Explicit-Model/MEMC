@@ -1,0 +1,144 @@
+---
+title: "Fit to Data"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+In this example here we will show how to fit a MEMCC model to experimental data. 
+
+
+```{r setup}
+library(MEMC)
+
+# Packages used in this example 
+library(dplyr)
+library(ggplot2)
+library(magrittr)
+library(knitr)
+
+# set a theme to use in all the plots
+theme_set(theme_bw() + theme(legend.title = element_blank()))
+```
+
+
+
+
+Load example experimental data provided within the package. 
+
+```{r}
+# Load example data we provided as internal package data. 
+comp_data <- read.csv(system.file("example/Ultisol_control.csv", package = "MEMC"))
+```
+
+## Fit an the default MEMC model to experimental data 
+
+The memc contains a function called `memc_modfit` that helps users fit a model run to comparison data. 
+
+```{r}
+# Set up the model configuration to test. Note that the initial state values came from the 
+# the experimental data. 
+state <- c(P=4.71, M=17.67, Q=0, B=0.82, D=0.148,  EP=0.0082, EM=0.0082, IC=0, Tot=23.484)
+mend  <- configure_model(name = "MEND",
+                         DOMdecomp = "MM", 
+                         POMdecomp = "MM", 
+                         MBdecay = "DD",
+                         params = MEMC::default_params, 
+                         state = state)
+
+# Fit the the "maximum specific decomposition" parameters. 
+mend_fit <- memc_modfit(config = MEND_model, comp_data = comp_data, x =c(V.d=2, V.p=5, V.m=0.01))
+```
+
+
+Run the model with the best parameter fits. 
+
+```{r}
+mend_out <- solve_model(mend_fit,  0:max(comp_data$time), params = fit1$par)[["results"]]
+
+mend_out %>% 
+  filter(variable == "IC") %>% 
+  ggplot() + 
+  geom_line(aes(time, value)) + 
+  geom_point(data = comp_data, aes(time, IC)) + 
+  labs(title = "Fitted MEMC IC vs Experimental Data", 
+       y =  "mg C/g soil")
+```
+
+## Fit an alternative model configuration to the data 
+
+
+```{r}
+# Set up the model configuration to test. Note that the initial state values came from the 
+# the experimental data & change DOM decomposition dynamics. 
+mod2  <- configure_model(name = "RMM DOMdecomp", params = MEMC::default_params, state = state, DOMdecomp = "RMM")
+
+# Fit the the "maximum specific decomposition" parameters. 
+fit2 <- memc_modfit(config = mod2, comp_data = comp_data, x =c(V.d=2, V.p=5, V.m=0.01))
+```
+
+
+Run the model with the best parameter fits. 
+
+```{r}
+out2 <- solve_model(mod2,  0:max(comp_data$time), params = fit2$par)[["results"]]
+
+out2 %>% 
+  filter(variable == "IC") %>% 
+  ggplot() + 
+  geom_line(aes(time, value)) + 
+  geom_point(data = comp_data, aes(time, IC)) + 
+  labs(title = "Fitted MEMC IC vs Experimental Data", 
+       y =  "mg C/g soil")
+```
+
+## Compare the different model configurations and fits 
+
+How different are the fitted parameter values for the two model configurations? 
+
+```{r, echo=FALSE}
+kable(as.data.frame(rbind(c(name = mod1$name, round(fit1$par, 4)), c(name = mod2$name, round(fit2$par, 4)))))
+```
+
+
+How different is the IC output? 
+
+```{r}
+bind_rows(out1, out2) %>% 
+  filter(variable == "IC") %>% 
+  ggplot() + 
+  geom_line(aes(time, value, color = name, linetype = name), size = 1) + 
+  geom_point(data = comp_data, aes(time, IC)) + 
+  labs(title = "Fitted MEMC IC vs Experimental Data", 
+       y =  "mg C/g soil")
+```
+
+
+```{r}
+bind_rows(out1, out2) %>% 
+  ggplot() + 
+  geom_line(aes(time, value, color = name, linetype = name), size = 1) + 
+  labs(title = "Comparing Two Fitted MEMC Models", 
+       y =  "mg C/g soil") + 
+  facet_wrap("variable", scales = "free")
+```
+
+
+```{r}
+default1 <- solve_model(mod1, 0:max(comp_data$time))[["results"]]
+default2 <- solve_model(mod2, 0:max(comp_data$time))[["results"]]
+
+
+bind_rows(default1, default2) %>% 
+  ggplot() + 
+  geom_line(aes(time, value, color = name, linetype = name), size = 1) + 
+  labs(title = "Comparing Two MEMC Models", 
+       y =  "mg C/g soil") + 
+  facet_wrap("variable", scales = "free")
+```
+
