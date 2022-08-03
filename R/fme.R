@@ -7,13 +7,12 @@
 #' @importFrom assertthat assert_that has_args
 #' @noRd
 #' @family fme
-make_memc_objective <- function(comp_data, x, config){
-
+make_memc_objective <- function(comp_data, x, config) {
   assert_that("time" %in% names(comp_data), msg = "comp_data must contain time column")
   comp_data_vars <- names(comp_data)[names(comp_data) != "time"]
   assert_that(comp_data_vars %in% names(MEMC::default_initial), msg = "comp_data must contain a MEMC variable")
 
-  fxn <- function(x){
+  fxn <- function(x) {
     # split up up the input into model parameters and state value
     xx <- split_param_state(x)
     new_p <- xx$params
@@ -23,7 +22,10 @@ make_memc_objective <- function(comp_data, x, config){
     t <- seq(0, max(comp_data$time))
 
     # solve the model
-    new_config <- update_config(mod = config, params = new_p, state = new_s)
+    new_config <-
+      update_config(mod = config,
+                    params = new_p,
+                    state = new_s)
     out <- sm_internal(new_config, t)
 
     # make sure that the model solved for all time steps
@@ -56,14 +58,27 @@ make_memc_objective <- function(comp_data, x, config){
 #' @return the results of the FME::modFit
 #' @export
 #' @family fme
-memc_modfit <- function(config, x, comp_data, lower = -Inf, upper = Inf, ...){
+memc_modfit <-
+  function(config,
+           x,
+           comp_data,
+           lower = -Inf,
+           upper = Inf,
+           ...) {
+    obj <-
+      make_memc_objective(config = config,
+                          x = x,
+                          comp_data = comp_data)
+    out <- FME::modFit(
+      p = x,
+      f = obj,
+      lower = lower,
+      upper = upper
+    )
 
-  obj <- make_memc_objective(config = config, x = x, comp_data = comp_data)
-  out <- FME::modFit(p = x, f = obj, lower = lower, upper = upper)
+    return(out)
 
-  return(out)
-
-}
+  }
 
 #
 # #sensRange(func = solveLIN, parms = pars, dist ="norm", parMean=mean, parCovar=covar, sensvar = c("DOM", "POM","MOM","MB"), parRange = parRanges, num = 100))

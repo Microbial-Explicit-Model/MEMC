@@ -1,0 +1,65 @@
+---
+title: "Compare Model Configurations"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width = 6, fig.height = 5, 
+  warning = FALSE
+)
+```
+
+After following the [installation instructions](Install-Build.html) you should be ready to follow along with this tutorial where we will walk you through how to run the pre-built models included in this package, `MEND_model`, `COMISSION_model`, 
+`CORPSE_model`. These model configurations differ in their representations of the DOM and POM decomposition as well as MB decay.
+
+# Set Up
+
+```{r setup}
+library(MEMC)     # MEMC should already be installed, see installation instructions. 
+library(ggplot2)  # package used to visualize results 
+library(knitr)    # makes nice tables
+library(magrittr) # import the %>% pipeline
+
+# set a theme to use in all the plots
+theme_set(theme_bw() + theme(legend.title = element_blank()))
+```
+
+
+# Run & Compare Model Output
+
+There are three models configurations that are included in MEMC, [MEND_model](../reference/MEND_model.html), [COMISSION_model](../reference/COMISSION_model.html), and [CORPSE_model](../reference/CORPSE_model.html). These models are built using the same parameter tables and initial starting conditions, they differ how they represent DOM and POM decomposition as well as MB decay.
+
+Compare the model configurations.
+
+```{r}
+knitr::kable(rbind(MEND_model$table, COMISSION_model$table, CORPSE_model$table))
+```
+
+
+```{r}
+# Set up the time vector 
+time <- seq(from = 1, to = 3000, by = 10)
+
+# Solve model the Men
+mend_out <- solve_model(MEND_model, time = time)
+comiss_out <- solve_model(COMISSION_model, time = time)
+corpse_out <- solve_model(CORPSE_model, time = time)
+
+out <- rbind(mend_out, comiss_out, corpse_out)
+```
+
+Visualize the outputs. 
+
+```{r}
+out %>% 
+  ggplot(aes(time, value, color = name, linetype = name)) + 
+  geom_line(size = 0.75) + 
+  facet_wrap("variable", scales = "free") + 
+  labs(title = "Model Configurations", y = unique(out$units)) + 
+  facet_wrap("variable", scales = "free") + 
+  theme(legend.title = element_blank())
+```
+
+

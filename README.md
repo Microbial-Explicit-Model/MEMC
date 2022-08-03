@@ -1,6 +1,6 @@
 # IN DEVELOPMENT!
 
-[![R-CMD-check](https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/test_rcmd.yml/badge.svg)](https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/test_rcmd.yml)
+[![R-CMD](https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/rcmd.yml/badge.svg)](https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/rcmd.yml)
 [![codecov](https://codecov.io/gh/kdorheim/MEMC/branch/main/graph/badge.svg?token=ia2NHHtpJs)](https://codecov.io/gh/kdorheim/MEMC)
 [![Documentation](https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/pkgdown.yaml)
 
@@ -14,41 +14,14 @@
 
 Follow the download and installation instructions for [R](https://cloud.r-project.org/) and [R studio](https://www.rstudio.com/products/rstudio/download/). 
 
-
-#### For users
-
 Use `remotes` to install MEMC as a built R package directory from github. 
 
-```
+```{r}
 # use install.packages("remotes") to install this package the first time.
 library(remotes)
 
 # Now build and install the R package on your local machine.
 install_github('Microbial-Explicit-Model/MEMC') 
 ```
-
-To install and build a specific branch run the following. 
-
-```{r}
-install_github("Microbial-Explicit-Model/MEMC@branch_name")
-
-```
-
-
-#### For developers
-
-Clone the repository to install the package in development mode using the `devtools::load_all()` call in R studio from the root directory. Please refer to [r-pkgs](https://r-pkgs.org/) for more information on how to build and develop R packages. 
-
-
-After making changes to the code, checking out a new git branch, or pulling new commits you will need to do a clean rebuild of the MEMC package. From Rstudio click Build > Clean and Rebuild or run the following in the R console. 
-
-```{r}
-devtools::build()
-```
-
-
-
-
-
 
 
