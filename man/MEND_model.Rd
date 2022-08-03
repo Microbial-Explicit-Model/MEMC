@@ -24,9 +24,9 @@ MEND_model
 solve_model(mod = MEND_model, time = 1:10)
 }
 \seealso{
-Other MEMC configurations: 
+Other models: 
 \code{\link{COMISSION_model}},
 \code{\link{CORPSE_model}}
 }
-\concept{MEMC configurations}
+\concept{models}
 \keyword{datasets}

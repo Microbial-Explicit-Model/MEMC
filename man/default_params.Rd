@@ -26,8 +26,8 @@ default_params
 \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 }
 \seealso{
-Other parameters: 
-\code{\link{update_params}()}
+Other inputs: 
+\code{\link{default_initial}}
 }
-\concept{parameters}
+\concept{inputs}
 \keyword{datasets}

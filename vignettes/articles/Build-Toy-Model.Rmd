@@ -64,13 +64,12 @@ Compare model outputs.
 
 
 ```{r}
-rbind(toy_out$results, mend_out$results) %>% 
+rbind(toy_out, mend_out) %>% 
      ggplot(aes(time, value, color = name, linetype = name)) + 
   geom_line(size = 0.75) + 
   facet_wrap("variable", scales = "free") + 
     labs(title = "Comparison of MEND & Toy Model ", 
-       y = unique(toy_out$units)) + 
-  facet_wrap("variable", scales = "free")
+       y = unique(toy_out$units)) 
 ```
 
 

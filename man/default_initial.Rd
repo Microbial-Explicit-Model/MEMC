@@ -31,5 +31,9 @@ print(default_initial)
 \references{
 \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 }
-\concept{inital values}
+\seealso{
+Other inputs: 
+\code{\link{default_params}}
+}
+\concept{inputs}
 \keyword{datasets}

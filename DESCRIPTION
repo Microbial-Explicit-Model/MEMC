@@ -2,9 +2,8 @@ Package: MEMC
 Type: Package
 Title: Microbial Explicit Model Comparison: a R package supporting model exploration
 Version: 0.1.0
-Author: c(person("Kalyn", "Dorheim", email = "kalyn.dorheim@pnnl.gov", role = "aut",comment = ORCID = "0000-0001-8093-8397"),
-  person("Jianqiu", "Zheng", role = "cre", comment = ORCID = "0000-0002-1609-9004"),
-  person("Pacific Northwest National Laboratory", role = "cph"))
+Author: c(person("Kalyn", "Dorheim", email = "kalyn.dorheim@pnnl.gov", role = "aut",c omment = ORCID = "0000-0001-8093-8397"),
+  person("Jianqiu", "Zheng", role = "aut", comment = ORCID = "0000-0002-1609-9004"))
 Maintainer: Kalyn Dorheim <kalyn.dorheim@pnnl.gov>
 Description: This is an R package representation of different microbial explicit carbon models in a flexible framework for model comparison exercises. 
 Depends: R (>= 3.6)

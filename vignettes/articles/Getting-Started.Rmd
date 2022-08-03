@@ -47,7 +47,7 @@ out1 <- solve_model(mod, time)
 Visualize the run results. 
 
 ```{r}
-ggplot(data = out1$results) + 
+ggplot(data = out1) + 
   geom_line(aes(time, value, color = name), size = 0.75) + 
   facet_wrap("variable", scales = "free") + 
   labs(y = "mg C/g soil", 
@@ -72,7 +72,7 @@ out2$name <- "Double B"
 ```
 
 ```{r}
-to_plot <- rbind(out1$results, out2$results) 
+to_plot <- rbind(out1, out2) 
 
 ggplot(to_plot) +
   geom_line(aes(time, value, color = name, linetype = name), size = 0.75) + 
@@ -93,7 +93,7 @@ out3 $name <- "Increase V.d"
 Visualize model runs. 
 
 ```{r}
-to_plot <- rbind(out1$results, out3$results) 
+to_plot <- rbind(out1, out3) 
 
 ggplot(to_plot) +
   geom_line(aes(time, value, color = name, linetype = name), size = 0.75) + 

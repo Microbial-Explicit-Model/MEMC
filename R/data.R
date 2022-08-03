@@ -11,7 +11,7 @@
 #' \item{units}{String character of the parameter units.}
 #' \item{value}{Numeric values taken from the table 2 of Wang et al. 2013}
 #' }
-#' @family parameters
+#' @family inputs
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @examples
 #' default_params
@@ -32,7 +32,7 @@
 #' \item{'IC'}{'Accumulated CO2 flux'}
 #' \item{'Tot'}{'Total carbon in the patch'}
 #' }
-#' @family inital values
+#' @family inputs
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @examples
 #' default_initial
@@ -50,7 +50,7 @@
 #' \item{params}{the default MEMC parameter table}
 #' \item{state}{the default inital state values for MEMC}
 #' }
-#' @family MEMC configurations
+#' @family models
 #' @examples
 #' MEND_model
 #' solve_model(mod = MEND_model, time = 1:10)
@@ -66,7 +66,7 @@
 #' \item{params}{the default MEMC parameter table}
 #' \item{state}{the default inital state values for MEMC}
 #' }
-#' @family MEMC configurations
+#' @family models
 #' @examples
 #' COMISSION_model
 #' solve_model(mod = COMISSION_model, time = 1:10)
@@ -83,7 +83,7 @@
 #' \item{params}{the default MEMC parameter table}
 #' \item{state}{the default inital state values for MEMC}
 #' }
-#' @family MEMC configurations
+#' @family models
 #' @examples
 #' CORPSE_model
 #' solve_model(mod = CORPSE_model, time = 1:10)
