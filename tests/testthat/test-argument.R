@@ -10,7 +10,7 @@ test_that("is_param_table works", {
   # A number of errors should be thrown if the the parameter table does not meet the correct conditions.
   expect_error(
     is_param_table(params[1:10, ]),
-    "param_table is missing a parameter value(s) for: p.ep, p.em, r.ep, r.em, Q.max, K.ads, K.des, dd.beta, Input.P, Input.D, Input.M, CUE",
+    "param_table is missing a parameter value(s) for: r.ep, r.em, Q.max, K.ads, K.des, p.b, dd.beta, Input.P, Input.D, Input.M, CUE",
     fixed = TRUE
   )
 

@@ -71,20 +71,20 @@ carbon_fluxes_internal <-
       if (MBdecay == "DD") {
         assert_that(dd.beta > 1)
         fluxes[["F6"]] = function(B) {
-          (1 - p.ep - p.em) * 0.4 * V.d * (B ^ dd.beta)
+          (1 - p.ep - p.em) * p.b * V.d * (B ^ dd.beta)
         }
       } else if (MBdecay == "LM") {
         assert_that(dd.beta == 1)
         fluxes[["F6"]] = function(B) {
-          (1 - p.ep - p.em) * 0.4 * V.d * (B ^ dd.beta)
+          (1 - p.ep - p.em) * p.b * V.d * (B ^ dd.beta)
         }
       }
 
       fluxes[["F7.ep"]] = function(B) {
-        p.ep * B * 0.4 * V.d
+        p.ep * B * p.b * V.d
       }
       fluxes[["F7.em"]] = function(B) {
-        p.em * B * 0.4 * V.d
+        p.em * B * p.b* V.d
       }
       fluxes[["F8.ep"]] = function(EP) {
         r.ep * EP

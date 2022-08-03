@@ -1,5 +1,3 @@
-#TODDO might not want to hard code these, might want to doubble or make the changes relativev
-
 ptable <- MEMC::default_params
 state <- MEMC::default_initial
 
@@ -56,7 +54,7 @@ test_that("configuration related fxns", {
   # Errors should be thrown
   expect_error(
     configure_model(ptable[1:9,], state),
-    'param_table is missing a parameter value(s) for: g.d, p.ep, p.em, r.ep, r.em, Q.max, K.ads, K.des, dd.beta, Input.P, Input.D, Input.M, CUE',
+   "param_table is missing a parameter value(s) for: p.em, r.ep, r.em, Q.max, K.ads, K.des, p.b, dd.beta, Input.P, Input.D, Input.M, CUE",
     fixed = TRUE
   )
   expect_error(
