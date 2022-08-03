@@ -7,7 +7,8 @@ DIR <- here::here("data-raw")
 # model parameters through steady‐state and dynamic analyses. Ecological Applications,
 # 23: 255-272. doi:10.1890/12-0681.1
 
-default_params <- read.csv(file.path(DIR, "default_params.csv"), stringsAsFactors = FALSE)
+default_params <-
+  read.csv(file.path(DIR, "default_params.csv"), stringsAsFactors = FALSE)
 usethis::use_data(default_params, overwrite = TRUE, internal = FALSE)
 
 
@@ -25,5 +26,16 @@ EM = 0.00001
 IC = 0
 Tot = 18.10002
 
-default_initial <- c(P = P,  M = M,  Q = Q,  B = B,  D = D,  EP = EP,  EM = EM,  IC = IC,  Tot = Tot)
+default_initial <-
+  c(
+    P = P,
+    M = M,
+    Q = Q,
+    B = B,
+    D = D,
+    EP = EP,
+    EM = EM,
+    IC = IC,
+    Tot = Tot
+  )
 usethis::use_data(default_initial, overwrite = TRUE, internal = FALSE)
