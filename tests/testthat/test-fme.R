@@ -4,7 +4,7 @@ state  <- MEMC::default_initial
 # Set up and run a basic model and use the output as comparison data.
 time <- floor(seq(from = 0, to = 100, length.out = 6))
 mod <- configure_model(params = ptable, state = state)
-out <- solve_model(mod, time)[["results"]]
+out <- solve_model(mod, time)
 
 comp_data <- data.frame(time = unique(out$time),
                         IC = out[out$variable == "IC", ][["value"]])

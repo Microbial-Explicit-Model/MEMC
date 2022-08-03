@@ -190,6 +190,6 @@ solve_model <- function(mod, time, params = NULL, state = NULL, ...){
   results <- sm_internal(mod = mod, time = time, ...)
   out <- sm_format_out(rslt = results, mod = mod)
 
-  return(list("model" = mod, "results" = out))
+  return(out)
 
 }

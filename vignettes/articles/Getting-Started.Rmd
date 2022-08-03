@@ -68,7 +68,7 @@ new_initial_cond[["B"]] <- new_initial_cond[["B"]] * 2
 out2 <- solve_model(mod, time, state = new_initial_cond)
 
 # Rename the output run. 
-out2$results$name <- "Double B"
+out2$name <- "Double B"
 ```
 
 ```{r}
@@ -87,7 +87,7 @@ Pass in a new parameter value.
 
 ```{r}
 out3 <- solve_model(mod, time, params = c("V.d" = 10))
-out3$results$name <- "Increase V.d"
+out3 $name <- "Increase V.d"
 ```
 
 Visualize model runs. 

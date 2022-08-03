@@ -47,7 +47,7 @@ mend_out <- solve_model(MEND_model, time = time)
 comiss_out <- solve_model(COMISSION_model, time = time)
 corpse_out <- solve_model(CORPSE_model, time = time)
 
-out <- rbind(mend_out$results, comiss_out$results, corpse_out$results)
+out <- rbind(mend_out, comiss_out, corpse_out)
 ```
 
 Visualize the outputs. 

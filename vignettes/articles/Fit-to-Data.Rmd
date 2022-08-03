@@ -59,7 +59,7 @@ mend_fit <- memc_modfit(config = MEND_model, comp_data = comp_data, x =c(V.d=2, 
 Run the model with the best parameter fits. 
 
 ```{r}
-mend_out <- solve_model(mend_fit,  0:max(comp_data$time), params = fit1$par)[["results"]]
+mend_out <- solve_model(mend_fit,  0:max(comp_data$time), params = fit1$par)
 
 mend_out %>% 
   filter(variable == "IC") %>% 
@@ -86,7 +86,7 @@ fit2 <- memc_modfit(config = mod2, comp_data = comp_data, x =c(V.d=2, V.p=5, V.m
 Run the model with the best parameter fits. 
 
 ```{r}
-out2 <- solve_model(mod2,  0:max(comp_data$time), params = fit2$par)[["results"]]
+out2 <- solve_model(mod2,  0:max(comp_data$time), params = fit2$par)
 
 out2 %>% 
   filter(variable == "IC") %>% 
@@ -130,8 +130,8 @@ bind_rows(out1, out2) %>%
 
 
 ```{r}
-default1 <- solve_model(mod1, 0:max(comp_data$time))[["results"]]
-default2 <- solve_model(mod2, 0:max(comp_data$time))[["results"]]
+default1 <- solve_model(mod1, 0:max(comp_data$time))
+default2 <- solve_model(mod2, 0:max(comp_data$time))
 
 
 bind_rows(default1, default2) %>% 
