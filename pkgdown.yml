@@ -1,10 +1,9 @@
 pandoc: 2.7.3
-pkgdown: 2.0.2.9000
-pkgdown_sha: 25a1ab2d04c2b8251214b5189fa6735896468cd7
-articles:
-  Compare_Model_Configurations: Compare_Model_Configurations.html
-  Installation: Installation.html
-  MEND: MEND.html
-  basic_MEMC_runs: basic_MEMC_runs.html
-last_built: 2022-01-26T17:29Z
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles: {}
+last_built: 2022-08-03T01:25Z
+urls:
+  reference: https://microbial-explicit-model.github.io/MEMC/reference
+  article: https://microbial-explicit-model.github.io/MEMC/articles
 

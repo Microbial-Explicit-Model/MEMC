@@ -1,60 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/articles/Compare_Model_Configurations.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/authors.html</loc>
   </url>
   <url>
-    <loc>/articles/Installation.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/index.html</loc>
   </url>
   <url>
-    <loc>/articles/MEND.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/news/index.html</loc>
   </url>
   <url>
-    <loc>/articles/basic_MEMC_runs.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/COMISSION_model.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/CORPSE_model.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/MEND_model.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/configure_model.html</loc>
   </url>
   <url>
-    <loc>/reference/COMISSION_model.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/default_initial.html</loc>
   </url>
   <url>
-    <loc>/reference/MEND_model.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/default_params.html</loc>
   </url>
   <url>
-    <loc>/reference/carbon_fluxes.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/carbon_pools.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/memc_modfit.html</loc>
   </url>
   <url>
-    <loc>/reference/configure_model.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/solve_model.html</loc>
   </url>
   <url>
-    <loc>/reference/default_inital.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/update_params.html</loc>
   </url>
   <url>
-    <loc>/reference/default_params.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/solve_model.html</loc>
-  </url>
-  <url>
-    <loc>/reference/update_params.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/update_state.html</loc>
   </url>
 </urlset>
