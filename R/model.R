@@ -61,35 +61,35 @@ carbon_fluxes_internal <-
       fluxes[["F3"]] = function(EM, M) {
         (V.m * EM * M) / (K.m + M)
       }
-      fluxes[["F6"]] = function(D, Q) {
+      fluxes[["F4"]] = function(D, Q) {
         K.ads * D * (1 - Q / Q.max)
       }
-      fluxes[["F7"]] = function(Q) {
+      fluxes[["F5"]] = function(Q) {
         K.des * Q / Q.max
       }
 
       if (MBdecay == "DD") {
         assert_that(dd.beta > 1)
-        fluxes[["F8"]] = function(B) {
+        fluxes[["F6"]] = function(B) {
           (1 - p.ep - p.em) * 0.4 * V.d * (B ^ dd.beta)
         }
       } else if (MBdecay == "LM") {
         assert_that(dd.beta == 1)
-        fluxes[["F8"]] = function(B) {
+        fluxes[["F6"]] = function(B) {
           (1 - p.ep - p.em) * 0.4 * V.d * (B ^ dd.beta)
         }
       }
 
-      fluxes[["F9.ep"]] = function(B) {
+      fluxes[["F7.ep"]] = function(B) {
         p.ep * B * 0.4 * V.d
       }
-      fluxes[["F9.em"]] = function(B) {
+      fluxes[["F7.em"]] = function(B) {
         p.em * B * 0.4 * V.d
       }
-      fluxes[["F10.ep"]] = function(EP) {
+      fluxes[["F8.ep"]] = function(EP) {
         r.ep * EP
       }
-      fluxes[["F10.em"]] = function(EM) {
+      fluxes[["F8.em"]] = function(EM) {
         r.em * EM
       }
 
@@ -127,32 +127,32 @@ carbon_pool_derivs <-
       F1 <- fluxes$F1(B = B, D = D)
       F2 <- fluxes$F2(EP = EP, P = P)
       F3 <- fluxes$F3(EM = EM, M = M)
-      F6 <- fluxes$F6(D = D, Q = Q)
-      F7 <- fluxes$F7(Q = Q)
-      F8 <- fluxes$F8(B = B)
-      F9.ep <- fluxes$F9.ep(B = B)
-      F9.em <- fluxes$F9.em(B = B)
-      F10.ep <- fluxes$F10.ep(EP = EP)
-      F10.em <- fluxes$F10.em(EM = EM)
+      F4 <- fluxes$F4(D = D, Q = Q)
+      F5 <- fluxes$F5(Q = Q)
+      F6 <- fluxes$F6(B = B)
+      F7.ep <- fluxes$F7.ep(B = B)
+      F7.em <- fluxes$F7.em(B = B)
+      F8.ep <- fluxes$F8.ep(EP = EP)
+      F8.em <- fluxes$F8.em(EM = EM)
 
       # Define the system of differential equations to describes the
       # changes in the carbon pool states.
       # -----------------------------------------------------------
       # P = particulate organic carbon
-      dP <- (1 - g.d) * F8 - F2 + Input.P
+      dP <- (1 - g.d) * F6 - F2 + Input.P
       # M = mineral-associated organic carbon (MOC)
       dM <- (1 - f.d) * F2 - F3 + Input.M
       # Q = active layer of MOC
-      dQ <- F6 - F7
+      dQ <- F4 - F5
       # B = microbial biomass carbon
-      dB <- F1 * CUE - F8 - (F9.ep + F9.em)
+      dB <- F1 * CUE - F6 - (F7.ep + F7.em)
       # D = dissolved organic carbon
       dD <-
-        f.d * F2 + g.d * F8 + F3 + (F10.em + F10.ep) - F1 - (F6 - F7) + Input.D
+        f.d * F2 + g.d * F6 + F3 + (F8.em + F8.ep) - F1 - (F4 - F5) + Input.D
       # EP = carbon stored as extra-cellular enzymes
-      dEP <- F9.em - F10.ep
+      dEP <- F7.em - F8.ep
       # EM = carbon stored as extra-cellular enzymes
-      dEM <- F9.em - F10.em
+      dEM <- F7.em - F8.em
       # IC = inorganic carbon (CO2)
       dIC <- F1 * (1 - CUE)
       # Tot = the total carbon pool
