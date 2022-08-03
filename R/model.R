@@ -98,15 +98,15 @@ carbon_pool_derivs <- function(t, state, parms, DOMdecomp, POMdecomp, MBdecay){
     # changes in the carbon pool states.
     # -----------------------------------------------------------
     # P = particulate organic carbon
-    dP <- (1 - g.d) * F8 - F2 + Input
+    dP <- (1 - g.d) * F8 - F2 + Input.P
     # M = mineral-associated organic carbon (MOC)
-    dM <- (1 - f.d) * F2 - F3 + Input
+    dM <- (1 - f.d) * F2 - F3 + Input.M
     # Q = active layer of MOC
     dQ <- F6 - F7
     # B = microbial biomass carbon
     dB <- F1 * CUE - F8 - (F9.ep + F9.em)
     # D = dissolved organic carbon
-    dD <- f.d * F2 + g.d * F8 + F3 + (F10.em + F10.ep) - F1 - (F6 - F7)
+    dD <- f.d * F2 + g.d * F8 + F3 + (F10.em + F10.ep) - F1 - (F6 - F7) + Input.D
     # EP = carbon stored as extra-cellular enzymes
     dEP <- F9.em - F10.ep
     # EM = carbon stored as extra-cellular enzymes
@@ -114,7 +114,7 @@ carbon_pool_derivs <- function(t, state, parms, DOMdecomp, POMdecomp, MBdecay){
     # IC = inorganic carbon (CO2)
     dIC <- F1 * (1 - CUE)
     # Tot = the total carbon pool
-    dTot <- -F1 * (1-CUE) + Input * 2
+    dTot <- -F1 * (1-CUE) +  (Input.P + Input.D + Input.M)
 
     # Return outputs
     return(list(c(dP, dM, dQ, dB, dD, dEP, dEM, dIC, dTot)))
