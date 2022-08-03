@@ -10,7 +10,7 @@ knitr::opts_chunk$set(
 ```
 
 
-In this example here we will show how to fit a MEMCC model to experimental data. 
+In this example here we will show how to fit a MEMC model to experimental data. 
 
 
 ```{r setup}
@@ -27,8 +27,6 @@ theme_set(theme_bw() + theme(legend.title = element_blank()))
 ```
 
 
-
-
 Load example experimental data provided within the package. 
 
 ```{r}
@@ -36,30 +34,23 @@ Load example experimental data provided within the package.
 comp_data <- read.csv(system.file("example/Ultisol_control.csv", package = "MEMC"))
 ```
 
-## Fit an the default MEMC model to experimental data 
+## Fit MEND model to experimental data 
 
 The memc contains a function called `memc_modfit` that helps users fit a model run to comparison data. 
 
 ```{r}
-# Set up the model configuration to test. Note that the initial state values came from the 
-# the experimental data. 
-state <- c(P=4.71, M=17.67, Q=0, B=0.82, D=0.148,  EP=0.0082, EM=0.0082, IC=0, Tot=23.484)
-mend  <- configure_model(name = "MEND",
-                         DOMdecomp = "MM", 
-                         POMdecomp = "MM", 
-                         MBdecay = "DD",
-                         params = MEMC::default_params, 
-                         state = state)
+# Update the MEND model initial state conditions to reflect the experimental set up.
+MEND_model$state <- c(P=4.71, M=17.67, Q=0, B=0.82, D=0.148,  EP=0.0082, EM=0.0082, IC=0, Tot=23.484)
 
 # Fit the the "maximum specific decomposition" parameters. 
-mend_fit <- memc_modfit(config = MEND_model, comp_data = comp_data, x =c(V.d=2, V.p=5, V.m=0.01))
+mend_fit <- memc_modfit(config = MEND_model, comp_data = comp_data, x = c(V.d=2, V.p=5, V.m=0.01))
 ```
 
 
 Run the model with the best parameter fits. 
 
 ```{r}
-mend_out <- solve_model(mend_fit,  0:max(comp_data$time), params = fit1$par)
+mend_out <- solve_model(MEND_model,  0:max(comp_data$time), params = mend_fit$par)
 
 mend_out %>% 
   filter(variable == "IC") %>% 
@@ -70,25 +61,23 @@ mend_out %>%
        y =  "mg C/g soil")
 ```
 
-## Fit an alternative model configuration to the data 
-
+## Fit COMISSION model to experimental data
 
 ```{r}
-# Set up the model configuration to test. Note that the initial state values came from the 
-# the experimental data & change DOM decomposition dynamics. 
-mod2  <- configure_model(name = "RMM DOMdecomp", params = MEMC::default_params, state = state, DOMdecomp = "RMM")
+# Update the COMISSSION model initial state conditions to reflect the experimental set up.
+COMISSION_model$state <- c(P=4.71, M=17.67, Q=0, B=0.82, D=0.148,  EP=0.0082, EM=0.0082, IC=0, Tot=23.484)
 
 # Fit the the "maximum specific decomposition" parameters. 
-fit2 <- memc_modfit(config = mod2, comp_data = comp_data, x =c(V.d=2, V.p=5, V.m=0.01))
+comission_fit <- memc_modfit(config = COMISSION_model, comp_data = comp_data, x =c(V.d=2, V.p=5, V.m=0.01))
 ```
 
 
 Run the model with the best parameter fits. 
 
 ```{r}
-out2 <- solve_model(mod2,  0:max(comp_data$time), params = fit2$par)
+comission_out <- solve_model(COMISSION_model,  0:max(comp_data$time), params = comission_fit$par)
 
-out2 %>% 
+comission_out %>% 
   filter(variable == "IC") %>% 
   ggplot() + 
   geom_line(aes(time, value)) + 
@@ -102,7 +91,7 @@ out2 %>%
 How different are the fitted parameter values for the two model configurations? 
 
 ```{r, echo=FALSE}
-kable(as.data.frame(rbind(c(name = mod1$name, round(fit1$par, 4)), c(name = mod2$name, round(fit2$par, 4)))))
+kable(as.data.frame(rbind(c(name = mod1$name, round(mend_fit$par, 4)), c(name = mod2$name, round(comission_fit$par, 4)))))
 ```
 
 
