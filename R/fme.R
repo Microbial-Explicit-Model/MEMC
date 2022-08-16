@@ -80,30 +80,66 @@ memc_modfit <-
 
   }
 
-#
-# #sensRange(func = solveLIN, parms = pars, dist ="norm", parMean=mean, parCovar=covar, sensvar = c("DOM", "POM","MOM","MB"), parRange = parRanges, num = 100))
-#
-# memc_sensrange <- function(config, t){
-#
-#   fxn <- function(parms){
-#
-#     # split up up the input into model parameters and state value
-#     xx <- split_param_state(parms)
-#     new_p <- xx$params
-#     new_s <- xx$state
-#
-#     new_config <- update_config(mod = config, params = new_p, state = new_s)
-#     out <- sm_internal(new_config, t)
-#
-#     return(out)
-#
-#   }
-#
-#
-#
-#   fxn(x = c("V.d" =  9))
-#
-#   FME::sensRange(func = fxn, parms = , dist = dist,)
-#
-#
-# }
+
+#' Run the memc model with the FME sensRange
+#'
+#' @param config memc model configuration
+#' @param t vector of the time steps to run the model at
+#' @param pars vector of the parameters to test in sensRange
+#' @param parRange data frame of the min/max parameter values
+#' @param dist str for the distribution according to which the parameters will be sampled
+#' @param ... additional arguments passed to FME::sensRange
+#' @return the results of the FME::sensRange
+#' @export
+#' @family fme
+#'@examples
+#'\dontrun{
+#' # Test the sensitivity of the MEND output for V.p, K.p, V.m, K.m, V.d, K.d
+#' pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
+#' prange <- data.frame(min = pars - pars * 0.75,
+#' max = pars + pars * 0.75)
+#' t <- floor(seq(0, 365, length.out = 10))
+#' out <- memc_sensrange(config = MEND_model, t = t, pars = pars, parRange = prange, dist = "latin", num = 10)
+#' plot(summary(out))
+#'}
+memc_sensrange <- function(config, t, pars, parRange, dist, ...){
+
+  func <- function(pars){
+    new_mod <- update_config(mod = config, params = pars)
+    sm_internal(mod = new_mod, time = t)
+
+  }
+
+  out <- FME::sensRange(func, parms = pars, dist = dist, parRange = parRange, ...)
+
+  return(out)
+}
+
+
+#' Format the memc_sensrange output into long data format for easy plotting
+#'
+#' @param obj object returned by memc_sensrange
+#' @return the a long dataframe of the summary memc_sensrange
+#' @export
+#'@examples
+#'\dontrun{
+#' # Test the sensitivity of the MEND output for V.p, K.p, V.m, K.m, V.d, K.d
+#' pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
+#' prange <- data.frame(min = pars - pars * 0.75,
+#' max = pars + pars * 0.75)
+#' t <- floor(seq(0, 365, length.out = 10))
+#' out <- memc_sensrange(config = MEND_model, t = t, pars = pars, parRange = prange, dist = "latin", num = 10)
+#' to_plot <- format_sensrange(out)
+#'}
+format_sensrange <- function(obj){
+
+  assert_that(class(obj)[[1]] == "sensRange")
+  out <- summary(obj)
+  names(out)[1] <- "time"
+  vars <- gsub(pattern = "\\.|[[:digit:]]+", replacement = "", x = row.names(out))
+  out$variable <- vars
+  row.names(out) <- NULL
+
+  return(out)
+
+}

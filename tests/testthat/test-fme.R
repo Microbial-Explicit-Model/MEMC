@@ -70,3 +70,19 @@ test_that("memc_modfit", {
   ))), 1e-4)
 
 })
+
+test_that("memc_sensrange", {
+
+  # Set up the parameter values to test and use in the sensrange.
+  frac <- 0.5
+  n <- 3
+  p <- c("V.p" = 1.4e+01)
+  prange <- data.frame(min = p - p * frac, max = p + p * frac)
+
+  # Run the sense range and check the output.
+  out <- memc_sensrange(MEND_model, t = time, pars = p, n = n, dist = "latin", parRange = prange)
+  expect_true(all(dim(out) == c(n, (length(time) * 9) + 1)))
+
+  out2 <- memc_sensrange(MEND_model, t = time, pars = p, num = 6, dist = "latin", parRange = prange)
+  expect_true(nrow(out2) > nrow(out))
+})
