@@ -17,6 +17,7 @@ In this example here we will show how to fit a MEMC model to experimental data.
 library(MEMC)
 
 # Packages used in this example 
+library(data.table)
 library(dplyr)
 library(ggplot2)
 library(magrittr)
