@@ -14,7 +14,6 @@ r.em,turnover rate of EM,mgC mgC^-1 h^-1,0.001
 Q.max,maximum DOC sorption capacity,mgC / g soil,3.4
 K.ads,specific adsorption rate,mgC mgC^-1 h^-1,0.006
 K.des,desorption rate,mgC mgC^-1 h^-1,0.001
-p.b,microbial decay,NA,0.4
 dd.beta,strength of density dependent microbial decay,NA,2
 Input.P,POM input ,mg C,0
 Input.D,DOM input,mg C,0
