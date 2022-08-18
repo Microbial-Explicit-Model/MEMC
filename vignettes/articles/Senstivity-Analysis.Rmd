@@ -40,7 +40,7 @@ time <- seq(0, 365)
 
 Use `memc_sensrange` to complete the sensitivity analysis for the MEND model. 
 
-```{r}
+```{r, fig.width=6}
 MENDsens_out <- memc_sensrange(config = MEND_model, t = time, 
                                pars = pars, parRange = prange, dist = "latin", n = 50)
 ```
@@ -51,7 +51,7 @@ mend_to_plot <- format_sensrange(MENDsens_out)
 mend_to_plot$name <- "MEND"
 ```
 
-```{r}
+```{r, fig.width=10}
 ggplot(data = mend_to_plot) + 
   geom_ribbon(aes(time, ymin = q25, ymax = q75, fill = "q25/q75"), alpha = 0.5) + 
   geom_line(aes(time, Mean)) + 
@@ -77,7 +77,7 @@ comission_to_plot <- format_sensrange(COMISSIONsens_out)
 comission_to_plot$name <- "COMISSION"
 ```
 
-```{r}
+```{r, fig.width=10}
 ggplot(data = comission_to_plot) + 
   geom_ribbon(aes(time, ymin = q25, ymax = q75, fill = "q25/q75"), alpha = 0.5) + 
   geom_line(aes(time, Mean)) + 
@@ -90,7 +90,7 @@ ggplot(data = comission_to_plot) +
 
 Compare the output between the two models. 
 
-```{r}
+```{r, fig.width=10}
 to_plot <- rbind(comission_to_plot, mend_to_plot)
 to_plot <- to_plot[to_plot$variable %in% c("P", "M", "Tot"), ]
 
