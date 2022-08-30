@@ -27,17 +27,24 @@ Run the memc model with the FME sensRange
 }
 \examples{
 \dontrun{
-# Test the sensitivity of the MEND output for V.p, K.p, V.m, K.m, V.d, K.d
+# Test the sensitivity of the MEND output for V.p, K.p, V.m
 pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
 prange <- data.frame(min = pars - pars * 0.75,
 max = pars + pars * 0.75)
 t <- floor(seq(0, 365, length.out = 10))
 out <- memc_sensrange(config = MEND_model, t = t, pars = pars, parRange = prange, dist = "latin", num = 10)
 plot(summary(out))
+# Using the helper functions.
+to_plot <- format_sensout(out)
+ggplot(data = to_plot) +
+   geom_line(aes(time, Mean)) +
+   geom_ribbon(aes(time, ymin = Min, ymax = Max), alpha = 0.5) +
+   facet_wrap("variable", scales = "free")
 }
 }
 \seealso{
-Other fme: 
-\code{\link{memc_modfit}()}
+Other sensitivity: 
+\code{\link{format_sensout}()},
+\code{\link{memc_sensfunc}()}
 }
-\concept{fme}
+\concept{sensitivity}

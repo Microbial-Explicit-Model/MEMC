@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The objective of this example is to show users how to do use the MEMC helper functions to easily complete and visualize results from a sensitivity analysis. 
+The objective of this example is to show users how to do use the `MEMC` helper functions (`memc_sensrange`, `memc_sensfunc`, and `format_sensout`) to easily complete and visualize results from a sensitivity analysis. 
 
 
 ```{r setup}
@@ -19,6 +19,8 @@ library(ggplot2)
 theme_set(theme_bw())
 ```
 
+
+# Global Sensitivity
 
 We will be using the `memc_sensrange` which is based on the `FME::sensRange` to run two different model configurations. 
 
@@ -47,7 +49,7 @@ MENDsens_out <- memc_sensrange(config = MEND_model, t = time,
 
 
 ```{r}
-mend_to_plot <- format_sensrange(MENDsens_out)
+mend_to_plot <- format_sensout(MENDsens_out)
 mend_to_plot$name <- "MEND"
 ```
 
@@ -62,8 +64,6 @@ ggplot(data = mend_to_plot) +
 ```
 
 
-
-
 Run the sentivity analysis with the COMISSION model configuration. 
 
 ```{r}
@@ -73,7 +73,7 @@ COMISSIONsens_out <- memc_sensrange(config = COMISSION_model, t = time,
 
 
 ```{r}
-comission_to_plot <- format_sensrange(COMISSIONsens_out)
+comission_to_plot <- format_sensout(COMISSIONsens_out)
 comission_to_plot$name <- "COMISSION"
 ```
 
@@ -102,4 +102,38 @@ ggplot(data = to_plot) +
        title = "Sensitivity to V.d, V.p, V.m") + 
   theme(legend.title = element_blank())
 ```
+
+# Local Sensitivity
+
+Test the local effect parameters have on model output with `memc_sensfun`, this is based on `FME::sensFun`. 
+
+Select the parameters to test, we will use the same parameters used in the global sensitivity analysis. 
+
+```{r}
+pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
+```
+
+Run the local sensitivity analysis. 
+
+```{r}
+out <- memc_sensfunc(config = MEND_model, t = time, pars = pars)
+```
+
+Format output into a dataframe that is easy to plot. 
+
+```{r}
+to_plot <- format_sensout(out)
+```
+
+```{r}
+ggplot(data = to_plot) +
+  geom_line(aes(time, value, color = parameter)) +
+  facet_wrap("variable", scales = "free") + 
+  labs(y = NULL, x = NULL, title = "Local Sensitivity") 
+```
+
+
+
+
+
 

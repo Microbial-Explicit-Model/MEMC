@@ -25,8 +25,4 @@ the results of the FME::modFit
 \description{
 Fit a MEMC model to a comparison data
 }
-\seealso{
-Other fme: 
-\code{\link{memc_sensrange}()}
-}
 \concept{fme}
