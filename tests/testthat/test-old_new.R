@@ -1,5 +1,5 @@
 # Read in the comparison data and figure out the time vector.
-old <- read.csv("old-new.csv")
+old <- read.csv("compdata.csv")
 t <- unique(old$time)
 
 # Helper function that calculates the difference between two data frame
@@ -8,8 +8,7 @@ t <- unique(old$time)
 #   new: dataframe of the new data
 # Return: dataframe of the new, old, and different data
 old_new_diff <- function(old, new) {
-  cond <-
-    all(names(old) == c("time", "variable", "old_value", "units", "name"))
+  cond <- all(names(old) == c("time", "variable", "old_value", "units", "name"))
   assertthat::assert_that(cond)
 
   cond <-
