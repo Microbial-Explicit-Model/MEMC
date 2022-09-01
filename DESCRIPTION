@@ -13,8 +13,9 @@ Suggests:
     testthat (>= 3.1.0),
     knitr (>= 1.36),
     rmarkdown (>= 2.11),
-    ggplot2 (>= 3.3.5), 
-    data.table (>= 1.14.2)
+    ggplot2 (>= 3.3.5),
+    data.table (>= 1.14.2),
+    covr
 Imports: 
     assertthat (>= 0.2.1), 
     deSolve (>= 1.30), 
