@@ -21,6 +21,18 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/Build-Toy-Model.html">Build Toy Model</a>
+    <a class="dropdown-item" href="../articles/Compare-Model-Configurations.html">Compare Model Configurations</a>
+    <a class="dropdown-item" href="../articles/Fit-to-Data.html">Fit to Data</a>
+    <a class="dropdown-item" href="../articles/Getting-Started.html">Getting Started</a>
+    <a class="dropdown-item" href="../articles/Install-Build.html">Install &amp; Build</a>
+    <a class="dropdown-item" href="../articles/Senstivity-Analysis.html">Senstivity Analysis</a>
+    <a class="dropdown-item" href="../articles/dev-the-suggest-starting-params.html">Fit to Data</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -66,7 +78,7 @@
 </dl></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Other MEMC configurations: 
+    <div class="dont-index"><p>Other models: 
 <code><a href="COMISSION_model.html">COMISSION_model</a></code>,
 <code><a href="CORPSE_model.html">CORPSE_model</a></code></p></div>
     </div>
@@ -89,41 +101,41 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4        K.m         half-saturation constant for decomposition of M</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5        V.d       maximum specific uptake rate of D for growth of B</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6        K.d half-saturation constant of uptake of D for growth of B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7        m.r                     specific maintenance factor or rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8        E.c                                   carbon use efficiency</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9        f.d                 fraction of decomposed P allocated to D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10       g.d                       fraction of dead B allocated to D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11      p.ep                     fraction of mR for production of EP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12      p.em                     fraction of mR for production of EM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13      r.ep                                     turnover rate of EP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14      r.em                                     turnover rate of EM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15     Q.max                           maximum DOC sorption capacity</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16     K.ads                                specific adsorption rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17     K.des                                         desorption rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18   dd.beta           strength of density dependent microbial decay</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19     Input                                                  input </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        f.d                 fraction of decomposed P allocated to D</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        g.d                       fraction of dead B allocated to D</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9       p.ep                     fraction of mR for production of EP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      p.em                     fraction of mR for production of EM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11      r.ep                                     turnover rate of EP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12      r.em                                     turnover rate of EM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13     Q.max                           maximum DOC sorption capacity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14     K.ads                                specific adsorption rate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15     K.des                                         desorption rate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   dd.beta           strength of density dependent microbial decay</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17   Input.P                                              POM input </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18   Input.D                                               DOM input</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19   Input.M                                                M input </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20       CUE                                   carbon use efficiency</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              units   value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  mgC mgC^-1 h^-1 1.4e+01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     mgC / g soil 5.0e+01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  mgC mgC^-1 h^-1 2.5e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      mg C/g soil 2.5e+02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  mgC mgC^-1 h^-1 3.0e+00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      mg C/g soil 2.5e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  mgC mgC^-1 h^-1 2.8e-04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8             &lt;NA&gt; 4.7e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9             &lt;NA&gt; 5.0e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10            &lt;NA&gt; 5.0e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11            &lt;NA&gt; 1.0e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12            &lt;NA&gt; 1.0e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 mgC mgC^-1 h^-1 1.0e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 mgC mgC^-1 h^-1 1.0e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15    mgC / g soil 3.4e+00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 mgC mgC^-1 h^-1 6.0e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 mgC mgC^-1 h^-1 1.0e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18            &lt;NA&gt; 2.0e+00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19            &lt;NA&gt; 0.0e+00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20                 4.0e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  mgC mgC^-1 h^-1  14.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     mgC / g soil  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  mgC mgC^-1 h^-1   0.250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      mg C/g soil 250.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  mgC mgC^-1 h^-1   3.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      mg C/g soil   0.250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7             &lt;NA&gt;   0.500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8             &lt;NA&gt;   0.500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9             &lt;NA&gt;   0.010</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10            &lt;NA&gt;   0.010</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 mgC mgC^-1 h^-1   0.001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 mgC mgC^-1 h^-1   0.001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13    mgC / g soil   3.400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 mgC mgC^-1 h^-1   0.006</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 mgC mgC^-1 h^-1   0.001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16            &lt;NA&gt;   2.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17            mg C   0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18            mg C   0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19            mg C   0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20                   0.400</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $state</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        P        M        Q        B        D       EP       EM       IC </span>
@@ -132,66 +144,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18.10002 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="solve_model.html">solve_model</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">MEND_model</span>, time <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $model$name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "MEND"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $model$table</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   model DOMdecomp POMdecomp MBdecay</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  MEND        MM        MM      DD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $model$params</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    parameter                                             description</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        V.p         maximum specific decomposition rate for P by EP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        K.p         half-saturation constant for decomposition of P</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        V.m         maximum specific decomposition rate for M by EM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        K.m         half-saturation constant for decomposition of M</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        V.d       maximum specific uptake rate of D for growth of B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        K.d half-saturation constant of uptake of D for growth of B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7        m.r                     specific maintenance factor or rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8        E.c                                   carbon use efficiency</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9        f.d                 fraction of decomposed P allocated to D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10       g.d                       fraction of dead B allocated to D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11      p.ep                     fraction of mR for production of EP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12      p.em                     fraction of mR for production of EM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13      r.ep                                     turnover rate of EP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14      r.em                                     turnover rate of EM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15     Q.max                           maximum DOC sorption capacity</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16     K.ads                                specific adsorption rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17     K.des                                         desorption rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18   dd.beta           strength of density dependent microbial decay</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19     Input                                                  input </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20       CUE                                   carbon use efficiency</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              units   value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  mgC mgC^-1 h^-1 1.4e+01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     mgC / g soil 5.0e+01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  mgC mgC^-1 h^-1 2.5e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      mg C/g soil 2.5e+02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  mgC mgC^-1 h^-1 3.0e+00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      mg C/g soil 2.5e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  mgC mgC^-1 h^-1 2.8e-04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8             &lt;NA&gt; 4.7e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9             &lt;NA&gt; 5.0e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10            &lt;NA&gt; 5.0e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11            &lt;NA&gt; 1.0e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12            &lt;NA&gt; 1.0e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 mgC mgC^-1 h^-1 1.0e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 mgC mgC^-1 h^-1 1.0e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15    mgC / g soil 3.4e+00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 mgC mgC^-1 h^-1 6.0e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 mgC mgC^-1 h^-1 1.0e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18            &lt;NA&gt; 2.0e+00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19            &lt;NA&gt; 0.0e+00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20                 4.0e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $model$state</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        P        M        Q        B        D       EP       EM       IC </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10.00000  5.00000  0.10000  2.00000  1.00000  0.00001  0.00001  0.00000 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      Tot </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18.10002 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $results</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     time variable       value       units name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1:    1        P 10.00000000 mg C/g soil MEND</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2:    2        P 10.95619098 mg C/g soil MEND</span>
@@ -284,7 +236,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 89:    9      Tot 16.50922969 mg C/g soil MEND</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 90:   10      Tot 16.47240890 mg C/g soil MEND</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     time variable       value       units name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
