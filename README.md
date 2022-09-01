@@ -1,7 +1,7 @@
 # IN DEVELOPMENT!
 
 [![R-CMD](https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/rcmd.yml/badge.svg)](https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/rcmd.yml)
-[![codecov](https://codecov.io/gh/kdorheim/MEMC/branch/main/graph/badge.svg?token=ia2NHHtpJs)](https://codecov.io/gh/kdorheim/MEMC)
+[![codecov](https://codecov.io/gh/Microbial-Explicit-Model/MEMC/branch/main/graph/badge.svg?token=MA69VLXPYP)](https://codecov.io/gh/Microbial-Explicit-Model/MEMC)
 [![Documentation](https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/pkgdown.yaml)
 
 
