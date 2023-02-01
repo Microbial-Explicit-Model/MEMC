@@ -32,7 +32,8 @@ pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
 prange <- data.frame(min = pars - pars * 0.75,
 max = pars + pars * 0.75)
 t <- floor(seq(0, 365, length.out = 10))
-out <- memc_sensrange(config = MEND_model, t = t, pars = pars, parRange = prange, dist = "latin", num = 10)
+out <- memc_sensrange(config = MEND_model, t = t, pars = pars,
+parRange = prange, dist = "latin", num = 10)
 plot(summary(out))
 # Using the helper functions.
 to_plot <- format_sensout(out)
