@@ -12,3 +12,7 @@
 ^vignettes/articles$
 ^\.github$
 ^codecov\.yml$
+
+
+# Specific files
+CODE_OF_CONDUCT.md
