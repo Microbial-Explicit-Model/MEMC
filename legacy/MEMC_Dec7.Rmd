@@ -1,0 +1,632 @@
+---
+title: "MEMS with alternative structures"
+author: "Jianqiu Zheng"
+date: "7/15/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(FME)
+library(deSolve)
+##solving simple MEND model
+pars<- list (Vd=3,Vp=14, Vm=0.25)
+solveMEND <- function(pars,times){
+ derivs <- function(t, state, pars){
+      with(as.list(c(state, pars)),{
+        #default paramters
+   # Carbon use effciency
+        kD = 0.25
+        kP = 50 #half saturation constant for POM
+        kM = 250
+        Kads = 0.006 
+        Kdes = 0.001 
+        Qmax = 3.4
+        pEP=0.01 
+        pEM=0.01
+        rEP=1e-3 
+        rEM=1e-3 
+        fD=0.5 
+        gD=0.5
+        CUE=0.4
+        Input=0 #input per day
+    F1 <- Vd* MB *DOM /( kD + DOM)  ## microbial uptake 
+    F2 <- Vp* EP * POM / (kP + POM) # POM decomposition
+    F3 <- Vm * EM * MOM / (kM + MOM) #MOAM decomposition
+    F6 <- Kads * DOM *(1- QOM/ Qmax) ##adsorption
+    F7 <- Kdes * QOM/Qmax  ##desorption
+    F8 <- (1- pEP- pEM)* MB *0.4*Vd*MB #microbial biomass decay (mr=0.4*vd)
+    F9ep <- pEP * MB *0.4*Vd  #enzyme production (mr=0.4vd)
+    F9em <- pEM * MB *0.4*Vd
+    F10ep <- rEP * EP  #enzyme decay
+    F10em <- rEM * EM
+    
+    dPOM <- (1 - gD) * F8- F2+Input
+    dMOM <- (1 - fD) * F2 - F3+Input
+    dMB <- F1*CUE - F8 - (F9em + F9ep) # Microbial growth= microbial uptake *CUE
+    dDOM <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)
+    dQOM <- F6 - F7
+    dEP <- F9ep - F10ep
+    dEM <- F9em - F10em
+    dIC <- F1*(1-CUE)   #CO2 fllux
+    dTot <- -F1*(1-CUE)+Input*2
+    return(list(c(dPOM, dMOM, dQOM, dDOM, dMB,dEP,dEM, dIC, dTot)))
+      })
+ }
+
+
+#state<-c(POM=3.25, MOM=27.97, QOM=0, DOM=0.21, MB=0.64, EP=0.064, EM=0.064, IC=0, Tot=32.198)#Mollisol
+#state<-c(POM=4.25, MOM=11.04, QOM=0, DOM=0.17, MB=0.05, EP=0.005, EM=0.005, IC=0, Tot=15.52)#Gelisol
+state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.82, EP=0.0082, EM=0.0082, IC=0, Tot=23.484)#Ultisol
+#state<-c(POM=20.06, MOM=64.86, QOM=0, DOM=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
+
+#solved the mode
+times <- seq(0, 365, by = 1)
+return(ode(y=state, times=times, func=derivs, parms=pars))
+
+}
+
+times=seq(0,36500, by=1) 
+output<-solveMEND(pars, times) 
+result<-data.frame(output[, 1:10])
+plot(result$time,result$Tot, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,36500), ylim=c(0,50))
+```
+
+
+
+```{r reverseMM}
+##solving simple MEND model
+pars<- list (Vd=1,Vp=5, Vm=1)
+solveCOM <- function(pars,times){
+ derivs <- function(t, state, pars){
+      with(as.list(c(state, pars)),{
+        #default paramters
+   # Carbon use effciency
+        kD = 0.25
+        kP = 50 #half saturation constant for POM
+        kM = 250
+        Kads = 0.006 
+        Kdes = 0.001 
+        Qmax = 3.4
+        pEP=0.01 
+        pEM=0.01
+        rEP=1e-3 
+        rEM=1e-3 
+        fD=0.5 
+        gD=0.5
+        CUE=0.4
+        Input=0 #input per day
+    F1 <- Vd* MB *DOM /( kD + DOM)  ## microbial uptake 
+    F2 <- Vp* EP* POM / (kP + EP) # POM decomposition
+    F3 <- Vm * EM * MOM / (kM + EM) #MOAM decomposition
+    F6 <- Kads * DOM *(1- QOM/ Qmax) ##adsorption
+    F7 <- Kdes * QOM/Qmax  ##desorption
+    F8 <- (1- pEP- pEM)* MB *0.4*Vd *MB #microbial biomass decay (biomass decay rate=0.2*growth rate)
+    F9ep <- pEP * MB *0.4*Vd  #enzyme production (maintaince respiration=0.1*total respiration)
+    F9em <- pEM * MB *0.4*Vd
+    F10ep <- rEP * EP  #enzyme decay
+    F10em <- rEM * EM
+    
+    dPOM <- (1 - gD) * F8- F2 +Input
+    dMOM <- (1 - fD) * F2 - F3+Input
+    dMB <- F1*CUE - F8 - (F9em + F9ep) # Microbial growth= microbial uptake *CUE
+    dDOM <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)
+    dQOM <- F6 - F7
+    dEP <- F9ep - F10ep
+    dEM <- F9em - F10em
+    dIC <- F1*(1-CUE)   #CO2 fllux
+    dTot <- -F1*(1-CUE)+Input*2
+    return(list(c(dPOM, dMOM, dQOM, dDOM, dMB,dEP,dEM, dIC, dTot)))
+      })
+ }
+
+
+#state<-c(POM=3.25, MOM=27.97, QOM=0, DOM=0.21, MB=0.64, EP=0.064, EM=0.064, IC=0, Tot=32.198)#Mollisol
+#state<-c(POM=4.25, MOM=11.04, QOM=0, DOM=0.17, MB=0.05, EP=0.005, EM=0.005, IC=0, Tot=15.52)#Gelisol
+state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
+#state<-c(POM=20.06, MOM=64.86, QOM=0, DOM=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
+
+#solved the mode
+times <- seq(0, 365, by = 1)
+return(ode(y=state, times=times, func=derivs, parms=pars))
+
+}
+
+times=seq(0,36500, by=1) 
+output<-solveCOM(pars, times) 
+
+result<-data.frame(output[, 1:10])
+plot(result$time,result$Tot, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,36500), ylim=c(0,50))
+```
+
+
+##CORPSE model (uses linear kinetics for POM decomposition)
+```{r linear}
+pars<- list (Vd=0.5,Vp=0.001, Vm=0.001)
+solveLIN<- function(pars,times){
+ derivs <- function(t, state, pars){
+      with(as.list(c(state, pars)),{
+        #default paramters
+  kD = 0.25
+        kP = 50 #half saturation constant for POM
+        kM = 250
+        Kads = 0.006 
+        Kdes = 0.001 
+        Qmax = 3.4
+        pEP=0.01 
+        pEM=0.01
+        rEP=1e-3 
+        rEM=1e-3 
+        fD=0.5 
+        gD=0.5
+        CUE=0.4
+        Input=0 #input per day
+    F1 <- Vd* MB *DOM /( kD + MB)  ## microbial uptake 
+    F2 <- Vp* POM # POM decomposition
+    F3 <- Vm  * EM * MOM / (kM + MOM) #MOAM decomposition
+    F6 <- Kads * DOM *(1- QOM/ Qmax) ##adsorption
+    F7 <- Kdes * QOM/Qmax  ##desorption
+    F8 <- (1- pEP- pEM)* MB *0.4*Vd *MB #microbial biomass decay (biomass decay rate=0.2*growth rate)
+    F9ep <- pEP * MB *0.4*Vd  #enzyme production (maintaince respiration=0.1*total respiration)
+    F9em <- pEM * MB *0.4*Vd
+    F10ep <- rEP * EP  #enzyme decay
+    F10em <- rEM * EM
+    
+    dPOM <- (1 - gD) * F8- F2+Input
+    dMOM <- (1 - fD) * F2 - F3+Input
+    dMB <- F1*CUE - F8 - (F9em + F9ep) # Microbial growth= microbial uptake *CUE
+    dDOM <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)+Input
+    dQOM <- F6 - F7
+    dEP <- F9ep - F10ep
+    dEM <- F9em - F10em
+    dIC <- F1*(1-CUE)   #CO2 fllux
+    dTot <- -F1*(1-CUE)+Input*3
+    return(list(c(dPOM, dMOM, dQOM, dDOM, dMB,dEP,dEM, dIC, dTot)))
+      })
+ }
+
+
+#state<-c(POM=3.25, MOM=27.97, QOM=0, DOM=0.21, MB=0.64, EP=0.064, EM=0.064, IC=0, Tot=32.198)#Mollisol
+#state<-c(POM=4.25, MOM=11.04, QOM=0, DOM=0.17, MB=0.05, EP=0.005, EM=0.005, IC=0, Tot=15.52)#Gelisol
+state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
+#state<-c(POM=20.06, MOM=64.86, QOM=0, DOM=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
+
+#solved the mode
+times <- seq(0, 365, by = 1)
+  ox<-ode(y=state, times=times, func=derivs, parms=pars)
+
+data.frame(ox[,1:10])
+}
+
+times=seq(0,1100, by=1)
+output<-solveLIN(pars, times) 
+
+plot(output$time,output$IC, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,1100), ylim=c(0,25))
+```
+
+
+###toy model (uses MM and rMM for POM and DOM decomp, respectively)
+```{r toy}
+##solving simple MEND model
+pars<- list (Vd=0.5,Vp=0.001, Vm=0.001)
+solveTOY<- function(pars,times){
+ derivs <- function(t, state, pars){
+      with(as.list(c(state, pars)),{
+        #default paramters
+  kD = 0.25
+        kP = 50 #half saturation constant for POM
+        kM = 250
+        Kads = 0.006 
+        Kdes = 0.001 
+        Qmax = 3.4
+        pEP=0.01 
+        pEM=0.01
+        rEP=1e-3 
+        rEM=1e-3 
+        fD=0.5 
+        gD=0.5
+        CUE=0.4
+        Input=0 #input per day
+    F1 <- Vd* MB *DOM /( kD + MB)  ## microbial uptake 
+    F2 <- Vp* EP * POM / (kP + POM) # POM decomposition
+    F3 <- Vm  * EM * MOM / (kM + MOM) #MOAM decomposition
+    F6 <- Kads * DOM *(1- QOM/ Qmax) ##adsorption
+    F7 <- Kdes * QOM/Qmax  ##desorption
+    F8 <- (1- pEP- pEM)* MB *0.4*Vd *MB #microbial biomass decay (biomass decay rate=0.2*growth rate)
+    F9ep <- pEP * MB *0.4*Vd  #enzyme production (maintaince respiration=0.1*total respiration)
+    F9em <- pEM * MB *0.4*Vd
+    F10ep <- rEP * EP  #enzyme decay
+    F10em <- rEM * EM
+    
+    dPOM <- (1 - gD) * F8- F2+Input
+    dMOM <- (1 - fD) * F2 - F3+Input
+    dMB <- F1*CUE - F8 - (F9em + F9ep) # Microbial growth= microbial uptake *CUE
+    dDOM <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)+Input
+    dQOM <- F6 - F7
+    dEP <- F9ep - F10ep
+    dEM <- F9em - F10em
+    dIC <- F1*(1-CUE)   #CO2 fllux
+    dTot <- -F1*(1-CUE)+Input*3
+    return(list(c(dPOM, dMOM, dQOM, dDOM, dMB,dEP,dEM, dIC, dTot)))
+      })
+ }
+
+
+#state<-c(POM=3.25, MOM=27.97, QOM=0, DOM=0.21, MB=0.64, EP=0.064, EM=0.064, IC=0, Tot=32.198)#Mollisol
+#state<-c(POM=4.25, MOM=11.04, QOM=0, DOM=0.17, MB=0.05, EP=0.005, EM=0.005, IC=0, Tot=15.52)#Gelisol
+state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
+#state<-c(POM=20.06, MOM=64.86, QOM=0, DOM=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
+
+#solved the mode
+times <- seq(0, 365, by = 1)
+  ox<-ode(y=state, times=times, func=derivs, parms=pars)
+
+data.frame(ox[,1:10])
+}
+
+times=seq(0,1100, by=1)
+output<-solveLIN(pars, times) 
+
+plot(output$time,output$IC, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,1100), ylim=c(0,25))
+```
+
+
+##Data fitting to optimize
+```{r data}
+
+Data<-read.csv("Ultisol_control.csv",header=TRUE)
+
+Objective <- function(x, parset = names(x)) {
+ pars[parset] <- x
+ tout <- seq(0, 365, by = 1) ## output times
+ out <- solveCOM(pars, tout)
+ return(modCost(model = out, obs = Data))## Model cost
+}
+
+
+#parameters are constrained to be >0
+print(system.time(Fit <- modFit(p = c(Vd=2, Vp=5, Vm=0.01),
+ f = Objective, lower = c(0,0.0,0))))
+#CUE range 0.25 to 0.75
+
+summary(Fit)
+
+```
+
+
+##graph model fit
+```{r plot}
+times <- seq(0, 365, by = 1)
+pars[c("Vd","Vp","Vm")]<-Fit$par
+#pars<- list (vmax1=1,vmax2=46,vmax3=69)
+output<-solveCOM(pars, times)  
+
+mfit<-as.data.frame(output[, 1:10])
+colnames(mfit) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
+head(mfit)
+
+write.csv(mfit, "Ul_POM_LIN.csv")
+
+#pdf("Andisol_POM_LIN.pdf", width=6, height=4)
+par(xpd = T, mar = par()$mar + c(0,0,0,10))
+plot(Data$time,Data$IC, xlab = "Time (d)", ylab = "Respiration (mgC g-1 soil)", pch=16, cex=1.2,col="#e08214", xlim=c(0,365), ylim=c(0,5),cex.lab=1.2, cex.axis=1.2)
+lines(mfit$time, mfit$IC, lwd=2, col="#e08214")
+
+#dev.off()
+
+```
+
+
+
+#global sensitivity analysis
+```{r sen}
+
+library(FME)
+##define parameter range as +-50%
+pars[c("Vd","Vp","Vm")]<-Fit$par
+params<-t(data.frame(pars))
+pmin<-params*0.5
+pmax<-params*1.5
+
+parRanges <- data.frame(min = pmin, max = pmax)
+
+##define broad parameter range
+parRanges <- data.frame(min = c(0,0,0), max = c(10,50,1))
+rownames(parRanges) <- c("Vd","Vp","Vm")
+parRanges
+
+times <- seq(0, 365, by = 1)
+#get sensitivity of vmax
+tout <- 0:100  # run the model for 100 times (num)
+
+
+
+###normal distributed prior
+SF<-summary(Fit)
+mean<-t(SF$par[,1])
+covar<-SF$cov.scaled*2.4^2/3
+
+print(system.time(sR <- sensRange(func = solveLIN, parms = pars, dist ="norm",parMean=mean, parCovar=covar, sensvar = c("DOM", "POM","MOM","MB"), parRange = parRanges, num = 100)))
+
+head(summary(sR))
+
+# plotting the result
+summ.sR <- summary(sR)
+
+pdf("sens_COM.pdf", width=6, height=6)
+par(mfrow=c(2, 2))
+#plot(summ.sR, xlab = "time, hour", ylab = "mM",legpos = "topright", mfrow = NULL)
+plot(summ.sR, xlab = "time, hour", ylab = "mM", mfrow = NULL,quant = TRUE, col = c("lightblue", "dodgerblue4"), legpos = "topright")
+mtext(outer = TRUE, line = -1.5, side = 3, "Sensitivity to parameter uncertainty", cex = 1.25)
+dev.off()
+
+
+#----------
+##random sampling
+SF<-summary(Fit)
+mean<-t(SF$par[,1])
+covar<-SF$cov.scaled*2.4^2/3
+
+print(system.time(sR <- sensRange(func = solveCOM, parms = pars, dist ="unif",parMean=mean, parCovar=covar, sensvar = c("DOM", "POM","MOM","MB"), parRange = parRanges, num = 100)))
+
+head(summary(sR))
+
+# plotting the result
+summ.sR <- summary(sR)
+
+pdf("sens_rand_COM.pdf", width=6, height=6)
+par(mfrow=c(2, 2))
+#plot(summ.sR, xlab = "time, hour", ylab = "mM",legpos = "topright", mfrow = NULL)
+plot(summ.sR, xlab = "time, hour", ylab = "mM", mfrow = NULL,quant = TRUE, col = c("lightblue", "dodgerblue4"), legpos = "topright")
+mtext(outer = TRUE, line = -1.5, side = 3, "Sensitivity to parameter uncertainty", cex = 1.25)
+dev.off()
+
+```
+
+
+
+
+
+
+##graph all models
+```{r plot}
+
+times <- seq(0, 3650, by = 1) ## output times
+
+pars1<- list (Vd=4.25,Vp=33.41,Vm=0.38)
+output1<-solveMEND(pars1, times)  
+mfit1<-as.data.frame(output1[, 1:10])
+colnames(mfit1) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
+head(mfit1)
+
+pars2<- list (Vd=2.43,Vp=26.32,Vm=0.40)
+output2<-solveCOM(pars2, times)  
+mfit2<-as.data.frame(output2[, 1:10])
+colnames(mfit2) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
+head(mfit2)
+
+pars3<- list (Vd=0.14,Vp=2.085,Vm=1.25)
+output3<-solveLIN(pars3, times)  
+mfit3<-as.data.frame(output3[, 1:10])
+colnames(mfit3) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
+head(mfit3)
+
+pars4<- list (Vd=13.24,Vp=16.99,Vm=0)
+output4<-solveTOY(pars4, times)  
+mfit4<-as.data.frame(output4[, 1:10])
+colnames(mfit4) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
+head(mfit4)
+
+pdf("allmodel.pdf", width=6, height=4)
+par(xpd = T, mar = par()$mar + c(0,0,0,10))
+plot(Data$time,Data$IC, xlab = "Time (d)", ylab = "Respiration (mgC g-1 soil)", pch=16, cex=1.2,col="#2d004b", xlim=c(0,365), ylim=c(0,5),cex.lab=1.2, cex.axis=1.2)
+lines(mfit1$time, mfit1$IC, lwd=2, col="#fdb863")+lines(mfit2$time, mfit2$IC, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$IC, lwd=2, col="#b35806")+lines(mfit4$time, mfit4$IC, lwd=2, col="#7f3b08")
+legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE","*TOY*"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806","#7f3b08"))
+dev.off()
+
+
+pdf("3model_input.pdf", width=6, height=4)
+par(xpd = T, mar = par()$mar + c(0,0,0,10))
+plot(Data$time,Data$IC, xlab = "Time (d)", ylab = "Respiration (mgC g-1 soil)", pch=23, cex=1,lwd=1.6,col="#8073ac", xlim=c(0,3650), ylim=c(0,5),cex.lab=1.2, cex.axis=1.2)
+lines(mfit1$time, mfit1$IC, lwd=3, col="#fdb863")+lines(mfit2$time, mfit2$IC, lwd=3, col="#e08214")+lines(mfit3$time, mfit3$IC, lwd=2.5, col="#b35806")
+legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=3, lty=1,col=c("#fdb863","#e08214","#b35806"))
+dev.off()
+
+pdf("POM.pdf", width=6, height=4)
+par(xpd = T, mar = par()$mar + c(0,0,0,10))
+plot(mfit1$time, mfit1$POM, xlab = "Time (d)", ylab = "POM (mgC g-1 soil)",type="l",lwd=2,col="#fdb863",xlim=c(0,365), ylim=c(0,5))
+lines(mfit2$time, mfit2$POM, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$POM, lwd=2, col="#b35806")
+legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
+dev.off()
+
+pdf("MOM.pdf", width=6, height=4)
+par(xpd = T, mar = par()$mar + c(0,0,0,10))
+plot(mfit1$time, mfit1$MOM, xlab = "Time (d)", ylab = "MOM (mgC g-1 soil)",type="l",lwd=2,col="#fdb863",xlim=c(0,365), ylim=c(15,25))
+lines(mfit2$time, mfit2$MOM, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$MOM, lwd=2, col="#b35806")
+legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
+dev.off()
+
+
+
+###with fresh C input
+pdf("pct_MOM_input05.pdf", width=6, height=4)
+par(xpd = T, mar = par()$mar + c(0,0,0,10))
+plot(mfit1$time, mfit1$MOM/mfit1$Tot, xlab = "Time (d)", ylab = "MOM%",type="l",lwd=2,col="#fdb863",xlim=c(0,3650), ylim=c(0,1))
+lines(mfit2$time, mfit2$MOM/mfit2$Tot, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$MOM/mfit3$Tot, lwd=2, col="#b35806")
+legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
+dev.off()
+
+
+pdf("Tot_input05.pdf", width=6, height=4)
+par(xpd = T, mar = par()$mar + c(0,0,0,10))
+plot(mfit1$time, mfit1$Tot, xlab = "Time (d)", ylab = "Total SOM (mgC g-1 soil)",type="l",lwd=2,col="#fdb863",xlim=c(0,3650), ylim=c(10,40))
+lines(mfit2$time, mfit2$Tot, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$Tot, lwd=2, col="#b35806")
+legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
+dev.off()
+
+
+##print model information
+cat("Model----------POMdecom----------DOMdecom----------MBdecay \nMEND-----------MM----------------MM-----------------Linear \nCOMISSION------rMM---------------MM-----------------Linear \nCORPSE---------Linear------------rMM----------------Linear " )
+
+##print toy model setup
+cat("Model----------POMdecom----------DOMdecom----------MBdecay \nMEND-----------MM----------------MM-----------------Linear \nCOMISSION------rMM---------------MM-----------------Linear \nCORPSE---------Linear------------rMM----------------Linear \n*TOY1*---------MM----------------rMM----------------Linear " )
+
+
+
+
+
+
+
+```
+
+##
+```{R plot}
+pool<-read.csv("Poolsize2.csv")
+p1<-ggplot(pool, aes(x=sample, y=value,fill=sample, color=sample))+geom_bar( stat="identity",size=0.08)+ #geom_smooth(aes(fill=series),alpha=0.2)+
+  facet_wrap(~fraction)+
+scale_fill_manual(values=c("#b35806","#fdb863","#b2abd2","#542788"))+
+scale_color_manual(values=c('white','white','white','white'))+
+theme_linedraw()+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=10))+theme(strip.background = element_rect(fill="white"),strip.text.x = element_text(size = 10, colour = "black"),axis.text.x=element_text(angle =45, vjust = 0.5))#+theme(axis.text.x=element_text(angle =45, vjust = 0.5))
+p1
+pdf("poolsize2.pdf",width=4, height=2)
+p1
+dev.off()
+```
+
+
+```{R plot}
+pool<-read.csv("nutnet.csv")
+pw<-data.frame(pH=pool$Obv)
+pw$no<-pool$No_OL
+pw$om<-pool$OL
+pw<-melt(pw, id.var=c("pH"))
+
+# fix number of decimal
+scaleFUN <- function(x) sprintf("%.1f", x)
+
+p1<-ggplot(pw, aes(x=pH, y=value, color=variable))+geom_point()+ 
+  geom_smooth(method=lm, aes(fill=variable))+scale_color_manual(values=c("#8073ac","#b35806"))+
+scale_fill_manual(values=c("#8073ac","#b35806"))+ scale_x_continuous(name = 'Observed pH',labels=scaleFUN) + scale_y_continuous(name = 'Predicted pH',labels=scaleFUN)+ geom_abline(intercept=0,slope=1, color="black", linetype="dashed")+
+theme_linedraw()+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=14))+theme(strip.background = element_rect(fill="white"),strip.text.x = element_text(size = 14, colour = "black"))#+theme(axis.text.x=element_text(angle =45, vjust = 0.5))
+p1
+
+pdf("nutnetpH.pdf",width=4, height=2.5)
+p1
+dev.off()
+```
+
+
+```{R plot}
+pka<-read.csv("pKas.csv")
+
+# fix number of decimal
+scaleFUN <- function(x) sprintf("%.1f", x)
+
+p1<-ggplot(pka, aes(x=pKa))+geom_histogram(binwidth=1,color="#b35806", fill="white")+ scale_y_continuous(name = 'Frequency')+
+theme_linedraw()+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=16))+theme(strip.background = element_rect(fill="white"),strip.text.x = element_text(size = 16, colour = "black"))#+theme(axis.text.x=element_text(angle =45, vjust = 0.5))
+p1
+
+pdf("pKa.pdf",width=4, height=2.5)
+p1
+dev.off()
+```
+
+##pH sensitivity of exoenzymes
+```{R plot}
+pool<-read.csv("Cellobiohydrolase.csv")
+# fix number of decimal
+scaleFUN <- function(x) sprintf("%.1f", x)
+
+p1<-ggplot(pool, aes(x=pH, y=Activity))+geom_point(color="#b35806")+ 
+  geom_smooth(method=loess, color="#b35806", fill="#b35806")+geom_vline(xintercept=7,color="black", linetype="dashed")+geom_vline(xintercept=6,color="black", linetype="dashed")+geom_vline(xintercept=5,color="black", linetype="dashed")+geom_vline(xintercept=4,color="black", linetype="dashed")+
+scale_x_continuous(name = 'Observed pH',limits=c(2,12), breaks=c(2,4,6,8,10,12)) + scale_y_continuous(name = 'Relative activity',labels=scaleFUN)+ 
+theme_linedraw()+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=12))+theme(strip.background = element_rect(fill="white"),strip.text.x = element_text(size = 12, colour = "black"))#+theme(axis.text.x=element_text(angle =45, vjust = 0.5))
+p1
+
+pdf("CellopH.pdf",width=3, height=2)
+p1
+dev.off()
+```
+
+
+
+##soil pH 
+```{R plot}
+pool<-read.csv("soilph.csv")
+
+
+# fix number of decimal
+scaleFUN <- function(x) sprintf("%.1f", x)
+
+p1<-ggplot(pool, aes(x=pH, y=value, color=soil))+geom_point()+ 
+  geom_smooth(method=loess,aes(fill=NA))+scale_color_manual(values=c("#b2abd2","#8073ac","#542788"))+
+scale_fill_manual(values=c("#b2abd2","#8073ac","#542788"))+ scale_x_continuous(name = 'Observed pH',limits=c(2,12), breaks=c(2,4,6,8,10,12)) + scale_y_continuous(name = 'Relative activity',labels=scaleFUN)+ geom_vline(xintercept=7,color="black", linetype="dashed")+geom_vline(xintercept=6,color="black", linetype="dashed")+geom_vline(xintercept=5,color="black", linetype="dashed")+geom_vline(xintercept=4,color="black", linetype="dashed")+
+theme_linedraw()+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=12))+theme(strip.background = element_rect(fill="white"),strip.text.x = element_text(size = 12, colour = "black"))+theme(legend.position="none")#+theme(axis.text.x=element_text(angle =45, vjust = 0.5))
+p1
+
+pdf("soilpH.pdf",width=3, height=2)
+p1
+dev.off()
+```
+
+##soil pH 
+```{R plot}
+def1<-read.csv("def1.csv")
+def2<-read.csv("def2.csv")
+def3<-read.csv("def3.csv")
+def4<-read.csv("def4.csv")
+def5<-read.csv("def5.csv")
+
+test<-rbind(def1, def2, def3, def4, def5)
+
+
+# fix number of decimal
+scaleFUN <- function(x) sprintf("%.1f", x)
+
+p1<-ggplot(test, aes(x=mu, y=pH, color=level))+geom_point()+ 
+  geom_smooth(method=loess,aes(fill=NA))+scale_color_manual(values=c("#fee0b6","#fdb863","#e08214","#b35806","#7f3b08"))+geom_hline(yintercept=5.42,color="black", linetype="dashed")+
+scale_fill_manual(values=c("#fee0b6","#fdb863","#e08214","#b35806","#7f3b08"))+ scale_x_continuous(name = 'Ionic strength (mmol/L)') + scale_y_continuous(name = 'pH',labels=scaleFUN)+ 
+theme_linedraw()+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=14))+theme(strip.background = element_rect(fill="white"),strip.text.x = element_text(size = 14, colour = "black"))+theme(legend.position="none")#+theme(axis.text.x=element_text(angle =45, vjust = 0.5))
+p1
+
+pdf("muPH.pdf",width=4, height=2.5)
+p1
+dev.off()
+```
+
+
+```{r fph}
+#====pH response function====
+pH<-seq(2,12,0.01)
+fpHref<-10^(-0.2235*pH^2+2.7727*pH -8.6)
+f3<-fpHref/max(fpHref)
+
+f2<-(pH-4)*(pH-10)/((pH-4)*(pH-10)-(pH-7)^2)
+
+ph1<-seq(2,7,0.01)
+fph1<-1.02/(1.02+10^6*exp(-2.5*ph1))
+ph2<-seq(7.01,12,0.01)
+fph2<-1.02/(1.02+10^6*exp(-2.5*(14-ph2)))
+
+data1<-data.frame(pH=ph1)
+data1$fpH1<-fph1
+
+data2<-data.frame(pH=ph2)
+data2$fpH1<-fph2
+
+allf<-rbind(data1, data2)
+allf$fpH2<-f2
+allf$fpH3<-f3
+
+fpHs<-melt(allf, id.var=c("pH"))
+
+plot1<-ggplot(fpHs, aes(x = pH,y = value, color=variable)) +
+  scale_x_continuous(name = 'pH', breaks=c(0,2,4,6,8,10,12,14)) +
+  scale_y_continuous(name = 'Relative activity', limits=c(0,1)) + geom_line(aes(color=variable),size=1)+
+  scale_color_manual(values =c("#fee0b6","#e08214","#7f3b08"))
+plot2<-plot1+theme_linedraw()+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=14))
+plot2
+
+pdf("fpH.pdf",width=5, height=2.8)
+plot2
+dev.off()
+```
