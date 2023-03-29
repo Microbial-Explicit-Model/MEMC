@@ -8,6 +8,9 @@ output: html_document
 ```{r setup, include=FALSE}
 library(FME)
 library(deSolve)
+library(ggplot2)
+library(tidyr)
+library(reshape)
 ##solving simple MEND model
 pars<- list (Vd=3,Vp=14, Vm=0.25)
 solveMEND <- function(pars,times){
@@ -59,8 +62,7 @@ solveMEND <- function(pars,times){
 state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.82, EP=0.0082, EM=0.0082, IC=0, Tot=23.484)#Ultisol
 #state<-c(POM=20.06, MOM=64.86, QOM=0, DOM=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
 
-#solved the mode
-times <- seq(0, 365, by = 1)
+
 return(ode(y=state, times=times, func=derivs, parms=pars))
 
 }
@@ -126,7 +128,6 @@ state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=
 #state<-c(POM=20.06, MOM=64.86, QOM=0, DOM=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
 
 #solved the mode
-times <- seq(0, 365, by = 1)
 return(ode(y=state, times=times, func=derivs, parms=pars))
 
 }
@@ -191,7 +192,6 @@ state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=
 #state<-c(POM=20.06, MOM=64.86, QOM=0, DOM=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
 
 #solved the mode
-times <- seq(0, 365, by = 1)
   ox<-ode(y=state, times=times, func=derivs, parms=pars)
 
 data.frame(ox[,1:10])
@@ -257,7 +257,6 @@ state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=
 #state<-c(POM=20.06, MOM=64.86, QOM=0, DOM=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
 
 #solved the mode
-times <- seq(0, 365, by = 1)
   ox<-ode(y=state, times=times, func=derivs, parms=pars)
 
 data.frame(ox[,1:10])
@@ -294,7 +293,7 @@ summary(Fit)
 
 
 ##graph model fit
-```{r plot}
+```{r}
 times <- seq(0, 365, by = 1)
 pars[c("Vd","Vp","Vm")]<-Fit$par
 #pars<- list (vmax1=1,vmax2=46,vmax3=69)
@@ -306,10 +305,10 @@ head(mfit)
 
 write.csv(mfit, "Ul_POM_LIN.csv")
 
-#pdf("Andisol_POM_LIN.pdf", width=6, height=4)
-par(xpd = T, mar = par()$mar + c(0,0,0,10))
-plot(Data$time,Data$IC, xlab = "Time (d)", ylab = "Respiration (mgC g-1 soil)", pch=16, cex=1.2,col="#e08214", xlim=c(0,365), ylim=c(0,5),cex.lab=1.2, cex.axis=1.2)
-lines(mfit$time, mfit$IC, lwd=2, col="#e08214")
+# pdf("Andisol_POM_LIN.pdf", width=6, height=4)
+# par(xpd = T, mar = par()$mar + c(0,0,0,10))
+# plot(Data$time,Data$IC, xlab = "Time (d)", ylab = "Respiration (mgC g-1 soil)", pch=16, cex=1.2,col="#e08214", xlim=c(0,365), ylim=c(0,5),cex.lab=1.2, cex.axis=1.2)
+# lines(mfit$time, mfit$IC, lwd=2, col="#e08214")
 
 #dev.off()
 
@@ -345,19 +344,19 @@ SF<-summary(Fit)
 mean<-t(SF$par[,1])
 covar<-SF$cov.scaled*2.4^2/3
 
-print(system.time(sR <- sensRange(func = solveLIN, parms = pars, dist ="norm",parMean=mean, parCovar=covar, sensvar = c("DOM", "POM","MOM","MB"), parRange = parRanges, num = 100)))
+print(system.time(sR <- sensRange(func = solveLIN, times = 0:365,  parms = pars, dist ="norm",parMean=mean, parCovar=covar, sensvar = c("DOM", "POM","MOM","MB"), parRange = parRanges, num = 100)))
 
 head(summary(sR))
 
 # plotting the result
 summ.sR <- summary(sR)
 
-pdf("sens_COM.pdf", width=6, height=6)
+#pdf("sens_COM.pdf", width=6, height=6)
 par(mfrow=c(2, 2))
 #plot(summ.sR, xlab = "time, hour", ylab = "mM",legpos = "topright", mfrow = NULL)
 plot(summ.sR, xlab = "time, hour", ylab = "mM", mfrow = NULL,quant = TRUE, col = c("lightblue", "dodgerblue4"), legpos = "topright")
-mtext(outer = TRUE, line = -1.5, side = 3, "Sensitivity to parameter uncertainty", cex = 1.25)
-dev.off()
+#mtext(outer = TRUE, line = -1.5, side = 3, "Sensitivity to parameter uncertainty", cex = 1.25)
+#dev.off()
 
 
 #----------
@@ -366,19 +365,19 @@ SF<-summary(Fit)
 mean<-t(SF$par[,1])
 covar<-SF$cov.scaled*2.4^2/3
 
-print(system.time(sR <- sensRange(func = solveCOM, parms = pars, dist ="unif",parMean=mean, parCovar=covar, sensvar = c("DOM", "POM","MOM","MB"), parRange = parRanges, num = 100)))
+print(system.time(sR <- sensRange(func = solveCOM, times = 0:365, parms = pars, dist ="unif",parMean=mean, parCovar=covar, sensvar = c("DOM", "POM","MOM","MB"), parRange = parRanges, num = 100)))
 
 head(summary(sR))
 
 # plotting the result
 summ.sR <- summary(sR)
 
-pdf("sens_rand_COM.pdf", width=6, height=6)
-par(mfrow=c(2, 2))
+#pdf("sens_rand_COM.pdf", width=6, height=6)
+#par(mfrow=c(2, 2))
 #plot(summ.sR, xlab = "time, hour", ylab = "mM",legpos = "topright", mfrow = NULL)
 plot(summ.sR, xlab = "time, hour", ylab = "mM", mfrow = NULL,quant = TRUE, col = c("lightblue", "dodgerblue4"), legpos = "topright")
-mtext(outer = TRUE, line = -1.5, side = 3, "Sensitivity to parameter uncertainty", cex = 1.25)
-dev.off()
+#mtext(outer = TRUE, line = -1.5, side = 3, "Sensitivity to parameter uncertainty", cex = 1.25)
+#dev.off()
 
 ```
 
@@ -388,7 +387,7 @@ dev.off()
 
 
 ##graph all models
-```{r plot}
+```{r}
 
 times <- seq(0, 3650, by = 1) ## output times
 
@@ -416,52 +415,52 @@ mfit4<-as.data.frame(output4[, 1:10])
 colnames(mfit4) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
 head(mfit4)
 
-pdf("allmodel.pdf", width=6, height=4)
-par(xpd = T, mar = par()$mar + c(0,0,0,10))
+# pdf("allmodel.pdf", width=6, height=4)
+# par(xpd = T, mar = par()$mar + c(0,0,0,10))
 plot(Data$time,Data$IC, xlab = "Time (d)", ylab = "Respiration (mgC g-1 soil)", pch=16, cex=1.2,col="#2d004b", xlim=c(0,365), ylim=c(0,5),cex.lab=1.2, cex.axis=1.2)
 lines(mfit1$time, mfit1$IC, lwd=2, col="#fdb863")+lines(mfit2$time, mfit2$IC, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$IC, lwd=2, col="#b35806")+lines(mfit4$time, mfit4$IC, lwd=2, col="#7f3b08")
 legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE","*TOY*"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806","#7f3b08"))
-dev.off()
+# dev.off()
 
 
-pdf("3model_input.pdf", width=6, height=4)
-par(xpd = T, mar = par()$mar + c(0,0,0,10))
+# pdf("3model_input.pdf", width=6, height=4)
+# par(xpd = T, mar = par()$mar + c(0,0,0,10))
 plot(Data$time,Data$IC, xlab = "Time (d)", ylab = "Respiration (mgC g-1 soil)", pch=23, cex=1,lwd=1.6,col="#8073ac", xlim=c(0,3650), ylim=c(0,5),cex.lab=1.2, cex.axis=1.2)
 lines(mfit1$time, mfit1$IC, lwd=3, col="#fdb863")+lines(mfit2$time, mfit2$IC, lwd=3, col="#e08214")+lines(mfit3$time, mfit3$IC, lwd=2.5, col="#b35806")
 legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=3, lty=1,col=c("#fdb863","#e08214","#b35806"))
-dev.off()
-
-pdf("POM.pdf", width=6, height=4)
-par(xpd = T, mar = par()$mar + c(0,0,0,10))
+# dev.off()
+# 
+# pdf("POM.pdf", width=6, height=4)
+# par(xpd = T, mar = par()$mar + c(0,0,0,10))
 plot(mfit1$time, mfit1$POM, xlab = "Time (d)", ylab = "POM (mgC g-1 soil)",type="l",lwd=2,col="#fdb863",xlim=c(0,365), ylim=c(0,5))
 lines(mfit2$time, mfit2$POM, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$POM, lwd=2, col="#b35806")
 legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
-dev.off()
+# dev.off()
 
-pdf("MOM.pdf", width=6, height=4)
-par(xpd = T, mar = par()$mar + c(0,0,0,10))
+# pdf("MOM.pdf", width=6, height=4)
+# par(xpd = T, mar = par()$mar + c(0,0,0,10))
 plot(mfit1$time, mfit1$MOM, xlab = "Time (d)", ylab = "MOM (mgC g-1 soil)",type="l",lwd=2,col="#fdb863",xlim=c(0,365), ylim=c(15,25))
 lines(mfit2$time, mfit2$MOM, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$MOM, lwd=2, col="#b35806")
 legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
-dev.off()
+# dev.off()
 
 
 
 ###with fresh C input
-pdf("pct_MOM_input05.pdf", width=6, height=4)
-par(xpd = T, mar = par()$mar + c(0,0,0,10))
+# pdf("pct_MOM_input05.pdf", width=6, height=4)
+# par(xpd = T, mar = par()$mar + c(0,0,0,10))
 plot(mfit1$time, mfit1$MOM/mfit1$Tot, xlab = "Time (d)", ylab = "MOM%",type="l",lwd=2,col="#fdb863",xlim=c(0,3650), ylim=c(0,1))
-lines(mfit2$time, mfit2$MOM/mfit2$Tot, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$MOM/mfit3$Tot, lwd=2, col="#b35806")
-legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
-dev.off()
+# lines(mfit2$time, mfit2$MOM/mfit2$Tot, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$MOM/mfit3$Tot, lwd=2, col="#b35806")
+# legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
+# dev.off()
 
 
-pdf("Tot_input05.pdf", width=6, height=4)
-par(xpd = T, mar = par()$mar + c(0,0,0,10))
+# pdf("Tot_input05.pdf", width=6, height=4)
+# par(xpd = T, mar = par()$mar + c(0,0,0,10))
 plot(mfit1$time, mfit1$Tot, xlab = "Time (d)", ylab = "Total SOM (mgC g-1 soil)",type="l",lwd=2,col="#fdb863",xlim=c(0,3650), ylim=c(10,40))
-lines(mfit2$time, mfit2$Tot, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$Tot, lwd=2, col="#b35806")
-legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
-dev.off()
+# lines(mfit2$time, mfit2$Tot, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$Tot, lwd=2, col="#b35806")
+# legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
+# dev.off()
 
 
 ##print model information
@@ -479,21 +478,22 @@ cat("Model----------POMdecom----------DOMdecom----------MBdecay \nMEND----------
 ```
 
 ##
-```{R plot}
+```{r}
 pool<-read.csv("Poolsize2.csv")
 p1<-ggplot(pool, aes(x=sample, y=value,fill=sample, color=sample))+geom_bar( stat="identity",size=0.08)+ #geom_smooth(aes(fill=series),alpha=0.2)+
   facet_wrap(~fraction)+
 scale_fill_manual(values=c("#b35806","#fdb863","#b2abd2","#542788"))+
 scale_color_manual(values=c('white','white','white','white'))+
-theme_linedraw()+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=10))+theme(strip.background = element_rect(fill="white"),strip.text.x = element_text(size = 10, colour = "black"),axis.text.x=element_text(angle =45, vjust = 0.5))#+theme(axis.text.x=element_text(angle =45, vjust = 0.5))
+theme_linedraw()+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=10))+theme(strip.background = element_rect(fill="white"),strip.text.x = element_text(size = 10, colour = "black"),axis.text.x=element_text(angle =45, vjust = 0.5))+
+  theme(axis.text.x=element_text(angle =45, vjust = 0.5))
+# p1
+# pdf("poolsize2.pdf",width=4, height=2)
 p1
-pdf("poolsize2.pdf",width=4, height=2)
-p1
-dev.off()
+#dev.off()
 ```
 
 
-```{R plot}
+```{r}
 pool<-read.csv("nutnet.csv")
 pw<-data.frame(pH=pool$Obv)
 pw$no<-pool$No_OL
@@ -509,13 +509,13 @@ scale_fill_manual(values=c("#8073ac","#b35806"))+ scale_x_continuous(name = 'Obs
 theme_linedraw()+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=14))+theme(strip.background = element_rect(fill="white"),strip.text.x = element_text(size = 14, colour = "black"))#+theme(axis.text.x=element_text(angle =45, vjust = 0.5))
 p1
 
-pdf("nutnetpH.pdf",width=4, height=2.5)
+# pdf("nutnetpH.pdf",width=4, height=2.5)
 p1
-dev.off()
+# dev.off()
 ```
 
 
-```{R plot}
+```{r}
 pka<-read.csv("pKas.csv")
 
 # fix number of decimal
@@ -525,13 +525,13 @@ p1<-ggplot(pka, aes(x=pKa))+geom_histogram(binwidth=1,color="#b35806", fill="whi
 theme_linedraw()+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=16))+theme(strip.background = element_rect(fill="white"),strip.text.x = element_text(size = 16, colour = "black"))#+theme(axis.text.x=element_text(angle =45, vjust = 0.5))
 p1
 
-pdf("pKa.pdf",width=4, height=2.5)
+# pdf("pKa.pdf",width=4, height=2.5)
 p1
-dev.off()
+# dev.off()
 ```
 
 ##pH sensitivity of exoenzymes
-```{R plot}
+```{r}
 pool<-read.csv("Cellobiohydrolase.csv")
 # fix number of decimal
 scaleFUN <- function(x) sprintf("%.1f", x)
@@ -542,15 +542,15 @@ scale_x_continuous(name = 'Observed pH',limits=c(2,12), breaks=c(2,4,6,8,10,12))
 theme_linedraw()+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=12))+theme(strip.background = element_rect(fill="white"),strip.text.x = element_text(size = 12, colour = "black"))#+theme(axis.text.x=element_text(angle =45, vjust = 0.5))
 p1
 
-pdf("CellopH.pdf",width=3, height=2)
+# pdf("CellopH.pdf",width=3, height=2)
 p1
-dev.off()
+# dev.off()
 ```
 
 
 
 ##soil pH 
-```{R plot}
+```{r}
 pool<-read.csv("soilph.csv")
 
 
@@ -563,13 +563,13 @@ scale_fill_manual(values=c("#b2abd2","#8073ac","#542788"))+ scale_x_continuous(n
 theme_linedraw()+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=12))+theme(strip.background = element_rect(fill="white"),strip.text.x = element_text(size = 12, colour = "black"))+theme(legend.position="none")#+theme(axis.text.x=element_text(angle =45, vjust = 0.5))
 p1
 
-pdf("soilpH.pdf",width=3, height=2)
+#pdf("soilpH.pdf",width=3, height=2)
 p1
-dev.off()
+#dev.off()
 ```
 
 ##soil pH 
-```{R plot}
+```{r}
 def1<-read.csv("def1.csv")
 def2<-read.csv("def2.csv")
 def3<-read.csv("def3.csv")
@@ -588,13 +588,13 @@ scale_fill_manual(values=c("#fee0b6","#fdb863","#e08214","#b35806","#7f3b08"))+ 
 theme_linedraw()+ theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=14))+theme(strip.background = element_rect(fill="white"),strip.text.x = element_text(size = 14, colour = "black"))+theme(legend.position="none")#+theme(axis.text.x=element_text(angle =45, vjust = 0.5))
 p1
 
-pdf("muPH.pdf",width=4, height=2.5)
+#pdf("muPH.pdf",width=4, height=2.5)
 p1
-dev.off()
+#dev.off()
 ```
 
 
-```{r fph}
+```{r}
 #====pH response function====
 pH<-seq(2,12,0.01)
 fpHref<-10^(-0.2235*pH^2+2.7727*pH -8.6)
@@ -626,7 +626,7 @@ plot1<-ggplot(fpHs, aes(x = pH,y = value, color=variable)) +
 plot2<-plot1+theme_linedraw()+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+theme(text = element_text(size=14))
 plot2
 
-pdf("fpH.pdf",width=5, height=2.8)
+#pdf("fpH.pdf",width=5, height=2.8)
 plot2
-dev.off()
+#dev.off()
 ```
