@@ -50,9 +50,9 @@ test_that("memc_modfit", {
 
 
   # Test to see if it works for multiple model parameters
-  default_B <- default_initial[["B"]]
+  default_B <- default_initial[["MB"]]
   out <- memc_modfit(config = mod,
-                     x = c("V_d" = 10, "B" = 5),
+                     x = c("V_d" = 10, "MB" = 5),
                      comp_data = comp_data,
                      lower = c(0))
   expect_lt(mean(abs(out$par - c(default_vd, default_B))), 1e-4)

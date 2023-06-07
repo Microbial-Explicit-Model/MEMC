@@ -12,80 +12,66 @@ carbon_fluxes_internal <-
            POMdecomp = "MM",
            MBdecay = "DD") {
 
-    # assert_that(all(sapply(list(POMdecomp, DOMdecomp, MBdecay), is.character)))
-    # assert_that(sum(DOMdecomp %in% c("MM", "RMM", "ECA")) == 1, msg = 'DOMdecomp must be "MM", "RMM", "ECA"')
-    # assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'POMdecomp must be "MM", "RMM", "ECA", "LM"')
-    # assert_that(sum(MBdecay %in% c("LM", "DD")) == 1, msg = 'MBdecay must be "LM" or "DD"')
-
-    # # Parse out the parameter values so they can be be used in the fluxes
-    # pars <- parms$value
-    # names(pars) <- parms$parameter
-
-    # with(as.list(pars), {
-    #   # Create an empty to store all of the flux functions in
-    #   fluxes <- list()
-    #   p_d <- 0.4*V_d
-
     fluxes <- list()
       if (DOMdecomp == "MM") {
-        fluxes[["F1"]] = function(B, D) {
-          p[["V_d"]] * B * D / (p[["K_d"]] + D)
+        fluxes[["F1"]] = function(MB, DOM) {
+          p[["V_d"]] * MB * DOM / (p[["K_d"]] + DOM)
         }
       } else if (DOMdecomp == "RMM") {
-        fluxes[["F1"]] = function(B, D) {
-          p[["V_d"]] * B * D / (p[["K_d"]] + B)
+        fluxes[["F1"]] = function(MB, DOM) {
+          p[["V_d"]] * MB * DOM / (p[["K_d"]] + MB)
         }
       } else if (DOMdecomp == "ECA") {
-        fluxes[["F1"]] = function(B, D) {
-          p[["V_d"]] * B * D / (p[["K_d"]] + D + B)
+        fluxes[["F1"]] = function(MB, DOM) {
+          p[["V_d"]] * MB * DOM / (p[["K_d"]] + DOM + MB)
         }
       }
 
       if (POMdecomp == "MM") {
-        fluxes[["F2"]] = function(EP, P) {
-          (p[["V_p"]] * EP * P) / (p[["K_p"]] + P)
+        fluxes[["F2"]] = function(EP, POM) {
+          (p[["V_p"]] * EP * POM) / (p[["K_p"]] + POM)
         }
       } else if (POMdecomp == "RMM") {
-        fluxes[["F2"]] = function(EP, P) {
-          (p[["V_p"]] * EP * P) / (p[["K_p"]] + EP)
+        fluxes[["F2"]] = function(EP, POM) {
+          (p[["V_p"]] * EP * POM) / (p[["K_p"]] + EP)
         }
       } else if (POMdecomp == "ECA") {
-        fluxes[["F2"]] = function(EP, P) {
-          (p[["V_p"]] * EP * P) / (p[["K_p"]] + P + EP)
+        fluxes[["F2"]] = function(EP, POM) {
+          (p[["V_p"]] * EP * POM) / (p[["K_p"]] + POM + EP)
         }
       } else if (POMdecomp == "LM") {
-        fluxes[["F2"]] = function(EP, P) {
-          p[["V_p"]] * P
+        fluxes[["F2"]] = function(EP, POM) {
+          p[["V_p"]] * POM
         }
       }
 
-      fluxes[["F3"]] = function(EM, M) {
-        (p[["V_m"]] * EM * M) / (p[["K_m"]] + M)
+      fluxes[["F3"]] = function(EM, MOM) {
+        (p[["V_m"]] * EM * MOM) / (p[["K_m"]] + MOM)
       }
-      fluxes[["F4"]] = function(D, Q) {
-        p[["K_ads"]] * D * (1 - Q /p[["Q_max"]])
+      fluxes[["F4"]] = function(DOM, QOM) {
+        p[["K_ads"]] * DOM * (1 - QOM /p[["Q_max"]])
       }
-      fluxes[["F5"]] = function(Q) {
-        p[["K_des"]] * Q / p[["Q_max"]]
+      fluxes[["F5"]] = function(QOM) {
+        p[["K_des"]] * QOM / p[["Q_max"]]
       }
 
       if (MBdecay == "DD") {
         assert_that(p[["dd_beta"]] > 1)
-        fluxes[["F6"]] = function(B) {
-          (1 - p[["p_ep"]] - p[["p_em"]]) *  0.4 * p[["V_d"]] * (B ^ p[["dd_beta"]])
+        fluxes[["F6"]] = function(MB) {
+          (1 - p[["p_ep"]] - p[["p_em"]]) *  0.4 * p[["V_d"]] * (MB ^ p[["dd_beta"]])
         }
       } else if (MBdecay == "LM") {
         assert_that(p[["dd_beta"]] == 1)
-        fluxes[["F6"]] = function(B) {
-          (1 - p[["p_ep"]] - p[["p_em"]]) * 0.4 * p[["V_d"]] * (B ^ p[["dd_beta"]])
+        fluxes[["F6"]] = function(MB) {
+          (1 - p[["p_ep"]] - p[["p_em"]]) * 0.4 * p[["V_d"]] * (MB ^ p[["dd_beta"]])
         }
       }
 
-      fluxes[["F7_ep"]] = function(B) {
-        p[["p_ep"]] * B *  0.4 * p[["V_d"]]
+      fluxes[["F7_ep"]] = function(MB) {
+        p[["p_ep"]] * MB *  0.4 * p[["V_d"]]
       }
-      fluxes[["F7_em"]] = function(B) {
-        p[["p_em"]] * B *  0.4 * p[["V_d"]]
+      fluxes[["F7_em"]] = function(MB) {
+        p[["p_em"]] * MB *  0.4 * p[["V_d"]]
       }
       fluxes[["F8_ep"]] = function(EP) {
         p[["r_ep"]] * EP
@@ -123,30 +109,30 @@ carbon_pool_derivs <-
                              MBdecay = MBdecay)
 
     with(as.list(state), {
-      F1 <- fluxes$F1(B = B, D = D)
-      F2 <- fluxes$F2(EP = EP, P = P)
-      F3 <- fluxes$F3(EM = EM, M = M)
-      F4 <- fluxes$F4(D = D, Q = Q)
-      F5 <- fluxes$F5(Q = Q)
-      F6 <- fluxes$F6(B = B)
-      F7_ep <- fluxes$F7_ep(B = B)
-      F7_em <- fluxes$F7_em(B = B)
+      F1 <- fluxes$F1(MB = MB, DOM = DOM)
+      F2 <- fluxes$F2(EP = EP, POM = POM)
+      F3 <- fluxes$F3(EM = EM, MOM = MOM)
+      F4 <- fluxes$F4(DOM = DOM, QOM = QOM)
+      F5 <- fluxes$F5(QOM = QOM)
+      F6 <- fluxes$F6(MB = MB)
+      F7_ep <- fluxes$F7_ep(MB = MB)
+      F7_em <- fluxes$F7_em(MB = MB)
       F8_ep <- fluxes$F8_ep(EP = EP)
       F8_em <- fluxes$F8_em(EM = EM)
 
       # Define the system of differential equations to describes the
       # changes in the carbon pool states_
       # -----------------------------------------------------------
-      # P = particulate organic carbon
-      dP <- (1 - p[["g_d"]]) * F6 - F2 + p[["Input_P"]]
-      # M = mineral-associated organic carbon (MOC)
-      dM <- (1 - p[["f_d"]]) * F2 - F3 + p[["Input_M"]]
-      # Q = active layer of MOC
-      dQ <- F4 - F5
-      # B = microbial biomass carbon
-      dB <- F1 * p[["CUE"]] - F6 - (F7_ep + F7_em)
-      # D = dissolved organic carbon
-      dD <-
+      # POM = particulate organic carbon
+      dPOM <- (1 - p[["g_d"]]) * F6 - F2 + p[["Input_P"]]
+      # MOM = mineral-associated organic carbon (MOC)
+      dMOM <- (1 - p[["f_d"]]) * F2 - F3 + p[["Input_M"]]
+      # QOMO = active layer of MOC
+      dQOM <- F4 - F5
+      # MB = microbial biomass carbon
+      dMB <- F1 * p[["CUE"]] - F6 - (F7_ep + F7_em)
+      # DOM = dissolved organic carbon
+      dDOM <-
         p[["f_d"]] * F2 + p[["g_d"]] * F6 + F3 + (F8_em + F8_ep) - F1 - (F4 - F5) + p[["Input_D"]]
       # EP = carbon stored as extra-cellular enzymes
       dEP <- F7_em - F8_ep
@@ -158,7 +144,7 @@ carbon_pool_derivs <-
       dTot <- -F1 * (1 - p[["CUE"]]) +  (p[["Input_P"]] + p[["Input_D"]] + p[["Input_M"]])
 
       # Return outputs
-      return(list(c(dP, dM, dQ, dB, dD, dEP, dEM, dIC, dTot)))
+      return(list(c(dPOM, dMOM, dQOM, dMB, dDOM, dEP, dEM, dIC, dTot)))
 
     })
 
@@ -184,7 +170,7 @@ sm_internal <- function(mod, time, ...) {
     parms = p,
     DOMdecomp = mod[["table"]][["DOMdecomp"]],
     POMdecomp = mod[["table"]][["POMdecomp"]],
-    MBdecay = mod[["table"]][["MBdecay"]]) #,...)
+    MBdecay = mod[["table"]][["MBdecay"]], ...)
 
   return(rslt)
 

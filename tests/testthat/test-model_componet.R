@@ -55,16 +55,16 @@ test_that("configure_model", {
 
 test_that("change param", {
 
-  out1 <- solve_model(mod = config, time)
-  out2 <- solve_model(mod = config, time, params = c("V_d" = 10))
+  out1 <- solve_model(mod = mod, time)
+  out2 <- solve_model(mod = mod, time, params = c("V_d" = 10))
   expect_gte(mean((out1$value - out2$value)^2), zero)
 
 })
 
 test_that("change starting state", {
 
-  out1 <- solve_model(mod = config, time)
-  out2 <- solve_model(mod = config, time, state = c(B = 4))
+  out1 <- solve_model(mod = mod, time)
+  out2 <- solve_model(mod = mod, time, state = c(MB = 4))
   expect_gte(mean((out1$value - out2$value)^2), zero)
 
 })

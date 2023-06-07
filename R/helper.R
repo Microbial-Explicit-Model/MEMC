@@ -45,7 +45,7 @@ update_params <- function(new_params, param_table) {
 update_state <- function(new_vals, state) {
   assert_that(is_state_vector(state))
 
-  req_names <- c("P", "M", "Q", "B", "D", "EP", "EM", "IC", "Tot")
+  req_names <- c("POM", "MOM", "QOM", "MB", "DOM", "EP", "EM", "IC", "Tot")
   assert_that(is.vector(new_vals))
   assert_that(all(names(new_vals) %in% req_names))
 

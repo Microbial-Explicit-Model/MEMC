@@ -53,7 +53,7 @@ test_that("is_state_vector works", {
   # A number of errors should be thrown if the input does not meet the correct requirements.
   expect_error(
     is_state_vector(rev(state)),
-    "entires must be in the correct order: P, M, Q, B, D, EP, EM, IC, Tot",
+    "entires must be in the correct order: POM, MOM, QOM, MB, DOM, EP, EM, IC, Tot",
     fixed = TRUE
   )
 

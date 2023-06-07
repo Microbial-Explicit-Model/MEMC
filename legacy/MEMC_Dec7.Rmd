@@ -275,7 +275,7 @@ solveTOY<- function(pars,times){
     dPOM <- (1 - gD) * F8- F2+Input
     dMOM <- (1 - fD) * F2 - F3+Input
     dMB <- F1*CUE - F8 - (F9em + F9ep) # Microbial growth= microbial uptake *CUE
-    dDOM <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)+Input
+    dDOM <- fD * F2 + gD * F8 + F3 + (F10em + F10ep) - F1 - (F6 - F7)+Input
     dQOM <- F6 - F7
     dEP <- F9ep - F10ep
     dEM <- F9em - F10em

@@ -18,17 +18,17 @@
 "default_params"
 
 
-#' The default inital carbon pool values the basic MEMC model configurations from Wang et al. 2013
+#' The default initial carbon pool values the basic MEMC model configurations from Wang et al. 2013
 #'
-#' @format A vector of the intial states of the Carbon pools from MEND 2013 \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
+#' @format A vector of the initial states of the Carbon pools from MEND 2013 \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 #' \describe{ a named vector of the Carbon pools
-#' \item{'P'}{'Particulate organic carbon or POC'}
-#' \item{'M'}{'Mineral associated organic carbon or MOC, note that this excludes Q'}
-#' \item{'Q'}{'Adsorbed phase of DOC'}
-#' \item{'B'}{'Microbial biomass carbon or MBC'}
-#' \item{'D'}{'Dissolved organic carbon or DOC'}
-#' \item{'EP'}{'Enzyme for decomposition of P'}
-#' \item{'EM'}{'Ensyme for decomposition of M'}
+#' \item{'POM'}{'Particulate organic carbon or POC'}
+#' \item{'MOM'}{'Mineral associated organic carbon or MOC, note that this excludes QOM'}
+#' \item{'QOM'}{'Adsorbed phase of DOC'}
+#' \item{'MB'}{'Microbial biomass carbon or MBC'}
+#' \item{'DOM'}{'Dissolved organic carbon or DOC'}
+#' \item{'EP'}{'Enzyme for decomposition of POM'}
+#' \item{'EM'}{'Ensyme for decomposition of MOM'}
 #' \item{'IC'}{'Accumulated CO2 flux'}
 #' \item{'Tot'}{'Total carbon in the patch'}
 #' }

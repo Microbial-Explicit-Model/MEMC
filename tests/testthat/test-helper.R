@@ -28,7 +28,7 @@ test_that("update_params", {
 
 test_that("update_state", {
   # Test that it works
-  new_state <- update_state(new_vals = c("Q" = 10), state = state)
+  new_state <- update_state(new_vals = c("QOM" = 10), state = state)
   expect_equal(sum(abs(new_state - MEMC::default_initial) > 0), 1)
 
   # Expect an error if conditions aren't met
@@ -77,7 +77,7 @@ test_that("bad model configuration will fail", {
   new_out <-
     update_config(out1,
                   params = c("V_d" = 50),
-                  state = c("B" = 50))
+                  state = c("MB" = 50))
   expect_equal(sum(new_out$params$value != out1$params$value), 1)
   expect_equal(sum(new_out$state != out1$state), 1)
 
@@ -90,16 +90,16 @@ test_that("split_param_state", {
   expect_true(is.numeric(out$params))
   expect_null(out$state)
 
-  out <- split_param_state(x = c("B" = 10))
+  out <- split_param_state(x = c("MB" = 10))
   expect_equal(length(out), 2)
   expect_true(is.numeric(out$state))
   expect_null(out$params)
 
-  out <- split_param_state(x = c("B" = 10, "V_d" = 10))
+  out <- split_param_state(x = c("MB" = 10, "V_d" = 10))
   expect_equal(length(out), 2)
   expect_equal(length(out$params), 1)
   expect_equal(names(out$params), "V_d")
-  expect_equal(names(out$state), "B")
+  expect_equal(names(out$state), "MB")
 
   expect_error(split_param_state(x = c("fake" = 10)),
                "value not recognized as a parameter or state")
