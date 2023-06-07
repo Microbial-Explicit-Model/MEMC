@@ -11,6 +11,31 @@ library(deSolve)
 library(ggplot2)
 library(tidyr)
 library(reshape)
+library(dplyr)
+
+DATA_DIR <- here::here()
+
+
+# Match the MEMC output
+format_out <- function(df) {
+  # Now format the results into a nice data frame instead of a wide  matrix.
+  names <- c("POM", "MOM", "QOM", "DOM", "MB", "EP", "EM", "IC", "Tot")
+  
+  out <- data.table::melt(
+    data.table::as.data.table(df),
+    measure.vars = names,
+    variable.name = "variable",
+    value.name = 'value'
+  )
+  out$units <- 'mg C/g soil'
+
+  return(out)
+
+}
+```
+
+```{r}
+
 ##solving simple MEND model
 pars<- list (Vd=3,Vp=14, Vm=0.25)
 solveMEND <- function(pars,times){
@@ -67,10 +92,13 @@ return(ode(y=state, times=times, func=derivs, parms=pars))
 
 }
 
-times=seq(0,36500, by=1) 
-output<-solveMEND(pars, times) 
-result<-data.frame(output[, 1:10])
-plot(result$time,result$Tot, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,36500), ylim=c(0,50))
+times = seq(0, 36500, by=1) 
+output <- solveMEND(pars, times) 
+result <- data.frame(output)
+plot(result$time, result$Tot, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,36500), ylim=c(0,50))
+format_out(result) %>% 
+  mutate(model = "MEND") -> 
+  jz_mend
 ```
 
 
@@ -135,8 +163,10 @@ return(ode(y=state, times=times, func=derivs, parms=pars))
 times=seq(0,36500, by=1) 
 output<-solveCOM(pars, times) 
 
-result<-data.frame(output[, 1:10])
-plot(result$time,result$Tot, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,36500), ylim=c(0,50))
+plot(result$time, result$Tot, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,36500), ylim=c(0,50))
+format_out(result) %>% 
+  mutate(model = "COM") -> 
+  jz_com
 ```
 
 
@@ -193,14 +223,19 @@ state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=
 
 #solved the mode
   ox<-ode(y=state, times=times, func=derivs, parms=pars)
-
-data.frame(ox[,1:10])
+  return(ox)
 }
 
 times=seq(0,1100, by=1)
 output<-solveLIN(pars, times) 
 
-plot(output$time,output$IC, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,1100), ylim=c(0,25))
+result <- data.frame(output)
+plot(result$time, result$Tot, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,36500), ylim=c(0,50))
+format_out(result) %>% 
+  mutate(model = "LIN") -> 
+  jz_LIN
+
+
 ```
 
 
@@ -258,15 +293,47 @@ state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=
 
 #solved the mode
   ox<-ode(y=state, times=times, func=derivs, parms=pars)
-
-data.frame(ox[,1:10])
+  return(ox)
 }
 
 times=seq(0,1100, by=1)
-output<-solveLIN(pars, times) 
-
-plot(output$time,output$IC, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,1100), ylim=c(0,25))
+output<-data.frame(solveTOY(pars, times))
+plot(output$time, output$IC, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,1100), ylim=c(0,25))
+result <- data.frame(output)
+format_out(result) %>% 
+  mutate(model = "TOY") -> 
+  jz_TOY
 ```
+
+
+## Compare Results
+
+
+```{r}
+jz_results <- rbind(jz_com, jz_LIN, jz_mend, jz_TOY) %>% 
+  mutate(variable = gsub(pattern = "OM", replacement = "", x = variable)) %>% 
+  mutate(variable = gsub(pattern = "MB", replacement = "B", x = variable)) %>% 
+  rename(name = model)
+
+jz_results %>% 
+  filter(variable == "Tot") %>% 
+  filter(time <= 100) %>% 
+  ggplot(aes(time, value, color = name, linetype = name)) + 
+  geom_line(size = 1)
+```
+
+
+```{r}
+write.csv(x = jz_results, file = here::here("legacy", "jz_results.csv"), row.names = FALSE)
+```
+
+
+
+
+
+
+
+
 
 
 ##Data fitting to optimize

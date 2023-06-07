@@ -8,6 +8,7 @@
 #' @noRd
 #' @family fme
 make_memc_objective <- function(comp_data, x, config) {
+
   assert_that("time" %in% names(comp_data), msg = "comp_data must contain time column")
   comp_data_vars <- names(comp_data)[names(comp_data) != "time"]
   assert_that(comp_data_vars %in% names(MEMC::default_initial), msg = "comp_data must contain a MEMC variable")
@@ -22,10 +23,9 @@ make_memc_objective <- function(comp_data, x, config) {
     t <- seq(0, max(comp_data$time))
 
     # solve the model
-    new_config <-
-      update_config(mod = config,
-                    params = new_p,
-                    state = new_s)
+    new_config <- update_config(mod = config,
+                                params = new_p,
+                                state = new_s)
     out <- sm_internal(new_config, t)
 
     # make sure that the model solved for all time steps

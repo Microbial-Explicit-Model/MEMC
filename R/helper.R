@@ -122,9 +122,7 @@ configure_model <- function(params,
                             MBdecay = "DD") {
   # Check the arguments
   assert_that(is_param_table(params))
-  assert_that(all(sapply(
-    list(POMdecomp, DOMdecomp, MBdecay), is.character
-  )))
+  assert_that(all(sapply(list(POMdecomp, DOMdecomp, MBdecay), is.character)))
   assert_that(sum(DOMdecomp %in% c("MM", "RMM", "ECA")) == 1, msg = 'DOMdecomp must be "MM", "RMM", "ECA"')
   assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'POMdecomp must be "MM", "RMM", "ECA", "LM"')
   assert_that(sum(MBdecay %in% c("LM", "DD")) == 1, msg = 'MBdecay must be "LM" or "DD"')

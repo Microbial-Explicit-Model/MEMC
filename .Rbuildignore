@@ -1,6 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
+^misc$
 ^analysis$
 ^legacy$
 ^_pkgdown\.yml$

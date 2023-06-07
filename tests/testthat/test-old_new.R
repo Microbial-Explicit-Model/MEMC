@@ -1,5 +1,5 @@
 # Read in the comparison data and figure out the time vector.
-old <- read.csv("compdata.csv")
+old <- read.csv("old-new.csv")
 t <- unique(old$time)
 
 # Helper function that calculates the difference between two data frame

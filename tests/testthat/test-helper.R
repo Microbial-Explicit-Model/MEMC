@@ -5,9 +5,9 @@ test_that("update_params", {
   # Test that it works
   new_table <-
     update_params(c(
-      "V.p" = 10,
-      "K.d" = 10,
-      Input.P = 10
+      "V_p" = 10,
+      "K_d" = 10,
+      "Input_P" = 10
     ), param_table = ptable)
   expect_equal(sum(abs(
     new_table$value - MEMC::default_params$value
@@ -17,8 +17,8 @@ test_that("update_params", {
   expect_error(
     update_params(c(
       "fake" = 10,
-      "K.d" = 10,
-      Input.P = 10
+      "K_d" = 10,
+      "Input_P" = 10
     ), param_table = ptable),
     "new_params must refer to a parameter already existing in param_table \n the following params are not recognized: fake",
     fixed = TRUE
@@ -35,7 +35,7 @@ test_that("update_state", {
   expect_error(update_state(c("fake" = 3), state = state))
 })
 
-test_that("configuration related fxns", {
+test_that("bad model configuration will fail", {
   out1 <- configure_model(ptable, state)
   out2 <-
     configure_model(
@@ -54,7 +54,7 @@ test_that("configuration related fxns", {
   # Errors should be thrown
   expect_error(
     configure_model(ptable[1:9,], state),
-   "param_table is missing a parameter value(s) for: p.em, r.ep, r.em, Q.max, K.ads, K.des, dd.beta, Input.P, Input.D, Input.M, CUE",
+   "param_table is missing a parameter value(s) for: p_em, r_ep, r_em, Q_max, K_ads, K_des, dd_beta, Input_P, Input_D, Input_M, CUE",
     fixed = TRUE
   )
   expect_error(
@@ -76,7 +76,7 @@ test_that("configuration related fxns", {
   # Only change one parameter value and one state value
   new_out <-
     update_config(out1,
-                  params = c("V.d" = 50),
+                  params = c("V_d" = 50),
                   state = c("B" = 50))
   expect_equal(sum(new_out$params$value != out1$params$value), 1)
   expect_equal(sum(new_out$state != out1$state), 1)
@@ -85,7 +85,7 @@ test_that("configuration related fxns", {
 })
 
 test_that("split_param_state", {
-  out <- split_param_state(x = c("V.d" = 10))
+  out <- split_param_state(x = c("V_d" = 10))
   expect_equal(length(out), 2)
   expect_true(is.numeric(out$params))
   expect_null(out$state)
@@ -95,10 +95,10 @@ test_that("split_param_state", {
   expect_true(is.numeric(out$state))
   expect_null(out$params)
 
-  out <- split_param_state(x = c("B" = 10, "V.d" = 10))
+  out <- split_param_state(x = c("B" = 10, "V_d" = 10))
   expect_equal(length(out), 2)
   expect_equal(length(out$params), 1)
-  expect_equal(names(out$params), "V.d")
+  expect_equal(names(out$params), "V_d")
   expect_equal(names(out$state), "B")
 
   expect_error(split_param_state(x = c("fake" = 10)),
