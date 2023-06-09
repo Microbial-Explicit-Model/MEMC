@@ -57,7 +57,7 @@ mend_out <- solve_model(MEND_model, t)
 Compare configurations 
 
 ```{r}
-kable(rbind(toy_model, MEND_model))
+kable(rbind(toy_model$table, MEND_model$table))
 ```
 
 Compare model outputs. 

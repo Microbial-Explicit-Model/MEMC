@@ -22,6 +22,7 @@ Suggests:
     rmarkdown (>= 2.11),
     ggplot2 (>= 3.3.5),
     data.table (>= 1.14.2),
+    dplyr (>= 1.1.0),
     covr
 Imports: 
     assertthat (>= 0.2.1), 

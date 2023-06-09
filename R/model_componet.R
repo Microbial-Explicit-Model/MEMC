@@ -58,7 +58,7 @@ carbon_fluxes_internal <-
       if (MBdecay == "DD") {
         assert_that(p[["dd_beta"]] > 1)
         fluxes[["F6"]] = function(MB) {
-          (1 - p[["p_ep"]] - p[["p_em"]]) *  0.4 * p[["V_d"]] * (MB ^ p[["dd_beta"]])
+          (1 - p[["p_ep"]] - p[["p_em"]]) * 0.4 * p[["V_d"]] * (MB ^ p[["dd_beta"]])
         }
       } else if (MBdecay == "LM") {
         assert_that(p[["dd_beta"]] == 1)
@@ -124,16 +124,16 @@ carbon_pool_derivs <-
       # changes in the carbon pool states_
       # -----------------------------------------------------------
       # POM = particulate organic carbon
-      dPOM <- (1 - p[["g_d"]]) * F6 - F2 + p[["Input_P"]]
+      dPOM <- (1 - p[["g_d"]]) * F6 - F2 + p[["Input_POM"]]
       # MOM = mineral-associated organic carbon (MOC)
-      dMOM <- (1 - p[["f_d"]]) * F2 - F3 + p[["Input_M"]]
+      dMOM <- (1 - p[["f_d"]]) * F2 - F3 + p[["Input_MOM"]]
       # QOMO = active layer of MOC
       dQOM <- F4 - F5
       # MB = microbial biomass carbon
       dMB <- F1 * p[["CUE"]] - F6 - (F7_ep + F7_em)
       # DOM = dissolved organic carbon
       dDOM <-
-        p[["f_d"]] * F2 + p[["g_d"]] * F6 + F3 + (F8_em + F8_ep) - F1 - (F4 - F5) + p[["Input_D"]]
+        p[["f_d"]] * F2 + p[["g_d"]] * F6 + F3 + (F8_em + F8_ep) - F1 - (F4 - F5) + p[["Input_DOM"]]
       # EP = carbon stored as extra-cellular enzymes
       dEP <- F7_em - F8_ep
       # EM = carbon stored as extra-cellular enzymes
@@ -141,7 +141,7 @@ carbon_pool_derivs <-
       # IC = inorganic carbon (CO2)
       dIC <- F1 * (1 - p[["CUE"]])
       # Tot = the total carbon pool
-      dTot <- -F1 * (1 - p[["CUE"]]) +  (p[["Input_P"]] + p[["Input_D"]] + p[["Input_M"]])
+      dTot <- -F1 * (1 - p[["CUE"]]) +  (p[["Input_POM"]] + p[["Input_DOM"]] + p[["Input_MOM"]])
 
       # Return outputs
       return(list(c(dPOM, dMOM, dQOM, dMB, dDOM, dEP, dEM, dIC, dTot)))

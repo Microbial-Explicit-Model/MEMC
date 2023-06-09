@@ -61,14 +61,14 @@ ggplot(data = out1) +
 ```{r}
 # Double the size of the biomass pool
 new_initial_cond <- default_initial
-new_initial_cond[["B"]] <- new_initial_cond[["B"]] * 2
+new_initial_cond[["MB"]] <- new_initial_cond[["MB"]] * 2
 
 # You can either configure a new model using the new initial conditions or pass the 
 # new initial conditions to the model configuration using the solve_model function.
 out2 <- solve_model(mod, time, state = new_initial_cond)
 
 # Rename the output run. 
-out2$name <- "Double B"
+out2$name <- "Double MB"
 ```
 
 ```{r}
@@ -86,8 +86,8 @@ ggplot(to_plot) +
 Pass in a new parameter value. 
 
 ```{r}
-out3 <- solve_model(mod, time, params = c("V.d" = 10))
-out3 $name <- "Increase V.d"
+out3 <- solve_model(mod, time, params = c("V_d" = 10))
+out3 $name <- "Increase V_d"
 ```
 
 Visualize model runs. 
@@ -99,5 +99,5 @@ ggplot(to_plot) +
   geom_line(aes(time, value, color = name, linetype = name), size = 0.75) + 
   facet_wrap("variable", scales = "free") + 
   labs(y = "mg C/g soil", 
-       title = "Change V.d")
+       title = "Change V_d")
 ```

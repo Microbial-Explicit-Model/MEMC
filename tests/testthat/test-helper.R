@@ -7,7 +7,7 @@ test_that("update_params", {
     update_params(c(
       "V_p" = 10,
       "K_d" = 10,
-      "Input_P" = 10
+      "Input_POM" = 10
     ), param_table = ptable)
   expect_equal(sum(abs(
     new_table$value - MEMC::default_params$value
@@ -18,7 +18,7 @@ test_that("update_params", {
     update_params(c(
       "fake" = 10,
       "K_d" = 10,
-      "Input_P" = 10
+      "Input_POM" = 10
     ), param_table = ptable),
     "new_params must refer to a parameter already existing in param_table \n the following params are not recognized: fake",
     fixed = TRUE
@@ -54,7 +54,7 @@ test_that("bad model configuration will fail", {
   # Errors should be thrown
   expect_error(
     configure_model(ptable[1:9,], state),
-   "param_table is missing a parameter value(s) for: p_em, r_ep, r_em, Q_max, K_ads, K_des, dd_beta, Input_P, Input_D, Input_M, CUE",
+   "param_table is missing a parameter value(s) for: p_em, r_ep, r_em, Q_max, K_ads, K_des, dd_beta, Input_POM, Input_DOM, Input_MOM, CUE",
     fixed = TRUE
   )
   expect_error(

@@ -16,12 +16,15 @@ Follow the download and installation instructions for [R](https://cloud.r-projec
 
 Use `remotes` to install MEMC as a built R package directory from github. 
 
-```{r}
+```
 # use install.packages("remotes") to install this package the first time.
 library(remotes)
 
 # Now build and install the R package on your local machine.
 install_github('Microbial-Explicit-Model/MEMC') 
 ```
+
+After running install_github 
+
 
 

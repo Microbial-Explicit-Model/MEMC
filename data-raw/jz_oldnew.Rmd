@@ -73,9 +73,6 @@ out <- data.table::melt(data.table::as.data.table(output),
                         variable.name = "variable",
                         value.name = 'value')
 out$units <- 'mg C/g soil'
-out$variable <- gsub(out$variable, pattern =  "OM", replacement = "")
-out$variable <- gsub(out$variable, pattern =  "MB", replacement = "B")
-
 write.csv(out, file = file.path(WRITE_TO, "mend_jz.csv"), row.names = FALSE)
 ```
 
@@ -143,9 +140,6 @@ out <- data.table::melt(data.table::as.data.table(output),
                         variable.name = "variable",
                         value.name = 'value')
 out$units <- 'mg C/g soil'
-out$variable <- gsub(out$variable, pattern =  "OM", replacement = "")
-out$variable <- gsub(out$variable, pattern =  "MB", replacement = "B")
-
 write.csv(out, file = file.path(WRITE_TO, "COM_jz.csv"), row.names = FALSE)
 ```
 
@@ -209,9 +203,6 @@ out <- data.table::melt(data.table::as.data.table(output),
                         variable.name = "variable",
                         value.name = 'value')
 out$units <- 'mg C/g soil'
-out$variable <- gsub(out$variable, pattern =  "OM", replacement = "")
-out$variable <- gsub(out$variable, pattern =  "MB", replacement = "B")
-
 write.csv(out, file = file.path(WRITE_TO, "LIN_jz.csv"), row.names = FALSE)
 ```
 
@@ -279,8 +270,5 @@ out <- data.table::melt(data.table::as.data.table(output),
                         variable.name = "variable",
                         value.name = 'value')
 out$units <- 'mg C/g soil'
-out$variable <- gsub(out$variable, pattern =  "OM", replacement = "")
-out$variable <- gsub(out$variable, pattern =  "MB", replacement = "B")
-
 write.csv(out, file = file.path(WRITE_TO, "TOY_jz.csv"), row.names = FALSE)
 ```

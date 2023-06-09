@@ -41,10 +41,10 @@ The memc contains a function called `memc_modfit` that helps users fit a model r
 
 ```{r}
 # Update the MEND model initial state conditions to reflect the experimental set up.
-MEND_model$state <- c(P=4.71, M=17.67, Q=0, B=0.82, D=0.148,  EP=0.0082, EM=0.0082, IC=0, Tot=23.484)
+MEND_model$state <- c(POM=4.71, MOM=17.67, QOM=0, MB=0.82, DOM=0.148,  EP=0.0082, EM=0.0082, IC=0, Tot=23.484)
 
 # Fit the the "maximum specific decomposition" parameters. 
-mend_fit <- memc_modfit(config = MEND_model, comp_data = comp_data, x = c(V.d=2, V.p=5, V.m=0.01))
+mend_fit <- memc_modfit(config = MEND_model, comp_data = comp_data, x = c(V_d=2, V_p=5, V_m=0.01))
 ```
 
 
@@ -66,10 +66,11 @@ mend_out %>%
 
 ```{r}
 # Update the COMISSSION model initial state conditions to reflect the experimental set up.
-COMISSION_model$state <- c(P=4.71, M=17.67, Q=0, B=0.82, D=0.148,  EP=0.0082, EM=0.0082, IC=0, Tot=23.484)
+COMISSION_model$state <- c(POM=4.71, MOM=17.67, QOM=0, MB=0.82, DOM=0.148,  
+                           EP=0.0082, EM=0.0082, IC=0, Tot=23.484)
 
 # Fit the the "maximum specific decomposition" parameters. 
-comission_fit <- memc_modfit(config = COMISSION_model, comp_data = comp_data, x =c(V.d=2, V.p=5, V.m=0.01))
+comission_fit <- memc_modfit(config = COMISSION_model, comp_data = comp_data, x =c(V_d=2, V_p=5, V_m=0.01))
 ```
 
 

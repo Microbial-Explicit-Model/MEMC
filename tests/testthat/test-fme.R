@@ -33,7 +33,6 @@ test_that("make_memc_objective", {
 
 })
 
-
 test_that("memc_modfit", {
   # Try out the memc_modfit routine using comparison data from a default run.
   # The function should allow us to solve for an unknown model parameter.

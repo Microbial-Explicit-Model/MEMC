@@ -15,7 +15,7 @@ desc <- c("maximum specific decomposition rate for P by EP", "half-saturation co
           "turnover rate of EP", "turnover rate of EM", "maximum DOC sorption capacity", "specific adsorption rate", "desorption rate", "strength of density dependent microbial decay",
           "POM input", "DOM input", "M input", "carbon use efficiency")
 value <- c("V_p"=14, "K_p"=50, "V_m"=0.25, "K_m"=250, "V_d"=3, "K_d"=0.25, "f_d"=0.5, "g_d"=0.5, "p_ep"=0.01, "p_em"=0.01, "r_ep"=1e-3, "r_em"=1e-3 , "Q_max"=3.4, "K_ads"=0.006,
-           "K_des"= 0.001, "dd_beta" = 2, "Input_P" = 0, "Input_D"=0, "Input_M"=0, "CUE"=0.4)
+           "K_des"= 0.001, "dd_beta" = 2, "Input_POM" = 0, "Input_DOM"=0, "Input_MOM"=0, "CUE"=0.4)
 units <- c("mgC mgC^-1 h^-1", "mgC / g soil", "mgC mgC^-1 h^-1", "mg C/g soil", "mgC mgC^-1 h^-1", "mg C/g soil", NA,
            NA, NA, NA, "mgC mgC^-1 h^-1", "mgC mgC^-1 h^-1", "mgC / g soil", "mgC mgC^-1 h^-1", "mgC mgC^-1 h^-1", NA,
            "mg C", "mg C", "mg C", "")

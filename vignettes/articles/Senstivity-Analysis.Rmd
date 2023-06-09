@@ -26,7 +26,7 @@ We will be using the `memc_sensrange` which is based on the `FME::sensRange` to 
 
 Start by setting up the parameters to vary. 
 ```{r}
-pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
+pars <- c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01)
 ```
 
 Set up a data frame defining the parameter ranges to sample from. 
@@ -83,7 +83,7 @@ ggplot(data = comission_to_plot) +
   geom_line(aes(time, Mean)) + 
   facet_wrap("variable", scales = "free") + 
   labs(y = "mg C/g soil", 
-       title = "COMISSION V.d, V.p, V.m Sensitivity") + 
+       title = "COMISSION V_d, V_p, V_m Sensitivity") + 
   theme(legend.title = element_blank())
 ```
 
@@ -92,14 +92,14 @@ Compare the output between the two models.
 
 ```{r, fig.width=10}
 to_plot <- rbind(comission_to_plot, mend_to_plot)
-to_plot <- to_plot[to_plot$variable %in% c("P", "M", "Tot"), ]
+to_plot <- to_plot[to_plot$variable %in% c("POM", "MOM", "Tot"), ]
 
 ggplot(data = to_plot) + 
   geom_ribbon(aes(time, ymin = q25, ymax = q75, fill = name), alpha = 0.4) + 
   geom_line(aes(time, Mean, linetype = name)) + 
   facet_wrap("variable", scales = "free") + 
   labs(y = "mg C/g soil", 
-       title = "Sensitivity to V.d, V.p, V.m") + 
+       title = "Sensitivity to V_d, V_p, V_m") + 
   theme(legend.title = element_blank())
 ```
 
@@ -110,7 +110,7 @@ Test the local effect parameters have on model output with `memc_sensfun`, this 
 Select the parameters to test, we will use the same parameters used in the global sensitivity analysis. 
 
 ```{r}
-pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
+pars <- c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01)
 ```
 
 Run the local sensitivity analysis. 
