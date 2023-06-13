@@ -222,9 +222,16 @@ solve_model <-
            params = NULL,
            state = NULL,
            ...) {
+
+    # Update the model configuration with new parameter and initial state values
     mod <- update_config(mod = mod,
                          params = params,
                          state = state)
+
+    # Check the arguments
+    assert_that(is_memc_config(obj = mod))
+    assert_that(is_param_table(table = mod$params))
+    assert_that(is_state_vector(state = mod$state))
 
     results <- sm_internal(mod = mod, time = time, ...)
     out <- sm_format_out(rslt = results, mod = mod)

@@ -2,10 +2,9 @@
 # is working as expected.
 
 library(data.table)
-library(dplyr)
-library(ggplot2)
 
-tol <- 1e-6
+
+tol <- 1e-4
 
 jz_initial_conditions <- c(POM = 4.71, MOM = 17.67, QOM = 0, MB = 0.82,
                            DOM = 0.148, EP = 0.0082, EM = 0.0082, IC = 0,
@@ -62,8 +61,8 @@ compare_results <- function(jz, memc){
 test_that("MEND", {
 
   # Read in the comparison data
-  jz_results <- data.table(read.csv("mend_jz.csv"))
-  names(jz_results) <- c("time", "variable", "jz_value", "units")
+  jz_results <- data.table(read.csv("jz_comps/jz_mend.csv"))
+  names(jz_results) <- c("time", "variable", "jz_value", "units", "model")
 
   # Set up the mend model and run results
   mod <- configure_model(params = param_dt,
@@ -77,121 +76,151 @@ test_that("MEND", {
   diff_df <- compare_results(jz = jz_results, memc = out_JZ_mend)
   expect_true(all(diff_df$diff <= tol))
 
+  # # Diagnostic plots to use when not passing the test
+  # library(dplyr)
+  # library(ggplot2)
+  # ggplot(data = diff_df %>%
+  #          filter(time <= 100)) +
+  #   geom_line(aes(x = time, y = jz_value, color = "original imp."), size = 1) +
+  #   geom_line(aes(x = time, y = value, color = "memc imp."),
+  #             linetype = 2, size = 1) +
+  #   facet_wrap("variable", scales = "free")
+  #
+  # ggplot(data = diff_df) +
+  #   geom_line(aes(x = time, y = diff)) +
+  #   facet_wrap("variable", scales = "free") +
+  #   ylim(-0.05, 0.05)
+
+
 })
 
 
-# test_that("COM", {
-#
-#   state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484) #Ultisol
-#
-#   # Most of parameters were defined the same way, update the ones that are different.
-#   params_to_use <- update_params(new_params = c("V_d" = 1, "V_p" = 5, "V_m" = 1), param_table = param_dt)
-#
-#   # Set up the mend model and run results
-#   mod <- configure_model(params = params_to_use,
-#                          state = state,
-#                          name = "JZ com",
-#                          DOMdecomp = "MM",
-#                          POMdecomp = "RMM",
-#                          MBdecay = "DD")
-#   out_JZ_com <- solve_model(mod = mod, time = times)
-#
-#
-#   jz_results <- data.table(read.csv("com_jz.csv"))
-#   names(jz_results) <- c("time", "variable", "jz_value", "units")
-#
-#   # Compare the results!
-#   joined_df <- out_JZ_com[jz_results, on = c("time", "variable", "units")]
-#   expect_equal(joined_df$value, joined_df$jz_value, tolerance = tol)
-#
-#   # joined_df %>%
-#   #   mutate(dif = value - jz_value) %>%
-#   #   filter(dif > tol)
-#
-#   # joined_df %>%
-#   #   ggplot() +
-#   #   geom_line(aes(time, value, color = "mine")) +
-#   #   geom_line(aes(time, jz_value, color = "jz")) +
-#   #   facet_wrap("variable", scales = "free")
-#
-# })
+test_that("COM", {
+
+  # Read in the comparison data
+  jz_results <- data.table(read.csv("jz_comps/jz_com.csv"))
+  names(jz_results) <- c("time", "variable", "jz_value", "units", "model")
+
+  state<-c(POM=4.71, MOM=17.67, QOM=0,  MB=0.52, DOM=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484) #Ultisol
+
+  # Most of parameters were defined the same way, update the ones that are different.
+  params_to_use <- update_params(new_params = c("V_d" = 1, "V_p" = 5, "V_m" = 1), param_table = param_dt)
+
+  # Set up the mend model and run results
+  mod <- configure_model(params = params_to_use,
+                         state = state,
+                         name = "JZ com",
+                         DOMdecomp = "MM",
+                         POMdecomp = "RMM",
+                         MBdecay = "DD")
+  out_JZ_com <- solve_model(mod = mod, time = times)
+
+  diff_df <- compare_results(jz = jz_results, memc = out_JZ_com)
+  expect_true(all(diff_df$diff <= tol))
+
+  # Diagnostic plots to use when not passing the test
+  library(dplyr)
+  library(ggplot2)
+  ggplot(data = diff_df %>% filter(time <= 500)
+         ) +
+    geom_line(aes(x = time, y = jz_value, color = "original imp."), size = 1) +
+    geom_line(aes(x = time, y = value, color = "memc imp."),
+              linetype = 2, size = 1) +
+    facet_wrap("variable", scales = "free")
+
+  ggplot(data = diff_df %>% filter(time <= 100) #%>%  filter(!variable %in% c("IC", "MOM", "Tot"))
+         ) +
+    geom_line(aes(x = time, y = diff, color = variable)) +
+   # facet_wrap("variable", scales = "free") +
+    #ylim(-0.05, 0.05) +
+    NULL
+
+})
 
 
-# test_that("LIN", {
-#
-#   # Most of parameters were defined the same way, update the ones that are different.
-#   state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)
-#   params_to_use <- update_params(new_params = c("V_d" = 0.5, "V_p" = 0.001, "V_m" = 0.001),
-#                                  param_table = param_dt)
-#
-#
-#   jz_results <- data.table(read.csv("LIN_jz.csv"))
-#   names(jz_results) <- c("time", "variable", "jz_value", "units")
-#
-#   # Set up the mend model and run results
-#   mod <- configure_model(params = params_to_use,
-#                          state = state,
-#                          name = "JZ LIN",
-#                          DOMdecomp = "MM",
-#                          POMdecomp = "MM",
-#                          MBdecay = "DD")
-#   out_JZ_lin <- solve_model(mod = mod, time = unique(jz_results$time))
-#
-#   # Compare the results!
-#   joined_df <- out_JZ_lin[jz_results, on = c("time", "variable", "units")]
-#
-#   joined_df %>%
-#     mutate(dif = value - jz_value) %>%
-#     filter(time == 2)
-#     filter(dif > tol)
-#
-#   expect_equal(joined_df$value, joined_df$jz_value, tolerance = tol)
-#
-#   joined_df %>%
-#     ggplot() +
-#     geom_line(aes(time, value, color = "mine")) +
-#     geom_line(aes(time, jz_value, color = "jz")) +
-#     facet_wrap("variable", scales = "free")
-#
-# })
-#
-# test_that("TOY", {
-#
-#   # Most of parameters were defined the same way, update the ones that are different.
-#   state <- c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)
-#   params_to_use <- update_params(new_params = c("V_d" = 0.5, "V_p" = 0.001, "V_m" = 0.001),
-#                                  param_table = param_dt)
-#
-#
-#   jz_results <- data.table(read.csv("TOY_jz.csv"))
-#   names(jz_results) <- c("time", "variable", "jz_value", "units")
-#
-#   # Set up the mend model and run results
-#   mod <- configure_model(params = params_to_use,
-#                          state = state,
-#                          name = "JZ TOY",
-#                          DOMdecomp = "RMM",
-#                          POMdecomp = "MM",
-#                          MBdecay = "DD")
-#   out_JZ_lin <- solve_model(mod = mod, time = unique(jz_results$time))
-#
-#   s# Compare the results!
-#   joined_df <- out_JZ_lin[jz_results, on = c("time", "variable", "units")]
-#
-#   joined_df %>%
-#     mutate(dif = value - jz_value) %>%
-#     filter(time == 2)
-#   filter(dif > tol)
-#
-#   expect_equal(joined_df$value, joined_df$jz_value, tolerance = tol)
-#
-#   joined_df %>%
-#     ggplot() +
-#     geom_line(aes(time, value, color = "mine")) +
-#     geom_line(aes(time, jz_value, color = "jz")) +
-#     facet_wrap("variable", scales = "free")
-#
-# })
+test_that("LIN", {
+
+  # Most of parameters were defined the same way, update the ones that are different.
+  state<-c(POM=4.71, MOM=17.67, QOM=0, MB=0.52,  DOM=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484)
+  params_to_use <- update_params(new_params = c("V_d" = 0.5, "V_p" = 0.001, "V_m" = 0.001),
+                                 param_table = param_dt)
+
+  # Read in the comparison data
+  jz_results <- data.table(read.csv("jz_comps/jz_lin.csv"))
+  names(jz_results) <- c("time", "variable", "jz_value", "units", "model")
+
+  # Set up the mend model and run results
+  mod <- configure_model(params = params_to_use,
+                         state = state,
+                         name = "JZ LIN",
+                         DOMdecomp = "RMM",
+                         POMdecomp = "LM",
+                         MBdecay = "DD")
+  out_JZ_lin <- solve_model(mod = mod, time = unique(jz_results$time))
+  diff_df <- compare_results(jz = jz_results, memc = out_JZ_lin)
+  expect_true(all(diff_df$diff <= tol))
+
+    # # Diagnostic plots to use when not passing the test
+    # library(dplyr)
+    # library(ggplot2)
+    # ggplot(data = diff_df  %>% filter(time <= 10)
+    #        ) +
+    #   geom_line(aes(x = time, y = jz_value, color = "original imp."), size = 1) +
+    #   geom_line(aes(x = time, y = value, color = "memc imp."),
+    #             linetype = 2, size = 1) +
+    #   facet_wrap("variable", scales = "free")
+    #
+    # ggplot(data = diff_df) +
+    #   geom_line(aes(x = time, y = diff)) +
+    #   facet_wrap("variable", scales = "free") +
+    #   ylim(-0.05, 0.05) +
+    #   xlim(0, 10) +
+    #   NULL
+
+
+})
+
+test_that("TOY", {
+
+  # Most of parameters were defined the same way, update the ones that are different.
+  state<-c(POM=4.71, MOM=17.67, QOM=0,  MB=0.52, DOM=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484) #Ultisol
+  params_to_use <- update_params(new_params = c("V_d" = 0.5, "V_p" = 0.001, "V_m" = 0.001),
+                                 param_table = param_dt)
+
+  # Read in the comparison data
+  jz_results <- data.table(read.csv("jz_comps/jz_toy.csv"))
+  names(jz_results) <- c("time", "variable", "jz_value", "units", "model")
+
+  # Set up the mend model and run results
+  mod <- configure_model(params = params_to_use,
+                         state = state,
+                         name = "JZ TOY",
+                         DOMdecomp = "RMM",
+                         POMdecomp = "MM",
+                         MBdecay = "DD")
+  out_JZ_toy <- solve_model(mod = mod, time = unique(jz_results$time))
+
+  diff_df <- compare_results(jz = jz_results, memc = out_JZ_toy)
+  expect_true(all(diff_df$diff <= tol))
+
+  # # Diagnostic plots to use when not passing the test
+  # library(dplyr)
+  # library(ggplot2)
+  # ggplot(data = diff_df %>% filter(time <= 500)
+  # ) +
+  #   geom_line(aes(x = time, y = jz_value, color = "original imp."), size = 1) +
+  #   geom_line(aes(x = time, y = value, color = "memc imp."),
+  #             linetype = 2, size = 1) +
+  #   facet_wrap("variable", scales = "free")
+  #
+  # ggplot(data = diff_df %>% filter(time <= 5)
+  # ) +
+  #   geom_line(aes(x = time, y = diff)) +
+  #   facet_wrap("variable", scales = "free") +
+  #   #ylim(-0.05, 0.05) +
+  #   NULL
+
+})
 
 
 

@@ -68,3 +68,16 @@ test_that("is_state_vector works", {
                "state is not a numeric or integer vector")
 
 })
+
+
+test_that("is_state_vector", {
+
+  # If there is a missing initial state value throw an error.
+  state <- c(POM = 4.71, MOM = 17.67, QOM = 0, MB = 0.52,  DOM = 0.148, EM = 0.052, IC = 0, Tot = 23.484)
+  expect_error(is_state_vector(state), label = "state is missing a value(s) for: EP")
+
+  # Make sure the pattern is in the correct order!
+  state <- c(POM = 4.71, MOM = 17.67, DOM = 0.148, QOM = 0, MB = 0.52,   EP = 0.052, EM = 0.052, IC = 0, Tot = 23.484)
+  expect_error(is_state_vector(state), "entires must be in the correct order: POM, MOM, QOM, MB, DOM, EP, EM, IC, Tot")
+
+})

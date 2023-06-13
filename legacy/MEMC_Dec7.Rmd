@@ -14,6 +14,7 @@ library(reshape)
 library(dplyr)
 
 DATA_DIR <- here::here()
+WRITE_TO <- here::here("tests", "testthat", "jz_comps")
 
 
 # Match the MEMC output
@@ -99,6 +100,9 @@ plot(result$time, result$Tot, type = "l",xlab = "Time (h)", ylab = "Concentratio
 format_out(result) %>% 
   mutate(model = "MEND") -> 
   jz_mend
+
+write.csv(x = jz_mend, file = file.path(WRITE_TO, "jz_mend.csv"), row.names = FALSE)
+
 ```
 
 
@@ -127,7 +131,7 @@ solveCOM <- function(pars,times){
         Input=0 #input per day
     F1 <- Vd* MB *DOM /( kD + DOM)  ## microbial uptake 
     F2 <- Vp* EP* POM / (kP + EP) # POM decomposition
-    F3 <- Vm * EM * MOM / (kM + EM) #MOAM decomposition
+    F3 <- Vm * EM * MOM / (kM + MOM) #MOAM decomposition
     F6 <- Kads * DOM *(1- QOM/ Qmax) ##adsorption
     F7 <- Kdes * QOM/Qmax  ##desorption
     F8 <- (1- pEP- pEM)* MB *0.4*Vd *MB #microbial biomass decay (biomass decay rate=0.2*growth rate)
@@ -163,10 +167,14 @@ return(ode(y=state, times=times, func=derivs, parms=pars))
 times=seq(0,36500, by=1) 
 output<-solveCOM(pars, times) 
 
+result <- data.frame(output)
+
 plot(result$time, result$Tot, type = "l",xlab = "Time (h)", ylab = "Concentration (mM)", lwd=3,col="#7f3b08", xlim=c(0,36500), ylim=c(0,50))
 format_out(result) %>% 
   mutate(model = "COM") -> 
   jz_com
+
+write.csv(x = jz_com, file = file.path(WRITE_TO, "jz_com.csv"), row.names = FALSE)
 ```
 
 
@@ -235,6 +243,7 @@ format_out(result) %>%
   mutate(model = "LIN") -> 
   jz_LIN
 
+write.csv(x = jz_LIN, file = file.path(WRITE_TO, "jz_lin.csv"), row.names = FALSE)
 
 ```
 
@@ -303,6 +312,10 @@ result <- data.frame(output)
 format_out(result) %>% 
   mutate(model = "TOY") -> 
   jz_TOY
+
+write.csv(x = jz_TOY, file = file.path(WRITE_TO, "jz_toy.csv"), row.names = FALSE)
+
+
 ```
 
 
