@@ -118,22 +118,22 @@ test_that("COM", {
   diff_df <- compare_results(jz = jz_results, memc = out_JZ_com)
   expect_true(all(diff_df$diff <= tol))
 
-  # Diagnostic plots to use when not passing the test
-  library(dplyr)
-  library(ggplot2)
-  ggplot(data = diff_df %>% filter(time <= 500)
-         ) +
-    geom_line(aes(x = time, y = jz_value, color = "original imp."), size = 1) +
-    geom_line(aes(x = time, y = value, color = "memc imp."),
-              linetype = 2, size = 1) +
-    facet_wrap("variable", scales = "free")
-
-  ggplot(data = diff_df %>% filter(time <= 100) #%>%  filter(!variable %in% c("IC", "MOM", "Tot"))
-         ) +
-    geom_line(aes(x = time, y = diff, color = variable)) +
-   # facet_wrap("variable", scales = "free") +
-    #ylim(-0.05, 0.05) +
-    NULL
+  # # Diagnostic plots to use when not passing the test
+  # library(dplyr)
+  # library(ggplot2)
+  # ggplot(data = diff_df %>% filter(time <= 500)
+  #        ) +
+  #   geom_line(aes(x = time, y = jz_value, color = "original imp."), size = 1) +
+  #   geom_line(aes(x = time, y = value, color = "memc imp."),
+  #             linetype = 2, size = 1) +
+  #   facet_wrap("variable", scales = "free")
+  #
+  # ggplot(data = diff_df %>% filter(time <= 100) #%>%  filter(!variable %in% c("IC", "MOM", "Tot"))
+  #        ) +
+  #   geom_line(aes(x = time, y = diff, color = variable)) +
+  #  # facet_wrap("variable", scales = "free") +
+  #   #ylim(-0.05, 0.05) +
+  #   NULL
 
 })
 
