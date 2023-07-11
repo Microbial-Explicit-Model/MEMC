@@ -25,6 +25,10 @@ carbon_fluxes_internal <-
         fluxes[["F1"]] = function(MB, DOM) {
           p[["V_d"]] * MB * DOM / (p[["K_d"]] + DOM + MB)
         }
+      } else if (DOMdecomp == "LM"){
+        fluxes[["F1"]] = function(MB, DOM) {
+          p[["V_d"]] * DOM
+        }
       }
 
       if (POMdecomp == "MM") {
