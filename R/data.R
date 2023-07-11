@@ -4,7 +4,7 @@
 #' @usage data(default_params)
 #' @keywords datasets
 #'
-#' @format A data table consisting of 4 columns with inputs from \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
+#' @format A data frame of 20 rows and 4 columns containing the model parameter values from \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 #' \describe{
 #' \item{parameter}{String character of the default MEND parameters.}
 #' \item{description}{String character describing the parameter.}
@@ -14,77 +14,111 @@
 #' @family inputs
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @examples
-#' default_params
+#' print(default_params)
 "default_params"
 
 
-#' The default initial carbon pool values the basic MEMC model configurations from Wang et al. 2013
+#' The default initial carbon pool values used by the default MEMC model configurations
 #'
-#' @format A vector of the initial states of the Carbon pools from MEND 2013 \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
+#' @format A named vector of the initial states of the carbon pools.
 #' \describe{ a named vector of the Carbon pools
-#' \item{'POM'}{'Particulate organic carbon or POC'}
-#' \item{'MOM'}{'Mineral associated organic carbon or MOC, note that this excludes QOM'}
-#' \item{'QOM'}{'Adsorbed phase of DOC'}
-#' \item{'MB'}{'Microbial biomass carbon or MBC'}
-#' \item{'DOM'}{'Dissolved organic carbon or DOC'}
-#' \item{'EP'}{'Enzyme for decomposition of POM'}
-#' \item{'EM'}{'Ensyme for decomposition of MOM'}
-#' \item{'IC'}{'Accumulated CO2 flux'}
-#' \item{'Tot'}{'Total carbon in the patch'}
+#' \item{POM}{Particulate organic carbon or POC}
+#' \item{MOM}{Mineral associated organic carbon or MOC, note that this excludes QOM}
+#' \item{QOM}{Adsorbed phase of DOC}
+#' \item{MB}{Microbial biomass carbon or MBC}
+#' \item{DOM}{Dissolved organic carbon or DOC}
+#' \item{EP}{Enzyme for decomposition of POM}
+#' \item{EM}{Enzyme for decomposition of MOM}
+#' \item{IC}{Accumulated CO2 flux}
+#' \item{Tot}{Total carbon in the patch}
 #' }
 #' @family inputs
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @examples
-#' default_initial
 #' print(default_initial)
 "default_initial"
 
-
-#' MEMC model configurations for MEND Wang et al. 2013
+#' The MEMC model configuration for MEND
 #'
+#' The MEND configuration is based off of Wang et al. 2013, this
+#' configuration uses MM dynamics for the DOM decomposition, MM for
+#' POM decomposition, and a LM for MB decay, see \link{dynamics} for more
+#' details.
 #'
 #' @format an object created form \code{configure_model}.
 #' \describe{
-#' \item{name}{MEND, the model name}
-#' \item{table}{table describing the user selected kinetics}
-#' \item{params}{the default MEMC parameter table}
-#' \item{state}{the default inital state values for MEMC}
+#' \item{name}{MEND}
+#' \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
+#' \item{params}{data table of the model parameters, see \link{default_params} for more details.}
+#' \item{state}{vector of the initial state values, see \link{default_initial} for more details.}
 #' }
-#' @family models
+#' @family {configurations}
+#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @examples
-#' MEND_model
+#' ## Use solve_model to run the simulation using this configuration.
+#' print(MEND_model)
 #' solve_model(mod = MEND_model, time = 1:10)
 "MEND_model"
 
-#' MEMC model configurations for MEND Wang et al. 2013
+#' The MEMC model configuration for COMISSION
 #'
+#' The COMISSION configuration is based off of Ahrens et al. 2015, the model uses RMM for the
+#' DOM decomposition, MM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
+#' details.
 #'
-#' @format an object created form \code{configure_model}.
+#' @format an object created form \code{configure_model}, containing the following elements.
 #' \describe{
-#' \item{name}{COMISSION, the model name}
-#' \item{table}{table describing the user selected kinetics}
-#' \item{params}{the default MEMC parameter table}
-#' \item{state}{the default inital state values for MEMC}
+#' \item{name}{COMISSION}
+#' \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
+#' \item{params}{data table of the model parameters, see \link{default_params} for more details.}
+#' \item{state}{vector of the initial state values, see \link{default_initial} for more details.}
 #' }
-#' @family models
+#' @family {configurations}
+#' @references \href{https://doi.org/10.1016/j.soilbio.2015.06.008}{Ahrens et al. 2015}
 #' @examples
-#' COMISSION_model
+#' ## Use solve_model to run the simulation using this configuration.
+#' print(COMISSION_model)
 #' solve_model(mod = COMISSION_model, time = 1:10)
 "COMISSION_model"
 
-
-#' MEMC model configurations
+#' The MEMC model configuration for CORPSE
 #'
+#' The CORPSE configuration is based off of Sulman et al. 2018, this model uses LM for
+#'  DOM decomposition, RMM for POM decomposition, and a DD for MB decay, see \link{dynamics} for more
+#' details.
 #'
-#' @format an object created form \code{configure_model}.
+#' @format an object created form \code{configure_model}, containing the following elements.
 #' \describe{
-#' \item{name}{CORPSE, the model name}
-#' \item{table}{table describing the user selected kinetics}
-#' \item{params}{the default MEMC parameter table}
-#' \item{state}{the default inital state values for MEMC}
+#' \item{name}{CORPSE}
+#' \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
+#' \item{params}{data table of the model parameters, see \link{default_params} for more details.}
+#' \item{state}{vector of the initial state values, see \link{default_initial} for more details.}
 #' }
-#' @family models
+#' @family {configurations}
+#' @references \href{https://doi.org/10.1007/s10533-018-0509-z}{Sulman et al. 2018}
 #' @examples
-#' CORPSE_model
+#' ## Use solve_model to run the simulation using this configuration.
+#' print(CORPSE_model)
 #' solve_model(mod = CORPSE_model, time = 1:10)
 "CORPSE_model"
+
+#' The MEMC model configuration for MIMCS
+#'
+#' The MIMCS configuration is based off of Wieder et al. 2015, this model uses MM for the DOM
+#' decomposition, MM for POM decomposition, and a DD for MB decay, see \link{dynamics} for more
+#' details.
+#'
+#' @format an object created form \code{configure_model}, containing the following elements.
+#' \describe{
+#' \item{name}{MIMCS}
+#' \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
+#' \item{params}{data table of the model parameters, see \link{default_params} for more details.}
+#' \item{state}{vector of the initial state values, see \link{default_initial} for more details.}
+#' }
+#' @family {configurations}
+#' @references \href{https://doi.org/10.1002/2015GB005188}{Wieder et al. 2015}
+#' @examples
+#' ## Use solve_model to run the simulation using this configuration.
+#' print(MIMCS_model)
+#' solve_model(mod = MIMCS_model, time = 1:10)
+"MIMCS_model"

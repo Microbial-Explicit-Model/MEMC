@@ -3,29 +3,28 @@
 \docType{data}
 \name{default_initial}
 \alias{default_initial}
-\title{The default initial carbon pool values the basic MEMC model configurations from Wang et al. 2013}
+\title{The default initial carbon pool values used by the default MEMC model configurations}
 \format{
-A vector of the initial states of the Carbon pools from MEND 2013 \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
+A named vector of the initial states of the carbon pools.
 \describe{ a named vector of the Carbon pools
-\item{'POM'}{'Particulate organic carbon or POC'}
-\item{'MOM'}{'Mineral associated organic carbon or MOC, note that this excludes QOM'}
-\item{'QOM'}{'Adsorbed phase of DOC'}
-\item{'MB'}{'Microbial biomass carbon or MBC'}
-\item{'DOM'}{'Dissolved organic carbon or DOC'}
-\item{'EP'}{'Enzyme for decomposition of POM'}
-\item{'EM'}{'Ensyme for decomposition of MOM'}
-\item{'IC'}{'Accumulated CO2 flux'}
-\item{'Tot'}{'Total carbon in the patch'}
+\item{POM}{Particulate organic carbon or POC}
+\item{MOM}{Mineral associated organic carbon or MOC, note that this excludes QOM}
+\item{QOM}{Adsorbed phase of DOC}
+\item{MB}{Microbial biomass carbon or MBC}
+\item{DOM}{Dissolved organic carbon or DOC}
+\item{EP}{Enzyme for decomposition of POM}
+\item{EM}{Enzyme for decomposition of MOM}
+\item{IC}{Accumulated CO2 flux}
+\item{Tot}{Total carbon in the patch}
 }
 }
 \usage{
 default_initial
 }
 \description{
-The default initial carbon pool values the basic MEMC model configurations from Wang et al. 2013
+The default initial carbon pool values used by the default MEMC model configurations
 }
 \examples{
-default_initial
 print(default_initial)
 }
 \references{

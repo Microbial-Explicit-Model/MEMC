@@ -3,30 +3,38 @@
 \docType{data}
 \name{MEND_model}
 \alias{MEND_model}
-\title{MEMC model configurations for MEND Wang et al. 2013}
+\title{The MEMC model configuration for MEND}
 \format{
 an object created form \code{configure_model}.
 \describe{
-\item{name}{MEND, the model name}
-\item{table}{table describing the user selected kinetics}
-\item{params}{the default MEMC parameter table}
-\item{state}{the default inital state values for MEMC}
+\item{name}{MEND}
+\item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
+\item{params}{data table of the model parameters, see \link{default_params} for more details.}
+\item{state}{vector of the initial state values, see \link{default_initial} for more details.}
 }
 }
 \usage{
 MEND_model
 }
 \description{
-MEMC model configurations for MEND Wang et al. 2013
+The MEND configuration is based off of Wang et al. 2013, this
+configuration uses MM dynamics for the DOM decomposition, MM for
+POM decomposition, and a LM for MB decay, see \link{dynamics} for more
+details.
 }
 \examples{
-MEND_model
+## Use solve_model to run the simulation using this configuration.
+print(MEND_model)
 solve_model(mod = MEND_model, time = 1:10)
 }
-\seealso{
-Other models: 
-\code{\link{COMISSION_model}},
-\code{\link{CORPSE_model}}
+\references{
+\href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 }
-\concept{models}
+\seealso{
+Other {configurations}: 
+\code{\link{COMISSION_model}},
+\code{\link{CORPSE_model}},
+\code{\link{MIMCS_model}}
+}
+\concept{{configurations}}
 \keyword{datasets}
