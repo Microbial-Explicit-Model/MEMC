@@ -18,5 +18,5 @@ complete the desired model simulations.
 solve_model(mode = MEND_model, time = 0:10)
 }
 \seealso{
-dynamics
+dynamics, fluxes
 }
