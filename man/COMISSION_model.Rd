@@ -17,8 +17,8 @@ an object created form \code{configure_model}, containing the following elements
 COMISSION_model
 }
 \description{
-The COMISSION configuration is based off of Ahrens et al. 2015, the model uses RMM for the
-DOM decomposition, MM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
+The COMISSION configuration is based off of Ahrens et al. 2015, the model uses MM for the
+DOM uptake, RMM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
 details.
 }
 \examples{
@@ -31,7 +31,9 @@ solve_model(mod = COMISSION_model, time = 1:10)
 }
 \seealso{
 Other {configurations}: 
+\code{\link{BAMS_model}},
 \code{\link{CORPSE_model}},
+\code{\link{MEMS_model}},
 \code{\link{MEND_model}},
 \code{\link{MIMCS_model}}
 }

@@ -90,7 +90,7 @@ With `MEMC` users are able easily run simulations with the provide model configu
 my_model <- configure_model(params = default_params, 
                             state = default_initial, 
                             name = "my model", 
-                            DOMdecomp = "MM", 
+                            DOMuptake = "MM", 
                             POMdecomp = "LM", 
                             MBdecay = "LM")
 ```

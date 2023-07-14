@@ -55,7 +55,7 @@ print(MEND_model)
 #> [1] "MEND"
 #> 
 #> $table
-#>   model DOMdecomp POMdecomp MBdecay
+#>   model DOMuptake POMdecomp MBdecay
 #> 1  MEND        MM        MM      LM
 #> 
 #> $params
@@ -155,10 +155,10 @@ and `help("default_initial)` for more information).
 my_model <- configure_model(params = default_params, 
                             state = default_initial, 
                             name = "my model", 
-                            DOMdecomp = "MM", 
+                            DOMuptake = "MM", 
                             POMdecomp = "LM", 
                             MBdecay = "LM")
-#> |model    |DOMdecomp |POMdecomp |MBdecay |
+#> |model    |DOMuptake |POMdecomp |MBdecay |
 #> |:--------|:---------|:---------|:-------|
 #> |my model |MM        |LM        |LM      |
 ```

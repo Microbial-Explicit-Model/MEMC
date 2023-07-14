@@ -6,7 +6,8 @@
 \description{
 The various model configurations that are
 shipped with the MEMC package, such as:
-\code{MEND_model}, \code{COMISSION_model}, \code{CORPSE_model},
+\code{BAMS_model}, \code{COMISSION_model},
+\code{CORPSE_model}, \code{MEND_model},
 \code{MIMCS_model}, and \code{MEMS_model}.
 }
 \details{
@@ -15,7 +16,7 @@ complete the desired model simulations.
 }
 \examples{
 ## Using solve_model with the MEND_model configuration.
-solve_model(mode = MEND_model, time = 0:10)
+solve_model(mod = MEND_model, time = 0:10)
 }
 \seealso{
 dynamics, fluxes

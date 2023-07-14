@@ -17,8 +17,8 @@ an object created form \code{configure_model}, containing the following elements
 CORPSE_model
 }
 \description{
-The CORPSE configuration is based off of Sulman et al. 2018, this model uses LM for
- DOM decomposition, RMM for POM decomposition, and a DD for MB decay, see \link{dynamics} for more
+The CORPSE configuration is based off of Sulman et al. 2018, this model uses RMM for
+DOM uptake, LM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
 details.
 }
 \examples{
@@ -31,7 +31,9 @@ solve_model(mod = CORPSE_model, time = 1:10)
 }
 \seealso{
 Other {configurations}: 
+\code{\link{BAMS_model}},
 \code{\link{COMISSION_model}},
+\code{\link{MEMS_model}},
 \code{\link{MEND_model}},
 \code{\link{MIMCS_model}}
 }

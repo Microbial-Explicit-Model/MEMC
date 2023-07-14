@@ -108,7 +108,7 @@ custom_config_table_message <- function(x) {
 #' @param params data.table containing the following columns: parameter, value, and units.
 #' @param state a vector of the initial state values, must be named
 #' @param name string name of the model configuration, default set to "MEND".
-#' @param DOMdecomp string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"
+#' @param DOMuptake string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"
 #' @param POMdecomp string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"
 #' @param MBdecay string indicating microbial decay, one  of the following ""LM" or "DD"
 #' @importFrom assertthat assert_that
@@ -117,20 +117,20 @@ custom_config_table_message <- function(x) {
 configure_model <- function(params,
                             state,
                             name = "unnamed",
-                            DOMdecomp = "MM",
+                            DOMuptake = "MM",
                             POMdecomp = "MM",
-                            MBdecay = "DD") {
+                            MBdecay = "LM") {
   # Check the arguments
   assert_that(is_param_table(params))
-  assert_that(all(sapply(list(POMdecomp, DOMdecomp, MBdecay), is.character)))
-  assert_that(sum(DOMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'DOMdecomp must be "MM", "RMM", "ECA"')
+  assert_that(all(sapply(list(POMdecomp, DOMuptake, MBdecay), is.character)))
+  assert_that(sum(DOMuptake %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'DOMuptake must be "MM", "RMM", "ECA"')
   assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'POMdecomp must be "MM", "RMM", "ECA", "LM"')
   assert_that(sum(MBdecay %in% c("LM", "DD")) == 1, msg = 'MBdecay must be "LM" or "DD"')
 
   # Format the table
   table <- data.frame(
     "model" = name,
-    "DOMdecomp" = DOMdecomp,
+    "DOMuptake" = DOMuptake,
     "POMdecomp" = POMdecomp,
     "MBdecay" = MBdecay
   )

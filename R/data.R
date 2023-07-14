@@ -41,7 +41,7 @@
 #' The MEMC model configuration for MEND
 #'
 #' The MEND configuration is based off of Wang et al. 2013, this
-#' configuration uses MM dynamics for the DOM decomposition, MM for
+#' configuration uses MM for DOM uptake, MM for
 #' POM decomposition, and a LM for MB decay, see \link{dynamics} for more
 #' details.
 #'
@@ -62,8 +62,8 @@
 
 #' The MEMC model configuration for COMISSION
 #'
-#' The COMISSION configuration is based off of Ahrens et al. 2015, the model uses RMM for the
-#' DOM decomposition, MM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
+#' The COMISSION configuration is based off of Ahrens et al. 2015, the model uses MM for the
+#' DOM uptake, RMM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
 #' details.
 #'
 #' @format an object created form \code{configure_model}, containing the following elements.
@@ -83,8 +83,8 @@
 
 #' The MEMC model configuration for CORPSE
 #'
-#' The CORPSE configuration is based off of Sulman et al. 2018, this model uses LM for
-#'  DOM decomposition, RMM for POM decomposition, and a DD for MB decay, see \link{dynamics} for more
+#' The CORPSE configuration is based off of Sulman et al. 2018, this model uses RMM for
+#' DOM uptake, LM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
 #' details.
 #'
 #' @format an object created form \code{configure_model}, containing the following elements.
@@ -105,7 +105,7 @@
 #' The MEMC model configuration for MIMCS
 #'
 #' The MIMCS configuration is based off of Wieder et al. 2015, this model uses MM for the DOM
-#' decomposition, MM for POM decomposition, and a DD for MB decay, see \link{dynamics} for more
+#' uptake, MM for POM decomposition, and a DD for MB decay, see \link{dynamics} for more
 #' details.
 #'
 #' @format an object created form \code{configure_model}, containing the following elements.
@@ -122,3 +122,45 @@
 #' print(MIMCS_model)
 #' solve_model(mod = MIMCS_model, time = 1:10)
 "MIMCS_model"
+
+#' The MEMC model configuration for MEMS
+#'
+#' The MEMS configuration is based off of Robertson et al. 2019, this model uses LM for the DOM
+#' uptake, LM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
+#' details.
+#'
+#' @format an object created form \code{configure_model}, containing the following elements.
+#' \describe{
+#' \item{name}{MEMS}
+#' \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
+#' \item{params}{data table of the model parameters, see \link{default_params} for more details.}
+#' \item{state}{vector of the initial state values, see \link{default_initial} for more details.}
+#' }
+#' @family {configurations}
+#' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
+#' @examples
+#' ## Use solve_model to run the simulation using this configuration.
+#' print(MEMS_model)
+#' solve_model(mod = MEMS_model, time = 1:10)
+"MEMS_model"
+
+#' The MEMC model configuration for BAMS
+#'
+#' The BAMS configuration is based off of Tang et al. 2022, this model uses MM for the DOM
+#' uptake, MM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
+#' details.
+#'
+#' @format an object created form \code{configure_model}, containing the following elements.
+#' \describe{
+#' \item{name}{BAMS}
+#' \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
+#' \item{params}{data table of the model parameters, see \link{default_params} for more details.}
+#' \item{state}{vector of the initial state values, see \link{default_initial} for more details.}
+#' }
+#' @family {configurations}
+#' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
+#' @examples
+#' ## Use solve_model to run the simulation using this configuration.
+#' print(BAMS_model)
+#' solve_model(mod = MEMS_model, time = 1:10)
+"BAMS_model"

@@ -17,7 +17,8 @@ Suggests:
     ggplot2 (>= 3.3.5),
     data.table (>= 1.14.2),
     dplyr (>= 1.1.0),
-    covr
+    covr,
+    learnr
 Imports: 
     assertthat (>= 0.2.1), 
     deSolve (>= 1.30), 

@@ -8,9 +8,9 @@ configure_model(
   params,
   state,
   name = "unnamed",
-  DOMdecomp = "MM",
+  DOMuptake = "MM",
   POMdecomp = "MM",
-  MBdecay = "DD"
+  MBdecay = "LM"
 )
 }
 \arguments{
@@ -20,7 +20,7 @@ configure_model(
 
 \item{name}{string name of the model configuration, default set to "MEND".}
 
-\item{DOMdecomp}{string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"}
+\item{DOMuptake}{string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"}
 
 \item{POMdecomp}{string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"}
 

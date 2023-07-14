@@ -1,31 +1,31 @@
 #' Define the carbon pool fluxes
 #'
 #' @param parms MEMC parameter table
-#' @param DOMdecomp string indicator for type of dynamics used for the DOM decomposition
+#' @param DOMuptake string indicator for type of dynamics used for the DOM decomposition
 #' @param POMdecomp string indicator for type of dynamics used for the POM decomposition
 #' @param MBdecay string indicator for type of dynamics used to model MB decay
 #' @noRd
 #' @family internal
 carbon_fluxes_internal <-
   function(p,
-           DOMdecomp = "MM",
+           DOMuptake = "MM",
            POMdecomp = "MM",
-           MBdecay = "DD") {
+           MBdecay = "LM") {
 
     fluxes <- list()
-      if (DOMdecomp == "MM") {
+      if (DOMuptake == "MM") {
         fluxes[["F1"]] = function(MB, DOM) {
           p[["V_d"]] * MB * DOM / (p[["K_d"]] + DOM)
         }
-      } else if (DOMdecomp == "RMM") {
+      } else if (DOMuptake == "RMM") {
         fluxes[["F1"]] = function(MB, DOM) {
           p[["V_d"]] * MB * DOM / (p[["K_d"]] + MB)
         }
-      } else if (DOMdecomp == "ECA") {
+      } else if (DOMuptake == "ECA") {
         fluxes[["F1"]] = function(MB, DOM) {
           p[["V_d"]] * MB * DOM / (p[["K_d"]] + DOM + MB)
         }
-      } else if (DOMdecomp == "LM"){
+      } else if (DOMuptake == "LM"){
         fluxes[["F1"]] = function(MB, DOM) {
           p[["V_d"]] * DOM
         }
@@ -94,7 +94,7 @@ carbon_fluxes_internal <-
 #' @param t numeric when to solve the model
 #' @param state MEMC vector of the pool values
 #' @param parms MEMC parameter table
-#' @param DOMdecomp string indicator for type of dynamics used for the DOM decomposition
+#' @param DOMuptake string indicator for type of dynamics used for the DOM decomposition
 #' @param POMdecomp string indicator for type of dynamics used for the POM decomposition
 #' @param MBdecay string indicator for type of dynamics used to model MB decay
 #' @noRd
@@ -103,12 +103,12 @@ carbon_pool_derivs <-
   function(t,
            state,
            p,
-           DOMdecomp,
+           DOMuptake,
            POMdecomp,
            MBdecay) {
 
     fluxes <- carbon_fluxes_internal(p = p,
-                             DOMdecomp = DOMdecomp,
+                             DOMuptake = DOMuptake,
                              POMdecomp = POMdecomp,
                              MBdecay = MBdecay)
 
@@ -172,7 +172,7 @@ sm_internal <- function(mod, time, ...) {
     times = time,
     func = carbon_pool_derivs,
     parms = p,
-    DOMdecomp = mod[["table"]][["DOMdecomp"]],
+    DOMuptake = mod[["table"]][["DOMuptake"]],
     POMdecomp = mod[["table"]][["POMdecomp"]],
     MBdecay = mod[["table"]][["MBdecay"]], ...)
 

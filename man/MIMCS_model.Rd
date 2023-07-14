@@ -18,7 +18,7 @@ MIMCS_model
 }
 \description{
 The MIMCS configuration is based off of Wieder et al. 2015, this model uses MM for the DOM
-decomposition, MM for POM decomposition, and a DD for MB decay, see \link{dynamics} for more
+uptake, MM for POM decomposition, and a DD for MB decay, see \link{dynamics} for more
 details.
 }
 \examples{
@@ -31,8 +31,10 @@ solve_model(mod = MIMCS_model, time = 1:10)
 }
 \seealso{
 Other {configurations}: 
+\code{\link{BAMS_model}},
 \code{\link{COMISSION_model}},
 \code{\link{CORPSE_model}},
+\code{\link{MEMS_model}},
 \code{\link{MEND_model}}
 }
 \concept{{configurations}}

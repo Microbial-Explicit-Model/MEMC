@@ -17,7 +17,23 @@ corpse_out <- solve_model(CORPSE_model, time)
 names(corpse_out) <-
   c("time", "variable", "old_value", "units", "name")
 
-out <- rbind(mend_out, comisssion_out, corpse_out)
+corpse_out <- solve_model(CORPSE_model, time)
+names(corpse_out) <-
+  c("time", "variable", "old_value", "units", "name")
+
+mimcs_out <- solve_model(MIMCS_model, time)
+names(mimcs_out) <-
+  c("time", "variable", "old_value", "units", "name")
+
+mems_out <- solve_model(MEMS_model, time)
+names(mems_out) <-
+  c("time", "variable", "old_value", "units", "name")
+
+bams_out <- solve_model(BAMS_model, time)
+names(bams_out) <-
+  c("time", "variable", "old_value", "units", "name")
+
+out <- rbind(mend_out, comisssion_out, corpse_out, mimcs_out, mems_out, bams_out)
 
 write.csv(out,
           file = file.path(TEST_DIR, "old-new.csv"),

@@ -4,7 +4,8 @@
 #'
 #' The various model configurations that are
 #' shipped with the MEMC package, such as:
-#' \code{MEND_model}, \code{COMISSION_model}, \code{CORPSE_model},
+#' \code{BAMS_model}, \code{COMISSION_model},
+#' \code{CORPSE_model}, \code{MEND_model},
 #' \code{MIMCS_model}, and \code{MEMS_model}.
 #'
 #' These model configurations can be used with the \code{solve_model} function to
@@ -14,7 +15,7 @@
 #'
 #' @examples
 #' ## Using solve_model with the MEND_model configuration.
-#' solve_model(mode = MEND_model, time = 0:10)
+#' solve_model(mod = MEND_model, time = 0:10)
 NULL
 
 
@@ -24,8 +25,8 @@ NULL
 #' from when setting up a model configuration using the \code{\link{configure_model}} function.
 #'
 #' @section Dynamics:
-#' \describe{The MEMC package allows users to select the dynamics used for \link{DOMdecomp}, \link{POMdecomp}, and
-#' \link{MBdecay} from the following list:
+#' \describe{The MEMC package allows users to select the dynamics used for DOMuptake, POMdecomp, and
+#' MBdecay from the following list:
 #' \item{MM}{Michaelis–Menten kinetics}
 #' \item{RMM}{Reverse Michaelis-Menten kinetics, as in (Schimel and Weintraub, 2003) and (Sulman et al. 2014)}
 #' \item{ECA}{Equilibrium Chemistry Approximation, based on RESOM (Tang and Riley, 2014)}
@@ -47,14 +48,10 @@ NULL
 #' Description of the flexible SOM fluxes that users may change with \code{\link{configure_model}} function.
 #'
 #' \describe{The MEMC package supports flexible definitions for the following SOM fluxes:
-#' \item{DOMdecomp}{dissovled organic matter decomposition, the flux descirbing the DOM that is broken down for microbial biomoass uptake.}
-#' \item{POMdecomp}{particulate oranic matter decomposition, the flux descirbing the POM that is broken down into DOM}
-#' \item{MBdecay}{microbial biomass decay, the flux descirbing the micorbial biomass mortality/turn over}
+#' \item{DOMuptake}{dissovled organic uptake by microbial biomass, the flux describing the DOM that is broken down for microbial biomoass uptake.}
+#' \item{POMdecomp}{particulate oranic matter decomposition, the flux describing the POM that is broken down into DOM.}
+#' \item{MBdecay}{microbial biomass decay, the flux descirbing the micorbial biomass mortality/turn over.}
 #' }
 #' @name fluxes
 #' @seealso configurations, fluxes, dynamics
 NULL
-
-
-
-
