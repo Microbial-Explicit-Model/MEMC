@@ -36,7 +36,8 @@ Other {configurations}:
 \code{\link{COMISSION_model}},
 \code{\link{CORPSE_model}},
 \code{\link{MEMS_model}},
-\code{\link{MIMCS_model}}
+\code{\link{MIMCS_model}},
+\code{\link{model_configs}}
 }
 \concept{{configurations}}
 \keyword{datasets}

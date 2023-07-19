@@ -185,3 +185,37 @@ split_param_state <- function(x) {
   return(out)
 
 }
+
+#' Function that returns the MEMC color palette for the the default MEMC model configurations
+#'
+#' @param name input vector containing the model names to return the color codes for, default will return colors for all the model configurations,
+#' @return vector containing color hex codes for the different model configurations
+#' @importFrom assertthat assert_that
+#' @export
+colorMEMCPalette <- function(name = NULL){
+
+  # The color Palette for the different model configurations.
+  color_vec <- c("MIMCS"="#FEC22C",
+                 "MEND"="#FE9527",
+                 "CORPSE"="#7F7F7F",
+                 "BAMS" = "#FE8BD8",
+                 "COMISSION" = "#D783FD",
+                 "MEMS" = "#1494FC")
+
+  assert_that(nrow(model_configs) == length(color_vec), msg = "Problem with color palette size")
+
+
+  if(is.null(name)){
+    return(color_vec)
+  } else {
+    assert_that(all(name %in% names(color_vec)), msg = "MEMC color palette only supports the default model configurations")
+    index <- which(names(color_vec) %in% name)
+    subset_color_vec <- color_vec[index]
+    return(subset_color_vec)
+  }
+
+}
+
+
+
+

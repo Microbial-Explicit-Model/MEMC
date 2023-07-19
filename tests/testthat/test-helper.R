@@ -41,13 +41,13 @@ test_that("bad model configuration will fail", {
     configure_model(
       ptable,
       state,
-      DOMdecomp = "RMM",
+      DOMuptake = "RMM",
       POMdecomp = "ECA",
-      MBdecay = "LM"
+      MBdecay = "DD"
     )
 
   # Expect changes to be made to the dynamics table
-  expect_true(out1[["table"]][["DOMdecomp"]] != out2[["table"]][["DOMdecomp"]])
+  expect_true(out1[["table"]][["DOMuptake"]] != out2[["table"]][["DOMuptake"]])
   expect_true(out1[["table"]][["POMdecomp"]] != out2[["table"]][["POMdecomp"]])
   expect_true(out1[["table"]][["MBdecay"]] != out2[["table"]][["MBdecay"]])
 
@@ -58,8 +58,8 @@ test_that("bad model configuration will fail", {
     fixed = TRUE
   )
   expect_error(
-    configure_model(ptable, state, DOMdecomp = "fake"),
-    'DOMdecomp must be "MM", "RMM", "ECA"',
+    configure_model(ptable, state, DOMuptake = "fake"),
+    'DOMuptake must be "MM", "RMM", "ECA"',
     fixed = TRUE
   )
   expect_error(
@@ -103,5 +103,16 @@ test_that("split_param_state", {
 
   expect_error(split_param_state(x = c("fake" = 10)),
                "value not recognized as a parameter or state")
+
+})
+
+
+test_that("colorMEMCPalette ", {
+
+  out <- colorMEMCPalette()
+  expect_vector(out)
+  expect_equal(length(out), nrow(model_configs))
+  expect_equal(length(colorMEMCPalette("MEND")), 1)
+  expect_error(colorMEMCPalette("fake"))
 
 })

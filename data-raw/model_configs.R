@@ -67,8 +67,11 @@ MIMCS_model <- configure_model(
 usethis::use_data(MIMCS_model, overwrite = TRUE)
 
 
-
-
-
-
+model_configs <- rbind(MEND_model$table,
+                       COMISSION_model$table,
+                       CORPSE_model$table,
+                       MEMS_model$table,
+                       BAMS_model$table,
+                       MIMCS_model$table)
+usethis::use_data(model_configs, overwrite = TRUE)
 

@@ -164,3 +164,34 @@
 #' print(BAMS_model)
 #' solve_model(mod = MEMS_model, time = 1:10)
 "BAMS_model"
+
+
+
+
+#' Data table of all the pre-defined MEMC model configurations
+#'
+#'
+#' @format data table containing 4 columns
+#' \describe{
+#' \item{model}{model configuration name}
+#' \item{DOMuptake}{DOM uptake by microbial biomass, see \link{dynamics} for more details.}
+#' \item{POMdecomp}{POM decomposition, see \link{dynamics} for more details.}
+#' \item{MBdecay}{microbial biomass decay, see \link{default_initial} for more details.}
+#' }
+#' @family {configurations}
+#' @examples
+#' print(model_configs)
+"model_configs"
+
+
+
+
+#' Color palette for the MEMC model configurations
+#'
+#'
+#' @format vector defining the color palette to use for plotting results
+#' @family {configurations}
+#' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
+#' @examples
+#' print(model_configs)
+"model_configs"

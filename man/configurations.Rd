@@ -9,6 +9,8 @@ shipped with the MEMC package, such as:
 \code{BAMS_model}, \code{COMISSION_model},
 \code{CORPSE_model}, \code{MEND_model},
 \code{MIMCS_model}, and \code{MEMS_model}.
+All supported model configurations are listed
+in \code{model_configs}.
 }
 \details{
 These model configurations can be used with the \code{solve_model} function to
@@ -16,7 +18,7 @@ complete the desired model simulations.
 }
 \examples{
 ## Using solve_model with the MEND_model configuration.
-solve_model(mod = MEND_model, time = 0:10)
+out <- solve_model(mod = MEND_model, time = 0:10)
 }
 \seealso{
 dynamics, fluxes
