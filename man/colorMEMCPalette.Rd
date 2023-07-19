@@ -15,3 +15,12 @@ vector containing color hex codes for the different model configurations
 \description{
 Function that returns the MEMC color palette for the the default MEMC model configurations
 }
+\examples{
+\dontrun{
+out <- solve_model(model = MEND_model, time = 0:100)
+ggplot(data = out, aes(time, value)) +
+geom_line(color = name) +
+scale_color_manual(values = colorMEMCPalette("MEND")) +
+facet_wrap("variable")
+}
+}

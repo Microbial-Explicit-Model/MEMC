@@ -192,6 +192,14 @@ split_param_state <- function(x) {
 #' @return vector containing color hex codes for the different model configurations
 #' @importFrom assertthat assert_that
 #' @export
+#' @examples
+#' \dontrun{
+#' out <- solve_model(model = MEND_model, time = 0:100)
+#' ggplot(data = out, aes(time, value)) +
+#' geom_line(color = name) +
+#' scale_color_manual(values = colorMEMCPalette("MEND")) +
+#' facet_wrap("variable")
+#' }
 colorMEMCPalette <- function(name = NULL){
 
   # The color Palette for the different model configurations.
