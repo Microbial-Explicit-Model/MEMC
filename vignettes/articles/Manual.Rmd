@@ -1,0 +1,30 @@
+---
+title: "Manual"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# Science 
+
+* [Background](Background.html) on MEMC model structure and flexible flux dynamics 
+
+# Getting Started
+
+* [Build & Install MEMC](Install-Build.html)
+* 
+
+
+# Contributing to MEMC
+
+* [Contribution guide](ContributionGuide.html)
+* [Style Guide](StyleGuide.html)
+
+
+****
+[Complete index of online documenation](index.html) 

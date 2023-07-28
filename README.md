@@ -31,18 +31,34 @@ github.
     # Now build and install the R package on your local machine.
     install_github('Microbial-Explicit-Model/MEMC') 
 
-## Example
-
-The package ships with several already defined model configurations, use
-`help(configurations)` to see a list of all the available configurations
-that are ready for use. Here we will demonstrate how to complete a
-simulation using the MEND_model configuration. For more examples and
-package details please checkout our [online
-documentation](https://microbial-explicit-model.github.io/MEMC/).
+Now load the `MEMC` as you would any other package.
 
 ``` r
 # Load the installed MEMC package
 library(MEMC)
+```
+
+## Getting Started
+
+The package ships with several already defined model configurations. Use
+`help(configurations)` to see a list of all the available configurations
+that are ready for use. Here we will demonstrate how to complete a
+simulation using the MEND_model configuration. For more examples and
+package details, please checkout our [online
+documentation](https://microbial-explicit-model.github.io/MEMC/).
+Alternatively users can take a look at the `model_configs` table to take
+a look at all model configurations included in the package and the
+various dynamics that are used.
+
+``` r
+print(model_configs)
+#>       model DOMuptake POMdecomp MBdecay
+#> 1      MEND        MM        MM      LM
+#> 2 COMISSION        MM       RMM      LM
+#> 3    CORPSE       RMM        LM      LM
+#> 4      MEMS        LM        LM      LM
+#> 5      BAMS        MM        MM      LM
+#> 6     MIMCS        MM        MM      DD
 ```
 
 Take a look at the pre-built MEND_model configuration (see
@@ -109,28 +125,12 @@ print(MEND_model)
 #> 18.10002
 ```
 
-Complete a model run using the `solve_model` function.
+Complete a model run using one of the pre-built model configurations.
 
 ``` r
 time <- seq(0, 36500, by=25) 
 mend_out <- solve_model(mod = MEND_model, time = time)
 ```
-
-The model run results are saved in the `mend_out` data frame.
-
-``` r
-# Preview the run results
-head(mend_out)
-#>    time variable     value       units name
-#> 1:    0      POM 10.000000 mg C/g soil MEND
-#> 2:   25      POM  9.742068 mg C/g soil MEND
-#> 3:   50      POM  8.200540 mg C/g soil MEND
-#> 4:   75      POM  6.903752 mg C/g soil MEND
-#> 5:  100      POM  5.816141 mg C/g soil MEND
-#> 6:  125      POM  4.905867 mg C/g soil MEND
-```
-
-Visualize the run results.
 
 ``` r
 ggplot(data = mend_out) + 
@@ -163,7 +163,7 @@ my_model <- configure_model(params = default_params,
 #> |my model |MM        |LM        |LM      |
 ```
 
-Use `solve_model` to run our model.
+Complete the model run.
 
 ``` r
 time <- seq(0, 36500, by=25) 
@@ -180,7 +180,7 @@ tool for SOM model exploration. Additional features supported by `MEMC`
 include the ability to change model parameters, perform sensitivity
 analyses, and fit models with experimental/observational data (see
 [online documentation](https://microbial-explicit-model.github.io/MEMC/)
-for examples of these capabilities).
+for examples featuring capabilities).
 
 [^1]: Wang, Gangsheng, Sindhu Jagadamma, Melanie A. Mayes, Christopher
     W. Schadt, J. Megan Steinweg, Lianhong Gu, and Wilfred M. Post.

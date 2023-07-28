@@ -1,0 +1,33 @@
+---
+title: "Contribution Guide"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+As an open source community modeling tool the MEMC team welcomes and values community contributions, but there are a few important things to know.
+
+All contributions must pass through a pull request (PR) process before being merged into the main branch. Please note that opening a PR does not guarantee your work will be merged. 
+
+We encourage all contributors to read and comply with the following guidelines:
+
+* We use GitHub’s pull request feature to merge new developments into Hector. We will not merge changes made directly to the main branch, please make your changes to a branch;
+* Use Roxygen where applicable (e.g., adding or changing functions, adding data sets) but also add thorough and coherent inline documentation;
+* Add unit tests if applicable, when adding or changing functions;
+* Comply with the  style guide; and
+* The PR will need to be able to pass a suite of automated tests.
+
+
+We follow the [semantic versioning ](https://semver.org/) ideology. This being said, since not all model development will be equal in scope or magnitude, not all PR reviews will be equal. The types of PRs we expect include:
+
+* “Patch changes” that make no impact on Hector functionality, such as documentation fixes or removing dead code, are the easiest to assess and merge.
+* “Minor changes” that don’t change the model’s behavior in any fundamental way and don’t change its inputs may require unit tests and some more review.
+* “Major changes” that change the model’s input or output structure or induce major behavioral shifts, are considered breaking changes. These are subject to the most stringent reviews and will require scientific justification of the development and evidence that the changes have the intended consequences. PRs will almost always be merged into a development branch, they will be merged into main when a new version of the package is ready for release.
+
+Thank you for your interest in contributing to MEMC and we look forward to working with you! However, we maintain the right to refuse to merge PRs that do not comply with these guidelines or that do not meet contribution standards.
+
+

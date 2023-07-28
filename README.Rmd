@@ -39,14 +39,20 @@ library(remotes)
 install_github('Microbial-Explicit-Model/MEMC') 
 ```
 
-
-## Example
-
-The package ships with several already defined model configurations, use `help(configurations)` to see a list of all the available configurations that are ready for use. Here we will demonstrate how to complete a simulation using the MEND_model configuration. For more examples and package details please checkout our [online documentation](https://microbial-explicit-model.github.io/MEMC/). 
+Now load the `MEMC` as you would any other package. 
 
 ```{r}
 # Load the installed MEMC package
 library(MEMC)
+```
+
+
+## Getting Started
+
+The package ships with several already defined model configurations. Use `help(configurations)` to see a list of all the available configurations that are ready for use. Here we will demonstrate how to complete a simulation using the MEND_model configuration. For more examples and package details, please checkout our [online documentation](https://microbial-explicit-model.github.io/MEMC/). Alternatively users can take a look at the `model_configs` table to take a look at all model configurations included in the package and the various dynamics that are used. 
+
+```{r}
+print(model_configs)
 ```
 
 Take a look at the pre-built MEND_model configuration (see `help("MEND_model")` for more details).
@@ -56,22 +62,12 @@ Take a look at the pre-built MEND_model configuration (see `help("MEND_model")` 
 print(MEND_model)
 ```
 
-Complete a model run using the `solve_model` function. 
-
+Complete a model run using one of the pre-built model configurations.
 
 ```{r, warning=FALSE}
 time <- seq(0, 36500, by=25) 
 mend_out <- solve_model(mod = MEND_model, time = time)
 ```
-
-The model run results are saved in the `mend_out` data frame. 
-
-```{r}
-# Preview the run results
-head(mend_out)
-```
-
-Visualize the run results.
 
 ```{r}
 ggplot(data = mend_out) + 
@@ -96,7 +92,7 @@ my_model <- configure_model(params = default_params,
 ```
 
 
-Use `solve_model` to run our model. 
+Complete the model run.
 
 ```{r, warning=FALSE}
 time <- seq(0, 36500, by=25) 
@@ -116,6 +112,6 @@ ggplot(data = rbind(mend_out, my_out)) +
   theme(legend.title = element_blank())
 ```
 
-By changing the POM and DOM decomposition flux dynamics affects model behavior! The flexibility of the flux dynamics makes `MEMC` a powerful tool for SOM model exploration. Additional features supported by `MEMC` include the ability to change model parameters, perform sensitivity analyses, and fit models with experimental/observational data (see [online documentation](https://microbial-explicit-model.github.io/MEMC/) for examples of these capabilities).
+By changing the POM and DOM decomposition flux dynamics affects model behavior! The flexibility of the flux dynamics makes `MEMC` a powerful tool for SOM model exploration. Additional features supported by `MEMC` include the ability to change model parameters, perform sensitivity analyses, and fit models with experimental/observational data (see [online documentation](https://microbial-explicit-model.github.io/MEMC/) for examples featuring capabilities).
 
 

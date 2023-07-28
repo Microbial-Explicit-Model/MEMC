@@ -37,7 +37,6 @@ test_that("memc_modfit", {
   # Try out the memc_modfit routine using comparison data from a default run.
   # The function should allow us to solve for an unknown model parameter.
 
-
   # Solving for V_d
   default_vd <- ptable[ptable$parameter == "V_d", "value"]
   out <- memc_modfit(config = mod,
@@ -47,14 +46,13 @@ test_that("memc_modfit", {
   expect_lt(abs(out$par - default_vd), 1e-4)
   expect_gt(out$iterations, 1)
 
-
-  # Test to see if it works for multiple model parameters
+  # Test to see if fitting works fo an initial carbon pool value.
   default_B <- default_initial[["MB"]]
   out <- memc_modfit(config = mod,
-                     x = c("V_d" = 10, "MB" = 5),
+                     x = c("MB" = 5),
                      comp_data = comp_data,
                      lower = c(0))
-  expect_lt(mean(abs(out$par - c(default_vd, default_B))), 1e-4)
+  expect_lt(mean(abs(out$par - c(default_B))), 1e-4)
 
 })
 

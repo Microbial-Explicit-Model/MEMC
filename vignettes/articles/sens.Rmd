@@ -1,0 +1,225 @@
+---
+title: "Senstivity-Analysis"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+The objective of this example is demonstrate how to easily conduct a sensitivity analysis and visualize results using `memc_sensrange`, `memc_sensfunc`, and `format_sensout`. This is merely a demonstration of package capabilities more so than a rigorous analysis. The first section will demonstrate how to use the memc function related to sensitivity analyses. The second section will demonstrate how alternative model configurations affect sensitivity results. 
+
+
+```{r setup}
+library(MEMC) # Load the installed MEMC package
+library(ggplot2) # Used to plot results
+theme_set(theme_bw())
+```
+
+
+# Getting Started
+
+
+## Define the paaramter ranges
+
+Set up a data frame defining the parameter ranges to sample from. Any model parameters or initial pool sizes can be used, in this example we will explore the effects of maximum specific decomposition constants for POM, DOM, and MOM have on the model behvaior.  Users should use more informed parameter ranges from the literature, here we sample a range of broad range defined as ± 50% of the parameter value. 
+
+
+```{r}
+pars <-  c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01)
+prange <- data.frame(pars = pars, 
+                     min = pars * 0.50, 
+                     max = pars * 1.50)
+```
+
+
+## `memc_sensrange`
+
+The `memc_sensrange` function is `MEMC` specific wrapper of `FME::sensRange`. `memc_sensrange` allows users to easily run a `MEMC` model configuration with parameter combinations drawn from a predefined distribution, ultimately generating an uncertainty envelope around model results. 
+
+Description of inputs to MEMC function `memc_sensrange` are as follows: 
+
+* `config`: a memc model configuration object, either one of the pre-built configurations listed in `model_configs` or created using `configure_model`. 
+* t: vector of the time steps to run the model at
+* pars: vector of the parameters that will be varied
+* parRange: data frame of the min/max parameter values
+* dist: str for the distribution according to which the parameters will be sampled from, options "unif" (uniformly random samples), "norm", (normally distributed random samples), "latin" (latin hypercube distribution), and "grid" (parameters arranged on a grid).
+* n: integer number of sampled parameter combinations to run the model with. 
+
+
+```{r, fig.width=6}
+MENDsens_out <- memc_sensrange(config = MEND_model,
+                               t = seq(0, 365), 
+                               pars = pars, 
+                               parRange = prange, 
+                               dist = "latin",
+                               n = 50)
+```
+
+Take a quick look at the results. 
+
+```{r}
+head(summary(MENDsens_out))
+```
+
+Quickly visualize results using R's base `plot` function, this is a quick way to look at results however for more user control over the figures we recommend using ggplot2. 
+
+```{r, fig.width=8, fig.height=8}
+plot(summary(MENDsens_out))
+```
+
+```{r, fig.width=8, fig.height=8}
+plot(MENDsens_out)
+```
+
+
+## `memc_sensfun`
+
+Given a memc model configuration, estimate the local effect of certain parameters on selected sensitivity variables by calculating a matrix of so-called sensitivity functions based on FME::sensFun. 
+
+Description of inputs to MEMC function `memc_sensfun` are as follows: 
+
+* config: a memc model configuration object, either one of the pre-built configurations listed in model_configs or created using configure_model
+* t: numeric vector of the time steps to run the model at
+* pars: vector specifying the model parameters to test
+
+```{r}
+sens_out <- memc_sensfunc(config = MEND_model,
+                          t = seq(0, 365),
+                          pars = c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01))
+```
+
+Take a look at the results. 
+
+```{r}
+head(sens_out)
+```
+
+## `format_sensout`
+
+To visualize the results from `memc_sensfun` use our helper function, `format_sensout`,  that formats the object returned by  into a data frame that can be used by `ggplot`. 
+
+```{r, message=FALSE}
+ggplot(data = format_sensout(sens_out)) +
+  geom_line(aes(time, value, color = parameter)) +
+  facet_wrap("variable", scales = "free")
+```
+
+
+
+# Global Parameter Sensivity Model Comparison 
+
+```{r}
+prange <- data.frame(pars =  c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01), 
+                     min = pars * 0.50, 
+                     max = pars * 1.50)
+```
+
+
+Use the same parameter ranges with each of the different MEMC model configurations. 
+
+```{r, fig.width=6}
+time <- seq(0, 100)
+MENDsens_out <- memc_sensrange(config = MEND_model,
+                               t = time, 
+                               pars = pars, 
+                               parRange = prange, 
+                               dist = "latin",
+                               n = 50)
+COMISSIONsens_out <- memc_sensrange(config = COMISSION_model,
+                                    t = time, 
+                                    pars = pars, 
+                                    parRange = prange, 
+                                    dist = "latin",
+                                    n = 50)
+CORPSEsens_out <- memc_sensrange(config = CORPSE_model,
+                                 t = time, 
+                                 pars = pars, 
+                                 parRange = prange, 
+                                 dist = "latin",
+                                 n = 50)
+MEMSens_out <- memc_sensrange(config = MEMS_model,
+                              t = time, 
+                              pars = pars, 
+                              parRange = prange, 
+                              dist = "latin",
+                              n = 50)
+BAMSens_out <- memc_sensrange(config = BAMS_model,
+                              t = time, 
+                              pars = pars, 
+                              parRange = prange, 
+                              dist = "latin",
+                              n = 50)
+MIMCSens_out <- memc_sensrange(config = MIMCS_model,
+                               t = time, 
+                               pars = pars, 
+                               parRange = prange, 
+                               dist = "latin",
+                               n = 50)
+```
+
+
+Prepare all of the data into a single data frame for plotting. 
+
+```{r}
+out <- rbind(cbind(format_sensout(MENDsens_out), name = "MEND"),
+             cbind(format_sensout(COMISSIONsens_out), name = "COMISSION"), 
+             cbind(format_sensout(CORPSEsens_out), name = "CORPSE"),
+             cbind(format_sensout(MEMSens_out), name = "MEMS"), 
+             cbind(format_sensout(BAMSens_out), name = "BAMS"), 
+             cbind(format_sensout(MIMCSens_out), name = "MIMCS"))
+```
+
+```{r}
+ggplot(data = out) + 
+  geom_ribbon(aes(time, ymin = q25, ymax = q75, fill = name), alpha = 0.5) + 
+  geom_line(aes(time, Mean, color = name)) + 
+  facet_wrap("variable", scales = "free") + 
+  labs(y = "mg C/g soil", 
+       title = "Global Sensitivity to Vd, Vp & Vm", 
+       subtitle = "q25/q75") + 
+  theme(legend.title = element_blank()) + 
+  scale_fill_manual(values = MEMC::colorMEMCPalette()) + 
+  scale_color_manual(values = MEMC::colorMEMCPalette())
+```
+
+
+
+
+# Comparison of Local Parameter Sensivity 
+
+Use the `memc_sensfun` to compare the sensitivity of the DOM pool is to V_d and K_d, two parameters that affect the MB uptake of DOM for MEND and CORPSE. 
+
+```{r}
+time <- 0:100
+MENDsens_out <- memc_sensfunc(config = MEND_model,
+                              t = time,
+                              pars = c("V_d" = 3.0e+00,"K_d" = 0.250), 
+                              sensvar = "DOM")
+
+CORPSEsens_out <- memc_sensfunc(config = CORPSE_model,
+                                t = time,
+                                pars = c("V_d" = 3.0e+00,"K_d" = 0.250), 
+                                sensvar = "DOM")
+```
+
+Format output and visualize the results. 
+```{r}
+out <- rbind(cbind(format_sensout(CORPSEsens_out), name = "CORPSE"), 
+              cbind(format_sensout(MENDsens_out), name = "MEND"))
+```
+
+```{r, fig.width=8}
+ggplot(data = out) +
+  geom_line(aes(time, value, color = name)) +
+  facet_wrap("parameter", scales = "free") + 
+  labs(title = "Local Senstivity to DOM", 
+       x = "Time", y = "" ) 
+```
+
+
+
+

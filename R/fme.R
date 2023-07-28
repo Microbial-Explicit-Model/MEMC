@@ -49,9 +49,8 @@ make_memc_objective <- function(comp_data, x, config) {
 
 #' Fit a MEMC model to a comparison data
 #'
-#' @param config memc model configuration
-#' @param x vector of the parameters or state values to be fit using FME::modFit
-#' @param comp_data data frame containing the comparison to fit the data to
+#' @param config memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
+#' @param comp_data data frame containing the comparison data thata the model will be fit to
 #' @param lower lower bounds on the parameters; if unbounded set equal to -Inf
 #' @param upper bounds on the parameters; if unbounded set equal to Inf
 #' @param ... addition arguments that may be passed to FME::modFit
@@ -81,13 +80,15 @@ memc_modfit <-
   }
 
 
-#' Run the memc model with the FME sensRange
+#' Global sensitivity ranges for a memc model
 #'
-#' @param config memc model configuration
+#' Given a MEM model configuration estimate the global effect of parameter sensitivity.
+#'
+#' @param config a memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
 #' @param t vector of the time steps to run the model at
-#' @param pars vector of the parameters to test in sensRange
+#' @param pars vector of the parameters that will be varied
 #' @param parRange data frame of the min/max parameter values
-#' @param dist str for the distribution according to which the parameters will be sampled
+#' @param dist str for the distribution according to which the parameters will be sampled from, options" "unif" (uniformly random samples), "norm", (normally distributed random samples), "latin" (latin hypercube distribution), and "grid" (parameters arranged on a grid).
 #' @param ... additional arguments passed to FME::sensRange
 #' @return the results of the FME::sensRange
 #' @export
@@ -122,11 +123,13 @@ memc_sensrange <- function(config, t, pars, parRange, dist, ...){
 }
 
 
+#' Local sensitivity for a MEMC model
+#'
 #' Estimate the local effect of a parameter on a memc model output
 #'
-#' @param config memc model configuration
+#' @param config a memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
 #' @param t vector of the time steps to run the model at
-#' @param pars vector of the parameters to test in FME::sensFun
+#' @param pars vector of the parameters to test
 #' @param ... additional arguments passed to FME::sensFun
 #' @return the results of the FME::sensFun
 #' @export
@@ -138,7 +141,7 @@ memc_sensrange <- function(config, t, pars, parRange, dist, ...){
 #' out <- memc_sensfunc(config = MEND_model, t = t, pars = pars)
 #' pairs(out)
 #' plot(out)
-#' # Using the helper functions to make nic ggplots
+#' # Using the helper functions to make nice ggplots
 #' to_plot <- format_sensout(out)
 #' ggplot(data = to_plot) +
 #'    geom_line(aes(time, value, color = parameter)) +

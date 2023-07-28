@@ -7,11 +7,16 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>", 
+  fig.width = 8, 
+  fig.height = 5
 )
+
+library(ggplot2)
+theme_set(theme_bw(base_size = 14))
 ```
 
 ## Installation
@@ -23,18 +28,59 @@ knitr::opts_chunk$set(
 remotes::install_github("Microbial-Explicit-Model/MEMC") 
 ````
 
-## Example
-
-```{r, message=FALSE}
-## load the package
+```{r}
+# Load the installed MEMC package
 library(MEMC)
-
-## load other packages that will help with plotting results 
-library(ggplot2)
-theme_set(theme_bw())
 ```
 
-This example uses the default package initial pool size estimated and parameter values and from Wang et al. 2015^[Wang, G., Jagadamma, S., Mayes, M. et al. Microbial dormancy improves development and experimental validation of ecosystem model. ISME J 9, 226–237 (2015). https://doi.org/10.1038/ismej.2014.120]. Before setting up the model configuration take a look at these default values. 
+## Example 1: Run `MEMC` MEND 
+
+The package ships with several already defined model configurations, use `help(configurations)` to see a list of all the available configurations that are ready for use. As of V1 there are six model configurations that are included as internal MEMC package data. These model configurations use different representations for DOM uptake, POM decomposition, and MB decay. Take a look at the MEMC model configurations described in the model_configs table. 
+
+```{r}
+print(model_configs)
+```
+
+Take a look at the pre-built MEND_model configuration (see `help("MEND_model")` for more details).
+
+```{r}
+# Printing this MEMC model configuration will return a list defining the run name, a table of the flux dynamics, parameter values, and initial SOM pool sizes. 
+print(MEND_model)
+```
+
+Complete a model run using the `solve_model` function. Description of inputs `solve_model()` function are as follows: 
+
+* mod. A `MEMC` model object, either one of the model configurations included with the package or created using the `configure_model()`. 
+* times. A numeric vector of the time sequence for which the model will be solved for; the first value of times is the initial time. 
+
+
+
+```{r, warning=FALSE}
+mend_out <- solve_model(mod = MEND_model, time = 0:600)
+```
+
+The model run results are saved in the `mend_out` data frame. 
+
+```{r}
+# Preview the run results
+head(mend_out)
+```
+
+Visualize the run results.
+
+```{r}
+ggplot(data = mend_out) + 
+  geom_line(aes(time, value, color = name), linewidth = 0.75) + 
+  facet_wrap("variable", scales = "free") + 
+  labs(y = "mg C/g soil", 
+       title = "MEND Run Results")
+```
+
+
+## Example 2: Build your own model 
+
+With `MEMC` users are able easily run simulations with the provide model configurations and are able to build toy model of their own design by selecting any combination of the supported flux dynamics. See here for an example for how to use `configure_model` to build your own SOM model. The `MEMC` package includes default parameter and initial pool values that are included as package data that are based on Wang et al. 2015^[Wang, G., Jagadamma, S., Mayes, M. et al. Microbial dormancy improves development and experimental validation of ecosystem model. ISME J 9, 226–237 (2015). https://doi.org/10.1038/ismej.2014.120]. This example will use these values. Before setting up the model configuration take a look at these default values. 
+
 
 ```{r}
 print(default_initial)
@@ -49,30 +95,40 @@ print(default_params)
 # print(MEMC::default_params)
 ```
 
-Use `configure_model` to set up the model. The `DOMdecomp`, `POMdecomp`, and `MBdecay` arguments are used to define the flux dynamics uses for DOM decomposition, POM decomposition, and Microbial Biomass decay, respectively. Where MM refers to michaelis-menten and DD refers to density dependent. 
+Set up the model configuration. 
 
 ```{r}
-# Define your model using model configuration. 
+# Running configure_model will print a table describing the model configuration. 
 my_model <- configure_model(params = default_params, 
-                state = default_initial, 
-                name = "MEND", 
-                DOMdecomp = "MM", 
-                POMdecomp = "MM", 
-                MBdecay = "DD")
-```
-
-Run the model and plot results. 
-
-```{r}
-results <- solve_model(mod = my_model, # the model configuration we created above
-                       time = 0:500)   # the time vector to solve the model for 
+                            state = default_initial, 
+                            name = "my model", 
+                            DOMuptake = "MM", 
+                            POMdecomp = "LM", 
+                            MBdecay = "LM")
 ```
 
 
-```{r, fig.width=8, fig.height=5}
-ggplot(data = results, 
-       aes(time, value)) + 
-  geom_line() + 
+Use `solve_model` to run our model. 
+
+```{r, warning=FALSE}
+my_out <- solve_model(mod = my_model, time = 0:500)
+head(my_out)
+```
+
+
+Compare our toy model results with the MEND model results. 
+
+
+```{r, echo = FALSE}
+ggplot(data = rbind(mend_out, my_out)) + 
+  geom_line(aes(time, value, color = name), linewidth = 0.75) + 
   facet_wrap("variable", scales = "free") + 
-  labs(y = "mg C/g") 
+  labs(y = "mg C/g soil", 
+       title = "Comparing Model Results") +
+  theme(legend.title = element_blank())
 ```
+
+
+For more examples and tutorials please see our [online documentation](https://microbial-explicit-model.github.io/MEMC/).
+
+
