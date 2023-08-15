@@ -1,5 +1,5 @@
 # Read in the comparison data and figure out the time vector.
-old <- read.csv("compdata.csv")
+old <- read.csv("old-new.csv")
 t <- unique(old$time)
 
 # Helper function that calculates the difference between two data frame
@@ -27,15 +27,17 @@ old_new_diff <- function(old, new) {
 
 }
 
-
-
 test_that("MEND behavior", {
+
   new <- solve_model(mod = MEMC::MEND_model, time = t)
   old_comp <- old[old$name == "MEND",]
-
   out <- old_new_diff(old_comp, new)
-
   expect_true(all(out$diff <= 1e-8))
+
+  # library(ggplot2)
+  # ggplot(data = out) +
+  #   geom_line(aes(time, diff)) +
+  #   facet_wrap("variable", scales = "free")
 
 })
 
@@ -58,3 +60,34 @@ test_that("CORPSE behavior", {
   expect_true(all(out$diff <= 1e-8))
 
 })
+
+test_that("MEMS behavior", {
+  new <- solve_model(mod = MEMC::MEMS_model, time = t)
+  old_comp <- old[old$name == "MEMS",]
+
+  out <- old_new_diff(old_comp, new)
+
+  expect_true(all(out$diff <= 1e-8))
+
+})
+
+test_that("MIMCS behavior", {
+  new <- solve_model(mod = MEMC::MIMCS_model, time = t)
+  old_comp <- old[old$name == "MIMCS",]
+
+  out <- old_new_diff(old_comp, new)
+
+  expect_true(mean(out$diff) <= 1e-8)
+
+})
+
+test_that("BAMS behavior", {
+  new <- solve_model(mod = MEMC::BAMS_model, time = t)
+  old_comp <- old[old$name == "BAMS",]
+
+  out <- old_new_diff(old_comp, new)
+
+  expect_true(mean(abs(out$diff)) <= 1e-8)
+
+})
+

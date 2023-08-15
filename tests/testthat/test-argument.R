@@ -10,7 +10,7 @@ test_that("is_param_table works", {
   # A number of errors should be thrown if the the parameter table does not meet the correct conditions.
   expect_error(
     is_param_table(params[1:10, ]),
-    "param_table is missing a parameter value(s) for: r.ep, r.em, Q.max, K.ads, K.des, dd.beta, Input.P, Input.D, Input.M, CUE",
+    "param_table is missing a parameter value(s) for: r_ep, r_em, Q_max, K_ads, K_des, dd_beta, Input_POM, Input_DOM, Input_MOM, CUE",
     fixed = TRUE
   )
 
@@ -53,7 +53,7 @@ test_that("is_state_vector works", {
   # A number of errors should be thrown if the input does not meet the correct requirements.
   expect_error(
     is_state_vector(rev(state)),
-    "entires must be in the correct order: P, M, Q, B, D, EP, EM, IC, Tot",
+    "entires must be in the correct order: POM, MOM, QOM, MB, DOM, EP, EM, IC, Tot",
     fixed = TRUE
   )
 
@@ -66,5 +66,18 @@ test_that("is_state_vector works", {
   names(state) <- names(MEMC::default_initial)
   expect_error(is_state_vector(state),
                "state is not a numeric or integer vector")
+
+})
+
+
+test_that("is_state_vector", {
+
+  # If there is a missing initial state value throw an error.
+  state <- c(POM = 4.71, MOM = 17.67, QOM = 0, MB = 0.52,  DOM = 0.148, EM = 0.052, IC = 0, Tot = 23.484)
+  expect_error(is_state_vector(state), label = "state is missing a value(s) for: EP")
+
+  # Make sure the pattern is in the correct order!
+  state <- c(POM = 4.71, MOM = 17.67, DOM = 0.148, QOM = 0, MB = 0.52,   EP = 0.052, EM = 0.052, IC = 0, Tot = 23.484)
+  expect_error(is_state_vector(state), "entires must be in the correct order: POM, MOM, QOM, MB, DOM, EP, EM, IC, Tot")
 
 })

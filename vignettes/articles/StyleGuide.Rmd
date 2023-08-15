@@ -1,0 +1,27 @@
+---
+title: "Style Guide"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Expected Documentation
+
+* every function/data object should have the appropriate Doxygen comments. (see [here](https://r-pkgs.org/man.html) for more details on documenting functions and data)
+* Functions must include the following tags
+  * `@param` to describe every function argument (if any)
+  * `@return` to describe the object returned by the function (if any)
+* add a [vignette or article](https://usethis.r-lib.org/reference/use_vignette.html) to document or demonstrate package capabilities when approporiate
+
+# Coding Style
+
+* follows the [R package](https://r-pkgs.org/) format and style guidelines
+* R CMD checks should pass [CRAN checks](https://kbroman.org/pkg_primer/pages/check.html)
+* follows the [R style guide](http://adv-r.had.co.nz/Style.html)
+
+# Unit Testing
+* add R package [unit tests](https://testthat.r-lib.org/)!

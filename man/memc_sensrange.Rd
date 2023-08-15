@@ -2,20 +2,20 @@
 % Please edit documentation in R/fme.R
 \name{memc_sensrange}
 \alias{memc_sensrange}
-\title{Run the memc model with the FME sensRange}
+\title{Global sensitivity ranges for a memc model}
 \usage{
 memc_sensrange(config, t, pars, parRange, dist, ...)
 }
 \arguments{
-\item{config}{memc model configuration}
+\item{config}{a memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
 
 \item{t}{vector of the time steps to run the model at}
 
-\item{pars}{vector of the parameters to test in sensRange}
+\item{pars}{vector of the parameters that will be varied}
 
 \item{parRange}{data frame of the min/max parameter values}
 
-\item{dist}{str for the distribution according to which the parameters will be sampled}
+\item{dist}{str for the distribution according to which the parameters will be sampled from, options" "unif" (uniformly random samples), "norm", (normally distributed random samples), "latin" (latin hypercube distribution), and "grid" (parameters arranged on a grid).}
 
 \item{...}{additional arguments passed to FME::sensRange}
 }
@@ -23,7 +23,7 @@ memc_sensrange(config, t, pars, parRange, dist, ...)
 the results of the FME::sensRange
 }
 \description{
-Run the memc model with the FME sensRange
+Given a MEM model configuration estimate the global effect of parameter sensitivity.
 }
 \examples{
 \dontrun{

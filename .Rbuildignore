@@ -1,7 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
+^misc$
 ^analysis$
+^legacy$
 ^_pkgdown\.yml$
 ^pkgdown$
 ^\.github/workflows/pkgdown\.yaml$
@@ -16,3 +18,4 @@
 
 # Specific files
 CODE_OF_CONDUCT.md
+^README\.Rmd$

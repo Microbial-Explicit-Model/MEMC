@@ -2,16 +2,16 @@
 % Please edit documentation in R/fme.R
 \name{memc_sensfunc}
 \alias{memc_sensfunc}
-\title{Estimate the local effect of a parameter on a memc model output}
+\title{Local sensitivity for a MEMC model}
 \usage{
 memc_sensfunc(config, t, pars, ...)
 }
 \arguments{
-\item{config}{memc model configuration}
+\item{config}{a memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
 
 \item{t}{vector of the time steps to run the model at}
 
-\item{pars}{vector of the parameters to test in FME::sensFun}
+\item{pars}{vector of the parameters to test}
 
 \item{...}{additional arguments passed to FME::sensFun}
 }
@@ -28,7 +28,7 @@ pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
 out <- memc_sensfunc(config = MEND_model, t = t, pars = pars)
 pairs(out)
 plot(out)
-# Using the helper functions to make nic ggplots
+# Using the helper functions to make nice ggplots
 to_plot <- format_sensout(out)
 ggplot(data = to_plot) +
    geom_line(aes(time, value, color = parameter)) +

@@ -1,5 +1,5 @@
 ---
-title: "Fit to Data"
+title: "Fit model to data"
 ---
 
 ```{r, include = FALSE}
@@ -10,113 +10,85 @@ knitr::opts_chunk$set(
 ```
 
 
-In this example here we will show how to fit a MEMC model to experimental data. 
+The objective of this example is demonstrate how to users can use `memc_modfit` to fit a MEMC model configuration to observational data. In this example we will be fitting the MIMCS model to the data from 
+CITATION EXPERIMENT. 
 
+Set Up 
 
-```{r setup}
+```{r, warning=FALSE, message=FALSE}
+# This assumes that the MEMC package has already been installed. 
 library(MEMC)
 
-# Packages used in this example 
-library(data.table)
-library(dplyr)
-library(ggplot2)
-library(magrittr)
-library(knitr)
+# Used to visualize results
+library(ggplot2)  
 
 # set a theme to use in all the plots
 theme_set(theme_bw() + theme(legend.title = element_blank()))
 ```
 
-
-Load example experimental data provided within the package. 
+Start by loading the comparison data, included in the package data. 
 
 ```{r}
-# Load example data we provided as internal package data. 
 comp_data <- read.csv(system.file("example/Ultisol_control.csv", package = "MEMC"))
 ```
 
-## Fit MEND model to experimental data 
 
-The memc contains a function called `memc_modfit` that helps users fit a model run to comparison data. 
+Set up the the MIMCS model with different initial pool sizes to be consistent with the experiment step up. 
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
+# Save a copy of the mimics model configuration. 
+my_mod_config <- MEMC::MIMCS_model
+
 # Update the MEND model initial state conditions to reflect the experimental set up.
-MEND_model$state <- c(P=4.71, M=17.67, Q=0, B=0.82, D=0.148,  EP=0.0082, EM=0.0082, IC=0, Tot=23.484)
-
-# Fit the the "maximum specific decomposition" parameters. 
-mend_fit <- memc_modfit(config = MEND_model, comp_data = comp_data, x = c(V.d=2, V.p=5, V.m=0.01))
+my_mod_config$state <- c(POM=4.71, MOM=17.67, QOM=0, MB=0.52, DOM=0.148, 
+                         EP=0.052, EM=0.052, IC=0, Tot=23.484)
 ```
 
 
-Run the model with the best parameter fits. 
+Run the model with the original parameter values. 
 
 ```{r}
-mend_out <- solve_model(MEND_model,  0:max(comp_data$time), params = mend_fit$par)
-
-mend_out %>% 
-  filter(variable == "IC") %>% 
-  ggplot() + 
-  geom_line(aes(time, value)) + 
-  geom_point(data = comp_data, aes(time, IC)) + 
-  labs(title = "Fitted MEMC IC vs Experimental Data", 
-       y =  "mg C/g soil")
+original_rslts <- solve_model(my_mod_config, time = 0:max(comp_data$time))
 ```
 
-## Fit COMISSION model to experimental data
+Use `memc_modfit` to fit the model to the observed data. 
+
+Description of inputs to MEMC function `memc_modfit` are as follows: 
+
+* config: a memc model configuration object, either one of the pre-built configurations listed in model_configs or created using configure_model
+* comp_data: a data frame containing the comparison data that the model will be fit to 
 
 ```{r}
-# Update the COMISSSION model initial state conditions to reflect the experimental set up.
-COMISSION_model$state <- c(P=4.71, M=17.67, Q=0, B=0.82, D=0.148,  EP=0.0082, EM=0.0082, IC=0, Tot=23.484)
+fit <- memc_modfit(config = my_mod_config, 
+                        comp_data = comp_data, 
+                        x = c(V_d=2, V_p=5, V_m=0.01))
 
-# Fit the the "maximum specific decomposition" parameters. 
-comission_fit <- memc_modfit(config = COMISSION_model, comp_data = comp_data, x =c(V.d=2, V.p=5, V.m=0.01))
+fit$par
 ```
 
+Re run the model with the parameter values. 
 
-Run the model with the best parameter fits. 
 
 ```{r}
-comission_out <- solve_model(COMISSION_model,  0:max(comp_data$time), params = comission_fit$par)
-
-comission_out %>% 
-  filter(variable == "IC") %>% 
-  ggplot() + 
-  geom_line(aes(time, value)) + 
-  geom_point(data = comp_data, aes(time, IC)) + 
-  labs(title = "Fitted MEMC IC vs Experimental Data", 
-       y =  "mg C/g soil")
-```
-
-## Compare the different model configurations and fits 
-
-How different are the fitted parameter values for the two model configurations? 
-
-```{r, echo=FALSE}
-kable(as.data.frame(rbind(c(name = MEND_model$name, round(mend_fit$par, 4)),
-                          c(name = COMISSION_model$name, round(comission_fit$par, 4)))))
-```
-
-
-How different is the IC output? 
-
-```{r}
-bind_rows(mend_out, comission_out) %>% 
-  filter(variable == "IC") %>% 
-  ggplot() + 
-  geom_line(aes(time, value, color = name, linetype = name), size = 1) + 
-  geom_point(data = comp_data, aes(time, IC)) + 
-  labs(title = "Fitted MEMC IC vs Experimental Data", 
-       y =  "mg C/g soil")
+new_rslts <- solve_model(my_mod_config, params = fit$par, time = 0:max(comp_data$time)) 
 ```
 
 
 ```{r}
-bind_rows(mend_out, comission_out) %>% 
-  ggplot() + 
-  geom_line(aes(time, value, color = name, linetype = name), size = 1) + 
-  labs(title = "Comparing Two Fitted MEMC Models", 
-       y =  "mg C/g soil") + 
-  facet_wrap("variable", scales = "free")
+# Format into a single data table to plot
+original_rslts$par <- "original values"
+new_rslts$par <- "fitted values"
+out <- rbind(original_rslts, new_rslts)
 ```
 
+
+Plot the model results vs the comparison data. 
+```{r}
+ggplot(data = out[out$variable == "IC", ]) +
+  geom_line(aes(time, value, color = par)) +
+  geom_point(data = comp_data, aes(time, IC)) +
+  facet_wrap("variable", scales = "free") + 
+  labs(x = "Time", y = "mg C/g soil", title = "MIMCS") 
+
+```
 

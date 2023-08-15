@@ -3,30 +3,40 @@
 \docType{data}
 \name{COMISSION_model}
 \alias{COMISSION_model}
-\title{MEMC model configurations for MEND Wang et al. 2013}
+\title{The MEMC model configuration for COMISSION}
 \format{
-an object created form \code{configure_model}.
+an object created form \code{configure_model}, containing the following elements.
 \describe{
-\item{name}{COMISSION, the model name}
-\item{table}{table describing the user selected kinetics}
-\item{params}{the default MEMC parameter table}
-\item{state}{the default inital state values for MEMC}
+\item{name}{COMISSION}
+\item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
+\item{params}{data table of the model parameters, see \link{default_params} for more details.}
+\item{state}{vector of the initial state values, see \link{default_initial} for more details.}
 }
 }
 \usage{
 COMISSION_model
 }
 \description{
-MEMC model configurations for MEND Wang et al. 2013
+The COMISSION configuration is based off of Ahrens et al. 2015, the model uses MM for the
+DOM uptake, RMM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
+details.
 }
 \examples{
-COMISSION_model
+## Use solve_model to run the simulation using this configuration.
+print(COMISSION_model)
 solve_model(mod = COMISSION_model, time = 1:10)
 }
-\seealso{
-Other models: 
-\code{\link{CORPSE_model}},
-\code{\link{MEND_model}}
+\references{
+\href{https://doi.org/10.1016/j.soilbio.2015.06.008}{Ahrens et al. 2015}
 }
-\concept{models}
+\seealso{
+Other {configurations}: 
+\code{\link{BAMS_model}},
+\code{\link{CORPSE_model}},
+\code{\link{MEMS_model}},
+\code{\link{MEND_model}},
+\code{\link{MIMCS_model}},
+\code{\link{model_configs}}
+}
+\concept{{configurations}}
 \keyword{datasets}

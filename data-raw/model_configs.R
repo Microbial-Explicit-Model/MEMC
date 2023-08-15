@@ -4,9 +4,9 @@ MEND_model <- configure_model(
   params = MEMC::default_params,
   state = MEMC::default_initial,
   name = "MEND",
-  DOMdecomp = "MM",
+  DOMuptake = "MM",
   POMdecomp = "MM",
-  MBdecay = "DD"
+  MBdecay = "LM"
 )
 usethis::use_data(MEND_model, overwrite = TRUE)
 
@@ -14,19 +14,64 @@ COMISSION_model <- configure_model(
   params = MEMC::default_params,
   state = MEMC::default_initial,
   name = "COMISSION",
-  DOMdecomp = "MM",
+  DOMuptake = "MM",
   POMdecomp = "RMM",
-  MBdecay = "DD"
+  MBdecay = "LM"
 )
 usethis::use_data(COMISSION_model, overwrite = TRUE)
-
 
 CORPSE_model <- configure_model(
   params = MEMC::default_params,
   state = MEMC::default_initial,
   name = "CORPSE",
-  DOMdecomp = "RMM",
+  DOMuptake = "RMM",
   POMdecomp = "LM",
-  MBdecay = "DD"
+  MBdecay = "LM"
 )
 usethis::use_data(CORPSE_model, overwrite = TRUE)
+
+
+MEMS_model <- configure_model(
+  params = MEMC::default_params,
+  state = MEMC::default_initial,
+  name = "MEMS",
+  DOMuptake = "LM",
+  POMdecomp = "LM",
+  MBdecay = "LM"
+)
+usethis::use_data(MEMS_model, overwrite = TRUE)
+
+BAMS_model <- configure_model(
+  params = MEMC::default_params,
+  state = MEMC::default_initial,
+  name = "BAMS",
+  DOMuptake = "MM",
+  POMdecomp = "MM",
+  MBdecay = "LM"
+)
+usethis::use_data(BAMS_model, overwrite = TRUE)
+
+
+# Update the parameter data frame to use the density dependent MB decay.
+param_df <- update_params(new_params = c("dd_beta" = 2),
+                          param_table = MEMC::default_params)
+
+MIMCS_model <- configure_model(
+  params = param_df,
+  state = MEMC::default_initial,
+  name = "MIMCS",
+  DOMuptake = "MM",
+  POMdecomp = "MM",
+  MBdecay = "DD"
+)
+usethis::use_data(MIMCS_model, overwrite = TRUE)
+
+
+model_configs <- rbind(MEND_model$table,
+                       COMISSION_model$table,
+                       CORPSE_model$table,
+                       MEMS_model$table,
+                       BAMS_model$table,
+                       MIMCS_model$table)
+usethis::use_data(model_configs, overwrite = TRUE)
+

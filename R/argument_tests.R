@@ -78,8 +78,8 @@ is_state_vector <- function(state) {
   assert_that(is.vector(state))
   assert_that(is.numeric(state))
 
-  req_names <- c("P", "M", "Q", "B", "D", "EP", "EM", "IC", "Tot")
-  missing <- req_names[!names(state) %in% req_names]
+  req_names <- c("POM", "MOM", "QOM", "MB", "DOM", "EP", "EM", "IC", "Tot")
+  missing <- req_names[!req_names %in% names(state)]
   assert_that(length(missing) == 0,
               msg = paste0(
                 "state is missing a value(s) for: ",

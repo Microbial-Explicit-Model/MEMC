@@ -45,7 +45,7 @@ update_params <- function(new_params, param_table) {
 update_state <- function(new_vals, state) {
   assert_that(is_state_vector(state))
 
-  req_names <- c("P", "M", "Q", "B", "D", "EP", "EM", "IC", "Tot")
+  req_names <- c("POM", "MOM", "QOM", "MB", "DOM", "EP", "EM", "IC", "Tot")
   assert_that(is.vector(new_vals))
   assert_that(all(names(new_vals) %in% req_names))
 
@@ -108,7 +108,7 @@ custom_config_table_message <- function(x) {
 #' @param params data.table containing the following columns: parameter, value, and units.
 #' @param state a vector of the initial state values, must be named
 #' @param name string name of the model configuration, default set to "MEND".
-#' @param DOMdecomp string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"
+#' @param DOMuptake string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"
 #' @param POMdecomp string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"
 #' @param MBdecay string indicating microbial decay, one  of the following ""LM" or "DD"
 #' @importFrom assertthat assert_that
@@ -117,22 +117,20 @@ custom_config_table_message <- function(x) {
 configure_model <- function(params,
                             state,
                             name = "unnamed",
-                            DOMdecomp = "MM",
+                            DOMuptake = "MM",
                             POMdecomp = "MM",
-                            MBdecay = "DD") {
+                            MBdecay = "LM") {
   # Check the arguments
   assert_that(is_param_table(params))
-  assert_that(all(sapply(
-    list(POMdecomp, DOMdecomp, MBdecay), is.character
-  )))
-  assert_that(sum(DOMdecomp %in% c("MM", "RMM", "ECA")) == 1, msg = 'DOMdecomp must be "MM", "RMM", "ECA"')
+  assert_that(all(sapply(list(POMdecomp, DOMuptake, MBdecay), is.character)))
+  assert_that(sum(DOMuptake %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'DOMuptake must be "MM", "RMM", "ECA"')
   assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'POMdecomp must be "MM", "RMM", "ECA", "LM"')
   assert_that(sum(MBdecay %in% c("LM", "DD")) == 1, msg = 'MBdecay must be "LM" or "DD"')
 
   # Format the table
   table <- data.frame(
     "model" = name,
-    "DOMdecomp" = DOMdecomp,
+    "DOMuptake" = DOMuptake,
     "POMdecomp" = POMdecomp,
     "MBdecay" = MBdecay
   )
@@ -187,3 +185,45 @@ split_param_state <- function(x) {
   return(out)
 
 }
+
+#' Function that returns the MEMC color palette for the the default MEMC model configurations
+#'
+#' @param name input vector containing the model names to return the color codes for, default will return colors for all the model configurations,
+#' @return vector containing color hex codes for the different model configurations
+#' @importFrom assertthat assert_that
+#' @export
+#' @examples
+#' \dontrun{
+#' out <- solve_model(model = MEND_model, time = 0:100)
+#' ggplot(data = out, aes(time, value)) +
+#' geom_line(color = name) +
+#' scale_color_manual(values = colorMEMCPalette("MEND")) +
+#' facet_wrap("variable")
+#' }
+colorMEMCPalette <- function(name = NULL){
+
+  # The color Palette for the different model configurations.
+  color_vec <- c("MIMCS"="#FEC22C",
+                 "MEND"="#FE9527",
+                 "CORPSE"="#7F7F7F",
+                 "BAMS" = "#FE8BD8",
+                 "COMISSION" = "#D783FD",
+                 "MEMS" = "#1494FC")
+
+  assert_that(nrow(MEMC::model_configs) == length(color_vec), msg = "Problem with color palette size")
+
+
+  if(is.null(name)){
+    return(color_vec)
+  } else {
+    assert_that(all(name %in% names(color_vec)), msg = "MEMC color palette only supports the default model configurations")
+    index <- which(names(color_vec) %in% name)
+    subset_color_vec <- color_vec[index]
+    return(subset_color_vec)
+  }
+
+}
+
+
+
+

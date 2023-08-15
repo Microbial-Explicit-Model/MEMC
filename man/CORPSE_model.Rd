@@ -3,30 +3,40 @@
 \docType{data}
 \name{CORPSE_model}
 \alias{CORPSE_model}
-\title{MEMC model configurations}
+\title{The MEMC model configuration for CORPSE}
 \format{
-an object created form \code{configure_model}.
+an object created form \code{configure_model}, containing the following elements.
 \describe{
-\item{name}{CORPSE, the model name}
-\item{table}{table describing the user selected kinetics}
-\item{params}{the default MEMC parameter table}
-\item{state}{the default inital state values for MEMC}
+\item{name}{CORPSE}
+\item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
+\item{params}{data table of the model parameters, see \link{default_params} for more details.}
+\item{state}{vector of the initial state values, see \link{default_initial} for more details.}
 }
 }
 \usage{
 CORPSE_model
 }
 \description{
-MEMC model configurations
+The CORPSE configuration is based off of Sulman et al. 2018, this model uses RMM for
+DOM uptake, LM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
+details.
 }
 \examples{
-CORPSE_model
+## Use solve_model to run the simulation using this configuration.
+print(CORPSE_model)
 solve_model(mod = CORPSE_model, time = 1:10)
 }
-\seealso{
-Other models: 
-\code{\link{COMISSION_model}},
-\code{\link{MEND_model}}
+\references{
+\href{https://doi.org/10.1007/s10533-018-0509-z}{Sulman et al. 2018}
 }
-\concept{models}
+\seealso{
+Other {configurations}: 
+\code{\link{BAMS_model}},
+\code{\link{COMISSION_model}},
+\code{\link{MEMS_model}},
+\code{\link{MEND_model}},
+\code{\link{MIMCS_model}},
+\code{\link{model_configs}}
+}
+\concept{{configurations}}
 \keyword{datasets}
