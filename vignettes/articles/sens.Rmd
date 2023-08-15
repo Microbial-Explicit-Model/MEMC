@@ -12,6 +12,7 @@ knitr::opts_chunk$set(
 
 The objective of this example is demonstrate how to easily conduct a sensitivity analysis and visualize results using `memc_sensrange`, `memc_sensfunc`, and `format_sensout`. This is merely a demonstration of package capabilities more so than a rigorous analysis. The first section will demonstrate how to use the memc function related to sensitivity analyses. The second section will demonstrate how alternative model configurations affect sensitivity results. 
 
+## Getting started
 
 ```{r setup}
 library(MEMC) # Load the installed MEMC package
@@ -19,8 +20,6 @@ library(ggplot2) # Used to plot results
 theme_set(theme_bw())
 ```
 
-
-# Getting Started
 
 
 ## Define the paaramter ranges

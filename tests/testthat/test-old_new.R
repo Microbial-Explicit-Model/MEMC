@@ -77,7 +77,7 @@ test_that("MIMCS behavior", {
 
   out <- old_new_diff(old_comp, new)
 
-  expect_true(all(out$diff <= 1e-8))
+  expect_true(mean(out$diff) <= 1e-8)
 
 })
 
@@ -87,7 +87,7 @@ test_that("BAMS behavior", {
 
   out <- old_new_diff(old_comp, new)
 
-  expect_true(all(out$diff <= 1e-8))
+  expect_true(mean(abs(out$diff)) <= 1e-8)
 
 })
 

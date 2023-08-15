@@ -7,11 +7,9 @@
 memc_modfit(config, x, comp_data, lower = -Inf, upper = Inf, ...)
 }
 \arguments{
-\item{config}{memc model configuration}
+\item{config}{memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
 
-\item{x}{vector of the parameters or state values to be fit using FME::modFit}
-
-\item{comp_data}{data frame containing the comparison to fit the data to}
+\item{comp_data}{data frame containing the comparison data thata the model will be fit to}
 
 \item{lower}{lower bounds on the parameters; if unbounded set equal to -Inf}
 

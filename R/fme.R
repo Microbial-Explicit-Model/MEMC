@@ -49,8 +49,9 @@ make_memc_objective <- function(comp_data, x, config) {
 
 #' Fit a MEMC model to a comparison data
 #'
+#' @param x memc model parameters or initial conditions that will be fit to the data
 #' @param config memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
-#' @param comp_data data frame containing the comparison data thata the model will be fit to
+#' @param comp_data data frame containing the comparison data that the model will be fit to
 #' @param lower lower bounds on the parameters; if unbounded set equal to -Inf
 #' @param upper bounds on the parameters; if unbounded set equal to Inf
 #' @param ... addition arguments that may be passed to FME::modFit
