@@ -10,28 +10,34 @@
     <loc>https://microbial-explicit-model.github.io/MEMC/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://microbial-explicit-model.github.io/MEMC/articles/Build-Toy-Model.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/articles/Background.html</loc>
   </url>
   <url>
-    <loc>https://microbial-explicit-model.github.io/MEMC/articles/Compare-Model-Configurations.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/articles/ContributionGuide.html</loc>
   </url>
   <url>
     <loc>https://microbial-explicit-model.github.io/MEMC/articles/Fit-to-Data.html</loc>
   </url>
   <url>
-    <loc>https://microbial-explicit-model.github.io/MEMC/articles/Getting-Started.html</loc>
-  </url>
-  <url>
     <loc>https://microbial-explicit-model.github.io/MEMC/articles/Install-Build.html</loc>
   </url>
   <url>
-    <loc>https://microbial-explicit-model.github.io/MEMC/articles/Senstivity-Analysis.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/articles/MEMC.html</loc>
   </url>
   <url>
-    <loc>https://microbial-explicit-model.github.io/MEMC/articles/dev-the-suggest-starting-params.html</loc>
+    <loc>https://microbial-explicit-model.github.io/MEMC/articles/Manual.html</loc>
+  </url>
+  <url>
+    <loc>https://microbial-explicit-model.github.io/MEMC/articles/ModelComparison.html</loc>
+  </url>
+  <url>
+    <loc>https://microbial-explicit-model.github.io/MEMC/articles/StyleGuide.html</loc>
   </url>
   <url>
     <loc>https://microbial-explicit-model.github.io/MEMC/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://microbial-explicit-model.github.io/MEMC/articles/sens.html</loc>
   </url>
   <url>
     <loc>https://microbial-explicit-model.github.io/MEMC/authors.html</loc>
@@ -43,13 +49,28 @@
     <loc>https://microbial-explicit-model.github.io/MEMC/news/index.html</loc>
   </url>
   <url>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/BAMS_model.html</loc>
+  </url>
+  <url>
     <loc>https://microbial-explicit-model.github.io/MEMC/reference/COMISSION_model.html</loc>
   </url>
   <url>
     <loc>https://microbial-explicit-model.github.io/MEMC/reference/CORPSE_model.html</loc>
   </url>
   <url>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/MEMS_model.html</loc>
+  </url>
+  <url>
     <loc>https://microbial-explicit-model.github.io/MEMC/reference/MEND_model.html</loc>
+  </url>
+  <url>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/MIMCS_model.html</loc>
+  </url>
+  <url>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/colorMEMCPalette.html</loc>
+  </url>
+  <url>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/configurations.html</loc>
   </url>
   <url>
     <loc>https://microbial-explicit-model.github.io/MEMC/reference/configure_model.html</loc>
@@ -62,6 +83,9 @@
   </url>
   <url>
     <loc>https://microbial-explicit-model.github.io/MEMC/reference/dynamics.html</loc>
+  </url>
+  <url>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/fluxes.html</loc>
   </url>
   <url>
     <loc>https://microbial-explicit-model.github.io/MEMC/reference/format_sensout.html</loc>
@@ -77,6 +101,9 @@
   </url>
   <url>
     <loc>https://microbial-explicit-model.github.io/MEMC/reference/memc_sensrange.html</loc>
+  </url>
+  <url>
+    <loc>https://microbial-explicit-model.github.io/MEMC/reference/model_configs.html</loc>
   </url>
   <url>
     <loc>https://microbial-explicit-model.github.io/MEMC/reference/solve_model.html</loc>

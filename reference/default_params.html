@@ -18,23 +18,27 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/Build-Toy-Model.html">Build Toy Model</a>
-    <a class="dropdown-item" href="../articles/Compare-Model-Configurations.html">Compare Model Configurations</a>
-    <a class="dropdown-item" href="../articles/Fit-to-Data.html">Fit to Data</a>
-    <a class="dropdown-item" href="../articles/Getting-Started.html">Getting Started</a>
-    <a class="dropdown-item" href="../articles/Install-Build.html">Install &amp; Build</a>
-    <a class="dropdown-item" href="../articles/Senstivity-Analysis.html">Senstivity Analysis</a>
-    <a class="dropdown-item" href="../articles/dev-the-suggest-starting-params.html">Fit to Data</a>
-  </div>
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
+  <a class="nav-link" href="../articles/Manual.html">Mannual</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-examples">Examples</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-examples">
+    <a class="dropdown-item" href="../articles/ModelComparison.html">Run all model configurations</a>
+    <a class="dropdown-item" href="../articles/sens.html">Sensitivity analysis </a>
+  </div>
+</li>
+<li class="active nav-item">
+  <a class="nav-link" href="../reference/index.html">Functions</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">News</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -62,7 +66,7 @@
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>A data table consisting of 4 columns with inputs from <a href="doi.org/10.1890/12-0681.1">Wang et al. 2013</a>.</p><dl><dt>parameter</dt>
+    <p>A data frame of 20 rows and 4 columns containing the model parameter values from <a href="doi.org/10.1890/12-0681.1">Wang et al. 2013</a>.</p><dl><dt>parameter</dt>
 <dd><p>String character of the default MEND parameters.</p></dd>
 
 <dt>description</dt>
@@ -88,28 +92,28 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">default_params</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    parameter                                             description</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        V.p         maximum specific decomposition rate for P by EP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        K.p         half-saturation constant for decomposition of P</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        V.m         maximum specific decomposition rate for M by EM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        K.m         half-saturation constant for decomposition of M</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        V.d       maximum specific uptake rate of D for growth of B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        K.d half-saturation constant of uptake of D for growth of B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7        f.d                 fraction of decomposed P allocated to D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8        g.d                       fraction of dead B allocated to D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9       p.ep                     fraction of mR for production of EP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10      p.em                     fraction of mR for production of EM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11      r.ep                                     turnover rate of EP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12      r.em                                     turnover rate of EM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13     Q.max                           maximum DOC sorption capacity</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14     K.ads                                specific adsorption rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15     K.des                                         desorption rate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16   dd.beta           strength of density dependent microbial decay</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17   Input.P                                              POM input </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18   Input.D                                               DOM input</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19   Input.M                                                M input </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20       CUE                                   carbon use efficiency</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">default_params</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    parameter                                              description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        V_p        maximum specific decomposition rate for POM by EP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        K_p        half-saturation constant for decomposition of POM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        V_m        maximum specific decomposition rate for MOM by EM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        K_m        half-saturation constant for decomposition of MOM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        V_d       maximum specific uptake rate of D for growth of MB</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        K_d half-saturation constant of uptake of D for growth of MB</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        f_d                fraction of decomposed P allocated to DOM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        g_d                      fraction of dead B allocated to DOM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9       p_ep                      fraction of mR for production of EP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      p_em                      fraction of mR for production of EM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11      r_ep                                      turnover rate of EP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12      r_em                                      turnover rate of EM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13     Q_max                            maximum DOC sorption capacity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14     K_ads                                 specific adsorption rate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15     K_des                                          desorption rate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   dd_beta            strength of density dependent microbial decay</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 Input_POM                                               POM input </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 Input_DOM                                                DOM input</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 Input_MOM                                               MOM input </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20       CUE                                    carbon use efficiency</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              units   value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  mgC mgC^-1 h^-1  14.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     mgC / g soil  50.000</span>
@@ -126,7 +130,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13    mgC / g soil   3.400</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14 mgC mgC^-1 h^-1   0.006</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15 mgC mgC^-1 h^-1   0.001</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16            &lt;NA&gt;   2.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16            &lt;NA&gt;   1.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17            mg C   0.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18            mg C   0.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19            mg C   0.000</span>
@@ -138,7 +142,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Kalyn Dorheim.</p>
+  <p></p><p>Developed by Kalyn Dorheim, Jianqiu Zheng.</p>
 </div>
 
 <div class="pkgdown-footer-right">

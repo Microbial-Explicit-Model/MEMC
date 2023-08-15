@@ -2,14 +2,16 @@ pandoc: 2.19.2
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
-  Build-Toy-Model: Build-Toy-Model.html
-  Compare-Model-Configurations: Compare-Model-Configurations.html
+  MEMC: MEMC.html
+  Background: Background.html
+  ContributionGuide: ContributionGuide.html
   Fit-to-Data: Fit-to-Data.html
-  Getting-Started: Getting-Started.html
   Install-Build: Install-Build.html
-  Senstivity-Analysis: Senstivity-Analysis.html
-  dev-the-suggest-starting-params: dev-the-suggest-starting-params.html
-last_built: 2023-06-14T13:32Z
+  Manual: Manual.html
+  ModelComparison: ModelComparison.html
+  StyleGuide: StyleGuide.html
+  sens: sens.html
+last_built: 2023-08-15T19:42Z
 urls:
   reference: https://microbial-explicit-model.github.io/MEMC/reference
   article: https://microbial-explicit-model.github.io/MEMC/articles
