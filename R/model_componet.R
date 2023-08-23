@@ -229,8 +229,7 @@ solve_model <-
 
     # Update the model configuration with new parameter and initial state values
     mod <- update_config(mod = mod,
-                         params = params,
-                         state = state)
+                         new = c(params, state))
 
     # Check the arguments
     assert_that(is_memc_config(obj = mod))
