@@ -11,7 +11,7 @@ make_memc_objective <- function(comp_data, x, config) {
 
   assert_that("time" %in% names(comp_data), msg = "comp_data must contain time column")
   comp_data_vars <- names(comp_data)[names(comp_data) != "time"]
-  assert_that(comp_data_vars %in% names(MEMC::default_initial), msg = "comp_data must contain a MEMC variable")
+  assert_that(all(comp_data_vars %in% names(MEMC::default_initial)), msg = "comp_data must contain a MEMC variable")
 
   fxn <- function(x) {
 

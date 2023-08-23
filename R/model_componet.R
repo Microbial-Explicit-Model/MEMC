@@ -166,6 +166,12 @@ sm_internal <- function(mod, time, ...) {
 
   p <- mod[["params"]][["value"]]
   names(p) <- mod[["params"]][["parameter"]]
+  
+  # Check that all the parameters that are fractions are less than 1 
+  frac_params <- c("f_d", "g_d", "p_ep", "p_em")
+  frac_params_vals <- p[names(p) %in% frac_params]
+  assert_that(all(0 < frac_params_vals & frac_params_vals < 1),
+              msg = "parameters f_d, g_d, p_ep, and p_em must be between 0 and 1")
 
   rslt <- deSolve::ode(
     y = mod[["state"]],
@@ -235,7 +241,7 @@ solve_model <-
     assert_that(is_memc_config(obj = mod))
     assert_that(is_param_table(table = mod$params))
     assert_that(is_state_vector(state = mod$state))
-
+    
     results <- sm_internal(mod = mod, time = time, ...)
     out <- sm_format_out(rslt = results, mod = mod)
 
