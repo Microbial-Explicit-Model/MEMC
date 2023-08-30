@@ -43,7 +43,7 @@ make_memc_objective <- function(comp_data, x, config) {
 
 #' Fit a MEMC model to a comparison data
 #'
-#' @param x memc model parameters or initial conditions that will be fit to the data, users will need to provide an inital guess for these values. 
+#' @param x memc model parameters or initial conditions that will be fit to the data, users will need to provide an initial guess for these values. 
 #' @param config memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
 #' @param comp_data data frame containing the comparison data that the model will
 #'  be fit this data frame must contain a column for time, the other columns must be named for the MEMC model variables. 
