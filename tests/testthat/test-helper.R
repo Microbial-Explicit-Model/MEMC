@@ -54,7 +54,7 @@ test_that("bad model configuration will fail", {
   # Errors should be thrown
   expect_error(
     configure_model(ptable[1:9,], state),
-   "param_table is missing a parameter value(s) for: p_em, r_ep, r_em, Q_max, K_ads, K_des, dd_beta, Input_POM, Input_DOM, Input_MOM, CUE",
+   "param_table is missing a parameter value(s) for: p_em, r_ep, r_em, Q_max, K_ads, K_des, dd_beta, Input_POM, Input_DOM, CUE",
     fixed = TRUE
   )
   expect_error(

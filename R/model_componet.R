@@ -130,7 +130,7 @@ carbon_pool_derivs <-
       # POM = particulate organic carbon
       dPOM <- (1 - p[["g_d"]]) * F6 - F2 + p[["Input_POM"]]
       # MOM = mineral-associated organic carbon (MOC)
-      dMOM <- (1 - p[["f_d"]]) * F2 - F3 + p[["Input_MOM"]]
+      dMOM <- (1 - p[["f_d"]]) * F2 - F3 
       # QOMO = active layer of MOC
       dQOM <- F4 - F5
       # MB = microbial biomass carbon
@@ -145,7 +145,7 @@ carbon_pool_derivs <-
       # IC = inorganic carbon (CO2)
       dIC <- F1 * (1 - p[["CUE"]])
       # Tot = the total carbon pool
-      dTot <- -F1 * (1 - p[["CUE"]]) +  (p[["Input_POM"]] + p[["Input_DOM"]] + p[["Input_MOM"]])
+      dTot <- -F1 * (1 - p[["CUE"]]) +  (p[["Input_POM"]] + p[["Input_DOM"]])
 
       # Return outputs
       return(list(c(dPOM, dMOM, dQOM, dMB, dDOM, dEP, dEM, dIC, dTot)))

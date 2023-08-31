@@ -17,5 +17,4 @@ K_des,desorption rate,mgC mgC^-1 h^-1,0.001
 dd_beta,strength of density dependent microbial decay,NA,1
 Input_POM,POM input ,mg C,0
 Input_DOM,DOM input,mg C,0
-Input_MOM,MOM input ,mg C,0
 CUE,carbon use efficiency,,0.4
