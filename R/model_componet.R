@@ -130,7 +130,7 @@ carbon_pool_derivs <-
       # POM = particulate organic carbon
       dPOM <- (1 - p[["g_d"]]) * F6 - F2 + p[["Input_POM"]]
       # MOM = mineral-associated organic carbon (MOC)
-      dMOM <- (1 - p[["f_d"]]) * F2 - F3 + p[["Input_MOM"]]
+      dMOM <- (1 - p[["f_d"]]) * F2 - F3 
       # QOMO = active layer of MOC
       dQOM <- F4 - F5
       # MB = microbial biomass carbon
@@ -145,7 +145,7 @@ carbon_pool_derivs <-
       # IC = inorganic carbon (CO2)
       dIC <- F1 * (1 - p[["CUE"]])
       # Tot = the total carbon pool
-      dTot <- -F1 * (1 - p[["CUE"]]) +  (p[["Input_POM"]] + p[["Input_DOM"]] + p[["Input_MOM"]])
+      dTot <- -F1 * (1 - p[["CUE"]]) +  (p[["Input_POM"]] + p[["Input_DOM"]])
 
       # Return outputs
       return(list(c(dPOM, dMOM, dQOM, dMB, dDOM, dEP, dEM, dIC, dTot)))
@@ -166,6 +166,12 @@ sm_internal <- function(mod, time, ...) {
 
   p <- mod[["params"]][["value"]]
   names(p) <- mod[["params"]][["parameter"]]
+  
+  # Check that all the parameters that are fractions are less than 1 
+  frac_params <- c("f_d", "g_d", "p_ep", "p_em")
+  frac_params_vals <- p[names(p) %in% frac_params]
+  assert_that(all(0 < frac_params_vals & frac_params_vals < 1),
+              msg = "parameters f_d, g_d, p_ep, and p_em must be between 0 and 1")
 
   rslt <- deSolve::ode(
     y = mod[["state"]],
@@ -229,14 +235,13 @@ solve_model <-
 
     # Update the model configuration with new parameter and initial state values
     mod <- update_config(mod = mod,
-                         params = params,
-                         state = state)
+                         new = c(params, state))
 
     # Check the arguments
     assert_that(is_memc_config(obj = mod))
     assert_that(is_param_table(table = mod$params))
     assert_that(is_state_vector(state = mod$state))
-
+    
     results <- sm_internal(mod = mod, time = time, ...)
     out <- sm_format_out(rslt = results, mod = mod)
 

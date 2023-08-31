@@ -94,8 +94,7 @@ print(MEND_model)
 #> 16   dd_beta            strength of density dependent microbial decay
 #> 17 Input_POM                                               POM input 
 #> 18 Input_DOM                                                DOM input
-#> 19 Input_MOM                                               MOM input 
-#> 20       CUE                                    carbon use efficiency
+#> 19       CUE                                    carbon use efficiency
 #>              units   value
 #> 1  mgC mgC^-1 h^-1  14.000
 #> 2     mgC / g soil  50.000
@@ -115,8 +114,7 @@ print(MEND_model)
 #> 16            <NA>   1.000
 #> 17            mg C   0.000
 #> 18            mg C   0.000
-#> 19            mg C   0.000
-#> 20                   0.400
+#> 19                   0.400
 #> 
 #> $state
 #>      POM      MOM      QOM       MB      DOM       EP       EM       IC 

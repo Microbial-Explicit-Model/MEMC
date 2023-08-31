@@ -62,23 +62,29 @@ update_state <- function(new_vals, state) {
 
 #' Update a model configuration this is for internal function use
 #'
-#' @param mod TODO
-#' @param params TODO
-#' @param state TODO
+#' @param mod a MEMC model configuration object created by \code{configure_model}
+#' @param new vector containing the parameters and or initial pool values
 #' @import assertthat
 #' @family helper functions
 #' @noRd
-update_config <- function(mod, params = NULL, state = NULL) {
+update_config <- function(mod, new = NULL) {
+  
   assert_that(is_memc_config(mod))
-
-  if (!is.null(params)) {
+  
+  if(is.null(new)){
+    return(mod)
+  }
+  
+  x <- split_param_state(new)
+  
+  if (length(x$params) >= 1) {
     mod[["params"]] <-
-      update_params(new_params = params, param_table = mod[["params"]])
+      update_params(new_params = x$params, param_table = mod[["params"]])
   }
 
-  if (!is.null(state)) {
+  if (length(x$state) >= 1) {
     mod[["state"]] <-
-      update_state(new_vals = state, state = mod[["state"]])
+      update_state(new_vals = x$state, state = mod[["state"]])
 
   }
 

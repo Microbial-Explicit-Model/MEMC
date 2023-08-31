@@ -65,9 +65,9 @@ test_that("memc_sensrange", {
   prange <- data.frame(min = p - p * frac, max = p + p * frac)
 
   # Run the sense range and check the output.
-  out <- memc_sensrange(MEND_model, t = time, pars = p, n = n, dist = "latin", parRange = prange)
+  out <- memc_sensrange(MEND_model, t = time, x = p, n = n, dist = "latin", parRange = prange)
   expect_true(all(dim(out) == c(n, (length(time) * 9) + 1)))
 
-  out2 <- memc_sensrange(MEND_model, t = time, pars = p, num = 6, dist = "latin", parRange = prange)
+  out2 <- memc_sensrange(MEND_model, t = time, x = p, num = 6, dist = "latin", parRange = prange)
   expect_true(nrow(out2) > nrow(out))
 })

@@ -22,9 +22,9 @@ theme_set(theme_bw())
 
 
 
-## Define the paaramter ranges
+## Define the paramter ranges
 
-Set up a data frame defining the parameter ranges to sample from. Any model parameters or initial pool sizes can be used, in this example we will explore the effects of maximum specific decomposition constants for POM, DOM, and MOM have on the model behvaior.  Users should use more informed parameter ranges from the literature, here we sample a range of broad range defined as ± 50% of the parameter value. 
+Set up a data frame defining the parameter ranges to sample from. Any model parameters or initial pool sizes can be used, in this example we will explore the effects of maximum specific decomposition constants for POM, DOM, and MOM have on the model behavior.  Users should use more informed parameter ranges from the literature, here we sample a range of broad range defined as ± 50% of the parameter value. 
 
 
 ```{r}
@@ -52,7 +52,7 @@ Description of inputs to MEMC function `memc_sensrange` are as follows:
 ```{r, fig.width=6}
 MENDsens_out <- memc_sensrange(config = MEND_model,
                                t = seq(0, 365), 
-                               pars = pars, 
+                               x = pars, 
                                parRange = prange, 
                                dist = "latin",
                                n = 50)
@@ -67,11 +67,11 @@ head(summary(MENDsens_out))
 Quickly visualize results using R's base `plot` function, this is a quick way to look at results however for more user control over the figures we recommend using ggplot2. 
 
 ```{r, fig.width=8, fig.height=8}
-plot(summary(MENDsens_out))
+plot(MENDsens_out)
 ```
 
 ```{r, fig.width=8, fig.height=8}
-plot(MENDsens_out)
+plot(summary(MENDsens_out))
 ```
 
 
@@ -88,7 +88,7 @@ Description of inputs to MEMC function `memc_sensfun` are as follows:
 ```{r}
 sens_out <- memc_sensfunc(config = MEND_model,
                           t = seq(0, 365),
-                          pars = c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01))
+                          x = c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01))
 ```
 
 Take a look at the results. 
@@ -124,37 +124,37 @@ Use the same parameter ranges with each of the different MEMC model configuratio
 time <- seq(0, 100)
 MENDsens_out <- memc_sensrange(config = MEND_model,
                                t = time, 
-                               pars = pars, 
+                               x = pars, 
                                parRange = prange, 
                                dist = "latin",
                                n = 50)
 COMISSIONsens_out <- memc_sensrange(config = COMISSION_model,
                                     t = time, 
-                                    pars = pars, 
+                                    x = pars, 
                                     parRange = prange, 
                                     dist = "latin",
                                     n = 50)
 CORPSEsens_out <- memc_sensrange(config = CORPSE_model,
                                  t = time, 
-                                 pars = pars, 
+                                 x = pars, 
                                  parRange = prange, 
                                  dist = "latin",
                                  n = 50)
 MEMSens_out <- memc_sensrange(config = MEMS_model,
                               t = time, 
-                              pars = pars, 
+                              x = pars, 
                               parRange = prange, 
                               dist = "latin",
                               n = 50)
 BAMSens_out <- memc_sensrange(config = BAMS_model,
                               t = time, 
-                              pars = pars, 
+                              x = pars, 
                               parRange = prange, 
                               dist = "latin",
                               n = 50)
 MIMCSens_out <- memc_sensrange(config = MIMCS_model,
                                t = time, 
-                               pars = pars, 
+                               x = pars, 
                                parRange = prange, 
                                dist = "latin",
                                n = 50)
@@ -196,12 +196,12 @@ Use the `memc_sensfun` to compare the sensitivity of the DOM pool is to V_d and 
 time <- 0:100
 MENDsens_out <- memc_sensfunc(config = MEND_model,
                               t = time,
-                              pars = c("V_d" = 3.0e+00,"K_d" = 0.250), 
+                              x = c("V_d" = 3.0e+00,"K_d" = 0.250), 
                               sensvar = "DOM")
 
 CORPSEsens_out <- memc_sensfunc(config = CORPSE_model,
                                 t = time,
-                                pars = c("V_d" = 3.0e+00,"K_d" = 0.250), 
+                                x = c("V_d" = 3.0e+00,"K_d" = 0.250), 
                                 sensvar = "DOM")
 ```
 
@@ -216,9 +216,39 @@ ggplot(data = out) +
   geom_line(aes(time, value, color = name)) +
   facet_wrap("parameter", scales = "free") + 
   labs(title = "Local Senstivity to DOM", 
-       x = "Time", y = "" ) 
+       x = "Time", y = "" ) +
+  scale_color_manual(values = MEMC::colorMEMCPalette(out$model))
 ```
 
 
 
+
+
+
+# Model Sensitivity to Inital Pool Sizes
+
+The MEMC models are also sensitive to the initial pool size! Here we will demonstrate how model results are sensitive to uncertainty within a single pool! This being said the initial carbon pool sizes matter and users will need to make sure that they are using the appropriate values for their applications. 
+
+```{r}
+pools <-  c("DOM" = 1)
+prange <- data.frame(pools = pools, 
+                     min = pools * 0.50, 
+                     max = pools * 1.50)
+```
+
+
+
+```{r, fig.width=6}
+inital_pool_uncertainty <- memc_sensrange(config = MEND_model,
+                               t = seq(0, 365), 
+                               x = pools, 
+                               parRange = prange, 
+                               dist = "latin",
+                               n = 50)
+```
+
+
+```{r}
+plot(summary(inital_pool_uncertainty))
+```
 
