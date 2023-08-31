@@ -22,7 +22,7 @@ theme_set(theme_bw())
 
 
 
-## Define the paaramter ranges
+## Define the paramter ranges
 
 Set up a data frame defining the parameter ranges to sample from. Any model parameters or initial pool sizes can be used, in this example we will explore the effects of maximum specific decomposition constants for POM, DOM, and MOM have on the model behavior.  Users should use more informed parameter ranges from the literature, here we sample a range of broad range defined as ± 50% of the parameter value. 
 

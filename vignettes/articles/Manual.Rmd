@@ -13,14 +13,14 @@ knitr::opts_chunk$set(
 # Science 
 
 * [Background](Background.html) on MEMC model structure and flexible flux dynamics 
-* Take a look at our tentative [future devlopment plans](RoadMap.html)
+* Take a look at our tentative [future development plans](RoadMap.html)
 
 # Getting Started
 
 * [Build & Install MEMC](Install-Build.html)
-* [How to run all the pre-configured models](ModelComparison.Rmd)
-* [Set up a MEMC model](ToyModel.Rmd)
-* [How to change model parameters]()
+* [How to run all the pre-configured models](ModelComparison.html)
+* [How to set up a MEMC model](ToyModel.html)
+* [How to change model parameters](ChangeParams.html)
 * More examples can be found under the examples tab
 
 
@@ -31,4 +31,4 @@ knitr::opts_chunk$set(
 
 
 ****
-[Complete index of online documenation](index.html) 
+[Complete index of online documentation](index.html) 

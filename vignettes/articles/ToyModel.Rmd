@@ -15,7 +15,7 @@ theme_set(theme_bw(base_size = 14))
 ```
 
 
-The `configure_model` function allows users to build their own SOM model. All of the MEMC models use the same SOM pool structure but users will be able to decide which of the following dynami
+The `configure_model` function allows users to build their own SOM model. All of the MEMC models use the same SOM pool structure but users will be able to decide which of the following dynamics.
 
 ![](pool_structure.png)
 
@@ -79,7 +79,7 @@ Compare the model results with one another.
 
 ```{r, echo = FALSE}
 ggplot(data = rbind(mod1_out, mod2_out, mod3_out)) + 
-  geom_line(aes(time, value, color = name), linewidth = 0.75) + 
+  geom_line(aes(time, value, color = name, linetype = name), linewidth = 0.75) + 
   facet_wrap("variable", scales = "free") + 
   labs(y = "mg C/g soil", 
        title = "Comparing Model Results") +

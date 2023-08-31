@@ -1,0 +1,103 @@
+---
+title: "Change Model Parameters"
+---
+
+```{r, include = FALSE, echo = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width = 8, 
+  fig.height = 5
+)
+library(MEMC)
+library(ggplot2)
+theme_set(theme_bw(base_size = 14))
+```
+
+This example will show how to update the model parameter values for any MEMC model configuration. 
+
+
+```{r, eval=FALSE}
+# Assumes MEMC has already been installed. 
+library(MEMC) 
+
+# Use to visualize results.
+library(ggplot2) 
+```
+
+The `MEMC` package includes default parameter and initial pool values that are included as package data that are based on Wang et al. 2015^[Wang, G., Jagadamma, S., Mayes, M. et al. Microbial dormancy improves development and experimental validation of ecosystem model. ISME J 9, 226–237 (2015). https://doi.org/10.1038/ismej.2014.120]. This example will use these values and show users how to update these values. We will also be running the MEMC MEND model configuration. \
+
+# Default Parameters 
+
+Start by taking a look at the default model parameter values. 
+
+```{r}
+print(default_initial)
+# Alternatively can use the :: to access the MEMC package data. 
+# print(MEMC::default_initial)
+```
+
+
+```{r}
+print(default_params)
+# Alternatively can use the :: to access the MEMC package data. 
+# print(MEMC::default_params)
+```
+
+# Run deafult MEMC MEND 
+
+Run the pre-configured MEMC MEND model with the default parameter values. 
+
+```{r}
+time <- 0:600 
+mod1 <- MEND_model
+out1 <- solve_model(mod = mod1, time = time)
+out1$name <- "Km = 250 (default)"
+```
+
+# Update parameter value
+
+Users can update the parameters directly via `solve_model`. Any parameter(s) value(s) fed into the `solve_model` params argument will overwrite the parameter values defined the model configuration.
+
+```{r}
+out2 <- solve_model(mod = MEND_model, time = time, params = c("K_m" = 10))
+out2$name <- "Km = 10 (lower)"
+```
+
+```{r}
+ggplot(data = rbind(out1, out2)) + 
+  geom_line(aes(time, value, color = name, linetype = name), linewidth = 0.75) + 
+  facet_wrap("variable", scales = "free") + 
+  labs(y = "mg C/g soil", 
+       title = "Change Km Values") +
+  theme(legend.title = element_blank())
+```
+
+# Update parameter table using `update_params`
+
+`update_params` is a helper function that can change the parameter values in the parameter table. You will need to set up a new model configuration with the new parameter table. 
+
+```{r}
+new_km <- update_params(new_params = c("K_m" = 100), param_table = default_params)
+
+# Set up the new model configuration with the 
+mod_km <- configure_model(params = new_km, 
+                        state = default_initial,
+                        name = "Km = 100", 
+                        DOMuptake = "MM",
+                        POMdecomp = "MM",
+                        MBdecay = "LM")
+
+out3 <- solve_model(mod = mod_km, time = time)
+```
+
+
+
+```{r}
+ggplot(data = rbind(out1, out2, out3)) + 
+  geom_line(aes(time, value, color = name, linetype = name), linewidth = 0.75) + 
+  facet_wrap("variable", scales = "free") + 
+  labs(y = "mg C/g soil", 
+       title = "Change Km Values") +
+  theme(legend.title = element_blank())
+```
