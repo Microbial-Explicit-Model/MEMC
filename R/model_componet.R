@@ -60,12 +60,12 @@ carbon_fluxes_internal <-
       }
 
       if (MBdecay == "DD") {
-        assert_that(p[["dd_beta"]] > 1)
+        stopifnot(exprs = {p[["dd_beta"]] > 1})
         fluxes[["F6"]] = function(MB) {
           (1 - p[["p_ep"]] - p[["p_em"]]) * 0.4 * p[["V_d"]] * (MB ^ p[["dd_beta"]])
         }
       } else if (MBdecay == "LM") {
-        assert_that(p[["dd_beta"]] == 1)
+        stopifnot(exprs = {p[["dd_beta"]] == 1})
         fluxes[["F6"]] = function(MB) {
           (1 - p[["p_ep"]] - p[["p_em"]]) * 0.4 * p[["V_d"]] * (MB ^ p[["dd_beta"]])
         }
