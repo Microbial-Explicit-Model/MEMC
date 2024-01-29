@@ -8,8 +8,8 @@
 <meta name="description" content="MEMC">
 <title>Senstivity-Analysis • MEMC</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Senstivity-Analysis">
 <meta property="og:description" content="MEMC">
@@ -153,18 +153,18 @@ with.</li>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">MENDsens_out</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      x     Mean         Sd      Min      Max      q05      q25      q50</span></span>
 <span><span class="co">#&gt; POM0 0 10.00000 0.00000000 10.00000 10.00000 10.00000 10.00000 10.00000</span></span>
-<span><span class="co">#&gt; POM1 1 10.88130 0.19121024 10.52621 11.18186 10.63065 10.73288 10.84517</span></span>
-<span><span class="co">#&gt; POM2 2 11.13221 0.10846719 10.85231 11.29095 10.96597 11.06153 11.13622</span></span>
-<span><span class="co">#&gt; POM3 3 11.17937 0.05364326 11.03055 11.27141 11.10502 11.14626 11.17191</span></span>
-<span><span class="co">#&gt; POM4 4 11.15279 0.08608763 10.99297 11.29878 11.01397 11.07737 11.17540</span></span>
-<span><span class="co">#&gt; POM5 5 11.09585 0.13247012 10.85746 11.28838 10.88914 10.96864 11.13708</span></span>
+<span><span class="co">#&gt; POM1 1 10.85870 0.19022104 10.55520 11.17090 10.58592 10.69452 10.84606</span></span>
+<span><span class="co">#&gt; POM2 2 11.11450 0.10849457 10.88553 11.30099 10.92365 11.03893 11.13221</span></span>
+<span><span class="co">#&gt; POM3 3 11.16655 0.04833572 11.05801 11.25987 11.08681 11.12714 11.17317</span></span>
+<span><span class="co">#&gt; POM4 4 11.14246 0.08423624 10.95995 11.25465 10.99674 11.06802 11.16561</span></span>
+<span><span class="co">#&gt; POM5 5 11.08624 0.13456514 10.81612 11.26345 10.86190 10.95634 11.13114</span></span>
 <span><span class="co">#&gt;           q75      q95</span></span>
 <span><span class="co">#&gt; POM0 10.00000 10.00000</span></span>
-<span><span class="co">#&gt; POM1 11.06260 11.16004</span></span>
-<span><span class="co">#&gt; POM2 11.23566 11.27918</span></span>
-<span><span class="co">#&gt; POM3 11.22246 11.25520</span></span>
-<span><span class="co">#&gt; POM4 11.21973 11.27720</span></span>
-<span><span class="co">#&gt; POM5 11.20250 11.26828</span></span></code></pre></div>
+<span><span class="co">#&gt; POM1 11.01713 11.15191</span></span>
+<span><span class="co">#&gt; POM2 11.20316 11.25731</span></span>
+<span><span class="co">#&gt; POM3 11.20178 11.24216</span></span>
+<span><span class="co">#&gt; POM4 11.20421 11.24520</span></span>
+<span><span class="co">#&gt; POM5 11.19886 11.24909</span></span></code></pre></div>
 <p>Quickly visualize results using R’s base <code>plot</code> function,
 this is a quick way to look at results however for more user control
 over the figures we recommend using ggplot2.</p>
