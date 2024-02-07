@@ -88,7 +88,7 @@ ggplot(data = out[out$variable == "IC", ]) +
   geom_line(aes(time, value, color = par)) +
   geom_point(data = comp_data, aes(time, IC)) +
   facet_wrap("variable", scales = "free") + 
-  labs(x = "Time", y = "mg C/g soil", title = "MIMCS") 
+  labs(x = "Time (hour)", y = "mg C/g soil", title = "MIMCS") 
 
 ```
 

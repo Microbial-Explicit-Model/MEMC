@@ -178,6 +178,7 @@ ggplot(data = out) +
   geom_line(aes(time, Mean, color = name)) + 
   facet_wrap("variable", scales = "free") + 
   labs(y = "mg C/g soil", 
+       x = "Time (hour)",
        title = "Global Sensitivity to Vd, Vp & Vm", 
        subtitle = "q25/q75") + 
   theme(legend.title = element_blank()) + 
@@ -208,7 +209,7 @@ CORPSEsens_out <- memc_sensfunc(config = CORPSE_model,
 Format output and visualize the results. 
 ```{r}
 out <- rbind(cbind(format_sensout(CORPSEsens_out), name = "CORPSE"), 
-              cbind(format_sensout(MENDsens_out), name = "MEND"))
+             cbind(format_sensout(MENDsens_out), name = "MEND"))
 ```
 
 ```{r, fig.width=8}
@@ -216,7 +217,7 @@ ggplot(data = out) +
   geom_line(aes(time, value, color = name)) +
   facet_wrap("parameter", scales = "free") + 
   labs(title = "Local Senstivity to DOM", 
-       x = "Time", y = "" ) 
+       x = "Time (hour)", y = "" ) 
 ```
 
 
