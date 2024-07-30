@@ -18,7 +18,7 @@ solve_model(mod, time, params = NULL, state = NULL, ...)
 \item{...}{additional arguments that can be read into \code{deSolve::ode}}
 }
 \value{
-a long formatted data.table of the simulation results
+a long formatted data.table of the simulation results, time = hour
 }
 \description{
 Solve a MEMC configuration

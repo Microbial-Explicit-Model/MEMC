@@ -4,14 +4,14 @@
 \alias{memc_sensrange}
 \title{Global sensitivity ranges for a memc model}
 \usage{
-memc_sensrange(config, t, pars, parRange, dist, ...)
+memc_sensrange(config, t, x, parRange, dist, ...)
 }
 \arguments{
 \item{config}{a memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
 
 \item{t}{vector of the time steps to run the model at}
 
-\item{pars}{vector of the parameters that will be varied}
+\item{x}{vector of the parameters or initial model pool sizes that will be varied}
 
 \item{parRange}{data frame of the min/max parameter values}
 
@@ -32,7 +32,7 @@ pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
 prange <- data.frame(min = pars - pars * 0.75,
 max = pars + pars * 0.75)
 t <- floor(seq(0, 365, length.out = 10))
-out <- memc_sensrange(config = MEND_model, t = t, pars = pars,
+out <- memc_sensrange(config = MEND_model, t = t, x = pars,
 parRange = prange, dist = "latin", num = 10)
 plot(summary(out))
 # Using the helper functions.
