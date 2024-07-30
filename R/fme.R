@@ -11,8 +11,11 @@ make_memc_objective <- function(comp_data, x, config) {
 
   assert_that("time" %in% names(comp_data), msg = "comp_data must contain time column")
   comp_data_vars <- names(comp_data)[names(comp_data) != "time"]
-  assert_that(comp_data_vars %in% names(MEMC::default_initial), msg = "comp_data must contain a MEMC variable")
-
+  assert_that(all(comp_data_vars %in% names(MEMC::default_initial)), msg = "comp_data must contain a MEMC variable")
+  
+  comp_time <- comp_data$time
+  comp_data <- as.matrix(comp_data)
+  
   fxn <- function(x) {
     # split up up the input into model parameters and state value
     xx <- split_param_state(x)
@@ -20,7 +23,7 @@ make_memc_objective <- function(comp_data, x, config) {
     new_s <- xx$state
 
     # the time steps to evaluate the model at
-    t <- seq(0, max(comp_data$time))
+    t <- seq(0, max(comp_data))
 
     # solve the model
     new_config <- update_config(mod = config,
@@ -28,14 +31,19 @@ make_memc_objective <- function(comp_data, x, config) {
                                 state = new_s)
     out <- sm_internal(new_config, t)
 
-    # make sure that the model solved for all time steps
-    model_time <- unique(out['time'])
+    # make sure that the model solved for all time steps, note that because deSolve 
+    # operates on a matrix this we are unable to select indexes based on column names
+    # which is un ideal but leaving the output as the default deSolve matrixis the 
+    # most efficient thing to do. 
+    model_time <- unique(out[, 1])
     run_complete <- all(t %in% model_time)
-    assert_that(!run_complete, msg = "model run terminated early")
-    # to do there should be some better way to handle this... ideally with the
-    # TODO  add something that makes a fake output table? to use int he model cost?
-    # Limit model output to only the time steps of the comparison data.
-    #out <- out[out['time'] %in% comp_data$time, ]
+    assert_that(run_complete, msg = "model run terminated early")
+ 
+    # Only compare data we have the observations for 
+    out <- out[out[, 1] %in% comp_time, ]
+    keep_cols <- which(colnames(out) %in% colnames(comp_data))
+    out <- out[ , keep_cols]
+    
 
     # calculate the model cost using the FME modCost function
     return(FME::modCost(model = out, obs = comp_data))
@@ -71,7 +79,7 @@ memc_modfit <-
                           comp_data = comp_data)
     out <- FME::modFit(
       p = x,
-      f = obj,
+      f = obj, 
       lower = lower,
       upper = upper
     )
