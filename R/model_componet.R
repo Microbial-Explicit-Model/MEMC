@@ -221,7 +221,7 @@ sm_format_out <- function(rslt, mod) {
 #' @param params default set to NULL, will then use the parameter table read in with the "mod" object.
 #' @param state default set to NULL, will then use the state read read in with the "mod" object.
 #' @param ... additional arguments that can be read into \code{deSolve::ode}
-#' @return a long formatted data.table of the simulation results
+#' @return a long formatted data.table of the simulation results, time = hour 
 #' @importFrom assertthat assert_that has_args
 #' @importFrom deSolve ode
 #' @export

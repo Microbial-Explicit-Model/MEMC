@@ -135,6 +135,8 @@ ggplot(data = mend_out) +
   geom_line(aes(time, value, color = name), linewidth = 0.75) + 
   facet_wrap("variable", scales = "free") + 
   labs(y = "mg C/g soil", 
+         x = "time (hour)"
+
        title = "MEND Run Results")
 ```
 
