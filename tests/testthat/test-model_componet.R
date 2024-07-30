@@ -56,7 +56,7 @@ test_that("configure_model", {
 test_that("change param", {
 
   out1 <- solve_model(mod = mod, time)
-  out2 <- solve_model(mod = mod, time, params = c("V_d" = 10))
+  out2 <- solve_model(mod = mod, time, params = c("K_m" = 10))
   expect_gte(mean((out1$value - out2$value)^2), zero)
 
 })

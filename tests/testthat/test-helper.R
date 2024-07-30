@@ -54,7 +54,7 @@ test_that("bad model configuration will fail", {
   # Errors should be thrown
   expect_error(
     configure_model(ptable[1:9,], state),
-   "param_table is missing a parameter value(s) for: p_em, r_ep, r_em, Q_max, K_ads, K_des, dd_beta, Input_POM, Input_DOM, Input_MOM, CUE",
+   "param_table is missing a parameter value(s) for: p_em, r_ep, r_em, Q_max, K_ads, K_des, dd_beta, Input_POM, Input_DOM, CUE",
     fixed = TRUE
   )
   expect_error(
@@ -74,10 +74,7 @@ test_that("bad model configuration will fail", {
   )
 
   # Only change one parameter value and one state value
-  new_out <-
-    update_config(out1,
-                  params = c("V_d" = 50),
-                  state = c("MB" = 50))
+  new_out <- update_config(mod = out1, new = c("V_d" = 50, "MB" = 50))
   expect_equal(sum(new_out$params$value != out1$params$value), 1)
   expect_equal(sum(new_out$state != out1$state), 1)
 

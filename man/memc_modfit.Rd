@@ -9,9 +9,10 @@ memc_modfit(config, x, comp_data, lower = -Inf, upper = Inf, ...)
 \arguments{
 \item{config}{memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
 
-\item{x}{memc model parameters or initial conditions that will be fit to the data}
+\item{x}{memc model parameters or initial conditions that will be fit to the data, users will need to provide an initial guess for these values.}
 
-\item{comp_data}{data frame containing the comparison data that the model will be fit to}
+\item{comp_data}{data frame containing the comparison data that the model will
+be fit this data frame must contain a column for time, the other columns must be named for the MEMC model variables.}
 
 \item{lower}{lower bounds on the parameters; if unbounded set equal to -Inf}
 
