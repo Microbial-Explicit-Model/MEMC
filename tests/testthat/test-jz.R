@@ -12,7 +12,7 @@
 #
 # params <- c("V_p", "K_p", "V_m", "K_m", "V_d", "K_d", "f_d", "g_d", "p_ep",
 #             "p_em", "r_ep", "r_em", "Q_max", "K_ads",
-#             "K_des", "dd_beta", "Input_POM", "Input_DOM", "Input_MOM", "CUE")
+#             "K_des", "dd_beta", "Input_POM", "Input_DOM", "CUE")
 # desc <- c("maximum specific decomposition rate for P by EP", "half-saturation constant for decomposition of P",
 #           "maximum specific decomposition rate for M by EM",
 #           "half-saturation constant for decomposition of M",
@@ -26,7 +26,7 @@
 # value <- c("V_p" = 14, "K_p" = 50, "V_m" = 0.25, "K_m" = 250, "V_d" = 3, "K_d"= 0.25,
 #            "f_d" = 0.5, "g_d" = 0.5, "p_ep" = 0.01, "p_em" = 0.01, "r_ep" = 1e-3,
 #            "r_em" = 1e-3 , "Q_max" = 3.4, "K_ads" = 0.006, "K_des"= 0.001, "dd_beta" = 2,
-#            "Input_POM" = 0, "Input_DOM" = 0, "Input_MOM" = 0, "CUE" = 0.4)
+#            "Input_POM" = 0, "Input_DOM" = 0, "CUE" = 0.4)
 # units <- c("mgC mgC^-1 h^-1", "mgC / g soil", "mgC mgC^-1 h^-1", "mg C/g soil",
 #            "mgC mgC^-1 h^-1", "mg C/g soil", NA,
 #            NA, NA, NA, "mgC mgC^-1 h^-1", "mgC mgC^-1 h^-1", "mgC / g soil",

@@ -11,21 +11,15 @@ make_memc_objective <- function(comp_data, x, config) {
 
   assert_that("time" %in% names(comp_data), msg = "comp_data must contain time column")
   comp_data_vars <- names(comp_data)[names(comp_data) != "time"]
-  assert_that(comp_data_vars %in% names(MEMC::default_initial), msg = "comp_data must contain a MEMC variable")
+  assert_that(all(comp_data_vars %in% names(MEMC::default_initial)), msg = "comp_data must contain a MEMC variable")
 
   fxn <- function(x) {
-    # split up up the input into model parameters and state value
-    xx <- split_param_state(x)
-    new_p <- xx$params
-    new_s <- xx$state
 
     # the time steps to evaluate the model at
     t <- seq(0, max(comp_data$time))
 
     # solve the model
-    new_config <- update_config(mod = config,
-                                params = new_p,
-                                state = new_s)
+    new_config <- update_config(mod = config, new = x)
     out <- sm_internal(new_config, t)
 
     # make sure that the model solved for all time steps
@@ -49,9 +43,10 @@ make_memc_objective <- function(comp_data, x, config) {
 
 #' Fit a MEMC model to a comparison data
 #'
-#' @param x memc model parameters or initial conditions that will be fit to the data
+#' @param x memc model parameters or initial conditions that will be fit to the data, users will need to provide an initial guess for these values. 
 #' @param config memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
-#' @param comp_data data frame containing the comparison data that the model will be fit to
+#' @param comp_data data frame containing the comparison data that the model will
+#'  be fit this data frame must contain a column for time, the other columns must be named for the MEMC model variables. 
 #' @param lower lower bounds on the parameters; if unbounded set equal to -Inf
 #' @param upper bounds on the parameters; if unbounded set equal to Inf
 #' @param ... addition arguments that may be passed to FME::modFit
@@ -87,7 +82,7 @@ memc_modfit <-
 #'
 #' @param config a memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
 #' @param t vector of the time steps to run the model at
-#' @param pars vector of the parameters that will be varied
+#' @param x vector of the parameters or initial model pool sizes that will be varied
 #' @param parRange data frame of the min/max parameter values
 #' @param dist str for the distribution according to which the parameters will be sampled from, options" "unif" (uniformly random samples), "norm", (normally distributed random samples), "latin" (latin hypercube distribution), and "grid" (parameters arranged on a grid).
 #' @param ... additional arguments passed to FME::sensRange
@@ -101,7 +96,7 @@ memc_modfit <-
 #' prange <- data.frame(min = pars - pars * 0.75,
 #' max = pars + pars * 0.75)
 #' t <- floor(seq(0, 365, length.out = 10))
-#' out <- memc_sensrange(config = MEND_model, t = t, pars = pars,
+#' out <- memc_sensrange(config = MEND_model, t = t, x = pars,
 #' parRange = prange, dist = "latin", num = 10)
 #' plot(summary(out))
 #' # Using the helper functions.
@@ -111,14 +106,14 @@ memc_modfit <-
 #'    geom_ribbon(aes(time, ymin = Min, ymax = Max), alpha = 0.5) +
 #'    facet_wrap("variable", scales = "free")
 #'}
-memc_sensrange <- function(config, t, pars, parRange, dist, ...){
+memc_sensrange <- function(config, t, x, parRange, dist, ...){
 
   func <- function(pars){
-    new_mod <- update_config(mod = config, params = pars)
+    new_mod <- update_config(mod = config, new = pars)
     sm_internal(mod = new_mod, time = t)
   }
 
-  out <- FME::sensRange(func, parms = pars, dist = dist, parRange = parRange, ...)
+  out <- FME::sensRange(func, parms = x, dist = dist, parRange = parRange, ...)
 
   return(out)
 }
@@ -130,7 +125,7 @@ memc_sensrange <- function(config, t, pars, parRange, dist, ...){
 #'
 #' @param config a memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
 #' @param t vector of the time steps to run the model at
-#' @param pars vector of the parameters to test
+#' @param x vector of the parameters or initial state values to test
 #' @param ... additional arguments passed to FME::sensFun
 #' @return the results of the FME::sensFun
 #' @export
@@ -139,7 +134,7 @@ memc_sensrange <- function(config, t, pars, parRange, dist, ...){
 #'\dontrun{
 #' # Test the sensitivity of the MEND output for V.p, K.p, V.m
 #' pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
-#' out <- memc_sensfunc(config = MEND_model, t = t, pars = pars)
+#' out <- memc_sensfunc(config = MEND_model, t = t, x = pars)
 #' pairs(out)
 #' plot(out)
 #' # Using the helper functions to make nice ggplots
@@ -148,14 +143,14 @@ memc_sensrange <- function(config, t, pars, parRange, dist, ...){
 #'    geom_line(aes(time, value, color = parameter)) +
 #'    facet_wrap("variable", scales = "free")
 #'}
-memc_sensfunc <- function(config, t, pars, ...){
+memc_sensfunc <- function(config, t, x, ...){
 
-  func <- function(pars){
-    new_mod <- update_config(mod = config, params = pars)
+  func <- function(x){
+    new_mod <- update_config(mod = config, new = x)
     sm_internal(mod = new_mod, time = t)
   }
 
-  out <- FME::sensFun(func, pars, ...)
+  out <- FME::sensFun(func, x, ...)
 
 }
 

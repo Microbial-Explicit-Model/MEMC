@@ -4,14 +4,14 @@
 \alias{memc_sensfunc}
 \title{Local sensitivity for a MEMC model}
 \usage{
-memc_sensfunc(config, t, pars, ...)
+memc_sensfunc(config, t, x, ...)
 }
 \arguments{
 \item{config}{a memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
 
 \item{t}{vector of the time steps to run the model at}
 
-\item{pars}{vector of the parameters to test}
+\item{x}{vector of the parameters or initial state values to test}
 
 \item{...}{additional arguments passed to FME::sensFun}
 }
@@ -25,7 +25,7 @@ Estimate the local effect of a parameter on a memc model output
 \dontrun{
 # Test the sensitivity of the MEND output for V.p, K.p, V.m
 pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
-out <- memc_sensfunc(config = MEND_model, t = t, pars = pars)
+out <- memc_sensfunc(config = MEND_model, t = t, x = pars)
 pairs(out)
 plot(out)
 # Using the helper functions to make nice ggplots
