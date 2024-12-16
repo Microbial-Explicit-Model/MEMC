@@ -2,12 +2,12 @@
 % Please edit documentation in R/fme.R
 \name{memc_sensrange}
 \alias{memc_sensrange}
-\title{Global sensitivity ranges for a memc model}
+\title{Global sensitivity ranges for a MEMC model}
 \usage{
 memc_sensrange(config, t, x, parRange, dist, ...)
 }
 \arguments{
-\item{config}{a memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
+\item{config}{a MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
 
 \item{t}{vector of the time steps to run the model at}
 

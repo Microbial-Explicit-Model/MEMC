@@ -9,7 +9,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-
 The objective of this example is demonstrate how to users can use `memc_modfit` to fit a MEMC model configuration to observational data. In this example we will be fitting the MIMCS model to the data from 
 CITATION EXPERIMENT. 
 
@@ -32,7 +31,6 @@ Start by loading the comparison data, included in the package data.
 comp_data <- read.csv(system.file("example/Ultisol_control.csv", package = "MEMC"))
 ```
 
-
 Set up the the MIMCS model with different initial pool sizes to be consistent with the experiment step up. 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -40,10 +38,10 @@ Set up the the MIMCS model with different initial pool sizes to be consistent wi
 my_mod_config <- MEMC::MIMCS_model
 
 # Update the MEND model initial state conditions to reflect the experimental set up.
-my_mod_config$state <- c(POM=4.71, MOM=17.67, QOM=0, MB=0.52, DOM=0.148, 
-                         EP=0.052, EM=0.052, IC=0, Tot=23.484)
+my_mod_config$state <- c(POM = 4.71, MOM = 17.67, QOM = 0, 
+                         MB = 0.52, DOM = 0.148, EP = 0.052, 
+                         EM = 0.052, IC = 0, Tot = 23.484)
 ```
-
 
 Run the model with the original parameter values. 
 
@@ -55,7 +53,7 @@ Use `memc_modfit` to fit the model to the observed data.
 
 Description of inputs to MEMC function `memc_modfit` are as follows: 
 
-* config: a memc model configuration object, either one of the pre-built configurations listed in model_configs or created using configure_model
+* config: a MEMC model configuration object, either one of the pre-built configurations listed in model_configs or created using configure_model
 * comp_data: a data frame containing the comparison data that the model will be fit to 
 
 ```{r}
@@ -68,11 +66,9 @@ fit$par
 
 Re run the model with the parameter values. 
 
-
 ```{r}
 new_rslts <- solve_model(my_mod_config, params = fit$par, time = 0:max(comp_data$time)) 
 ```
-
 
 ```{r}
 # Format into a single data table to plot
@@ -81,8 +77,8 @@ new_rslts$par <- "fitted values"
 out <- rbind(original_rslts, new_rslts)
 ```
 
+Plot the model results vs the comparison data:
 
-Plot the model results vs the comparison data. 
 ```{r}
 ggplot(data = out[out$variable == "IC", ]) +
   geom_line(aes(time, value, color = par)) +
@@ -90,9 +86,3 @@ ggplot(data = out[out$variable == "IC", ]) +
   facet_wrap("variable", scales = "free") + 
   labs(x = "Time (hour)", y = "mg C/g soil", title = "MIMCS") 
 ```
-
-
-
-
-
-

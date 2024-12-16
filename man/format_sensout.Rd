@@ -2,8 +2,8 @@
 % Please edit documentation in R/fme.R
 \name{format_sensout}
 \alias{format_sensout}
-\title{Format the output returned by memc_sensrange or memc_sensfunc into long
-data format for easy plotting}
+\title{Format the output returned by memc_sensrange or memc_sensfunc
+into long data format for easy plotting}
 \usage{
 format_sensout(obj)
 }
@@ -15,8 +15,8 @@ A long-format data frame containing the summary
 from \code{FME}::\code{\link[FME]{sensRange}}.
 }
 \description{
-Format the output returned by memc_sensrange or memc_sensfunc into long
-data format for easy plotting
+Format the output returned by memc_sensrange or memc_sensfunc
+into long data format for easy plotting
 }
 \examples{
 \dontrun{

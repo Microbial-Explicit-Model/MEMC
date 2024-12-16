@@ -41,7 +41,7 @@ The `memc_sensrange` function is `MEMC` specific wrapper of `FME::sensRange`. `m
 
 Description of inputs to MEMC function `memc_sensrange` are as follows: 
 
-* `config`: a memc model configuration object, either one of the pre-built configurations listed in `model_configs` or created using `configure_model`. 
+* `config`: a MEMC model configuration object, either one of the pre-built configurations listed in `model_configs` or created using `configure_model`. 
 * t: vector of the time steps to run the model at
 * pars: vector of the parameters that will be varied
 * parRange: data frame of the min/max parameter values
@@ -77,13 +77,12 @@ plot(summary(MENDsens_out))
 
 ## `memc_sensfun`
 
-Given a memc model configuration, estimate the local effect of certain parameters on selected sensitivity variables by calculating a matrix of so-called sensitivity functions based on FME::sensFun. 
+Given a MEMC model configuration, estimate the local effect of certain parameters on selected sensitivity variables by calculating a matrix of so-called sensitivity functions based on `FME::sensFun`. 
 
 Description of inputs to MEMC function `memc_sensfun` are as follows: 
-
-* config: a memc model configuration object, either one of the pre-built configurations listed in model_configs or created using configure_model
-* t: numeric vector of the time steps to run the model at
-* pars: vector specifying the model parameters to test
+* `config`: a MEMC model configuration object, either one of the pre-built configurations listed in model_configs or created using configure_model
+* `t`: numeric vector of the time steps to run the model at
+* `pars`: vector specifying the model parameters to test
 
 ```{r}
 sens_out <- memc_sensfunc(config = MEND_model,

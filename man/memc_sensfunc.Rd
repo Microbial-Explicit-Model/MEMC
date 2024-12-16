@@ -7,7 +7,7 @@
 memc_sensfunc(config, t, x, ...)
 }
 \arguments{
-\item{config}{a memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
+\item{config}{a MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
 
 \item{t}{vector of the time steps to run the model at}
 
@@ -19,7 +19,7 @@ memc_sensfunc(config, t, x, ...)
 The results of \code{FME}::\code{\link[FME]{sensFun}}.
 }
 \description{
-Estimate the local effect of a parameter on a memc model output
+Estimate the local effect of a parameter on a MEMC model output
 }
 \examples{
 \dontrun{
