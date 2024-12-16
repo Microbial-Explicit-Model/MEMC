@@ -49,7 +49,6 @@ update_state <- function(new_vals, state) {
   assert_that(is.vector(new_vals))
   assert_that(all(names(new_vals) %in% req_names))
 
-
   for (n in names(new_vals)) {
     index <- which(names(state) == n)
     state[[n]] <- new_vals[[n]]
@@ -129,9 +128,12 @@ configure_model <- function(params,
   # Check the arguments
   assert_that(is_param_table(params))
   assert_that(all(sapply(list(POMdecomp, DOMuptake, MBdecay), is.character)))
-  assert_that(sum(DOMuptake %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'DOMuptake must be "MM", "RMM", "ECA"')
-  assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'POMdecomp must be "MM", "RMM", "ECA", "LM"')
-  assert_that(sum(MBdecay %in% c("LM", "DD")) == 1, msg = 'MBdecay must be "LM" or "DD"')
+  assert_that(sum(DOMuptake %in% c("MM", "RMM", "ECA", "LM")) == 1,
+              msg = 'DOMuptake must be "MM", "RMM", "ECA"')
+  assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1,
+              msg = 'POMdecomp must be "MM", "RMM", "ECA", "LM"')
+  assert_that(sum(MBdecay %in% c("LM", "DD")) == 1,
+              msg = 'MBdecay must be "LM" or "DD"')
 
   # Format the table
   table <- data.frame(
@@ -192,7 +194,7 @@ split_param_state <- function(x) {
 
 }
 
-#' Function that returns the MEMC color palette for the the default MEMC model configurations
+#' Return the MEMC color palette for the the default MEMC model configurations
 #'
 #' @param name input vector containing the model names to return the color codes for, default will return colors for all the model configurations,
 #' @return vector containing color hex codes for the different model configurations
@@ -216,20 +218,18 @@ colorMEMCPalette <- function(name = NULL){
                  "COMISSION" = "#D783FD",
                  "MEMS" = "#1494FC")
 
-  assert_that(nrow(MEMC::model_configs) == length(color_vec), msg = "Problem with color palette size")
-
+  assert_that(nrow(MEMC::model_configs) == length(color_vec),
+              msg = "Problem with color palette size")
 
   if(is.null(name)){
     return(color_vec)
   } else {
-    assert_that(all(name %in% names(color_vec)), msg = "MEMC color palette only supports the default model configurations")
+    assert_that(all(name %in% names(color_vec)),
+                msg = "MEMC color palette only supports the default model configurations")
     index <- which(names(color_vec) %in% name)
     subset_color_vec <- color_vec[index]
     return(subset_color_vec)
   }
 
 }
-
-
-
 

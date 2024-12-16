@@ -4,7 +4,8 @@
 #' @usage data(default_params)
 #' @keywords datasets
 #'
-#' @format A data frame of 20 rows and 4 columns containing the model parameter values from \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
+#' @format A data frame of 20 rows and 4 columns containing the model
+#' parameter values from \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 #' \describe{
 #' \item{parameter}{String character of the default MEND parameters.}
 #' \item{description}{String character describing the parameter.}
@@ -38,12 +39,12 @@
 #' print(default_initial)
 "default_initial"
 
+
 #' The MEMC model configuration for MEND
 #'
-#' The MEND configuration is based off of Wang et al. 2013, this
-#' configuration uses MM for DOM uptake, MM for
-#' POM decomposition, and a LM for MB decay, see \link{dynamics} for more
-#' details.
+#' The MEND configuration is based off of Wang et al. 2013. This
+#' configuration uses MM for DOM uptake, MM for POM decomposition,
+#' and LM for MB decay; see \link{dynamics} for more details.
 #'
 #' @format An object created from \code{configure_model}.
 #' \describe{
@@ -60,11 +61,12 @@
 #' solve_model(mod = MEND_model, time = 1:10)
 "MEND_model"
 
+
 #' The MEMC model configuration for COMISSION
 #'
-#' The COMISSION configuration is based off of Ahrens et al. 2015, the model uses MM for the
-#' DOM uptake, RMM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
-#' details.
+#' The COMISSION configuration is based off of Ahrens et al. 2015. The
+#' model uses MM for the DOM uptake, RMM for POM decomposition, and LM
+#' for MB decay; see \link{dynamics} for more details.
 #'
 #' @format An object created from \code{configure_model}, containing the following elements.
 #' \describe{
@@ -81,11 +83,12 @@
 #' solve_model(mod = COMISSION_model, time = 1:10)
 "COMISSION_model"
 
+
 #' The MEMC model configuration for CORPSE
 #'
-#' The CORPSE configuration is based off of Sulman et al. 2018, this model uses RMM for
-#' DOM uptake, LM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
-#' details.
+#' The CORPSE configuration is based off of Sulman et al. 2018. This
+#' model uses RMM for DOM uptake, LM for POM decomposition, and LM for
+#' MB decay; see \link{dynamics} for more details.
 #'
 #' @format An object created from \code{configure_model}, containing the following elements.
 #' \describe{
@@ -102,11 +105,12 @@
 #' solve_model(mod = CORPSE_model, time = 1:10)
 "CORPSE_model"
 
+
 #' The MEMC model configuration for MIMCS
 #'
-#' The MIMCS configuration is based off of Wieder et al. 2015, this model uses MM for the DOM
-#' uptake, MM for POM decomposition, and a DD for MB decay, see \link{dynamics} for more
-#' details.
+#' The MIMCS configuration is based off of Wieder et al. 2015. This
+#' model uses MM for the DOM uptake, MM for POM decomposition, and DD
+#' for MB decay; see \link{dynamics} for more details.
 #'
 #' @format An object created from \code{configure_model}, containing the following elements.
 #' \describe{
@@ -123,11 +127,12 @@
 #' solve_model(mod = MIMCS_model, time = 1:10)
 "MIMCS_model"
 
+
 #' The MEMC model configuration for MEMS
 #'
-#' The MEMS configuration is based off of Robertson et al. 2019, this model uses LM for the DOM
-#' uptake, LM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
-#' details.
+#' The MEMS configuration is based off of Robertson et al. 2019. This
+#' model uses LM for the DOM uptake, LM for POM decomposition, and LM
+#' for MB decay; see \link{dynamics} for more details.
 #'
 #' @format An object created from \code{configure_model}, containing the following elements.
 #' \describe{
@@ -144,11 +149,12 @@
 #' solve_model(mod = MEMS_model, time = 1:10)
 "MEMS_model"
 
+
 #' The MEMC model configuration for BAMS
 #'
-#' The BAMS configuration is based off of Tang et al. 2022, this model uses MM for the DOM
-#' uptake, MM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
-#' details.
+#' The BAMS configuration is based off of Tang et al. 2022. This model
+#' uses MM for the DOM uptake, MM for POM decomposition, and LM for MB
+#' decay; see \link{dynamics} for more details.
 #'
 #' @format An object created from \code{configure_model}, containing the following elements.
 #' \describe{
@@ -168,7 +174,6 @@
 
 #' Data table of all the pre-defined MEMC model configurations
 #'
-#'
 #' @format data table containing 4 columns
 #' \describe{
 #' \item{model}{model configuration name}
@@ -180,6 +185,3 @@
 #' @examples
 #' print(model_configs)
 "model_configs"
-
-
-

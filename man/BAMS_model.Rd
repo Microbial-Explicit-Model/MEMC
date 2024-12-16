@@ -17,9 +17,9 @@ An object created from \code{configure_model}, containing the following elements
 BAMS_model
 }
 \description{
-The BAMS configuration is based off of Tang et al. 2022, this model uses MM for the DOM
-uptake, MM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
-details.
+The BAMS configuration is based off of Tang et al. 2022. This model
+uses MM for the DOM uptake, MM for POM decomposition, and LM for MB
+decay; see \link{dynamics} for more details.
 }
 \examples{
 ## Use solve_model to run the simulation using this configuration.

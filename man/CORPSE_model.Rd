@@ -17,9 +17,9 @@ An object created from \code{configure_model}, containing the following elements
 CORPSE_model
 }
 \description{
-The CORPSE configuration is based off of Sulman et al. 2018, this model uses RMM for
-DOM uptake, LM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
-details.
+The CORPSE configuration is based off of Sulman et al. 2018. This
+model uses RMM for DOM uptake, LM for POM decomposition, and LM for
+MB decay; see \link{dynamics} for more details.
 }
 \examples{
 ## Use solve_model to run the simulation using this configuration.

@@ -17,10 +17,9 @@ An object created from \code{configure_model}.
 MEND_model
 }
 \description{
-The MEND configuration is based off of Wang et al. 2013, this
-configuration uses MM for DOM uptake, MM for
-POM decomposition, and a LM for MB decay, see \link{dynamics} for more
-details.
+The MEND configuration is based off of Wang et al. 2013. This
+configuration uses MM for DOM uptake, MM for POM decomposition,
+and LM for MB decay; see \link{dynamics} for more details.
 }
 \examples{
 ## Use solve_model to run the simulation using this configuration.

@@ -17,9 +17,9 @@ An object created from \code{configure_model}, containing the following elements
 MIMCS_model
 }
 \description{
-The MIMCS configuration is based off of Wieder et al. 2015, this model uses MM for the DOM
-uptake, MM for POM decomposition, and a DD for MB decay, see \link{dynamics} for more
-details.
+The MIMCS configuration is based off of Wieder et al. 2015. This
+model uses MM for the DOM uptake, MM for POM decomposition, and DD
+for MB decay; see \link{dynamics} for more details.
 }
 \examples{
 ## Use solve_model to run the simulation using this configuration.

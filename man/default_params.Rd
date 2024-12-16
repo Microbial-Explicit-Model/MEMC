@@ -5,7 +5,8 @@
 \alias{default_params}
 \title{The parameter values for the basic MEMC model configurations from Wang et al. 2013}
 \format{
-A data frame of 20 rows and 4 columns containing the model parameter values from \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
+A data frame of 20 rows and 4 columns containing the model
+parameter values from \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 \describe{
 \item{parameter}{String character of the default MEND parameters.}
 \item{description}{String character describing the parameter.}

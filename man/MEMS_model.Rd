@@ -17,9 +17,9 @@ An object created from \code{configure_model}, containing the following elements
 MEMS_model
 }
 \description{
-The MEMS configuration is based off of Robertson et al. 2019, this model uses LM for the DOM
-uptake, LM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
-details.
+The MEMS configuration is based off of Robertson et al. 2019. This
+model uses LM for the DOM uptake, LM for POM decomposition, and LM
+for MB decay; see \link{dynamics} for more details.
 }
 \examples{
 ## Use solve_model to run the simulation using this configuration.

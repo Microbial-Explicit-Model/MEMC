@@ -11,7 +11,8 @@ make_memc_objective <- function(comp_data, x, config) {
 
   assert_that("time" %in% names(comp_data), msg = "comp_data must contain time column")
   comp_data_vars <- names(comp_data)[names(comp_data) != "time"]
-  assert_that(all(comp_data_vars %in% names(MEMC::default_initial)), msg = "comp_data must contain a MEMC variable")
+  assert_that(all(comp_data_vars %in% names(MEMC::default_initial)),
+              msg = "comp_data must contain a MEMC variable")
 
   fxn <- function(x) {
 
@@ -26,8 +27,8 @@ make_memc_objective <- function(comp_data, x, config) {
     model_time <- unique(out['time'])
     run_complete <- all(t %in% model_time)
     assert_that(!run_complete, msg = "model run terminated early")
-    # to do there should be some better way to handle this... ideally with the
-    # TODO  add something that makes a fake output table? to use int he model cost?
+    # to do there should be some better way to handle this...
+    # TODO  add something that makes a fake output table? to use in the model cost?
     # Limit model output to only the time steps of the comparison data.
     #out <- out[out['time'] %in% comp_data$time, ]
 

@@ -17,9 +17,9 @@ An object created from \code{configure_model}, containing the following elements
 COMISSION_model
 }
 \description{
-The COMISSION configuration is based off of Ahrens et al. 2015, the model uses MM for the
-DOM uptake, RMM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
-details.
+The COMISSION configuration is based off of Ahrens et al. 2015. The
+model uses MM for the DOM uptake, RMM for POM decomposition, and LM
+for MB decay; see \link{dynamics} for more details.
 }
 \examples{
 ## Use solve_model to run the simulation using this configuration.

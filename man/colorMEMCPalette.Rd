@@ -2,7 +2,7 @@
 % Please edit documentation in R/helper.R
 \name{colorMEMCPalette}
 \alias{colorMEMCPalette}
-\title{Function that returns the MEMC color palette for the the default MEMC model configurations}
+\title{Return the MEMC color palette for the the default MEMC model configurations}
 \usage{
 colorMEMCPalette(name = NULL)
 }
@@ -13,7 +13,7 @@ colorMEMCPalette(name = NULL)
 vector containing color hex codes for the different model configurations
 }
 \description{
-Function that returns the MEMC color palette for the the default MEMC model configurations
+Return the MEMC color palette for the the default MEMC model configurations
 }
 \examples{
 \dontrun{
