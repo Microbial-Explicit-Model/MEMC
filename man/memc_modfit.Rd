@@ -21,7 +21,7 @@ be fit this data frame must contain a column for time, the other columns must be
 \item{...}{addition arguments that may be passed to FME::modFit}
 }
 \value{
-the results of the FME::modFit
+Results from \code{FME}::\code{\link[FME]{modFit}}.
 }
 \description{
 Fit a MEMC model to a comparison data

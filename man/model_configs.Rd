@@ -8,9 +8,9 @@
 data table containing 4 columns
 \describe{
 \item{model}{model configuration name}
-\item{DOMuptake}{DOM uptake by microbial biomass, see \link{dynamics} for more details.}
-\item{POMdecomp}{POM decomposition, see \link{dynamics} for more details.}
-\item{MBdecay}{microbial biomass decay, see \link{default_initial} for more details.}
+\item{DOMuptake}{DOM uptake by microbial biomass; see \link{dynamics} for more details.}
+\item{POMdecomp}{POM decomposition; see \link{dynamics} for more details.}
+\item{MBdecay}{microbial biomass decay; see \link{default_initial} for more details.}
 }
 }
 \usage{

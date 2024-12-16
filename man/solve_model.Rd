@@ -11,14 +11,17 @@ solve_model(mod, time, params = NULL, state = NULL, ...)
 
 \item{time}{a vector of the time steps}
 
-\item{params}{default set to NULL, will then use the parameter table read in with the "mod" object.}
+\item{params}{default set to NULL, will then use the parameter table
+read in with the \code{mod} object}
 
-\item{state}{default set to NULL, will then use the state read read in with the "mod" object.}
+\item{state}{default set to NULL, will then use the state read read
+in with the \code{mod} object}
 
-\item{...}{additional arguments that can be read into \code{deSolve::ode}}
+\item{...}{additional arguments passed to \code{\link[deSolve]{ode}}}
 }
 \value{
-a long formatted data.table of the simulation results, time = hour
+A long-formatted \code{\link[data.table]{data.table}} of the
+simulation results; \code{time} = hour.
 }
 \description{
 Solve a MEMC configuration

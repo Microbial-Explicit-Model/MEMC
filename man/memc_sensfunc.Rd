@@ -13,10 +13,10 @@ memc_sensfunc(config, t, x, ...)
 
 \item{x}{vector of the parameters or initial state values to test}
 
-\item{...}{additional arguments passed to FME::sensFun}
+\item{...}{additional arguments passed to \code{\link[FME]{sensFun}}}
 }
 \value{
-the results of the FME::sensFun
+The results of \code{FME}::\code{\link[FME]{sensFun}}.
 }
 \description{
 Estimate the local effect of a parameter on a memc model output

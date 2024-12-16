@@ -46,12 +46,12 @@
 #' configuration uses MM for DOM uptake, MM for POM decomposition,
 #' and LM for MB decay; see \link{dynamics} for more details.
 #'
-#' @format An object created from \code{configure_model}.
+#' @format An object created from \code{\link{configure_model}}.
 #' \describe{
 #' \item{name}{MEND}
-#' \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters, see \link{default_params} for more details.}
-#' \item{state}{vector of the initial state values, see \link{default_initial} for more details.}
+#' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
+#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
+#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
@@ -68,12 +68,12 @@
 #' model uses MM for the DOM uptake, RMM for POM decomposition, and LM
 #' for MB decay; see \link{dynamics} for more details.
 #'
-#' @format An object created from \code{configure_model}, containing the following elements.
+#' @format An object created from \code{\link{configure_model}}, containing the following elements.
 #' \describe{
 #' \item{name}{COMISSION}
-#' \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters, see \link{default_params} for more details.}
-#' \item{state}{vector of the initial state values, see \link{default_initial} for more details.}
+#' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
+#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
+#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.1016/j.soilbio.2015.06.008}{Ahrens et al. 2015}
@@ -90,12 +90,12 @@
 #' model uses RMM for DOM uptake, LM for POM decomposition, and LM for
 #' MB decay; see \link{dynamics} for more details.
 #'
-#' @format An object created from \code{configure_model}, containing the following elements.
+#' @format An object created from \code{\link{configure_model}}, containing the following elements.
 #' \describe{
 #' \item{name}{CORPSE}
-#' \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters, see \link{default_params} for more details.}
-#' \item{state}{vector of the initial state values, see \link{default_initial} for more details.}
+#' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
+#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
+#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.1007/s10533-018-0509-z}{Sulman et al. 2018}
@@ -112,12 +112,12 @@
 #' model uses MM for the DOM uptake, MM for POM decomposition, and DD
 #' for MB decay; see \link{dynamics} for more details.
 #'
-#' @format An object created from \code{configure_model}, containing the following elements.
+#' @format An object created from \code{\link{configure_model}}, containing the following elements.
 #' \describe{
 #' \item{name}{MIMCS}
-#' \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters, see \link{default_params} for more details.}
-#' \item{state}{vector of the initial state values, see \link{default_initial} for more details.}
+#' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
+#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
+#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.1002/2015GB005188}{Wieder et al. 2015}
@@ -134,12 +134,12 @@
 #' model uses LM for the DOM uptake, LM for POM decomposition, and LM
 #' for MB decay; see \link{dynamics} for more details.
 #'
-#' @format An object created from \code{configure_model}, containing the following elements.
+#' @format An object created from \code{\link{configure_model}}, containing the following elements.
 #' \describe{
 #' \item{name}{MEMS}
-#' \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters, see \link{default_params} for more details.}
-#' \item{state}{vector of the initial state values, see \link{default_initial} for more details.}
+#' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
+#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
+#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
@@ -156,12 +156,12 @@
 #' uses MM for the DOM uptake, MM for POM decomposition, and LM for MB
 #' decay; see \link{dynamics} for more details.
 #'
-#' @format An object created from \code{configure_model}, containing the following elements.
+#' @format An object created from \code{\link{configure_model}}, containing the following elements.
 #' \describe{
 #' \item{name}{BAMS}
-#' \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters, see \link{default_params} for more details.}
-#' \item{state}{vector of the initial state values, see \link{default_initial} for more details.}
+#' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
+#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
+#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
@@ -177,9 +177,9 @@
 #' @format data table containing 4 columns
 #' \describe{
 #' \item{model}{model configuration name}
-#' \item{DOMuptake}{DOM uptake by microbial biomass, see \link{dynamics} for more details.}
-#' \item{POMdecomp}{POM decomposition, see \link{dynamics} for more details.}
-#' \item{MBdecay}{microbial biomass decay, see \link{default_initial} for more details.}
+#' \item{DOMuptake}{DOM uptake by microbial biomass; see \link{dynamics} for more details.}
+#' \item{POMdecomp}{POM decomposition; see \link{dynamics} for more details.}
+#' \item{MBdecay}{microbial biomass decay; see \link{default_initial} for more details.}
 #' }
 #' @family configurations
 #' @examples

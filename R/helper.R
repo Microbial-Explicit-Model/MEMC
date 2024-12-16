@@ -2,7 +2,7 @@
 #'
 #' @param new_params a named vector of parameter values to update the param table.
 #' @param param_table data.table containing the following columns: parameter, value, and units, this is the basic parameter table that will be updated with the new values.
-#' @return updated data.table containing the new parameter values
+#' @return Updated \code{\link[data.table]{data.table}} containing the new parameter values.
 #' @importFrom assertthat assert_that
 #' @export
 #' @family helper functions
@@ -95,7 +95,7 @@ update_config <- function(mod, new = NULL) {
 #' Message the configuration table
 #'
 #' @param x knitr_kable \code{make_config_table}
-#' @return message to the terminal
+#' @return Message to the console (as a side effect).
 #' @importFrom assertthat assert_that
 #' @noRd
 custom_config_table_message <- function(x) {
@@ -159,7 +159,7 @@ configure_model <- function(params,
 #' Split up a vector into parameters and state values
 #'
 #' @param x input vector containing state/parameter values to use in a model run
-#' @return list containing the state and param vectors
+#' @return A list containing the state and param vectors.
 #' @importFrom assertthat assert_that
 #' @noRd
 #' @family internal
@@ -197,7 +197,7 @@ split_param_state <- function(x) {
 #' Return the MEMC color palette for the the default MEMC model configurations
 #'
 #' @param name input vector containing the model names to return the color codes for, default will return colors for all the model configurations,
-#' @return vector containing color hex codes for the different model configurations
+#' @return A vector containing color hex codes for the different model configurations.
 #' @importFrom assertthat assert_that
 #' @export
 #' @examples

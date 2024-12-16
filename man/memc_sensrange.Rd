@@ -17,13 +17,13 @@ memc_sensrange(config, t, x, parRange, dist, ...)
 
 \item{dist}{str for the distribution according to which the parameters will be sampled from, options" "unif" (uniformly random samples), "norm", (normally distributed random samples), "latin" (latin hypercube distribution), and "grid" (parameters arranged on a grid).}
 
-\item{...}{additional arguments passed to FME::sensRange}
+\item{...}{additional arguments passed to \code{\link[FME]{sensRange}}}
 }
 \value{
-the results of the FME::sensRange
+The results of \code{FME}::\code{\link[FME]{sensRange}}.
 }
 \description{
-Given a MEM model configuration estimate the global effect of parameter sensitivity.
+Given a MEM model configuration, estimate the global parameter sensitivity.
 }
 \examples{
 \dontrun{

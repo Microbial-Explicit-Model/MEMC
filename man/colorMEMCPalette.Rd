@@ -10,7 +10,7 @@ colorMEMCPalette(name = NULL)
 \item{name}{input vector containing the model names to return the color codes for, default will return colors for all the model configurations,}
 }
 \value{
-vector containing color hex codes for the different model configurations
+A vector containing color hex codes for the different model configurations.
 }
 \description{
 Return the MEMC color palette for the the default MEMC model configurations

@@ -12,7 +12,7 @@ update_params(new_params, param_table)
 \item{param_table}{data.table containing the following columns: parameter, value, and units, this is the basic parameter table that will be updated with the new values.}
 }
 \value{
-updated data.table containing the new parameter values
+Updated \code{\link[data.table]{data.table}} containing the new parameter values.
 }
 \description{
 Update the parameter table with new values
