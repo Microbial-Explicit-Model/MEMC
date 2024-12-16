@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Microbial Explicit Model Comparison: a R package supporting model exploration • MEMC</title>
+<title>Microbial Explicit Model Comparison • MEMC</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Microbial Explicit Model Comparison: a R package supporting model exploration">
-<meta name="description" content="This is an R package representation of different microbial explicit carbon models in a flexible framework for model comparison exercises.">
-<meta property="og:description" content="This is an R package representation of different microbial explicit carbon models in a flexible framework for model comparison exercises.">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Microbial Explicit Model Comparison">
+<meta name="description" content="Represent different microbial explicit carbon models in a flexible framework for model comparison exercises.">
+<meta property="og:description" content="Represent different microbial explicit carbon models in a flexible framework for model comparison exercises.">
 <meta name="robots" content="noindex">
 </head>
 <body>
@@ -62,13 +62,13 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>Follow the download and installation instructions for <a href="https://cloud.r-project.org/" class="external-link">R</a> and <a href="https://www.rstudio.com/products/rstudio/download/" class="external-link">R studio</a>.</p>
-<p>Use <code>remotes</code> to install MEMC as a built R package directory from github.</p>
+<p>Use <code>remotes</code> to install <code>MEMC</code> as a built R package directory from GitHub.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># use install.packages("remotes") to install this package the first time.</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(remotes)</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># Now build and install the R package on your local machine.</span></span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">'Microbial-Explicit-Model/MEMC'</span>) </span></code></pre></div>
-<p>Now load the <code>MEMC</code> as you would any other package.</p>
+<p>Now load <code>MEMC</code> as you would any other package.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the installed MEMC package</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://microbial-explicit-model.github.io/MEMC">MEMC</a></span><span class="op">)</span></span></code></pre></div>
@@ -76,7 +76,7 @@
 <div class="section level2">
 <h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
-<p>The package ships with several already defined model configurations. Use <code><a href="reference/configurations.html">help(configurations)</a></code> to see a list of all the available configurations that are ready for use. Here we will demonstrate how to complete a simulation using the MEND_model configuration. For more examples and package details, please checkout our <a href="https://microbial-explicit-model.github.io/MEMC/">online documentation</a>. Alternatively users can take a look at the <code>model_configs</code> table to take a look at all model configurations included in the package and the various dynamics that are used.</p>
+<p>The package ships with several already defined model configurations. Use <code><a href="reference/configurations.html">help(configurations)</a></code> to see a list of all the available configurations that are ready for use. Here we demonstrate how to complete a simulation using the MEND_model configuration. For more examples and package details, please check out our <a href="https://microbial-explicit-model.github.io/MEMC/">online documentation</a>. Alternatively, users can look at the <code>model_configs</code> table to see all model configurations included in the package and the various dynamics that are used.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">model_configs</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       model DOMuptake POMdecomp MBdecay</span></span>
@@ -88,7 +88,9 @@
 <span><span class="co">#&gt; 6     MIMCS        MM        MM      DD</span></span></code></pre></div>
 <p>Take a look at the pre-built MEND_model configuration (see <code><a href="reference/MEND_model.html">help("MEND_model")</a></code> for more details).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Printing this MEMC model configuration will return a list defining the run name, a table of the flux dynamics, parameter values, and initial SOM pool sizes. </span></span>
+<code class="sourceCode R"><span><span class="co"># Printing this MEMC model configuration will return a list defining</span></span>
+<span><span class="co"># the run name, a table of the flux dynamics, parameter values, and </span></span>
+<span><span class="co"># initial SOM pool sizes. </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">MEND_model</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $name</span></span>
 <span><span class="co">#&gt; [1] "MEND"</span></span>
@@ -148,17 +150,17 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">36500</span>, by<span class="op">=</span><span class="fl">25</span><span class="op">)</span> </span>
 <span><span class="va">mend_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve_model.html">solve_model</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">MEND_model</span>, time <span class="op">=</span> <span class="va">time</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mend_out) <span class="sc">+</span> </span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(time, value, <span class="at">color =</span> name), <span class="at">linewidth =</span> <span class="fl">0.75</span>) <span class="sc">+</span> </span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">"variable"</span>, <span class="at">scales =</span> <span class="st">"free"</span>) <span class="sc">+</span> </span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"mg C/g soil"</span>, </span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">"time (hour)"</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"MEND Run Results"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">mend_out</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span>, color <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="st">"variable"</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">labs</span><span class="op">(</span>y <span class="op">=</span> <span class="st">"mg C/g soil"</span>, </span>
+<span>       x <span class="op">=</span> <span class="st">"time (hour)"</span>,</span>
+<span>       title <span class="op">=</span> <span class="st">"MEND Run Results"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%"></p>
 <p>With <code>MEMC</code> users are able easily run simulations with the provide model configurations and are able to build toy model of their own design by selecting any combination of the supported flux dynamics. See here for an example for how to use <code>configure_model</code> to build your own SOM model. For this example we will use the default parameter and initial pool values that are included as package data (see <code>help("default_params)</code> and <code>help("default_initial)</code> for more information).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Running configure_model will print a table describing the model configuration. </span></span>
+<code class="sourceCode R"><span><span class="co"># Use configure_model to print a table describing the model configuration </span></span>
 <span><span class="va">my_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/configure_model.html">configure_model</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">default_params</span>, </span>
 <span>                            state <span class="op">=</span> <span class="va">default_initial</span>, </span>
 <span>                            name <span class="op">=</span> <span class="st">"my model"</span>, </span>
@@ -182,9 +184,8 @@
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 
@@ -221,7 +222,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>

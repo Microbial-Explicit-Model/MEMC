@@ -8,8 +8,8 @@
 <title>MEMC • MEMC</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="MEMC">
 <meta name="robots" content="noindex">
 </head>
@@ -66,29 +66,33 @@
 
     
     
+<p><code>MEMC</code> is a R package that allows users to explore various
+representation of soil organic matter (SOM) flux dynamics within a
+consistent SOM pool model structure.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p><code>MEMC</code> may be installed using the
 <code>install_github</code> function from the <code>remotes</code>
 package.</p>
-<pre><code><span><span class="co">## install the remotes package if needed</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Microbial-Explicit-Model/MEMC"</span><span class="op">)</span> </span></code></pre>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load the installed MEMC package</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Install the remotes package if needed, and then</span></span>
+<span><span class="co"># remotes::install_github("Microbial-Explicit-Model/MEMC") </span></span>
+<span></span>
+<span><span class="co"># Load the installed MEMC package</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://microbial-explicit-model.github.io/MEMC">MEMC</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example-1-run-memc-mend">Example 1: Run <code>MEMC</code> MEND<a class="anchor" aria-label="anchor" href="#example-1-run-memc-mend"></a>
 </h2>
-<p>The package ships with several already defined model configurations,
-use <code><a href="../reference/configurations.html">help(configurations)</a></code> to see a list of all the available
-configurations that are ready for use. As of V1 there are six model
-configurations that are included as internal MEMC package data. These
-model configurations use different representations for DOM uptake, POM
-decomposition, and MB decay. Take a look at the MEMC model
-configurations described in the model_configs table.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<p>The package ships with several already defined model configurations;
+use <code><a href="../reference/configurations.html">help(configurations)</a></code> to see a list. Currently there are
+six configurations included as internal MEMC package data, with each
+using different representations for DOM uptake, POM decomposition, and
+MB decay.</p>
+<p>The MEMC model configurations are described in the
+<code>model_configs</code> table.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">model_configs</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       model DOMuptake POMdecomp MBdecay</span></span>
 <span><span class="co">#&gt; 1      MEND        MM        MM      LM</span></span>
@@ -97,10 +101,15 @@ configurations described in the model_configs table.</p>
 <span><span class="co">#&gt; 4      MEMS        LM        LM      LM</span></span>
 <span><span class="co">#&gt; 5      BAMS        MM        MM      LM</span></span>
 <span><span class="co">#&gt; 6     MIMCS        MM        MM      DD</span></span></code></pre></div>
-<p>Take a look at the pre-built MEND_model configuration (see
-<code><a href="../reference/MEND_model.html">help("MEND_model")</a></code> for more details).</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Printing this MEMC model configuration will return a list defining the run name, a table of the flux dynamics, parameter values, and initial SOM pool sizes. </span></span>
+<p>Let’s try using MEND, the microbial enzyme-mediated decomposition
+model originally developed by <a href="https://doi.org/10.1371/journal.pone.0089252" class="external-link">Wang et
+al. 2014</a>.</p>
+<p>You can type <code><a href="../reference/MEND_model.html">help("MEND_model")</a></code> for more details about
+the pre-built configuration.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Printing this MEMC model configuration will return a list giving the </span></span>
+<span><span class="co"># run name, a table of the flux dynamics, parameter values, and initial</span></span>
+<span><span class="co"># SOM pool sizes. </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">MEND_model</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $name</span></span>
 <span><span class="co">#&gt; [1] "MEND"</span></span>
@@ -156,21 +165,23 @@ configurations described in the model_configs table.</p>
 <span><span class="co">#&gt; 10.00000  5.00000  0.10000  2.00000  1.00000  0.00001  0.00001  0.00000 </span></span>
 <span><span class="co">#&gt;      Tot </span></span>
 <span><span class="co">#&gt; 18.10002</span></span></code></pre></div>
-<p>Complete a model run using the <code>solve_model</code> function.
-Description of inputs <code><a href="../reference/solve_model.html">solve_model()</a></code> function are as
-follows:</p>
+<p>Perform a model run using the <code>solve_model</code> function,
+whose inputs are:</p>
 <ul>
-<li>mod. A <code>MEMC</code> model object, either one of the model
-configurations included with the package or created using the
-<code><a href="../reference/configure_model.html">configure_model()</a></code>.</li>
-<li>times. A numeric vector of the time sequence for which the model
-will be solved for; the first value of times is the initial time.</li>
+<li>
+<code>mod</code>. A <code>MEMC</code> model object, either one of
+the model configurations included with the package or created using the
+<code><a href="../reference/configure_model.html">configure_model()</a></code>; and</li>
+<li>
+<code>times</code>. A numeric vector of the time sequence for which
+the model will be solved; the first value of times is the initial
+time.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mend_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve_model.html">solve_model</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">MEND_model</span>, time <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">600</span><span class="op">)</span></span></code></pre></div>
 <p>The model run results are saved in the <code>mend_out</code> data
 frame.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Preview the run results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mend_out</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     time variable    value       units   name</span></span>
@@ -181,9 +192,10 @@ frame.</p>
 <span><span class="co">#&gt; 4:     3      POM 11.22363 mg C/g soil   MEND</span></span>
 <span><span class="co">#&gt; 5:     4      POM 11.20608 mg C/g soil   MEND</span></span>
 <span><span class="co">#&gt; 6:     5      POM 11.15458 mg C/g soil   MEND</span></span></code></pre></div>
-<p>Visualize the run results.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mend_out</span><span class="op">)</span> <span class="op">+</span> </span>
+<p>Visualize the run results:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mend_out</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span>, color <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="st">"variable"</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"mg C/g soil"</span>, </span>
@@ -194,27 +206,26 @@ frame.</p>
 <div class="section level2">
 <h2 id="example-2-build-your-own-model">Example 2: Build your own model<a class="anchor" aria-label="anchor" href="#example-2-build-your-own-model"></a>
 </h2>
-<p>With <code>MEMC</code> users are able easily run simulations with the
-provide model configurations and are able to build toy model of their
-own design by selecting any combination of the supported flux dynamics.
-See here for an example for how to use <code>configure_model</code> to
-build your own SOM model. The <code>MEMC</code> package includes default
-parameter and initial pool values that are included as package data that
-are based on Wang et al. 2015<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Wang, G., Jagadamma, S., Mayes, M. et al. Microbial
+<p>With <code>MEMC</code>, users are able not only to easily run
+simulations with the provided model configurations, but also build toy
+model of their own design by selecting any combination of the supported
+flux dynamics. See here for an example for how to use
+<code>configure_model</code> to build your own SOM model.</p>
+<p>The <code>MEMC</code> package includes default parameter and initial
+pool values that are included as package data that are based on Wang et
+al. 2015<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Wang, G., Jagadamma, S., Mayes, M. et al. Microbial
 dormancy improves development and experimental validation of ecosystem
-model. ISME J 9, 226–237 (2015). &lt;a href="https://doi.org/10.1038/ismej.2014.120" class="external-link uri"&gt;https://doi.org/10.1038/ismej.2014.120&lt;/a&gt;&lt;/p&gt;'><sup>1</sup></a>. This example will use these values. Before
-setting up the model configuration take a look at these default
-values.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">default_initial</span><span class="op">)</span></span>
+model. ISME J 9, 226–237 (2015). &lt;a href="https://doi.org/10.1038/ismej.2014.120" class="external-link uri"&gt;https://doi.org/10.1038/ismej.2014.120&lt;/a&gt;&lt;/p&gt;'><sup>1</sup></a>. This example will use these values.</p>
+<p>Before setting up the model configuration, take a look at these
+defaults:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">default_initial</span><span class="op">)</span> <span class="co"># this is MEMC::default_initial</span></span>
 <span><span class="co">#&gt;      POM      MOM      QOM       MB      DOM       EP       EM       IC </span></span>
 <span><span class="co">#&gt; 10.00000  5.00000  0.10000  2.00000  1.00000  0.00001  0.00001  0.00000 </span></span>
 <span><span class="co">#&gt;      Tot </span></span>
-<span><span class="co">#&gt; 18.10002</span></span>
-<span><span class="co"># Alternatively can use the :: to access the MEMC package data. </span></span>
-<span><span class="co"># print(MEMC::default_initial)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">default_params</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 18.10002</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">default_params</span><span class="op">)</span> <span class="co"># MEMC::default_params</span></span>
 <span><span class="co">#&gt;    parameter                                              description</span></span>
 <span><span class="co">#&gt; 1        V_p        maximum specific decomposition rate for POM by EP</span></span>
 <span><span class="co">#&gt; 2        K_p        half-saturation constant for decomposition of POM</span></span>
@@ -254,11 +265,9 @@ values.</p>
 <span><span class="co">#&gt; 16            &lt;NA&gt;   1.000</span></span>
 <span><span class="co">#&gt; 17            mg C   0.000</span></span>
 <span><span class="co">#&gt; 18            mg C   0.000</span></span>
-<span><span class="co">#&gt; 19                   0.400</span></span>
-<span><span class="co"># Alternatively can use the :: to access the MEMC package data. </span></span>
-<span><span class="co"># print(MEMC::default_params)</span></span></code></pre></div>
-<p>Set up the model configuration.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt; 19                   0.400</span></span></code></pre></div>
+<p>Set up the model configuration:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Running configure_model will print a table describing the model configuration. </span></span>
 <span><span class="va">my_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/configure_model.html">configure_model</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">default_params</span>, </span>
 <span>                            state <span class="op">=</span> <span class="va">default_initial</span>, </span>
@@ -269,8 +278,8 @@ values.</p>
 <span><span class="co">#&gt; |model    |DOMuptake |POMdecomp |MBdecay |</span></span>
 <span><span class="co">#&gt; |:--------|:---------|:---------|:-------|</span></span>
 <span><span class="co">#&gt; |my model |MM        |LM        |LM      |</span></span></code></pre></div>
-<p>Use <code>solve_model</code> to run our model.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<p>Use <code>solve_model</code> to run our model…</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve_model.html">solve_model</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">my_model</span>, time <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">500</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">my_out</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     time variable        value       units     name</span></span>
@@ -281,7 +290,7 @@ values.</p>
 <span><span class="co">#&gt; 4:     3      POM  0.025336371 mg C/g soil my model</span></span>
 <span><span class="co">#&gt; 5:     4      POM  0.010945045 mg C/g soil my model</span></span>
 <span><span class="co">#&gt; 6:     5      POM  0.004727821 mg C/g soil my model</span></span></code></pre></div>
-<p>Compare our toy model results with the MEND model results.</p>
+<p>…and compare our toy model results with the MEND results:</p>
 <p><img src="MEMC_files/figure-html/unnamed-chunk-12-1.png" width="768"></p>
 <p>For more examples and tutorials please see our <a href="https://microbial-explicit-model.github.io/MEMC/">online
 documentation</a>.</p>
@@ -298,7 +307,7 @@ documentation</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
