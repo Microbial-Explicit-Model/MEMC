@@ -4,9 +4,9 @@ t <- unique(old$time)
 
 # Helper function that calculates the difference between two data frame
 # Args
-#   old: dataframe of the old comparison data
-#   new: dataframe of the new data
-# Return: dataframe of the new, old, and different data
+#   old: data frame of the old comparison data
+#   new: data frame of the new data
+# Return: data frame of the new, old, and different data
 old_new_diff <- function(old, new) {
   cond <- all(names(old) == c("time", "variable", "old_value", "units", "name"))
   assertthat::assert_that(cond)

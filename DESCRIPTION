@@ -9,8 +9,8 @@ Authors@R: c(
         role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1609-9004"))
     )
 Maintainer: Kalyn Dorheim <kalyn.dorheim@pnnl.gov>
-Description: Represent different microbial explicit carbon models in a flexible
-    framework for model comparison exercises.
+Description: Represent different microbial explicit carbon models in a 
+    flexible framework for model comparison exercises.
 Depends: R (>= 3.6)
 License: MIT + file LICENSE 
 Encoding: UTF-8

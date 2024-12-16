@@ -10,7 +10,7 @@ format_sensout(obj)
 \item{obj}{object returned by memc_sensrange}
 }
 \value{
-the a long dataframe of the summary memc_sensrange
+the a long data frame of the summary memc_sensrange
 }
 \description{
 Format the output returned by memc_sensrange or memc_sensfunc into long data format for easy plotting

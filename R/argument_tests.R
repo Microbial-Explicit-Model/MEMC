@@ -18,7 +18,7 @@ is_memc_config <- function(obj) {
 }
 
 
-#' Checks that a dataframe is a properly formatted MEMC table
+#' Checks that a data frame is a properly formatted MEMC table
 #'
 #' Will return a TRUE value if passes tests or throw an error if
 #' the conditions are not met

@@ -159,7 +159,7 @@ memc_sensfunc <- function(config, t, x, ...){
 #' Format the output returned by memc_sensrange or memc_sensfunc into long data format for easy plotting
 #'
 #' @param obj object returned by memc_sensrange
-#' @return the a long dataframe of the summary memc_sensrange
+#' @return the a long data frame of the summary memc_sensrange
 #' @export
 #' @family sensitivity
 #' @examples
