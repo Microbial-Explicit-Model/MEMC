@@ -25,14 +25,14 @@ is_memc_config <- function(obj) {
 #'
 #' @param table data frame of MEMC model parameter values
 #' @return TRUE or FALSE indicator
-#' @import assertthat
+#' @importFrom assertthat assert_that has_name
 #' @family helper functions
 #' @noRd
 is_param_table <- function(table) {
   # Check the column names of parameter table.
   req_names <- c("parameter", "description", "units", "value")
   assert_that(
-    assertthat::has_name(x = table, which = req_names),
+    has_name(x = table, which = req_names),
     msg = paste0(
       "param_table is missing a required column: ",
       paste0(req_names, collapse = ", ")
@@ -70,7 +70,7 @@ is_param_table <- function(table) {
 #'
 #' @param state named vector of the MEMC states
 #' @return TRUE or FALSE indicator
-#' @import assertthat
+#' @importFrom assertthat assert_that
 #' @family helper functions
 #' @noRd
 is_state_vector <- function(state) {

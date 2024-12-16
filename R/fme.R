@@ -43,10 +43,10 @@ make_memc_objective <- function(comp_data, x, config) {
 
 #' Fit a MEMC model to a comparison data
 #'
-#' @param x memc model parameters or initial conditions that will be fit to the data, users will need to provide an initial guess for these values. 
+#' @param x memc model parameters or initial conditions that will be fit to the data, users will need to provide an initial guess for these values.
 #' @param config memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
 #' @param comp_data data frame containing the comparison data that the model will
-#'  be fit this data frame must contain a column for time, the other columns must be named for the MEMC model variables. 
+#'  be fit this data frame must contain a column for time, the other columns must be named for the MEMC model variables.
 #' @param lower lower bounds on the parameters; if unbounded set equal to -Inf
 #' @param upper bounds on the parameters; if unbounded set equal to Inf
 #' @param ... addition arguments that may be passed to FME::modFit
@@ -89,7 +89,7 @@ memc_modfit <-
 #' @return the results of the FME::sensRange
 #' @export
 #' @family sensitivity
-#'@examples
+#' @examples
 #'\dontrun{
 #' # Test the sensitivity of the MEND output for V.p, K.p, V.m
 #' pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
@@ -130,7 +130,7 @@ memc_sensrange <- function(config, t, x, parRange, dist, ...){
 #' @return the results of the FME::sensFun
 #' @export
 #' @family sensitivity
-#'@examples
+#' @examples
 #'\dontrun{
 #' # Test the sensitivity of the MEND output for V.p, K.p, V.m
 #' pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
@@ -161,7 +161,7 @@ memc_sensfunc <- function(config, t, x, ...){
 #' @return the a long dataframe of the summary memc_sensrange
 #' @export
 #' @family sensitivity
-#'@examples
+#' @examples
 #'\dontrun{
 #' # Test the sensitivity of the MEND output for V.p, K.p, V.m, K.m, V.d, K.d
 #' pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)

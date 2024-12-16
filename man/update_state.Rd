@@ -2,7 +2,7 @@
 % Please edit documentation in R/helper.R
 \name{update_state}
 \alias{update_state}
-\title{Update the state vector values this is for internal function use}
+\title{Update the state vector values; this is for internal function use}
 \usage{
 update_state(new_vals, state)
 }
@@ -12,7 +12,7 @@ update_state(new_vals, state)
 \item{state}{update}
 }
 \description{
-Update the state vector values this is for internal function use
+Update the state vector values; this is for internal function use
 }
 \seealso{
 Other helper functions: 
