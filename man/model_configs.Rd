@@ -23,7 +23,7 @@ Data table of all the pre-defined MEMC model configurations
 print(model_configs)
 }
 \seealso{
-Other {configurations}: 
+Other configurations: 
 \code{\link{BAMS_model}},
 \code{\link{COMISSION_model}},
 \code{\link{CORPSE_model}},
@@ -31,5 +31,5 @@ Other {configurations}:
 \code{\link{MEND_model}},
 \code{\link{MIMCS_model}}
 }
-\concept{{configurations}}
+\concept{configurations}
 \keyword{datasets}

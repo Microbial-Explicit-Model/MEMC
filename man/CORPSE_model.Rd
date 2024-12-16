@@ -5,7 +5,7 @@
 \alias{CORPSE_model}
 \title{The MEMC model configuration for CORPSE}
 \format{
-an object created form \code{configure_model}, containing the following elements.
+An object created from \code{configure_model}, containing the following elements.
 \describe{
 \item{name}{CORPSE}
 \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
@@ -30,7 +30,7 @@ solve_model(mod = CORPSE_model, time = 1:10)
 \href{https://doi.org/10.1007/s10533-018-0509-z}{Sulman et al. 2018}
 }
 \seealso{
-Other {configurations}: 
+Other configurations: 
 \code{\link{BAMS_model}},
 \code{\link{COMISSION_model}},
 \code{\link{MEMS_model}},
@@ -38,5 +38,5 @@ Other {configurations}:
 \code{\link{MIMCS_model}},
 \code{\link{model_configs}}
 }
-\concept{{configurations}}
+\concept{configurations}
 \keyword{datasets}

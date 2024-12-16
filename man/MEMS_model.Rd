@@ -5,7 +5,7 @@
 \alias{MEMS_model}
 \title{The MEMC model configuration for MEMS}
 \format{
-an object created form \code{configure_model}, containing the following elements.
+An object created from \code{configure_model}, containing the following elements.
 \describe{
 \item{name}{MEMS}
 \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
@@ -30,7 +30,7 @@ solve_model(mod = MEMS_model, time = 1:10)
 \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
 }
 \seealso{
-Other {configurations}: 
+Other configurations: 
 \code{\link{BAMS_model}},
 \code{\link{COMISSION_model}},
 \code{\link{CORPSE_model}},
@@ -38,5 +38,5 @@ Other {configurations}:
 \code{\link{MIMCS_model}},
 \code{\link{model_configs}}
 }
-\concept{{configurations}}
+\concept{configurations}
 \keyword{datasets}
