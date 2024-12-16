@@ -22,8 +22,8 @@ Follow the download and installation instructions for
 [R](https://cloud.r-project.org/) and [R
 studio](https://www.rstudio.com/products/rstudio/download/).
 
-Use `remotes` to install MEMC as a built R package directory from
-github.
+Use `remotes` to install `MEMC` as a built R package directory from
+GitHub.
 
     # use install.packages("remotes") to install this package the first time.
     library(remotes)
@@ -31,7 +31,7 @@ github.
     # Now build and install the R package on your local machine.
     install_github('Microbial-Explicit-Model/MEMC') 
 
-Now load the `MEMC` as you would any other package.
+Now load `MEMC` as you would any other package.
 
 ``` r
 # Load the installed MEMC package
@@ -42,13 +42,13 @@ library(MEMC)
 
 The package ships with several already defined model configurations. Use
 `help(configurations)` to see a list of all the available configurations
-that are ready for use. Here we will demonstrate how to complete a
-simulation using the MEND_model configuration. For more examples and
-package details, please checkout our [online
+that are ready for use. Here we demonstrate how to complete a simulation
+using the MEND_model configuration. For more examples and package
+details, please check out our [online
 documentation](https://microbial-explicit-model.github.io/MEMC/).
-Alternatively users can take a look at the `model_configs` table to take
-a look at all model configurations included in the package and the
-various dynamics that are used.
+Alternatively, users can look at the `model_configs` table to see all
+model configurations included in the package and the various dynamics
+that are used.
 
 ``` r
 print(model_configs)
@@ -65,7 +65,9 @@ Take a look at the pre-built MEND_model configuration (see
 `help("MEND_model")` for more details).
 
 ``` r
-# Printing this MEMC model configuration will return a list defining the run name, a table of the flux dynamics, parameter values, and initial SOM pool sizes. 
+# Printing this MEMC model configuration will return a list defining
+# the run name, a table of the flux dynamics, parameter values, and 
+# initial SOM pool sizes. 
 print(MEND_model)
 #> $name
 #> [1] "MEND"
@@ -135,8 +137,7 @@ ggplot(data = mend_out) +
   geom_line(aes(time, value, color = name), linewidth = 0.75) + 
   facet_wrap("variable", scales = "free") + 
   labs(y = "mg C/g soil", 
-         x = "time (hour)"
-
+       x = "time (hour)",
        title = "MEND Run Results")
 ```
 
@@ -151,7 +152,7 @@ values that are included as package data (see `help("default_params)`
 and `help("default_initial)` for more information).
 
 ``` r
-# Running configure_model will print a table describing the model configuration. 
+# Use configure_model to print a table describing the model configuration 
 my_model <- configure_model(params = default_params, 
                             state = default_initial, 
                             name = "my model", 

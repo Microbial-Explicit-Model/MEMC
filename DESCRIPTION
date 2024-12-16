@@ -1,11 +1,16 @@
 Package: MEMC
 Type: Package
-Title: Microbial Explicit Model Comparison: a R package supporting model exploration
+Title: Microbial Explicit Model Comparison
 Version: 0.1.0.999999
-Authors@R: c(person("Kalyn", "Dorheim", ,email = "kalyn.dorheim@pnnl.gov", role = "aut", comment = c(ORCID = "0000-0001-8093-8397")),
-          person("Jianqiu", "Zheng", ,email = "jianqiu.zheng@pnnl.gov", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1609-9004")))
+Authors@R: c(
+    person("Kalyn", "Dorheim", email = "kalyn.dorheim@pnnl.gov", 
+        role = "aut", comment = c(ORCID = "0000-0001-8093-8397")),
+    person("Jianqiu", "Zheng", email = "jianqiu.zheng@pnnl.gov", 
+        role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1609-9004"))
+    )
 Maintainer: Kalyn Dorheim <kalyn.dorheim@pnnl.gov>
-Description: This is an R package representation of different microbial explicit carbon models in a flexible framework for model comparison exercises. 
+Description: Represent different microbial explicit carbon models in a 
+    flexible framework for model comparison exercises.
 Depends: R (>= 3.6)
 License: MIT + file LICENSE 
 Encoding: UTF-8
@@ -16,16 +21,15 @@ Suggests:
     rmarkdown (>= 2.11),
     ggplot2 (>= 3.3.5),
     data.table (>= 1.14.2),
-    dplyr (>= 1.1.0),
     covr,
     learnr
 Imports: 
     assertthat (>= 0.2.1), 
     deSolve (>= 1.30), 
     FME (>= 1.3.6.2)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 VignetteBuilder: knitr
-Config/Needs/website: dplyr, ggplot2, knitr, magrittr, remotes, rsconnect
+Config/Needs/website: ggplot2, knitr, magrittr, remotes, rsconnect
 Language: en-US
 URL: https://microbial-explicit-model.github.io/MEMC,
     https://microbial-explicit-model.github.io/MEMC/

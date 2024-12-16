@@ -11,7 +11,8 @@ make_memc_objective <- function(comp_data, x, config) {
 
   assert_that("time" %in% names(comp_data), msg = "comp_data must contain time column")
   comp_data_vars <- names(comp_data)[names(comp_data) != "time"]
-  assert_that(all(comp_data_vars %in% names(MEMC::default_initial)), msg = "comp_data must contain a MEMC variable")
+  assert_that(all(comp_data_vars %in% names(MEMC::default_initial)),
+              msg = "comp_data must contain a MEMC variable")
 
   fxn <- function(x) {
 
@@ -26,8 +27,8 @@ make_memc_objective <- function(comp_data, x, config) {
     model_time <- unique(out['time'])
     run_complete <- all(t %in% model_time)
     assert_that(!run_complete, msg = "model run terminated early")
-    # to do there should be some better way to handle this... ideally with the
-    # TODO  add something that makes a fake output table? to use int he model cost?
+    # to do there should be some better way to handle this...
+    # TODO  add something that makes a fake output table? to use in the model cost?
     # Limit model output to only the time steps of the comparison data.
     #out <- out[out['time'] %in% comp_data$time, ]
 
@@ -43,10 +44,10 @@ make_memc_objective <- function(comp_data, x, config) {
 
 #' Fit a MEMC model to a comparison data
 #'
-#' @param x memc model parameters or initial conditions that will be fit to the data, users will need to provide an initial guess for these values. 
+#' @param x memc model parameters or initial conditions that will be fit to the data, users will need to provide an initial guess for these values.
 #' @param config memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
 #' @param comp_data data frame containing the comparison data that the model will
-#'  be fit this data frame must contain a column for time, the other columns must be named for the MEMC model variables. 
+#'  be fit this data frame must contain a column for time, the other columns must be named for the MEMC model variables.
 #' @param lower lower bounds on the parameters; if unbounded set equal to -Inf
 #' @param upper bounds on the parameters; if unbounded set equal to Inf
 #' @param ... addition arguments that may be passed to FME::modFit
@@ -89,7 +90,7 @@ memc_modfit <-
 #' @return the results of the FME::sensRange
 #' @export
 #' @family sensitivity
-#'@examples
+#' @examples
 #'\dontrun{
 #' # Test the sensitivity of the MEND output for V.p, K.p, V.m
 #' pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
@@ -130,7 +131,7 @@ memc_sensrange <- function(config, t, x, parRange, dist, ...){
 #' @return the results of the FME::sensFun
 #' @export
 #' @family sensitivity
-#'@examples
+#' @examples
 #'\dontrun{
 #' # Test the sensitivity of the MEND output for V.p, K.p, V.m
 #' pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)
@@ -158,10 +159,10 @@ memc_sensfunc <- function(config, t, x, ...){
 #' Format the output returned by memc_sensrange or memc_sensfunc into long data format for easy plotting
 #'
 #' @param obj object returned by memc_sensrange
-#' @return the a long dataframe of the summary memc_sensrange
+#' @return the a long data frame of the summary memc_sensrange
 #' @export
 #' @family sensitivity
-#'@examples
+#' @examples
 #'\dontrun{
 #' # Test the sensitivity of the MEND output for V.p, K.p, V.m, K.m, V.d, K.d
 #' pars <- c("V.d" = 3.0e+00,"V.p" = 1.4e+01,"V.m" = 2.5e-01)

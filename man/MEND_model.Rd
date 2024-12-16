@@ -5,7 +5,7 @@
 \alias{MEND_model}
 \title{The MEMC model configuration for MEND}
 \format{
-an object created form \code{configure_model}.
+An object created from \code{configure_model}.
 \describe{
 \item{name}{MEND}
 \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
@@ -17,10 +17,9 @@ an object created form \code{configure_model}.
 MEND_model
 }
 \description{
-The MEND configuration is based off of Wang et al. 2013, this
-configuration uses MM for DOM uptake, MM for
-POM decomposition, and a LM for MB decay, see \link{dynamics} for more
-details.
+The MEND configuration is based off of Wang et al. 2013. This
+configuration uses MM for DOM uptake, MM for POM decomposition,
+and LM for MB decay; see \link{dynamics} for more details.
 }
 \examples{
 ## Use solve_model to run the simulation using this configuration.
@@ -31,7 +30,7 @@ solve_model(mod = MEND_model, time = 1:10)
 \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 }
 \seealso{
-Other {configurations}: 
+Other configurations: 
 \code{\link{BAMS_model}},
 \code{\link{COMISSION_model}},
 \code{\link{CORPSE_model}},
@@ -39,5 +38,5 @@ Other {configurations}:
 \code{\link{MIMCS_model}},
 \code{\link{model_configs}}
 }
-\concept{{configurations}}
+\concept{configurations}
 \keyword{datasets}

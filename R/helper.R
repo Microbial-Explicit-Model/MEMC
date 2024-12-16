@@ -3,7 +3,7 @@
 #' @param new_params a named vector of parameter values to update the param table.
 #' @param param_table data.table containing the following columns: parameter, value, and units, this is the basic parameter table that will be updated with the new values.
 #' @return updated data.table containing the new parameter values
-#' @import assertthat
+#' @importFrom assertthat assert_that
 #' @export
 #' @family helper functions
 #' @family parameters
@@ -23,9 +23,9 @@ update_params <- function(new_params, param_table) {
   assert_that(all(pnames %in% param_table$parameter), msg = "new_params must refer to a parameter already existing in param_table")
   assert_that(is.numeric(new_params))
 
-  # Update the param_table with the new values! To avoid there being a dependency on
-  # the order in which the new_params are read into the function use a for loop to iterate
-  # over all the parameters to be updated.
+  # Update the param_table with the new values! To avoid a dependency on
+  # the order in which the new_params are read into the function, use a for
+  # loop to iterate over all the parameters to be updated.
   for (p in pnames) {
     index <- which(param_table$parameter == p)
     param_table$value[index] <- new_params[[p]]
@@ -36,11 +36,11 @@ update_params <- function(new_params, param_table) {
 }
 
 
-#' Update the state vector values this is for internal function use
+#' Update the state vector values; this is for internal function use
 #'
 #' @param new_vals update
 #' @param state update
-#' @import assertthat
+#' @importFrom assertthat assert_that
 #' @family helper functions
 update_state <- function(new_vals, state) {
   assert_that(is_state_vector(state))
@@ -48,7 +48,6 @@ update_state <- function(new_vals, state) {
   req_names <- c("POM", "MOM", "QOM", "MB", "DOM", "EP", "EM", "IC", "Tot")
   assert_that(is.vector(new_vals))
   assert_that(all(names(new_vals) %in% req_names))
-
 
   for (n in names(new_vals)) {
     index <- which(names(state) == n)
@@ -60,23 +59,23 @@ update_state <- function(new_vals, state) {
 }
 
 
-#' Update a model configuration this is for internal function use
+#' Update a model configuration; this is for internal function use
 #'
 #' @param mod a MEMC model configuration object created by \code{configure_model}
 #' @param new vector containing the parameters and or initial pool values
-#' @import assertthat
+#' @importFrom assertthat assert_that
 #' @family helper functions
 #' @noRd
 update_config <- function(mod, new = NULL) {
-  
+
   assert_that(is_memc_config(mod))
-  
+
   if(is.null(new)){
     return(mod)
   }
-  
+
   x <- split_param_state(new)
-  
+
   if (length(x$params) >= 1) {
     mod[["params"]] <-
       update_params(new_params = x$params, param_table = mod[["params"]])
@@ -129,9 +128,12 @@ configure_model <- function(params,
   # Check the arguments
   assert_that(is_param_table(params))
   assert_that(all(sapply(list(POMdecomp, DOMuptake, MBdecay), is.character)))
-  assert_that(sum(DOMuptake %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'DOMuptake must be "MM", "RMM", "ECA"')
-  assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1, msg = 'POMdecomp must be "MM", "RMM", "ECA", "LM"')
-  assert_that(sum(MBdecay %in% c("LM", "DD")) == 1, msg = 'MBdecay must be "LM" or "DD"')
+  assert_that(sum(DOMuptake %in% c("MM", "RMM", "ECA", "LM")) == 1,
+              msg = 'DOMuptake must be "MM", "RMM", "ECA"')
+  assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1,
+              msg = 'POMdecomp must be "MM", "RMM", "ECA", "LM"')
+  assert_that(sum(MBdecay %in% c("LM", "DD")) == 1,
+              msg = 'MBdecay must be "LM" or "DD"')
 
   # Format the table
   table <- data.frame(
@@ -192,7 +194,7 @@ split_param_state <- function(x) {
 
 }
 
-#' Function that returns the MEMC color palette for the the default MEMC model configurations
+#' Return the MEMC color palette for the the default MEMC model configurations
 #'
 #' @param name input vector containing the model names to return the color codes for, default will return colors for all the model configurations,
 #' @return vector containing color hex codes for the different model configurations
@@ -216,20 +218,18 @@ colorMEMCPalette <- function(name = NULL){
                  "COMISSION" = "#D783FD",
                  "MEMS" = "#1494FC")
 
-  assert_that(nrow(MEMC::model_configs) == length(color_vec), msg = "Problem with color palette size")
-
+  assert_that(nrow(MEMC::model_configs) == length(color_vec),
+              msg = "Problem with color palette size")
 
   if(is.null(name)){
     return(color_vec)
   } else {
-    assert_that(all(name %in% names(color_vec)), msg = "MEMC color palette only supports the default model configurations")
+    assert_that(all(name %in% names(color_vec)),
+                msg = "MEMC color palette only supports the default model configurations")
     index <- which(names(color_vec) %in% name)
     subset_color_vec <- color_vec[index]
     return(subset_color_vec)
   }
 
 }
-
-
-
 

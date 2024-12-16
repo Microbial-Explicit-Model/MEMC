@@ -5,7 +5,7 @@
 \alias{MIMCS_model}
 \title{The MEMC model configuration for MIMCS}
 \format{
-an object created form \code{configure_model}, containing the following elements.
+An object created from \code{configure_model}, containing the following elements.
 \describe{
 \item{name}{MIMCS}
 \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
@@ -17,9 +17,9 @@ an object created form \code{configure_model}, containing the following elements
 MIMCS_model
 }
 \description{
-The MIMCS configuration is based off of Wieder et al. 2015, this model uses MM for the DOM
-uptake, MM for POM decomposition, and a DD for MB decay, see \link{dynamics} for more
-details.
+The MIMCS configuration is based off of Wieder et al. 2015. This
+model uses MM for the DOM uptake, MM for POM decomposition, and DD
+for MB decay; see \link{dynamics} for more details.
 }
 \examples{
 ## Use solve_model to run the simulation using this configuration.
@@ -30,7 +30,7 @@ solve_model(mod = MIMCS_model, time = 1:10)
 \href{https://doi.org/10.1002/2015GB005188}{Wieder et al. 2015}
 }
 \seealso{
-Other {configurations}: 
+Other configurations: 
 \code{\link{BAMS_model}},
 \code{\link{COMISSION_model}},
 \code{\link{CORPSE_model}},
@@ -38,5 +38,5 @@ Other {configurations}:
 \code{\link{MEND_model}},
 \code{\link{model_configs}}
 }
-\concept{{configurations}}
+\concept{configurations}
 \keyword{datasets}

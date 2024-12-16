@@ -5,7 +5,7 @@
 \alias{CORPSE_model}
 \title{The MEMC model configuration for CORPSE}
 \format{
-an object created form \code{configure_model}, containing the following elements.
+An object created from \code{configure_model}, containing the following elements.
 \describe{
 \item{name}{CORPSE}
 \item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
@@ -17,9 +17,9 @@ an object created form \code{configure_model}, containing the following elements
 CORPSE_model
 }
 \description{
-The CORPSE configuration is based off of Sulman et al. 2018, this model uses RMM for
-DOM uptake, LM for POM decomposition, and a LM for MB decay, see \link{dynamics} for more
-details.
+The CORPSE configuration is based off of Sulman et al. 2018. This
+model uses RMM for DOM uptake, LM for POM decomposition, and LM for
+MB decay; see \link{dynamics} for more details.
 }
 \examples{
 ## Use solve_model to run the simulation using this configuration.
@@ -30,7 +30,7 @@ solve_model(mod = CORPSE_model, time = 1:10)
 \href{https://doi.org/10.1007/s10533-018-0509-z}{Sulman et al. 2018}
 }
 \seealso{
-Other {configurations}: 
+Other configurations: 
 \code{\link{BAMS_model}},
 \code{\link{COMISSION_model}},
 \code{\link{MEMS_model}},
@@ -38,5 +38,5 @@ Other {configurations}:
 \code{\link{MIMCS_model}},
 \code{\link{model_configs}}
 }
-\concept{{configurations}}
+\concept{configurations}
 \keyword{datasets}

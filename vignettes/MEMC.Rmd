@@ -19,41 +19,54 @@ library(ggplot2)
 theme_set(theme_bw(base_size = 14))
 ```
 
+`MEMC` is a R package that allows users to explore various
+representation of soil organic matter (SOM) flux dynamics within a
+consistent SOM pool model structure.
+
 ## Installation
 
-`MEMC` may be installed using the `install_github` function from the `remotes` package. 
-
-```
-## install the remotes package if needed
-remotes::install_github("Microbial-Explicit-Model/MEMC") 
-````
+`MEMC` may be installed using the `install_github` function from 
+the `remotes` package. 
 
 ```{r}
+# Install the remotes package if needed, and then
+# remotes::install_github("Microbial-Explicit-Model/MEMC") 
+
 # Load the installed MEMC package
 library(MEMC)
 ```
 
 ## Example 1: Run `MEMC` MEND 
 
-The package ships with several already defined model configurations, use `help(configurations)` to see a list of all the available configurations that are ready for use. As of V1 there are six model configurations that are included as internal MEMC package data. These model configurations use different representations for DOM uptake, POM decomposition, and MB decay. Take a look at the MEMC model configurations described in the model_configs table. 
+The package ships with several already defined model configurations; use `help(configurations)` to see a list. Currently there are six configurations 
+included as internal MEMC package data, with each using different 
+representations for DOM uptake, POM decomposition, and MB decay.
+
+The MEMC model configurations are described in the `model_configs` table. 
 
 ```{r}
 print(model_configs)
 ```
 
-Take a look at the pre-built MEND_model configuration (see `help("MEND_model")` for more details).
+Let's try using MEND, the microbial enzyme-mediated decomposition model 
+originally developed by 
+[Wang et al. 2014](https://doi.org/10.1371/journal.pone.0089252).
+
+You can type `help("MEND_model")` for more details about the pre-built configuration.
 
 ```{r}
-# Printing this MEMC model configuration will return a list defining the run name, a table of the flux dynamics, parameter values, and initial SOM pool sizes. 
+# Printing this MEMC model configuration will return a list giving the 
+# run name, a table of the flux dynamics, parameter values, and initial
+# SOM pool sizes. 
 print(MEND_model)
 ```
 
-Complete a model run using the `solve_model` function. Description of inputs `solve_model()` function are as follows: 
+Perform a model run using the `solve_model` function, whose inputs are: 
 
-* mod. A `MEMC` model object, either one of the model configurations included with the package or created using the `configure_model()`. 
-* times. A numeric vector of the time sequence for which the model will be solved for; the first value of times is the initial time. 
-
-
+* `mod`. A `MEMC` model object, either one of the model configurations 
+included with the package or created using the `configure_model()`; and 
+* `times`. A numeric vector of the time sequence for which the model will be
+solved; the first value of times is the initial time. 
 
 ```{r, warning=FALSE}
 mend_out <- solve_model(mod = MEND_model, time = 0:600)
@@ -66,9 +79,10 @@ The model run results are saved in the `mend_out` data frame.
 head(mend_out)
 ```
 
-Visualize the run results.
+Visualize the run results:
 
 ```{r}
+library(ggplot2)
 ggplot(data = mend_out) + 
   geom_line(aes(time, value, color = name), linewidth = 0.75) + 
   facet_wrap("variable", scales = "free") + 
@@ -77,26 +91,33 @@ ggplot(data = mend_out) +
        title = "MEND Run Results")
 ```
 
-
 ## Example 2: Build your own model 
 
-With `MEMC` users are able easily run simulations with the provide model configurations and are able to build toy model of their own design by selecting any combination of the supported flux dynamics. See here for an example for how to use `configure_model` to build your own SOM model. The `MEMC` package includes default parameter and initial pool values that are included as package data that are based on Wang et al. 2015^[Wang, G., Jagadamma, S., Mayes, M. et al. Microbial dormancy improves development and experimental validation of ecosystem model. ISME J 9, 226–237 (2015). https://doi.org/10.1038/ismej.2014.120]. This example will use these values. Before setting up the model configuration take a look at these default values. 
+With `MEMC`, users are able not only to easily run simulations with the
+provided model configurations, but also build toy model of their own
+design by selecting any combination of the supported flux dynamics. See
+here for an example for how to use `configure_model` to build your own
+SOM model.
 
+The `MEMC` package includes default parameter and initial pool values
+that are included as package data that are based on Wang et al.
+2015^[Wang, G., Jagadamma, S., Mayes, M. et al. Microbial dormancy
+improves development and experimental validation of ecosystem model.
+ISME J 9, 226–237 (2015). https://doi.org/10.1038/ismej.2014.120]. This
+example will use these values.
+
+Before setting up the model configuration, take a look at these defaults:
 
 ```{r}
-print(default_initial)
-# Alternatively can use the :: to access the MEMC package data. 
-# print(MEMC::default_initial)
+print(default_initial) # this is MEMC::default_initial
 ```
 
 
 ```{r}
-print(default_params)
-# Alternatively can use the :: to access the MEMC package data. 
-# print(MEMC::default_params)
+print(default_params) # MEMC::default_params
 ```
 
-Set up the model configuration. 
+Set up the model configuration:
 
 ```{r}
 # Running configure_model will print a table describing the model configuration. 
@@ -108,17 +129,14 @@ my_model <- configure_model(params = default_params,
                             MBdecay = "LM")
 ```
 
-
-Use `solve_model` to run our model. 
+Use `solve_model` to run our model...
 
 ```{r, warning=FALSE}
 my_out <- solve_model(mod = my_model, time = 0:500)
 head(my_out)
 ```
 
-
-Compare our toy model results with the MEND model results. 
-
+...and compare our toy model results with the MEND results:
 
 ```{r, echo = FALSE}
 ggplot(data = rbind(mend_out, my_out)) + 
@@ -130,7 +148,4 @@ ggplot(data = rbind(mend_out, my_out)) +
   theme(legend.title = element_blank())
 ```
 
-
 For more examples and tutorials please see our [online documentation](https://microbial-explicit-model.github.io/MEMC/).
-
-
