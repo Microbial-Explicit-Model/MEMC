@@ -21,7 +21,6 @@ Suggests:
     rmarkdown (>= 2.11),
     ggplot2 (>= 3.3.5),
     data.table (>= 1.14.2),
-    dplyr (>= 1.1.0),
     covr,
     learnr
 Imports: 
@@ -30,7 +29,7 @@ Imports:
     FME (>= 1.3.6.2)
 RoxygenNote: 7.3.1
 VignetteBuilder: knitr
-Config/Needs/website: dplyr, ggplot2, knitr, magrittr, remotes, rsconnect
+Config/Needs/website: ggplot2, knitr, magrittr, remotes, rsconnect
 Language: en-US
 URL: https://microbial-explicit-model.github.io/MEMC,
     https://microbial-explicit-model.github.io/MEMC/
