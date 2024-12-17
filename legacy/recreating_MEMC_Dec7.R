@@ -24,7 +24,7 @@ param_dt <- data.table("parameter" = params, "description" = desc, "units" = uni
 
 times <- 0:36500
 
-# JZ_mend <- configure_model(params = param_dt,
+# JZ_mend <- memc_configure(params = param_dt,
 #                            state = jz_initial_conditions,
 #                            name = "MEND",
 #                            DOMdecomp = "MM",
@@ -35,7 +35,7 @@ times <- 0:36500
 
 
 new_params <- update_params(new_params = c("V_d"=1, "V_p"=5, "V_m"=1), param_table = param_dt)
-JZ_com <- configure_model(params = param_dt,
+JZ_com <- memc_configure(params = param_dt,
                            state = c(P=4.71, M=17.67, Q=0, D=0.148, B=0.8200, EP=0.0082, EM=0.0082, IC=0, Tot=23.484),
                            name = "COM",
                            DOMdecomp = "MM",
@@ -58,7 +58,7 @@ out_com <- memc_solve(mod = JZ_com, time = seq(0,36500, by=1))
 
 
 new_params <- update_params(new_params = c("V_d"=0.5, "V_p"=0.001, "V_m"=0.001), param_table = param_dt)
-JZ_toy <- configure_model(params = new_params,
+JZ_toy <- memc_configure(params = new_params,
                           state = c(P=4.71, M=17.67, Q=0, D=0.148, B=0.520, EP=0.052, EM=0.052, IC=0, Tot=23.484),
                           name = "TOY",
                           DOMdecomp = "RMM",

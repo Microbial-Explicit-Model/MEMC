@@ -36,9 +36,9 @@ test_that("update_state", {
 })
 
 test_that("bad model configuration will fail", {
-  out1 <- configure_model(ptable, state)
+  out1 <- memc_configure(ptable, state)
   out2 <-
-    configure_model(
+    memc_configure(
       ptable,
       state,
       DOMuptake = "RMM",
@@ -53,22 +53,22 @@ test_that("bad model configuration will fail", {
 
   # Errors should be thrown
   expect_error(
-    configure_model(ptable[1:9,], state),
+    memc_configure(ptable[1:9,], state),
    "param_table is missing a parameter value(s) for: p_em, r_ep, r_em, Q_max, K_ads, K_des, dd_beta, Input_POM, Input_DOM, CUE",
     fixed = TRUE
   )
   expect_error(
-    configure_model(ptable, state, DOMuptake = "fake"),
+    memc_configure(ptable, state, DOMuptake = "fake"),
     'DOMuptake must be "MM", "RMM", "ECA"',
     fixed = TRUE
   )
   expect_error(
-    configure_model(ptable, state, POMdecomp = "fake"),
+    memc_configure(ptable, state, POMdecomp = "fake"),
     'POMdecomp must be "MM", "RMM", "ECA", "LM"',
     fixed = TRUE
   )
   expect_error(
-    configure_model(ptable, state, MBdecay = "fake"),
+    memc_configure(ptable, state, MBdecay = "fake"),
     'MBdecay must be "LM" or "DD"',
     fixed = TRUE
   )

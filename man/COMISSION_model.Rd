@@ -5,7 +5,7 @@
 \alias{COMISSION_model}
 \title{The MEMC model configuration for COMISSION}
 \format{
-An object created from \code{\link{configure_model}}, containing the following elements.
+An object created from \code{\link{memc_configure}}, containing the following elements.
 \describe{
 \item{name}{COMISSION}
 \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}

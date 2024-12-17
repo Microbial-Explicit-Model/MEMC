@@ -65,7 +65,7 @@
 #   names(jz_results) <- c("time", "variable", "jz_value", "units", "model")
 #
 #   # Set up the mend model and run results
-#   mod <- configure_model(params = param_dt,
+#   mod <- memc_configure(params = param_dt,
 #                          state = jz_initial_conditions,
 #                          name = "JZ mend",
 #                          DOMdecomp = "MM",
@@ -107,7 +107,7 @@
 #   params_to_use <- update_params(new_params = c("V_d" = 1, "V_p" = 5, "V_m" = 1), param_table = param_dt)
 #
 #   # Set up the mend model and run results
-#   mod <- configure_model(params = params_to_use,
+#   mod <- memc_configure(params = params_to_use,
 #                          state = state,
 #                          name = "JZ com",
 #                          DOMdecomp = "MM",
@@ -150,7 +150,7 @@
 #   names(jz_results) <- c("time", "variable", "jz_value", "units", "model")
 #
 #   # Set up the mend model and run results
-#   mod <- configure_model(params = params_to_use,
+#   mod <- memc_configure(params = params_to_use,
 #                          state = state,
 #                          name = "JZ LIN",
 #                          DOMdecomp = "RMM",
@@ -192,7 +192,7 @@
 #   names(jz_results) <- c("time", "variable", "jz_value", "units", "model")
 #
 #   # Set up the mend model and run results
-#   mod <- configure_model(params = params_to_use,
+#   mod <- memc_configure(params = params_to_use,
 #                          state = state,
 #                          name = "JZ TOY",
 #                          DOMdecomp = "RMM",

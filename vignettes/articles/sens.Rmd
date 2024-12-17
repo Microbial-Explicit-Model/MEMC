@@ -53,7 +53,7 @@ The inputs to MEMC's `memc_sensrange` function are:
 
 * `config`: a MEMC model configuration object, either one of the
 pre-built configurations listed in `model_configs` or created using
-`configure_model`
+`memc_configure`
 * `t`: vector of the time steps to run the model at 
 *`pars`: vector of the parameters that will be varied 
 * `parRange`: data frame of the min/max parameter values 
@@ -100,7 +100,7 @@ of so-called sensitivity functions based on `FME::sensFun`.
 The inputs to MEMC's `memc_sensfun` function are: 
 * `config`: a MEMC model configuration object, either one of the
 pre-built configurations listed in `model_configs` or created using
-`configure_model`
+`memc_configure`
 * `t`: numeric vector of the time steps to run the model at
 * `pars`: vector specifying the model parameters to test
 

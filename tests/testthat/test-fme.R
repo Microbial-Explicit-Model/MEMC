@@ -1,6 +1,6 @@
 ptable <- MEMC::default_params
 state  <- MEMC::default_initial
-mod <- configure_model(params = ptable, state = state)
+mod <- memc_configure(params = ptable, state = state)
 zero <- 1e-6
 
 # Set up and run a basic model and use the output as comparison data.

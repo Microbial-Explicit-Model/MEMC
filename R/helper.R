@@ -61,7 +61,7 @@ update_state <- function(new_vals, state) {
 
 #' Update a model configuration; this is for internal function use
 #'
-#' @param mod a MEMC model configuration object created by \code{configure_model}
+#' @param mod a MEMC model configuration object created by \code{memc_configure}
 #' @param new vector containing the parameters and or initial pool values
 #' @importFrom assertthat assert_that
 #' @family helper functions
@@ -119,7 +119,7 @@ custom_config_table_message <- function(x) {
 #' @importFrom assertthat assert_that
 #' @export
 #' @family helper functions
-configure_model <- function(params,
+memc_configure <- function(params,
                             state,
                             name = "unnamed",
                             DOMuptake = "MM",

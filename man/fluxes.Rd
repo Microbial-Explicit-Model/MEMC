@@ -4,7 +4,7 @@
 \alias{fluxes}
 \title{Flexible SOM fluxes}
 \description{
-Description of the flexible SOM fluxes that users may change with \code{\link{configure_model}} function.
+Description of the flexible SOM fluxes that users may change with \code{\link{memc_configure}} function.
 }
 \details{
 \describe{The MEMC package supports flexible definitions for the following SOM fluxes:

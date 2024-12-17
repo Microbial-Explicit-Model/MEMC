@@ -157,7 +157,7 @@ carbon_pool_derivs <-
 
 #' Internal solve model function
 #'
-#' @param mod object created from \code{\link{configure_model}}
+#' @param mod object created from \code{\link{memc_configure}}
 #' @param time numeric vector of the time stamps of when to solve the model
 #' @noRd
 #' @family internal
@@ -189,7 +189,7 @@ sm_internal <- function(mod, time, ...) {
 #' Format the output into something that is nice to return to solve model
 #'
 #' @param rslt object returned from \code{\link{sm_internal}}
-#' @param mod object created from \code{\link{configure_model}}
+#' @param mod object created from \code{\link{memc_configure}}
 #' @noRd
 #' @family internal
 sm_format_out <- function(rslt, mod) {

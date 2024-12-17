@@ -1,6 +1,6 @@
 devtools::load_all()
 
-MEND_model <- configure_model(
+MEND_model <- memc_configure(
   params = MEMC::default_params,
   state = MEMC::default_initial,
   name = "MEND",
@@ -10,7 +10,7 @@ MEND_model <- configure_model(
 )
 usethis::use_data(MEND_model, overwrite = TRUE)
 
-COMISSION_model <- configure_model(
+COMISSION_model <- memc_configure(
   params = MEMC::default_params,
   state = MEMC::default_initial,
   name = "COMISSION",
@@ -20,7 +20,7 @@ COMISSION_model <- configure_model(
 )
 usethis::use_data(COMISSION_model, overwrite = TRUE)
 
-CORPSE_model <- configure_model(
+CORPSE_model <- memc_configure(
   params = MEMC::default_params,
   state = MEMC::default_initial,
   name = "CORPSE",
@@ -31,7 +31,7 @@ CORPSE_model <- configure_model(
 usethis::use_data(CORPSE_model, overwrite = TRUE)
 
 
-MEMS_model <- configure_model(
+MEMS_model <- memc_configure(
   params = MEMC::default_params,
   state = MEMC::default_initial,
   name = "MEMS",
@@ -41,7 +41,7 @@ MEMS_model <- configure_model(
 )
 usethis::use_data(MEMS_model, overwrite = TRUE)
 
-BAMS_model <- configure_model(
+BAMS_model <- memc_configure(
   params = MEMC::default_params,
   state = MEMC::default_initial,
   name = "BAMS",
@@ -56,7 +56,7 @@ usethis::use_data(BAMS_model, overwrite = TRUE)
 param_df <- update_params(new_params = c("dd_beta" = 2),
                           param_table = MEMC::default_params)
 
-MIMCS_model <- configure_model(
+MIMCS_model <- memc_configure(
   params = param_df,
   state = MEMC::default_initial,
   name = "MIMCS",

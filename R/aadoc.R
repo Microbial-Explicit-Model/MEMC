@@ -24,7 +24,7 @@ NULL
 #' MEMC supported SOM flux dynamics
 #'
 #' These identifiers correspond to the various dynamics users can select
-#' from when setting up a model configuration using the \code{\link{configure_model}} function.
+#' from when setting up a model configuration using the \code{\link{memc_configure}} function.
 #'
 #' @section Dynamics:
 #' \describe{The MEMC package allows users to select the dynamics used for DOMuptake, POMdecomp, and
@@ -47,7 +47,7 @@ NULL
 
 #' Flexible SOM fluxes
 #'
-#' Description of the flexible SOM fluxes that users may change with \code{\link{configure_model}} function.
+#' Description of the flexible SOM fluxes that users may change with \code{\link{memc_configure}} function.
 #'
 #' \describe{The MEMC package supports flexible definitions for the following SOM fluxes:
 #' \item{DOMuptake}{dissolved organic uptake by microbial biomass, the flux describing the DOM that is broken down for microbial biomoass uptake.}

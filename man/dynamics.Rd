@@ -5,7 +5,7 @@
 \title{MEMC supported SOM flux dynamics}
 \description{
 These identifiers correspond to the various dynamics users can select
-from when setting up a model configuration using the \code{\link{configure_model}} function.
+from when setting up a model configuration using the \code{\link{memc_configure}} function.
 }
 \section{Dynamics}{
 

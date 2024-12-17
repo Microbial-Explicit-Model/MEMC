@@ -81,7 +81,7 @@ ggplot(data = rbind(out1, out2)) +
 new_km <- update_params(new_params = c("K_m" = 100), param_table = default_params)
 
 # Set up the new model configuration with the 
-mod_km <- configure_model(params = new_km, 
+mod_km <- memc_configure(params = new_km, 
                         state = default_initial,
                         name = "Km = 100", 
                         DOMuptake = "MM",

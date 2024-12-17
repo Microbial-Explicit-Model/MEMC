@@ -7,7 +7,7 @@
 memc_sensfunc(config, t, x, ...)
 }
 \arguments{
-\item{config}{a MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
+\item{config}{a MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{memc_configure}}
 
 \item{t}{vector of the time steps to run the model at}
 

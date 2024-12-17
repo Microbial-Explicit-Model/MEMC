@@ -46,7 +46,7 @@
 #' configuration uses MM for DOM uptake, MM for POM decomposition,
 #' and LM for MB decay; see \link{dynamics} for more details.
 #'
-#' @format An object created from \code{\link{configure_model}}.
+#' @format An object created from \code{\link{memc_configure}}.
 #' \describe{
 #' \item{name}{MEND}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
@@ -68,7 +68,7 @@
 #' model uses MM for the DOM uptake, RMM for POM decomposition, and LM
 #' for MB decay; see \link{dynamics} for more details.
 #'
-#' @format An object created from \code{\link{configure_model}}, containing the following elements.
+#' @format An object created from \code{\link{memc_configure}}, containing the following elements.
 #' \describe{
 #' \item{name}{COMISSION}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
@@ -90,7 +90,7 @@
 #' model uses RMM for DOM uptake, LM for POM decomposition, and LM for
 #' MB decay; see \link{dynamics} for more details.
 #'
-#' @format An object created from \code{\link{configure_model}}, containing the following elements.
+#' @format An object created from \code{\link{memc_configure}}, containing the following elements.
 #' \describe{
 #' \item{name}{CORPSE}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
@@ -112,7 +112,7 @@
 #' model uses MM for the DOM uptake, MM for POM decomposition, and DD
 #' for MB decay; see \link{dynamics} for more details.
 #'
-#' @format An object created from \code{\link{configure_model}}, containing the following elements.
+#' @format An object created from \code{\link{memc_configure}}, containing the following elements.
 #' \describe{
 #' \item{name}{MIMCS}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
@@ -134,7 +134,7 @@
 #' model uses LM for the DOM uptake, LM for POM decomposition, and LM
 #' for MB decay; see \link{dynamics} for more details.
 #'
-#' @format An object created from \code{\link{configure_model}}, containing the following elements.
+#' @format An object created from \code{\link{memc_configure}}, containing the following elements.
 #' \describe{
 #' \item{name}{MEMS}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
@@ -156,7 +156,7 @@
 #' uses MM for the DOM uptake, MM for POM decomposition, and LM for MB
 #' decay; see \link{dynamics} for more details.
 #'
-#' @format An object created from \code{\link{configure_model}}, containing the following elements.
+#' @format An object created from \code{\link{memc_configure}}, containing the following elements.
 #' \describe{
 #' \item{name}{BAMS}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}

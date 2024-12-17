@@ -5,7 +5,7 @@
 \alias{MEND_model}
 \title{The MEMC model configuration for MEND}
 \format{
-An object created from \code{\link{configure_model}}.
+An object created from \code{\link{memc_configure}}.
 \describe{
 \item{name}{MEND}
 \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
