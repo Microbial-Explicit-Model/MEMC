@@ -66,31 +66,32 @@
 
     
     
-<p>The objective of this example is demonstrate how to users can use
-<code>memc_modfit</code> to fit a MEMC model configuration to
-observational data. In this example we will be fitting the MIMCS model
-to the data from CITATION EXPERIMENT.</p>
-<p>Set Up</p>
+<p>This example demonstrates how to use <code>memc_modfit</code> to fit
+a MEMC model configuration to observational data. In this example we
+will be fitting the MIMCS model to the data from CITATION
+EXPERIMENT.</p>
+<div class="section level2">
+<h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># This assumes that the MEMC package has already been installed. </span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://microbial-explicit-model.github.io/MEMC">MEMC</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Used to visualize results</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>  </span>
-<span></span>
-<span><span class="co"># set a theme to use in all the plots</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Start by loading the comparison data, included in the package
 data.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">comp_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example/Ultisol_control.csv"</span>, package <span class="op">=</span> <span class="st">"MEMC"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Set up the the MIMCS model with different initial pool sizes to be
-consistent with the experiment step up.</p>
+consistent with the experiment setup.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Save a copy of the mimics model configuration. </span></span>
 <span><span class="va">my_mod_config</span> <span class="op">&lt;-</span> <span class="fu">MEMC</span><span class="fu">::</span><span class="va"><a href="../reference/MIMCS_model.html">MIMCS_model</a></span></span>
 <span></span>
-<span><span class="co"># Update the MEND model initial state conditions to reflect the experimental set up.</span></span>
+<span><span class="co"># Update the MEND model initial state conditions to reflect </span></span>
+<span><span class="co"># the experimental setup</span></span>
 <span><span class="va">my_mod_config</span><span class="op">$</span><span class="va">state</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>POM <span class="op">=</span> <span class="fl">4.71</span>, MOM <span class="op">=</span> <span class="fl">17.67</span>, QOM <span class="op">=</span> <span class="fl">0</span>, </span>
 <span>                         MB <span class="op">=</span> <span class="fl">0.52</span>, DOM <span class="op">=</span> <span class="fl">0.148</span>, EP <span class="op">=</span> <span class="fl">0.052</span>, </span>
 <span>                         EM <span class="op">=</span> <span class="fl">0.052</span>, IC <span class="op">=</span> <span class="fl">0</span>, Tot <span class="op">=</span> <span class="fl">23.484</span><span class="op">)</span></span></code></pre></div>
@@ -110,8 +111,8 @@ model will be fit to</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_modfit.html">memc_modfit</a></span><span class="op">(</span>config <span class="op">=</span> <span class="va">my_mod_config</span>, </span>
-<span>                        comp_data <span class="op">=</span> <span class="va">comp_data</span>, </span>
-<span>                        x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>V_d<span class="op">=</span><span class="fl">2</span>, V_p<span class="op">=</span><span class="fl">5</span>, V_m<span class="op">=</span><span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span>
+<span>                   comp_data <span class="op">=</span> <span class="va">comp_data</span>, </span>
+<span>                   x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>V_d <span class="op">=</span> <span class="fl">2</span>, V_p <span class="op">=</span> <span class="fl">5</span>, V_m <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fit</span><span class="op">$</span><span class="va">par</span></span>
 <span><span class="co">#&gt;        V_d        V_p        V_m </span></span>
@@ -132,6 +133,7 @@ model will be fit to</li>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="st">"variable"</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Time (hour)"</span>, y <span class="op">=</span> <span class="st">"mg C/g soil"</span>, title <span class="op">=</span> <span class="st">"MIMCS"</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="Fit-to-Data_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+</div>
   </main>
 </div>
 
