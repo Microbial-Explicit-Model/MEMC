@@ -5,7 +5,7 @@
 \alias{BAMS_model}
 \title{The MEMC model configuration for BAMS}
 \format{
-An object created from \code{\link{configure_model}}, containing the following elements.
+An object created from \code{\link{memc_configure}}, containing the following elements.
 \describe{
 \item{name}{BAMS}
 \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
@@ -22,9 +22,9 @@ uses MM for the DOM uptake, MM for POM decomposition, and LM for MB
 decay; see \link{dynamics} for more details.
 }
 \examples{
-## Use solve_model to run the simulation using this configuration.
+## Use memc_solve to run the simulation using this configuration.
 print(BAMS_model)
-solve_model(mod = MEMS_model, time = 1:10)
+memc_solve(mod = MEMS_model, time = 1:10)
 }
 \references{
 \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}

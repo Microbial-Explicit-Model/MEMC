@@ -28,19 +28,20 @@ Take look at the table of package model configurations.
 model_configs
 ```
 
-Run all model configurations using the `solve_model` function:
+Run all 6 model configurations using the `memc_solve` function
+
 
 ```{r}
 # Vector for the time steps
 times <- seq(0, 600, by = 1)
 
 # Solve all the model configurations. 
-out1 <- solve_model(mod = MEND_model, time = times)
-out2 <- solve_model(mod = COMISSION_model, time = times)
-out3 <- solve_model(mod = CORPSE_model, time = times)
-out4 <- solve_model(mod = MEMS_model, time = times)
-out5 <- solve_model(mod = BAMS_model, time = times)
-out6 <- solve_model(mod = MIMCS_model, time = times)
+out1 <- memc_solve(mod = MEND_model, time = times)
+out2 <- memc_solve(mod = COMISSION_model, time = times)
+out3 <- memc_solve(mod = CORPSE_model, time = times)
+out4 <- memc_solve(mod = MEMS_model, time = times)
+out5 <- memc_solve(mod = BAMS_model, time = times)
+out6 <- memc_solve(mod = MIMCS_model, time = times)
 
 # Save all of the output in a single data frame for plotting. 
 out <- rbind(out1, out2, out3, out4, out5, out6)
@@ -53,5 +54,5 @@ ggplot(data = out) +
   geom_line(aes(x = time, y = value, color = name), linewidth = 1, alpha = 0.85) +
   facet_wrap("variable", scales = "free") + 
   labs(x = "Time (hour)", y = "mg C/g", title = "MEMC Model Comparison") + 
-  scale_color_manual(values = MEMC::colorMEMCPalette())
+  scale_color_manual(values = memc_colorPalette())
 ```

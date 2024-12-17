@@ -7,7 +7,7 @@
 memc_sensrange(config, t, x, parRange, dist, ...)
 }
 \arguments{
-\item{config}{a MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
+\item{config}{a MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{memc_configure}}
 
 \item{t}{vector of the time steps to run the model at}
 
@@ -36,7 +36,7 @@ out <- memc_sensrange(config = MEND_model, t = t, x = pars,
 parRange = prange, dist = "latin", num = 10)
 plot(summary(out))
 # Using the helper functions.
-to_plot <- format_sensout(out)
+to_plot <- memc_format_sensout(out)
 ggplot(data = to_plot) +
    geom_line(aes(time, Mean)) +
    geom_ribbon(aes(time, ymin = Min, ymax = Max), alpha = 0.5) +
@@ -45,7 +45,7 @@ ggplot(data = to_plot) +
 }
 \seealso{
 Other sensitivity: 
-\code{\link{format_sensout}()},
+\code{\link{memc_format_sensout}()},
 \code{\link{memc_sensfunc}()}
 }
 \concept{sensitivity}

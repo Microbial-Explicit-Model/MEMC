@@ -7,7 +7,7 @@
 memc_modfit(config, x, comp_data, lower = -Inf, upper = Inf, ...)
 }
 \arguments{
-\item{config}{MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
+\item{config}{MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{memc_configure}}
 
 \item{x}{MEMC model parameters or initial conditions that will be fit to the data, users will need to provide an initial guess for these values.}
 

@@ -129,7 +129,7 @@ Complete a model run using one of the pre-built model configurations.
 
 ``` r
 time <- seq(0, 36500, by=25) 
-mend_out <- solve_model(mod = MEND_model, time = time)
+mend_out <- memc_solve(mod = MEND_model, time = time)
 ```
 
 ``` r
@@ -146,14 +146,14 @@ ggplot(data = mend_out) +
 With `MEMC` users are able easily run simulations with the provide model
 configurations and are able to build toy model of their own design by
 selecting any combination of the supported flux dynamics. See here for
-an example for how to use `configure_model` to build your own SOM model.
+an example for how to use `memc_configure` to build your own SOM model.
 For this example we will use the default parameter and initial pool
 values that are included as package data (see `help("default_params)`
 and `help("default_initial)` for more information).
 
 ``` r
-# Use configure_model to print a table describing the model configuration 
-my_model <- configure_model(params = default_params, 
+# Use memc_configure to print a table describing the model configuration 
+my_model <- memc_configure(params = default_params, 
                             state = default_initial, 
                             name = "my model", 
                             DOMuptake = "MM", 
@@ -168,7 +168,7 @@ Complete the model run.
 
 ``` r
 time <- seq(0, 36500, by=25) 
-my_out <- solve_model(mod = my_model, time = time)
+my_out <- memc_solve(mod = my_model, time = time)
 ```
 
 Compare our toy model results with the MEND model results.

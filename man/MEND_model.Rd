@@ -5,7 +5,7 @@
 \alias{MEND_model}
 \title{The MEMC model configuration for MEND}
 \format{
-An object created from \code{\link{configure_model}}.
+An object created from \code{\link{memc_configure}}.
 \describe{
 \item{name}{MEND}
 \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
@@ -22,9 +22,9 @@ configuration uses MM for DOM uptake, MM for POM decomposition,
 and LM for MB decay; see \link{dynamics} for more details.
 }
 \examples{
-## Use solve_model to run the simulation using this configuration.
+## Use memc_solve to run the simulation using this configuration.
 print(MEND_model)
-solve_model(mod = MEND_model, time = 1:10)
+memc_solve(mod = MEND_model, time = 1:10)
 }
 \references{
 \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}

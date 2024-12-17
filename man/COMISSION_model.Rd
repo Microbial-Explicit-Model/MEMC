@@ -5,7 +5,7 @@
 \alias{COMISSION_model}
 \title{The MEMC model configuration for COMISSION}
 \format{
-An object created from \code{\link{configure_model}}, containing the following elements.
+An object created from \code{\link{memc_configure}}, containing the following elements.
 \describe{
 \item{name}{COMISSION}
 \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
@@ -22,9 +22,9 @@ model uses MM for the DOM uptake, RMM for POM decomposition, and LM
 for MB decay; see \link{dynamics} for more details.
 }
 \examples{
-## Use solve_model to run the simulation using this configuration.
+## Use memc_solve to run the simulation using this configuration.
 print(COMISSION_model)
-solve_model(mod = COMISSION_model, time = 1:10)
+memc_solve(mod = COMISSION_model, time = 1:10)
 }
 \references{
 \href{https://doi.org/10.1016/j.soilbio.2015.06.008}{Ahrens et al. 2015}

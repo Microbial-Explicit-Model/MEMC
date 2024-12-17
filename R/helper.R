@@ -7,7 +7,7 @@
 #' @export
 #' @family helper functions
 #' @family parameters
-update_params <- function(new_params, param_table) {
+memc_update_params <- function(new_params, param_table) {
   assert_that(is_param_table(param_table))
   assert_that(!is.null(names(new_params)), msg = "new params must be named")
   pnames <- names(new_params)
@@ -61,7 +61,7 @@ update_state <- function(new_vals, state) {
 
 #' Update a model configuration; this is for internal function use
 #'
-#' @param mod a MEMC model configuration object created by \code{configure_model}
+#' @param mod a MEMC model configuration object created by \code{memc_configure}
 #' @param new vector containing the parameters and or initial pool values
 #' @importFrom assertthat assert_that
 #' @family helper functions
@@ -78,7 +78,7 @@ update_config <- function(mod, new = NULL) {
 
   if (length(x$params) >= 1) {
     mod[["params"]] <-
-      update_params(new_params = x$params, param_table = mod[["params"]])
+      memc_update_params(new_params = x$params, param_table = mod[["params"]])
   }
 
   if (length(x$state) >= 1) {
@@ -119,7 +119,7 @@ custom_config_table_message <- function(x) {
 #' @importFrom assertthat assert_that
 #' @export
 #' @family helper functions
-configure_model <- function(params,
+memc_configure <- function(params,
                             state,
                             name = "unnamed",
                             DOMuptake = "MM",
@@ -202,13 +202,13 @@ split_param_state <- function(x) {
 #' @export
 #' @examples
 #' \dontrun{
-#' out <- solve_model(model = MEND_model, time = 0:100)
+#' out <- memc_solve(model = MEND_model, time = 0:100)
 #' ggplot(data = out, aes(time, value)) +
 #' geom_line(color = name) +
-#' scale_color_manual(values = colorMEMCPalette("MEND")) +
+#' scale_color_manual(values = memc_colorPalette("MEND")) +
 #' facet_wrap("variable")
 #' }
-colorMEMCPalette <- function(name = NULL){
+memc_colorPalette <- function(name = NULL){
 
   # The color Palette for the different model configurations.
   color_vec <- c("MIMCS"="#FEC22C",

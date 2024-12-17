@@ -45,7 +45,7 @@ make_memc_objective <- function(comp_data, x, config) {
 #' Fit a MEMC model to a comparison data
 #'
 #' @param x MEMC model parameters or initial conditions that will be fit to the data, users will need to provide an initial guess for these values.
-#' @param config MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
+#' @param config MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{memc_configure}
 #' @param comp_data data frame containing the comparison data that the model will
 #'  be fit this data frame must contain a column for time, the other columns must be named for the MEMC model variables.
 #' @param lower lower bounds on the parameters; if unbounded set equal to -Inf
@@ -81,7 +81,7 @@ memc_modfit <-
 #'
 #' Given a MEM model configuration, estimate the global parameter sensitivity.
 #'
-#' @param config a MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
+#' @param config a MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{memc_configure}
 #' @param t vector of the time steps to run the model at
 #' @param x vector of the parameters or initial model pool sizes that will be varied
 #' @param parRange data frame of the min/max parameter values
@@ -101,7 +101,7 @@ memc_modfit <-
 #' parRange = prange, dist = "latin", num = 10)
 #' plot(summary(out))
 #' # Using the helper functions.
-#' to_plot <- format_sensout(out)
+#' to_plot <- memc_format_sensout(out)
 #' ggplot(data = to_plot) +
 #'    geom_line(aes(time, Mean)) +
 #'    geom_ribbon(aes(time, ymin = Min, ymax = Max), alpha = 0.5) +
@@ -124,7 +124,7 @@ memc_sensrange <- function(config, t, x, parRange, dist, ...){
 #'
 #' Estimate the local effect of a parameter on a MEMC model output
 #'
-#' @param config a MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
+#' @param config a MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{memc_configure}
 #' @param t vector of the time steps to run the model at
 #' @param x vector of the parameters or initial state values to test
 #' @param ... additional arguments passed to \code{\link[FME]{sensFun}}
@@ -139,7 +139,7 @@ memc_sensrange <- function(config, t, x, parRange, dist, ...){
 #' pairs(out)
 #' plot(out)
 #' # Using the helper functions to make nice ggplots
-#' to_plot <- format_sensout(out)
+#' to_plot <- memc_format_sensout(out)
 #' ggplot(data = to_plot) +
 #'    geom_line(aes(time, value, color = parameter)) +
 #'    facet_wrap("variable", scales = "free")
@@ -171,15 +171,15 @@ memc_sensfunc <- function(config, t, x, ...){
 #' prange <- data.frame(min = pars - pars * 0.75,
 #' max = pars + pars * 0.75)
 #' t <- floor(seq(0, 365, length.out = 10))
-#' out <- format_sensout(config = MEND_model, t = t, pars = pars,
+#' out <- memc_format_sensout(config = MEND_model, t = t, pars = pars,
 #' parRange = prange, dist = "latin", num = 10)
-#' to_plot <- format_sensout(out)
+#' to_plot <- memc_format_sensout(out)
 #' ggplot(data = to_plot) +
 #'    geom_line(aes(time, Mean)) +
 #'    geom_ribbon(aes(time, ymin = Min, ymax = Max), alpha = 0.5) +
 #'    facet_wrap("variable", scales = "free")
 #'}
-format_sensout <- function(obj){
+ memc_format_sensout <- function(obj){
 
   cond <- any(class(obj)[[1]] %in% c("sensRange", "sensFun"))
   assert_that(cond)

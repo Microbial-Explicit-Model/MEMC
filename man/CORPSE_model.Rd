@@ -5,7 +5,7 @@
 \alias{CORPSE_model}
 \title{The MEMC model configuration for CORPSE}
 \format{
-An object created from \code{\link{configure_model}}, containing the following elements.
+An object created from \code{\link{memc_configure}}, containing the following elements.
 \describe{
 \item{name}{CORPSE}
 \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
@@ -22,9 +22,9 @@ model uses RMM for DOM uptake, LM for POM decomposition, and LM for
 MB decay; see \link{dynamics} for more details.
 }
 \examples{
-## Use solve_model to run the simulation using this configuration.
+## Use memc_solve to run the simulation using this configuration.
 print(CORPSE_model)
-solve_model(mod = CORPSE_model, time = 1:10)
+memc_solve(mod = CORPSE_model, time = 1:10)
 }
 \references{
 \href{https://doi.org/10.1007/s10533-018-0509-z}{Sulman et al. 2018}

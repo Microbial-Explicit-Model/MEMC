@@ -61,15 +61,15 @@ You can type `help("MEND_model")` for more details about the pre-built configura
 print(MEND_model)
 ```
 
-Perform a model run using the `solve_model` function, whose inputs are: 
+Perform a model run using the `memc_solve` function, whose inputs are: 
 
 * `mod`. A `MEMC` model object, either one of the model configurations 
-included with the package or created using the `configure_model()`; and 
+included with the package or created using the `memc_configure()`; and 
 * `times`. A numeric vector of the time sequence for which the model will be
 solved; the first value of times is the initial time. 
 
 ```{r, warning=FALSE}
-mend_out <- solve_model(mod = MEND_model, time = 0:600)
+mend_out <- memc_solve(mod = MEND_model, time = 0:600)
 ```
 
 The model run results are saved in the `mend_out` data frame. 
@@ -96,7 +96,7 @@ ggplot(data = mend_out) +
 With `MEMC`, users are able not only to easily run simulations with the
 provided model configurations, but also build toy model of their own
 design by selecting any combination of the supported flux dynamics. See
-here for an example for how to use `configure_model` to build your own
+here for an example for how to use `memc_configure` to build your own
 SOM model.
 
 The `MEMC` package includes default parameter and initial pool values
@@ -120,8 +120,8 @@ print(default_params) # MEMC::default_params
 Set up the model configuration:
 
 ```{r}
-# Running configure_model will print a table describing the model configuration. 
-my_model <- configure_model(params = default_params, 
+# Running memc_configure will print a table describing the model configuration. 
+my_model <- memc_configure(params = default_params, 
                             state = default_initial, 
                             name = "my model", 
                             DOMuptake = "MM", 
@@ -129,10 +129,10 @@ my_model <- configure_model(params = default_params,
                             MBdecay = "LM")
 ```
 
-Use `solve_model` to run our model...
+Use `memc_solve` to run our model...
 
 ```{r, warning=FALSE}
-my_out <- solve_model(mod = my_model, time = 0:500)
+my_out <- memc_solve(mod = my_model, time = 0:500)
 head(my_out)
 ```
 

@@ -47,7 +47,7 @@ my_mod_config$state <- c(POM = 4.71, MOM = 17.67, QOM = 0,
 Run the model with the original parameter values. 
 
 ```{r}
-original_rslts <- solve_model(my_mod_config, time = 0:max(comp_data$time))
+original_rslts <- memc_solve(my_mod_config, time = 0:max(comp_data$time))
 ```
 
 Use `memc_modfit` to fit the model to the observed data. 
@@ -70,7 +70,7 @@ fit$par
 Re run the model with the parameter values. 
 
 ```{r}
-new_rslts <- solve_model(my_mod_config, params = fit$par, time = 0:max(comp_data$time)) 
+new_rslts <- memc_solve(my_mod_config, params = fit$par, time = 0:max(comp_data$time)) 
 ```
 
 ```{r}

@@ -65,13 +65,13 @@
 #   names(jz_results) <- c("time", "variable", "jz_value", "units", "model")
 #
 #   # Set up the mend model and run results
-#   mod <- configure_model(params = param_dt,
+#   mod <- memc_configure(params = param_dt,
 #                          state = jz_initial_conditions,
 #                          name = "JZ mend",
 #                          DOMdecomp = "MM",
 #                          POMdecomp = "MM",
 #                          MBdecay = "DD")
-#   out_JZ_mend <- solve_model(mod = mod, time = times)
+#   out_JZ_mend <- memc_solve(mod = mod, time = times)
 #
 #   diff_df <- compare_results(jz = jz_results, memc = out_JZ_mend)
 #   expect_true(all(diff_df$diff <= tol))
@@ -104,16 +104,16 @@
 #   state<-c(POM=4.71, MOM=17.67, QOM=0,  MB=0.52, DOM=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484) #Ultisol
 #
 #   # Most of parameters were defined the same way, update the ones that are different.
-#   params_to_use <- update_params(new_params = c("V_d" = 1, "V_p" = 5, "V_m" = 1), param_table = param_dt)
+#   params_to_use <- memc_update_params(new_params = c("V_d" = 1, "V_p" = 5, "V_m" = 1), param_table = param_dt)
 #
 #   # Set up the mend model and run results
-#   mod <- configure_model(params = params_to_use,
+#   mod <- memc_configure(params = params_to_use,
 #                          state = state,
 #                          name = "JZ com",
 #                          DOMdecomp = "MM",
 #                          POMdecomp = "RMM",
 #                          MBdecay = "DD")
-#   out_JZ_com <- solve_model(mod = mod, time = times)
+#   out_JZ_com <- memc_solve(mod = mod, time = times)
 #
 #   diff_df <- compare_results(jz = jz_results, memc = out_JZ_com)
 #   expect_true(all(diff_df$diff <= tol))
@@ -142,7 +142,7 @@
 #
 #   # Most of parameters were defined the same way, update the ones that are different.
 #   state<-c(POM=4.71, MOM=17.67, QOM=0, MB=0.52,  DOM=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484)
-#   params_to_use <- update_params(new_params = c("V_d" = 0.5, "V_p" = 0.001, "V_m" = 0.001),
+#   params_to_use <- memc_update_params(new_params = c("V_d" = 0.5, "V_p" = 0.001, "V_m" = 0.001),
 #                                  param_table = param_dt)
 #
 #   # Read in the comparison data
@@ -150,13 +150,13 @@
 #   names(jz_results) <- c("time", "variable", "jz_value", "units", "model")
 #
 #   # Set up the mend model and run results
-#   mod <- configure_model(params = params_to_use,
+#   mod <- memc_configure(params = params_to_use,
 #                          state = state,
 #                          name = "JZ LIN",
 #                          DOMdecomp = "RMM",
 #                          POMdecomp = "LM",
 #                          MBdecay = "DD")
-#   out_JZ_lin <- solve_model(mod = mod, time = unique(jz_results$time))
+#   out_JZ_lin <- memc_solve(mod = mod, time = unique(jz_results$time))
 #   diff_df <- compare_results(jz = jz_results, memc = out_JZ_lin)
 #   expect_true(all(diff_df$diff <= tol))
 #
@@ -184,7 +184,7 @@
 #
 #   # Most of parameters were defined the same way, update the ones that are different.
 #   state<-c(POM=4.71, MOM=17.67, QOM=0,  MB=0.52, DOM=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484) #Ultisol
-#   params_to_use <- update_params(new_params = c("V_d" = 0.5, "V_p" = 0.001, "V_m" = 0.001),
+#   params_to_use <- memc_update_params(new_params = c("V_d" = 0.5, "V_p" = 0.001, "V_m" = 0.001),
 #                                  param_table = param_dt)
 #
 #   # Read in the comparison data
@@ -192,13 +192,13 @@
 #   names(jz_results) <- c("time", "variable", "jz_value", "units", "model")
 #
 #   # Set up the mend model and run results
-#   mod <- configure_model(params = params_to_use,
+#   mod <- memc_configure(params = params_to_use,
 #                          state = state,
 #                          name = "JZ TOY",
 #                          DOMdecomp = "RMM",
 #                          POMdecomp = "MM",
 #                          MBdecay = "DD")
-#   out_JZ_toy <- solve_model(mod = mod, time = unique(jz_results$time))
+#   out_JZ_toy <- memc_solve(mod = mod, time = unique(jz_results$time))
 #
 #   diff_df <- compare_results(jz = jz_results, memc = out_JZ_toy)
 #   expect_true(all(diff_df$diff <= tol))

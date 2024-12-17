@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
 
 The objective of this example is demonstrate how to easily conduct a
 sensitivity analysis and visualize results using `memc_sensrange`,
-`memc_sensfunc`, and `format_sensout`. This is a demonstration of
+`memc_sensfunc`, and `memc_format_sensout`. This is a demonstration of
 package capabilities more than a rigorous analysis. The first section
 will demonstrate how to use the MEMC functions related to sensitivity
 analyses, and the second will show how alternative model configurations
@@ -53,7 +53,7 @@ The inputs to MEMC's `memc_sensrange` function are:
 
 * `config`: a MEMC model configuration object, either one of the
 pre-built configurations listed in `model_configs` or created using
-`configure_model`
+`memc_configure`
 * `t`: vector of the time steps to run the model at 
 *`pars`: vector of the parameters that will be varied 
 * `parRange`: data frame of the min/max parameter values 
@@ -100,7 +100,7 @@ of so-called sensitivity functions based on `FME::sensFun`.
 The inputs to MEMC's `memc_sensfun` function are: 
 * `config`: a MEMC model configuration object, either one of the
 pre-built configurations listed in `model_configs` or created using
-`configure_model`
+`memc_configure`
 * `t`: numeric vector of the time steps to run the model at
 * `pars`: vector specifying the model parameters to test
 
@@ -116,14 +116,14 @@ Take a look at the results.
 head(sens_out)
 ```
 
-## `format_sensout`
+## `memc_format_sensout`
 
 To visualize the results from `memc_sensfun` we use the helper function
-`format_sensout`, which formats the returned object into a data frame
+`memc_format_sensout`, which formats the returned object into a data frame
 that can be used by `ggplot`. 
 
 ```{r, message=FALSE}
-ggplot(data = format_sensout(sens_out)) +
+ggplot(data = memc_format_sensout(sens_out)) +
   geom_line(aes(time, value, color = parameter)) +
   facet_wrap("variable", scales = "free")
 ```
@@ -182,12 +182,12 @@ MIMCSens_out <- memc_sensrange(config = MIMCS_model,
 Prepare all of the data into a single data frame for plotting. 
 
 ```{r}
-out <- rbind(cbind(format_sensout(MENDsens_out), name = "MEND"),
-             cbind(format_sensout(COMISSIONsens_out), name = "COMISSION"), 
-             cbind(format_sensout(CORPSEsens_out), name = "CORPSE"),
-             cbind(format_sensout(MEMSens_out), name = "MEMS"), 
-             cbind(format_sensout(BAMSens_out), name = "BAMS"), 
-             cbind(format_sensout(MIMCSens_out), name = "MIMCS"))
+out <- rbind(cbind(memc_format_sensout(MENDsens_out), name = "MEND"),
+             cbind(memc_format_sensout(COMISSIONsens_out), name = "COMISSION"), 
+             cbind(memc_format_sensout(CORPSEsens_out), name = "CORPSE"),
+             cbind(memc_format_sensout(MEMSens_out), name = "MEMS"), 
+             cbind(memc_format_sensout(BAMSens_out), name = "BAMS"), 
+             cbind(memc_format_sensout(MIMCSens_out), name = "MIMCS"))
 ```
 
 ```{r}
@@ -200,8 +200,8 @@ ggplot(data = out) +
        title = "Global Sensitivity to Vd, Vp & Vm", 
        subtitle = "q25/q75") + 
   theme(legend.title = element_blank()) + 
-  scale_fill_manual(values = MEMC::colorMEMCPalette()) + 
-  scale_color_manual(values = MEMC::colorMEMCPalette())
+  scale_fill_manual(values = memc_colorPalette()) + 
+  scale_color_manual(values = memc_colorPalette())
 ```
 
 # Comparison of Local Parameter Sensivity 
@@ -226,8 +226,8 @@ CORPSEsens_out <- memc_sensfunc(config = CORPSE_model,
 Format output and visualize the results. 
 
 ```{r}
-out <- rbind(cbind(format_sensout(CORPSEsens_out), name = "CORPSE"), 
-             cbind(format_sensout(MENDsens_out), name = "MEND"))
+out <- rbind(cbind(memc_format_sensout(CORPSEsens_out), name = "CORPSE"), 
+             cbind(memc_format_sensout(MENDsens_out), name = "MEND"))
 ```
 
 ```{r, fig.width=8}
