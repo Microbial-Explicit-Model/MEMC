@@ -104,12 +104,12 @@ test_that("split_param_state", {
 })
 
 
-test_that("colorMEMCPalette ", {
+test_that("memc_colorPalette ", {
 
-  out <- colorMEMCPalette()
+  out <- memc_colorPalette()
   expect_vector(out)
   expect_equal(length(out), nrow(model_configs))
-  expect_equal(length(colorMEMCPalette("MEND")), 1)
-  expect_error(colorMEMCPalette("fake"))
+  expect_equal(length(memc_colorPalette("MEND")), 1)
+  expect_error(memc_colorPalette("fake"))
 
 })

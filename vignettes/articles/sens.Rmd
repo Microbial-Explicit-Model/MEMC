@@ -200,8 +200,8 @@ ggplot(data = out) +
        title = "Global Sensitivity to Vd, Vp & Vm", 
        subtitle = "q25/q75") + 
   theme(legend.title = element_blank()) + 
-  scale_fill_manual(values = MEMC::colorMEMCPalette()) + 
-  scale_color_manual(values = MEMC::colorMEMCPalette())
+  scale_fill_manual(values = memc_colorPalette()) + 
+  scale_color_manual(values = memc_colorPalette())
 ```
 
 # Comparison of Local Parameter Sensivity 

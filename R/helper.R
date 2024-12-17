@@ -205,10 +205,10 @@ split_param_state <- function(x) {
 #' out <- memc_solve(model = MEND_model, time = 0:100)
 #' ggplot(data = out, aes(time, value)) +
 #' geom_line(color = name) +
-#' scale_color_manual(values = colorMEMCPalette("MEND")) +
+#' scale_color_manual(values = memc_colorPalette("MEND")) +
 #' facet_wrap("variable")
 #' }
-colorMEMCPalette <- function(name = NULL){
+memc_colorPalette <- function(name = NULL){
 
   # The color Palette for the different model configurations.
   color_vec <- c("MIMCS"="#FEC22C",
