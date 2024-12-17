@@ -101,7 +101,7 @@ memc_modfit <-
 #' parRange = prange, dist = "latin", num = 10)
 #' plot(summary(out))
 #' # Using the helper functions.
-#' to_plot <- format_sensout(out)
+#' to_plot <- memc_format_sensout(out)
 #' ggplot(data = to_plot) +
 #'    geom_line(aes(time, Mean)) +
 #'    geom_ribbon(aes(time, ymin = Min, ymax = Max), alpha = 0.5) +
@@ -139,7 +139,7 @@ memc_sensrange <- function(config, t, x, parRange, dist, ...){
 #' pairs(out)
 #' plot(out)
 #' # Using the helper functions to make nice ggplots
-#' to_plot <- format_sensout(out)
+#' to_plot <- memc_format_sensout(out)
 #' ggplot(data = to_plot) +
 #'    geom_line(aes(time, value, color = parameter)) +
 #'    facet_wrap("variable", scales = "free")
@@ -171,15 +171,15 @@ memc_sensfunc <- function(config, t, x, ...){
 #' prange <- data.frame(min = pars - pars * 0.75,
 #' max = pars + pars * 0.75)
 #' t <- floor(seq(0, 365, length.out = 10))
-#' out <- format_sensout(config = MEND_model, t = t, pars = pars,
+#' out <- memc_format_sensout(config = MEND_model, t = t, pars = pars,
 #' parRange = prange, dist = "latin", num = 10)
-#' to_plot <- format_sensout(out)
+#' to_plot <- memc_format_sensout(out)
 #' ggplot(data = to_plot) +
 #'    geom_line(aes(time, Mean)) +
 #'    geom_ribbon(aes(time, ymin = Min, ymax = Max), alpha = 0.5) +
 #'    facet_wrap("variable", scales = "free")
 #'}
-format_sensout <- function(obj){
+ memc_format_sensout <- function(obj){
 
   cond <- any(class(obj)[[1]] %in% c("sensRange", "sensFun"))
   assert_that(cond)
