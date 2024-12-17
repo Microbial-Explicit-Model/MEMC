@@ -61,7 +61,7 @@ You can type `help("MEND_model")` for more details about the pre-built configura
 print(MEND_model)
 ```
 
-Perform a model run using the `solve_model` function, whose inputs are: 
+Perform a model run using the `memc_solve` function, whose inputs are: 
 
 * `mod`. A `MEMC` model object, either one of the model configurations 
 included with the package or created using the `configure_model()`; and 
@@ -69,7 +69,7 @@ included with the package or created using the `configure_model()`; and
 solved; the first value of times is the initial time. 
 
 ```{r, warning=FALSE}
-mend_out <- solve_model(mod = MEND_model, time = 0:600)
+mend_out <- memc_solve(mod = MEND_model, time = 0:600)
 ```
 
 The model run results are saved in the `mend_out` data frame. 
@@ -129,10 +129,10 @@ my_model <- configure_model(params = default_params,
                             MBdecay = "LM")
 ```
 
-Use `solve_model` to run our model...
+Use `memc_solve` to run our model...
 
 ```{r, warning=FALSE}
-my_out <- solve_model(mod = my_model, time = 0:500)
+my_out <- memc_solve(mod = my_model, time = 0:500)
 head(my_out)
 ```
 

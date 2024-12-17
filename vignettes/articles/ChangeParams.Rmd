@@ -51,16 +51,16 @@ Run the pre-configured MEMC MEND model with the default parameter values.
 ```{r}
 time <- 0:600 
 mod1 <- MEND_model
-out1 <- solve_model(mod = mod1, time = time)
+out1 <- memc_solve(mod = mod1, time = time)
 out1$name <- "Km = 250 (default)"
 ```
 
 # Update parameter value
 
-Users can update the parameters directly via `solve_model`. Any parameter(s) value(s) fed into the `solve_model` params argument will overwrite the parameter values defined the model configuration.
+Users can update the parameters directly via `memc_solve`. Any parameter(s) value(s) fed into the `memc_solve` params argument will overwrite the parameter values defined the model configuration.
 
 ```{r}
-out2 <- solve_model(mod = MEND_model, time = time, params = c("K_m" = 10))
+out2 <- memc_solve(mod = MEND_model, time = time, params = c("K_m" = 10))
 out2$name <- "Km = 10 (lower)"
 ```
 
@@ -88,7 +88,7 @@ mod_km <- configure_model(params = new_km,
                         POMdecomp = "MM",
                         MBdecay = "LM")
 
-out3 <- solve_model(mod = mod_km, time = time)
+out3 <- memc_solve(mod = mod_km, time = time)
 ```
 
 

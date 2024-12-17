@@ -202,7 +202,7 @@ split_param_state <- function(x) {
 #' @export
 #' @examples
 #' \dontrun{
-#' out <- solve_model(model = MEND_model, time = 0:100)
+#' out <- memc_solve(model = MEND_model, time = 0:100)
 #' ggplot(data = out, aes(time, value)) +
 #' geom_line(color = name) +
 #' scale_color_manual(values = colorMEMCPalette("MEND")) +

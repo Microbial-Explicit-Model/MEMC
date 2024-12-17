@@ -228,7 +228,7 @@ sm_format_out <- function(rslt, mod) {
 #' @importFrom deSolve ode
 #' @export
 #' @family helper
-solve_model <-
+memc_solve <-
     function(mod,
              time,
              params = NULL,

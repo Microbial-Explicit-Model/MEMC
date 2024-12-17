@@ -13,12 +13,12 @@ All supported model configurations are listed
 in \code{model_configs}.
 }
 \details{
-These model configurations can be used with the \code{solve_model} function to
+These model configurations can be used with the \code{memc_solve} function to
 complete the desired model simulations.
 }
 \examples{
-## Using solve_model with the MEND_model configuration.
-out <- solve_model(mod = MEND_model, time = 0:10)
+## Using memc_solve with the MEND_model configuration.
+out <- memc_solve(mod = MEND_model, time = 0:10)
 }
 \seealso{
 dynamics, fluxes

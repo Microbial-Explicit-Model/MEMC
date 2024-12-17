@@ -129,7 +129,7 @@ Complete a model run using one of the pre-built model configurations.
 
 ``` r
 time <- seq(0, 36500, by=25) 
-mend_out <- solve_model(mod = MEND_model, time = time)
+mend_out <- memc_solve(mod = MEND_model, time = time)
 ```
 
 ``` r
@@ -168,7 +168,7 @@ Complete the model run.
 
 ``` r
 time <- seq(0, 36500, by=25) 
-my_out <- solve_model(mod = my_model, time = time)
+my_out <- memc_solve(mod = my_model, time = time)
 ```
 
 Compare our toy model results with the MEND model results.

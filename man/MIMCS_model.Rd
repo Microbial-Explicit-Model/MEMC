@@ -22,9 +22,9 @@ model uses MM for the DOM uptake, MM for POM decomposition, and DD
 for MB decay; see \link{dynamics} for more details.
 }
 \examples{
-## Use solve_model to run the simulation using this configuration.
+## Use memc_solve to run the simulation using this configuration.
 print(MIMCS_model)
-solve_model(mod = MIMCS_model, time = 1:10)
+memc_solve(mod = MIMCS_model, time = 1:10)
 }
 \references{
 \href{https://doi.org/10.1002/2015GB005188}{Wieder et al. 2015}

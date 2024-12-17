@@ -56,9 +56,9 @@
 #' @family configurations
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @examples
-#' ## Use solve_model to run the simulation using this configuration.
+#' ## Use memc_solve to run the simulation using this configuration.
 #' print(MEND_model)
-#' solve_model(mod = MEND_model, time = 1:10)
+#' memc_solve(mod = MEND_model, time = 1:10)
 "MEND_model"
 
 
@@ -78,9 +78,9 @@
 #' @family configurations
 #' @references \href{https://doi.org/10.1016/j.soilbio.2015.06.008}{Ahrens et al. 2015}
 #' @examples
-#' ## Use solve_model to run the simulation using this configuration.
+#' ## Use memc_solve to run the simulation using this configuration.
 #' print(COMISSION_model)
-#' solve_model(mod = COMISSION_model, time = 1:10)
+#' memc_solve(mod = COMISSION_model, time = 1:10)
 "COMISSION_model"
 
 
@@ -100,9 +100,9 @@
 #' @family configurations
 #' @references \href{https://doi.org/10.1007/s10533-018-0509-z}{Sulman et al. 2018}
 #' @examples
-#' ## Use solve_model to run the simulation using this configuration.
+#' ## Use memc_solve to run the simulation using this configuration.
 #' print(CORPSE_model)
-#' solve_model(mod = CORPSE_model, time = 1:10)
+#' memc_solve(mod = CORPSE_model, time = 1:10)
 "CORPSE_model"
 
 
@@ -122,9 +122,9 @@
 #' @family configurations
 #' @references \href{https://doi.org/10.1002/2015GB005188}{Wieder et al. 2015}
 #' @examples
-#' ## Use solve_model to run the simulation using this configuration.
+#' ## Use memc_solve to run the simulation using this configuration.
 #' print(MIMCS_model)
-#' solve_model(mod = MIMCS_model, time = 1:10)
+#' memc_solve(mod = MIMCS_model, time = 1:10)
 "MIMCS_model"
 
 
@@ -144,9 +144,9 @@
 #' @family configurations
 #' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
 #' @examples
-#' ## Use solve_model to run the simulation using this configuration.
+#' ## Use memc_solve to run the simulation using this configuration.
 #' print(MEMS_model)
-#' solve_model(mod = MEMS_model, time = 1:10)
+#' memc_solve(mod = MEMS_model, time = 1:10)
 "MEMS_model"
 
 
@@ -166,9 +166,9 @@
 #' @family configurations
 #' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
 #' @examples
-#' ## Use solve_model to run the simulation using this configuration.
+#' ## Use memc_solve to run the simulation using this configuration.
 #' print(BAMS_model)
-#' solve_model(mod = MEMS_model, time = 1:10)
+#' memc_solve(mod = MEMS_model, time = 1:10)
 "BAMS_model"
 
 

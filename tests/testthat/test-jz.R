@@ -71,7 +71,7 @@
 #                          DOMdecomp = "MM",
 #                          POMdecomp = "MM",
 #                          MBdecay = "DD")
-#   out_JZ_mend <- solve_model(mod = mod, time = times)
+#   out_JZ_mend <- memc_solve(mod = mod, time = times)
 #
 #   diff_df <- compare_results(jz = jz_results, memc = out_JZ_mend)
 #   expect_true(all(diff_df$diff <= tol))
@@ -113,7 +113,7 @@
 #                          DOMdecomp = "MM",
 #                          POMdecomp = "RMM",
 #                          MBdecay = "DD")
-#   out_JZ_com <- solve_model(mod = mod, time = times)
+#   out_JZ_com <- memc_solve(mod = mod, time = times)
 #
 #   diff_df <- compare_results(jz = jz_results, memc = out_JZ_com)
 #   expect_true(all(diff_df$diff <= tol))
@@ -156,7 +156,7 @@
 #                          DOMdecomp = "RMM",
 #                          POMdecomp = "LM",
 #                          MBdecay = "DD")
-#   out_JZ_lin <- solve_model(mod = mod, time = unique(jz_results$time))
+#   out_JZ_lin <- memc_solve(mod = mod, time = unique(jz_results$time))
 #   diff_df <- compare_results(jz = jz_results, memc = out_JZ_lin)
 #   expect_true(all(diff_df$diff <= tol))
 #
@@ -198,7 +198,7 @@
 #                          DOMdecomp = "RMM",
 #                          POMdecomp = "MM",
 #                          MBdecay = "DD")
-#   out_JZ_toy <- solve_model(mod = mod, time = unique(jz_results$time))
+#   out_JZ_toy <- memc_solve(mod = mod, time = unique(jz_results$time))
 #
 #   diff_df <- compare_results(jz = jz_results, memc = out_JZ_toy)
 #   expect_true(all(diff_df$diff <= tol))

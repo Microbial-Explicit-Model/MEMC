@@ -30,7 +30,7 @@ times <- 0:36500
 #                            DOMdecomp = "MM",
 #                            POMdecomp = "MM",
 #                            MBdecay = "DD")
-# out_mend <- solve_model(mod = JZ_mend, time = times)
+# out_mend <- memc_solve(mod = JZ_mend, time = times)
 
 
 
@@ -41,7 +41,7 @@ JZ_com <- configure_model(params = param_dt,
                            DOMdecomp = "MM",
                            POMdecomp = "MM",
                            MBdecay = "DD")
-out_com <- solve_model(mod = JZ_com, time = seq(0,36500, by=1))
+out_com <- memc_solve(mod = JZ_com, time = seq(0,36500, by=1))
 
 
 
@@ -53,7 +53,7 @@ out_com <- solve_model(mod = JZ_com, time = seq(0,36500, by=1))
 # mod$params <- new_params
 # mod$state <- c(4.7100, 17.6700, 0.0000,  0.520,  0.1480,  0.0520,  0.0520,  0.0000, 23.4840)
 # names(mod$state) <- c("P", "M","Q","B","D","EP", "EM","IC","Tot")
-# out_lin <- solve_model(mod = mod, time = seq(0,36500, by=1))
+# out_lin <- memc_solve(mod = mod, time = seq(0,36500, by=1))
 
 
 
@@ -63,7 +63,7 @@ JZ_toy <- configure_model(params = new_params,
                           name = "TOY",
                           DOMdecomp = "RMM",
                           POMdecomp = "MM")
-out_toy <- solve_model(mod = JZ_toy, time = seq(0,36500, by=1))
+out_toy <- memc_solve(mod = JZ_toy, time = seq(0,36500, by=1))
 
 
 

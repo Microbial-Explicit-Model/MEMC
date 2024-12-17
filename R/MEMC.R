@@ -9,9 +9,9 @@
 #'   \code{\link{MEND_model}} and \code{\link{COMISSION_model}}.
 #'
 #' @section Getting started: To run a MEMC model configuration use
-#'   \code{\link{solve_model}} with one of the pre configured MEMC
-#'   models \code{\link{MEND_model}} and \code{\link{COMISSION_model}}.
-#'   Using the \code{\link{solve_model}} function with the pre-configured
+#'   \code{\link{memc_solve}} with one of the pre configured MEMC
+#'   models \code{\link{memc_solve}} and \code{\link{COMISSION_model}}.
+#'   Using the \code{\link{memc_solve}} function with the pre-configured
 #'   package models, you can read in your own model parameter table or
 #'   initial state values.
 #'

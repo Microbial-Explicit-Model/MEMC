@@ -22,9 +22,9 @@ model uses MM for the DOM uptake, RMM for POM decomposition, and LM
 for MB decay; see \link{dynamics} for more details.
 }
 \examples{
-## Use solve_model to run the simulation using this configuration.
+## Use memc_solve to run the simulation using this configuration.
 print(COMISSION_model)
-solve_model(mod = COMISSION_model, time = 1:10)
+memc_solve(mod = COMISSION_model, time = 1:10)
 }
 \references{
 \href{https://doi.org/10.1016/j.soilbio.2015.06.008}{Ahrens et al. 2015}
