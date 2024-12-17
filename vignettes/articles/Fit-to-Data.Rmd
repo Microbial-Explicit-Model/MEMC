@@ -9,10 +9,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-The objective of this example is demonstrate how to users can use `memc_modfit` to fit a MEMC model configuration to observational data. In this example we will be fitting the MIMCS model to the data from 
-CITATION EXPERIMENT. 
+This example demonstrates how to use `memc_modfit` to fit a MEMC model
+configuration to observational data. In this example we will be fitting
+the MIMCS model to the data from CITATION EXPERIMENT. 
 
-Set Up 
+## Setup 
 
 ```{r, warning=FALSE, message=FALSE}
 # This assumes that the MEMC package has already been installed. 
@@ -20,8 +21,6 @@ library(MEMC)
 
 # Used to visualize results
 library(ggplot2)  
-
-# set a theme to use in all the plots
 theme_set(theme_bw() + theme(legend.title = element_blank()))
 ```
 
@@ -31,13 +30,15 @@ Start by loading the comparison data, included in the package data.
 comp_data <- read.csv(system.file("example/Ultisol_control.csv", package = "MEMC"))
 ```
 
-Set up the the MIMCS model with different initial pool sizes to be consistent with the experiment step up. 
+Set up the the MIMCS model with different initial pool sizes to be
+consistent with the experiment setup. 
 
 ```{r, message=FALSE, warning=FALSE}
 # Save a copy of the mimics model configuration. 
 my_mod_config <- MEMC::MIMCS_model
 
-# Update the MEND model initial state conditions to reflect the experimental set up.
+# Update the MEND model initial state conditions to reflect 
+# the experimental setup
 my_mod_config$state <- c(POM = 4.71, MOM = 17.67, QOM = 0, 
                          MB = 0.52, DOM = 0.148, EP = 0.052, 
                          EM = 0.052, IC = 0, Tot = 23.484)
@@ -53,13 +54,15 @@ Use `memc_modfit` to fit the model to the observed data.
 
 Description of inputs to MEMC function `memc_modfit` are as follows: 
 
-* config: a MEMC model configuration object, either one of the pre-built configurations listed in model_configs or created using configure_model
-* comp_data: a data frame containing the comparison data that the model will be fit to 
+* config: a MEMC model configuration object, either one of the pre-built
+configurations listed in model_configs or created using configure_model
+* comp_data: a data frame containing the comparison data that the model
+will be fit to 
 
 ```{r}
 fit <- memc_modfit(config = my_mod_config, 
-                        comp_data = comp_data, 
-                        x = c(V_d=2, V_p=5, V_m=0.01))
+                   comp_data = comp_data, 
+                   x = c(V_d = 2, V_p = 5, V_m = 0.01))
 
 fit$par
 ```
