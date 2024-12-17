@@ -31,7 +31,7 @@ Set up a model configuration
 }
 \seealso{
 Other helper functions: 
-\code{\link{update_params}()},
+\code{\link{memc_update_params}()},
 \code{\link{update_state}()}
 }
 \concept{helper functions}

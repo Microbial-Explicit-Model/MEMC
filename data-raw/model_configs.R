@@ -53,7 +53,7 @@ usethis::use_data(BAMS_model, overwrite = TRUE)
 
 
 # Update the parameter data frame to use the density dependent MB decay.
-param_df <- update_params(new_params = c("dd_beta" = 2),
+param_df <- memc_update_params(new_params = c("dd_beta" = 2),
                           param_table = MEMC::default_params)
 
 MIMCS_model <- memc_configure(

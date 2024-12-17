@@ -7,7 +7,7 @@
 #' @export
 #' @family helper functions
 #' @family parameters
-update_params <- function(new_params, param_table) {
+memc_update_params <- function(new_params, param_table) {
   assert_that(is_param_table(param_table))
   assert_that(!is.null(names(new_params)), msg = "new params must be named")
   pnames <- names(new_params)
@@ -78,7 +78,7 @@ update_config <- function(mod, new = NULL) {
 
   if (length(x$params) >= 1) {
     mod[["params"]] <-
-      update_params(new_params = x$params, param_table = mod[["params"]])
+      memc_update_params(new_params = x$params, param_table = mod[["params"]])
   }
 
   if (length(x$state) >= 1) {

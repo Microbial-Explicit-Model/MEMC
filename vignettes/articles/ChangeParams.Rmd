@@ -73,12 +73,12 @@ ggplot(data = rbind(out1, out2)) +
   theme(legend.title = element_blank())
 ```
 
-# Update parameter table using `update_params`
+# Update parameter table using `memc_update_params`
 
-`update_params` is a helper function that can change the parameter values in the parameter table. You will need to set up a new model configuration with the new parameter table. 
+`memc_update_params` is a helper function that can change the parameter values in the parameter table. You will need to set up a new model configuration with the new parameter table. 
 
 ```{r}
-new_km <- update_params(new_params = c("K_m" = 100), param_table = default_params)
+new_km <- memc_update_params(new_params = c("K_m" = 100), param_table = default_params)
 
 # Set up the new model configuration with the 
 mod_km <- memc_configure(params = new_km, 

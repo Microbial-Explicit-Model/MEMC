@@ -104,7 +104,7 @@
 #   state<-c(POM=4.71, MOM=17.67, QOM=0,  MB=0.52, DOM=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484) #Ultisol
 #
 #   # Most of parameters were defined the same way, update the ones that are different.
-#   params_to_use <- update_params(new_params = c("V_d" = 1, "V_p" = 5, "V_m" = 1), param_table = param_dt)
+#   params_to_use <- memc_update_params(new_params = c("V_d" = 1, "V_p" = 5, "V_m" = 1), param_table = param_dt)
 #
 #   # Set up the mend model and run results
 #   mod <- memc_configure(params = params_to_use,
@@ -142,7 +142,7 @@
 #
 #   # Most of parameters were defined the same way, update the ones that are different.
 #   state<-c(POM=4.71, MOM=17.67, QOM=0, MB=0.52,  DOM=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484)
-#   params_to_use <- update_params(new_params = c("V_d" = 0.5, "V_p" = 0.001, "V_m" = 0.001),
+#   params_to_use <- memc_update_params(new_params = c("V_d" = 0.5, "V_p" = 0.001, "V_m" = 0.001),
 #                                  param_table = param_dt)
 #
 #   # Read in the comparison data
@@ -184,7 +184,7 @@
 #
 #   # Most of parameters were defined the same way, update the ones that are different.
 #   state<-c(POM=4.71, MOM=17.67, QOM=0,  MB=0.52, DOM=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484) #Ultisol
-#   params_to_use <- update_params(new_params = c("V_d" = 0.5, "V_p" = 0.001, "V_m" = 0.001),
+#   params_to_use <- memc_update_params(new_params = c("V_d" = 0.5, "V_p" = 0.001, "V_m" = 0.001),
 #                                  param_table = param_dt)
 #
 #   # Read in the comparison data
