@@ -69,11 +69,11 @@
 <p>The objective of this example is demonstrate how to easily conduct a
 sensitivity analysis and visualize results using
 <code>memc_sensrange</code>, <code>memc_sensfunc</code>, and
-<code>format_sensout</code>. This is merely a demonstration of package
-capabilities more so than a rigorous analysis. The first section will
-demonstrate how to use the memc function related to sensitivity
-analyses. The second section will demonstrate how alternative model
-configurations affect sensitivity results.</p>
+<code>format_sensout</code>. This is a demonstration of package
+capabilities more than a rigorous analysis. The first section will
+demonstrate how to use the MEMC functions related to sensitivity
+analyses, and the second will show how alternative model configurations
+can affect sensitivity results.</p>
 <div class="section level3">
 <h3 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h3>
@@ -86,13 +86,13 @@ configurations affect sensitivity results.</p>
 <h3 id="define-the-paramter-ranges">Define the paramter ranges<a class="anchor" aria-label="anchor" href="#define-the-paramter-ranges"></a>
 </h3>
 <p>Set up a data frame defining the parameter ranges to sample from. Any
-model parameters or initial pool sizes can be used, in this example we
-will explore the effects of maximum specific decomposition constants for
-POM, DOM, and MOM have on the model behavior. Users should use more
-informed parameter ranges from the literature, here we sample a range of
-broad range defined as ± 50% of the parameter value.</p>
+model parameters or initial pool sizes can be used; in this example we
+explore the effects that maximum specific decomposition constants for
+POM, DOM, and MOM have on model behavior. For simplicity, here we sample
+a broad range (50% of the parameter value), but a real analysis would
+use more informed parameter ranges from the literature,</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pars</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"V_d"</span> <span class="op">=</span> <span class="fl">3.0e+00</span>,<span class="st">"V_p"</span> <span class="op">=</span> <span class="fl">1.4e+01</span>,<span class="st">"V_m"</span> <span class="op">=</span> <span class="fl">2.5e-01</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">pars</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"V_d"</span> <span class="op">=</span> <span class="fl">3.0e+00</span>, <span class="st">"V_p"</span> <span class="op">=</span> <span class="fl">1.4e+01</span>, <span class="st">"V_m"</span> <span class="op">=</span> <span class="fl">2.5e-01</span><span class="op">)</span></span>
 <span><span class="va">prange</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">pars</span>, </span>
 <span>                     min <span class="op">=</span> <span class="va">pars</span> <span class="op">*</span> <span class="fl">0.50</span>, </span>
 <span>                     max <span class="op">=</span> <span class="va">pars</span> <span class="op">*</span> <span class="fl">1.50</span><span class="op">)</span></span></code></pre></div>
@@ -107,22 +107,27 @@ specific wrapper of <code><a href="https://rdrr.io/pkg/FME/man/sensRange.html" c
 <code>MEMC</code> model configuration with parameter combinations drawn
 from a predefined distribution, ultimately generating an uncertainty
 envelope around model results.</p>
-<p>Description of inputs to MEMC function <code>memc_sensrange</code>
-are as follows:</p>
+<p>The inputs to MEMC’s <code>memc_sensrange</code> function are:</p>
 <ul>
 <li>
-<code>config</code>: a memc model configuration object, either one
+<code>config</code>: a MEMC model configuration object, either one
 of the pre-built configurations listed in <code>model_configs</code> or
-created using <code>configure_model</code>.</li>
-<li>t: vector of the time steps to run the model at</li>
-<li>pars: vector of the parameters that will be varied</li>
-<li>parRange: data frame of the min/max parameter values</li>
-<li>dist: str for the distribution according to which the parameters
-will be sampled from, options “unif” (uniformly random samples), “norm”,
-(normally distributed random samples), “latin” (latin hypercube
-distribution), and “grid” (parameters arranged on a grid).</li>
-<li>n: integer number of sampled parameter combinations to run the model
-with.</li>
+created using <code>configure_model</code>
+</li>
+<li>
+<code>t</code>: vector of the time steps to run the model at
+*<code>pars</code>: vector of the parameters that will be varied</li>
+<li>
+<code>parRange</code>: data frame of the min/max parameter
+values</li>
+<li>
+<code>dist</code>: str for the distribution according to which the
+parameters will be sampled from, with options “unif” (uniformly random
+samples), “norm”, (normally distributed random samples), “latin” (latin
+hypercube distribution), and “grid” (parameters arranged on a grid)</li>
+<li>
+<code>n</code>: integer number of sampled parameter combinations to
+run the model with</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">MENDsens_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_sensrange.html">memc_sensrange</a></span><span class="op">(</span>config <span class="op">=</span> <span class="va">MEND_model</span>,</span>
@@ -148,9 +153,9 @@ with.</li>
 <span><span class="co">#&gt; POM3 11.23029 11.25679</span></span>
 <span><span class="co">#&gt; POM4 11.22252 11.26839</span></span>
 <span><span class="co">#&gt; POM5 11.21506 11.25610</span></span></code></pre></div>
-<p>Quickly visualize results using R’s base <code>plot</code> function,
-this is a quick way to look at results however for more user control
-over the figures we recommend using ggplot2.</p>
+<p>Visualize results using R’s base <code>plot</code> function. This is
+a quick way to look at results, but for more user control over the
+figures we recommend using <a href="https://ggplot2-book.org" class="external-link">ggplot2</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">MENDsens_out</span><span class="op">)</span></span></code></pre></div>
 <p><img src="sens_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
@@ -162,18 +167,16 @@ over the figures we recommend using ggplot2.</p>
 <h3 id="memc_sensfun">
 <code>memc_sensfun</code><a class="anchor" aria-label="anchor" href="#memc_sensfun"></a>
 </h3>
-<p>Given a memc model configuration, estimate the local effect of
+<p>Given a MEMC model configuration, estimate the local effect of
 certain parameters on selected sensitivity variables by calculating a
-matrix of so-called sensitivity functions based on FME::sensFun.</p>
-<p>Description of inputs to MEMC function <code>memc_sensfun</code> are
-as follows:</p>
-<ul>
-<li>config: a memc model configuration object, either one of the
-pre-built configurations listed in model_configs or created using
-configure_model</li>
-<li>t: numeric vector of the time steps to run the model at</li>
-<li>pars: vector specifying the model parameters to test</li>
-</ul>
+matrix of so-called sensitivity functions based on
+<code><a href="https://rdrr.io/pkg/FME/man/sensFun.html" class="external-link">FME::sensFun</a></code>.</p>
+<p>The inputs to MEMC’s <code>memc_sensfun</code> function are: *
+<code>config</code>: a MEMC model configuration object, either one of
+the pre-built configurations listed in <code>model_configs</code> or
+created using <code>configure_model</code> * <code>t</code>: numeric
+vector of the time steps to run the model at * <code>pars</code>: vector
+specifying the model parameters to test</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sens_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_sensfunc.html">memc_sensfunc</a></span><span class="op">(</span>config <span class="op">=</span> <span class="va">MEND_model</span>,</span>
 <span>                          t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">365</span><span class="op">)</span>,</span>
@@ -193,10 +196,9 @@ configure_model</li>
 <h3 id="format_sensout">
 <code>format_sensout</code><a class="anchor" aria-label="anchor" href="#format_sensout"></a>
 </h3>
-<p>To visualize the results from <code>memc_sensfun</code> use our
-helper function, <code>format_sensout</code>, that formats the object
-returned by into a data frame that can be used by
-<code>ggplot</code>.</p>
+<p>To visualize the results from <code>memc_sensfun</code> we use the
+helper function <code>format_sensout</code>, which formats the returned
+object into a data frame that can be used by <code>ggplot</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="../reference/format_sensout.html">format_sensout</a></span><span class="op">(</span><span class="va">sens_out</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span>, color <span class="op">=</span> <span class="va">parameter</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -207,7 +209,9 @@ returned by into a data frame that can be used by
 <h2 id="global-parameter-sensivity-model-comparison">Global Parameter Sensivity Model Comparison<a class="anchor" aria-label="anchor" href="#global-parameter-sensivity-model-comparison"></a>
 </h2>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">prange</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>pars <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"V_d"</span> <span class="op">=</span> <span class="fl">3.0e+00</span>,<span class="st">"V_p"</span> <span class="op">=</span> <span class="fl">1.4e+01</span>,<span class="st">"V_m"</span> <span class="op">=</span> <span class="fl">2.5e-01</span><span class="op">)</span>, </span>
+<code class="sourceCode R"><span><span class="va">prange</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>pars <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"V_d"</span> <span class="op">=</span> <span class="fl">3.0e+00</span>,</span>
+<span>                               <span class="st">"V_p"</span> <span class="op">=</span> <span class="fl">1.4e+01</span>,</span>
+<span>                               <span class="st">"V_m"</span> <span class="op">=</span> <span class="fl">2.5e-01</span><span class="op">)</span>, </span>
 <span>                     min <span class="op">=</span> <span class="va">pars</span> <span class="op">*</span> <span class="fl">0.50</span>, </span>
 <span>                     max <span class="op">=</span> <span class="va">pars</span> <span class="op">*</span> <span class="fl">1.50</span><span class="op">)</span></span></code></pre></div>
 <p>Use the same parameter ranges with each of the different MEMC model
@@ -276,8 +280,8 @@ configurations.</p>
 <h2 id="comparison-of-local-parameter-sensivity">Comparison of Local Parameter Sensivity<a class="anchor" aria-label="anchor" href="#comparison-of-local-parameter-sensivity"></a>
 </h2>
 <p>Use the <code>memc_sensfun</code> to compare the sensitivity of the
-DOM pool is to V_d and K_d, two parameters that affect the MB uptake of
-DOM for MEND and CORPSE.</p>
+DOM pool to <code>V_d</code> and <code>K_d</code>, two parameters that
+affect the MB uptake of DOM for MEND and CORPSE.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">100</span></span>
 <span><span class="va">MENDsens_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_sensfunc.html">memc_sensfunc</a></span><span class="op">(</span>config <span class="op">=</span> <span class="va">MEND_model</span>,</span>
@@ -316,11 +320,11 @@ for their applications.</p>
 <span>                     max <span class="op">=</span> <span class="va">pools</span> <span class="op">*</span> <span class="fl">1.50</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">inital_pool_uncertainty</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_sensrange.html">memc_sensrange</a></span><span class="op">(</span>config <span class="op">=</span> <span class="va">MEND_model</span>,</span>
-<span>                               t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">365</span><span class="op">)</span>, </span>
-<span>                               x <span class="op">=</span> <span class="va">pools</span>, </span>
-<span>                               parRange <span class="op">=</span> <span class="va">prange</span>, </span>
-<span>                               dist <span class="op">=</span> <span class="st">"latin"</span>,</span>
-<span>                               n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
+<span>                                          t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">365</span><span class="op">)</span>, </span>
+<span>                                          x <span class="op">=</span> <span class="va">pools</span>, </span>
+<span>                                          parRange <span class="op">=</span> <span class="va">prange</span>, </span>
+<span>                                          dist <span class="op">=</span> <span class="st">"latin"</span>,</span>
+<span>                                          n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">inital_pool_uncertainty</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="sens_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
