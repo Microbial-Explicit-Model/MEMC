@@ -124,8 +124,8 @@ carbon_pool_derivs <-
             F8_ep <- fluxes$F8_ep(EP = EP)
             F8_em <- fluxes$F8_em(EM = EM)
 
-            # Define the system of differential equations to describes the
-            # changes in the carbon pool states_
+            # Define the system of differential equations that describe
+            # the changes in the carbon pool states_
             # -----------------------------------------------------------
             # POM = particulate organic carbon
             dPOM <- (1 - p[["g_d"]]) * F6 - F2 + p[["Input_POM"]]

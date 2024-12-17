@@ -9,9 +9,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-
 Compare all of the default results from the MEMC model configurations included within the package. This example will show users how to run MEMC model configurations and how to visualize the results. 
-
 
 Start by loading the package. 
 
@@ -32,6 +30,7 @@ model_configs
 
 Run all 6 model configurations using the `memc_solve` function
 
+
 ```{r}
 # Vector for the time steps
 times <- seq(0, 600, by = 1)
@@ -47,7 +46,6 @@ out6 <- memc_solve(mod = MIMCS_model, time = times)
 # Save all of the output in a single data frame for plotting. 
 out <- rbind(out1, out2, out3, out4, out5, out6)
 ```
-
 
 Visualize results! 
 
