@@ -9,7 +9,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-
 ## Getting Started Using `MEMC`
 
 Follow the download and installation instructions for [R](https://cloud.r-project.org/) and [R studio](https://www.rstudio.com/products/rstudio/download/). 
@@ -33,13 +32,17 @@ install_github("Microbial-Explicit-Model/MEMC@branch_name")
 install_github("Microbial-Explicit-Model/MEMC@commit-hash")
 ```
 
-
 ## For developers
 
-Clone the repository from github to install the package in development mode. Build the package by calling `devtools::load_all()` in R from the root directory. Please see [r-pkgs](https://r-pkgs.org/) for more information on how to build and develop R packages. 
+Clone the repository from github to install the package in development
+mode. Build the package by calling `devtools::load_all()` in R from the
+root directory. Please see [r-pkgs](https://r-pkgs.org/) for more
+information on how to build and develop R packages. 
 
-
-After making changes to the code, checking out a new git branch, or pulling new commits you will need to do a clean rebuild of the MEMC package. From Rstudio click Build > Clean and Rebuild or run the following in the R console. 
+After making changes to the code, checking out a new git branch, or
+pulling new commits you will need to do a clean rebuild of the MEMC
+package. From Rstudio click Build > Clean and Rebuild or run the
+following in the R console. 
 
 ```{r, eval=FALSE}
 devtools::build()
