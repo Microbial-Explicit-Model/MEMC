@@ -2,12 +2,12 @@
 % Please edit documentation in R/fme.R
 \name{memc_sensrange}
 \alias{memc_sensrange}
-\title{Global sensitivity ranges for a memc model}
+\title{Global sensitivity ranges for a MEMC model}
 \usage{
 memc_sensrange(config, t, x, parRange, dist, ...)
 }
 \arguments{
-\item{config}{a memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
+\item{config}{a MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}}
 
 \item{t}{vector of the time steps to run the model at}
 
@@ -17,13 +17,13 @@ memc_sensrange(config, t, x, parRange, dist, ...)
 
 \item{dist}{str for the distribution according to which the parameters will be sampled from, options" "unif" (uniformly random samples), "norm", (normally distributed random samples), "latin" (latin hypercube distribution), and "grid" (parameters arranged on a grid).}
 
-\item{...}{additional arguments passed to FME::sensRange}
+\item{...}{additional arguments passed to \code{\link[FME]{sensRange}}}
 }
 \value{
-the results of the FME::sensRange
+The results of \code{FME}::\code{\link[FME]{sensRange}}.
 }
 \description{
-Given a MEM model configuration estimate the global effect of parameter sensitivity.
+Given a MEM model configuration, estimate the global parameter sensitivity.
 }
 \examples{
 \dontrun{

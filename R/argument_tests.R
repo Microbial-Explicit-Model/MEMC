@@ -1,7 +1,7 @@
 #' Checks that it is a MEMC model configuration
 #'
 #' @param obj list object to check to see if it is a model configuration
-#' @return TRUE or FALSE indicator
+#' @return TRUE or FALSE indicator.
 #' @importFrom assertthat has_name
 #' @family helper functions
 #' @noRd
@@ -24,7 +24,7 @@ is_memc_config <- function(obj) {
 #' the conditions are not met
 #'
 #' @param table data frame of MEMC model parameter values
-#' @return TRUE or FALSE indicator
+#' @return TRUE or FALSE indicator.
 #' @importFrom assertthat assert_that has_name
 #' @family helper functions
 #' @noRd
@@ -69,7 +69,7 @@ is_param_table <- function(table) {
 #' Checks to see if a vector meets the state requirements
 #'
 #' @param state named vector of the MEMC states
-#' @return TRUE or FALSE indicator
+#' @return TRUE or FALSE indicator.
 #' @importFrom assertthat assert_that
 #' @family helper functions
 #' @noRd

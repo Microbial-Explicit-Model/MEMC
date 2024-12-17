@@ -157,7 +157,7 @@ carbon_pool_derivs <-
 
 #' Internal solve model function
 #'
-#' @param mod object created from \code{configure_model}
+#' @param mod object created from \code{\link{configure_model}}
 #' @param time numeric vector of the time stamps of when to solve the model
 #' @noRd
 #' @family internal
@@ -188,8 +188,8 @@ sm_internal <- function(mod, time, ...) {
 
 #' Format the output into something that is nice to return to solve model
 #'
-#' @param rslt object returned from \code{sm_internal}
-#' @param mod object created from \code{configure_model}
+#' @param rslt object returned from \code{\link{sm_internal}}
+#' @param mod object created from \code{\link{configure_model}}
 #' @noRd
 #' @family internal
 sm_format_out <- function(rslt, mod) {
@@ -217,10 +217,13 @@ sm_format_out <- function(rslt, mod) {
 #'
 #' @param mod model object
 #' @param time a vector of the time steps
-#' @param params default set to NULL, will then use the parameter table read in with the "mod" object.
-#' @param state default set to NULL, will then use the state read read in with the "mod" object.
-#' @param ... additional arguments that can be read into \code{deSolve::ode}
-#' @return a long formatted data.table of the simulation results, time = hour
+#' @param params default set to NULL, will then use the parameter table
+#' read in with the \code{mod} object
+#' @param state default set to NULL, will then use the state read read
+#' in with the \code{mod} object
+#' @param ... additional arguments passed to \code{\link[deSolve]{ode}}
+#' @return A long-formatted \code{\link[data.table]{data.table}} of the
+#' simulation results; \code{time} = hour.
 #' @importFrom assertthat assert_that has_args
 #' @importFrom deSolve ode
 #' @export

@@ -2,8 +2,8 @@
 #'
 #' @param comp_data data frame to be used as the comparison data
 #' @param x vector of the parameters or state values to be used
-#' @param config memc model configuration
-#' @return function to  be used in the FME::modFit
+#' @param config MEMC model configuration
+#' @return Function to  be used in the \code{FME}::\code{\link[FME]{modFit}}.
 #' @importFrom assertthat assert_that has_args
 #' @noRd
 #' @family fme
@@ -44,14 +44,14 @@ make_memc_objective <- function(comp_data, x, config) {
 
 #' Fit a MEMC model to a comparison data
 #'
-#' @param x memc model parameters or initial conditions that will be fit to the data, users will need to provide an initial guess for these values.
-#' @param config memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
+#' @param x MEMC model parameters or initial conditions that will be fit to the data, users will need to provide an initial guess for these values.
+#' @param config MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
 #' @param comp_data data frame containing the comparison data that the model will
 #'  be fit this data frame must contain a column for time, the other columns must be named for the MEMC model variables.
 #' @param lower lower bounds on the parameters; if unbounded set equal to -Inf
 #' @param upper bounds on the parameters; if unbounded set equal to Inf
 #' @param ... addition arguments that may be passed to FME::modFit
-#' @return the results of the FME::modFit
+#' @return Results from \code{FME}::\code{\link[FME]{modFit}}.
 #' @export
 #' @family fme
 memc_modfit <-
@@ -77,17 +77,17 @@ memc_modfit <-
   }
 
 
-#' Global sensitivity ranges for a memc model
+#' Global sensitivity ranges for a MEMC model
 #'
-#' Given a MEM model configuration estimate the global effect of parameter sensitivity.
+#' Given a MEM model configuration, estimate the global parameter sensitivity.
 #'
-#' @param config a memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
+#' @param config a MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
 #' @param t vector of the time steps to run the model at
 #' @param x vector of the parameters or initial model pool sizes that will be varied
 #' @param parRange data frame of the min/max parameter values
 #' @param dist str for the distribution according to which the parameters will be sampled from, options" "unif" (uniformly random samples), "norm", (normally distributed random samples), "latin" (latin hypercube distribution), and "grid" (parameters arranged on a grid).
-#' @param ... additional arguments passed to FME::sensRange
-#' @return the results of the FME::sensRange
+#' @param ... additional arguments passed to \code{\link[FME]{sensRange}}
+#' @return The results of \code{FME}::\code{\link[FME]{sensRange}}.
 #' @export
 #' @family sensitivity
 #' @examples
@@ -122,13 +122,13 @@ memc_sensrange <- function(config, t, x, parRange, dist, ...){
 
 #' Local sensitivity for a MEMC model
 #'
-#' Estimate the local effect of a parameter on a memc model output
+#' Estimate the local effect of a parameter on a MEMC model output
 #'
-#' @param config a memc model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
+#' @param config a MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{configure_model}
 #' @param t vector of the time steps to run the model at
 #' @param x vector of the parameters or initial state values to test
-#' @param ... additional arguments passed to FME::sensFun
-#' @return the results of the FME::sensFun
+#' @param ... additional arguments passed to \code{\link[FME]{sensFun}}
+#' @return The results of \code{FME}::\code{\link[FME]{sensFun}}.
 #' @export
 #' @family sensitivity
 #' @examples
@@ -156,10 +156,12 @@ memc_sensfunc <- function(config, t, x, ...){
 }
 
 
-#' Format the output returned by memc_sensrange or memc_sensfunc into long data format for easy plotting
+#' Format the output returned by memc_sensrange or memc_sensfunc
+#' into long data format for easy plotting
 #'
 #' @param obj object returned by memc_sensrange
-#' @return the a long data frame of the summary memc_sensrange
+#' @return A long-format data frame containing the summary
+#' from \code{FME}::\code{\link[FME]{sensRange}}.
 #' @export
 #' @family sensitivity
 #' @examples

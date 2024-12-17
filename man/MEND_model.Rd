@@ -5,12 +5,12 @@
 \alias{MEND_model}
 \title{The MEMC model configuration for MEND}
 \format{
-An object created from \code{configure_model}.
+An object created from \code{\link{configure_model}}.
 \describe{
 \item{name}{MEND}
-\item{table}{table of the dynamics used by this model configuration, see \link{dynamics} for more details.}
-\item{params}{data table of the model parameters, see \link{default_params} for more details.}
-\item{state}{vector of the initial state values, see \link{default_initial} for more details.}
+\item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
+\item{params}{data table of the model parameters; see \link{default_params} for more details.}
+\item{state}{vector of the initial state values; see \link{default_initial} for more details.}
 }
 }
 \usage{
