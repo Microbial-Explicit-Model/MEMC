@@ -55,7 +55,7 @@ for MB decay; see <a href="dynamics.html">dynamics</a> for more details.</p>
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>An object created from <code><a href="configure_model.html">configure_model</a></code>, containing the following elements.</p><dl><dt>name</dt>
+    <p>An object created from <code><a href="memc_configure.html">memc_configure</a></code>, containing the following elements.</p><dl><dt>name</dt>
 <dd><p>COMISSION</p></dd>
 
 <dt>table</dt>
@@ -86,7 +86,7 @@ for MB decay; see <a href="dynamics.html">dynamics</a> for more details.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Use solve_model to run the simulation using this configuration.</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Use memc_solve to run the simulation using this configuration.</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">COMISSION_model</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COMISSION"</span>
@@ -143,7 +143,7 @@ for MB decay; see <a href="dynamics.html">dynamics</a> for more details.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Tot </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18.10002 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu"><a href="solve_model.html">solve_model</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">COMISSION_model</span>, time <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="memc_solve.html">memc_solve</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">COMISSION_model</span>, time <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      time variable        value       units      name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;num&gt;   &lt;fctr&gt;        &lt;num&gt;      &lt;char&gt;    &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1:     1      POM 10.000000000 mg C/g soil COMISSION</span>

@@ -149,7 +149,7 @@
 <p>Complete a model run using one of the pre-built model configurations.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">36500</span>, by<span class="op">=</span><span class="fl">25</span><span class="op">)</span> </span>
-<span><span class="va">mend_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve_model.html">solve_model</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">MEND_model</span>, time <span class="op">=</span> <span class="va">time</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">mend_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/memc_solve.html">memc_solve</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">MEND_model</span>, time <span class="op">=</span> <span class="va">time</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">mend_out</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span>, color <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -158,10 +158,10 @@
 <span>       x <span class="op">=</span> <span class="st">"time (hour)"</span>,</span>
 <span>       title <span class="op">=</span> <span class="st">"MEND Run Results"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%"></p>
-<p>With <code>MEMC</code> users are able easily run simulations with the provide model configurations and are able to build toy model of their own design by selecting any combination of the supported flux dynamics. See here for an example for how to use <code>configure_model</code> to build your own SOM model. For this example we will use the default parameter and initial pool values that are included as package data (see <code>help("default_params)</code> and <code>help("default_initial)</code> for more information).</p>
+<p>With <code>MEMC</code> users are able easily run simulations with the provide model configurations and are able to build toy model of their own design by selecting any combination of the supported flux dynamics. See here for an example for how to use <code>memc_configure</code> to build your own SOM model. For this example we will use the default parameter and initial pool values that are included as package data (see <code>help("default_params)</code> and <code>help("default_initial)</code> for more information).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Use configure_model to print a table describing the model configuration </span></span>
-<span><span class="va">my_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/configure_model.html">configure_model</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">default_params</span>, </span>
+<code class="sourceCode R"><span><span class="co"># Use memc_configure to print a table describing the model configuration </span></span>
+<span><span class="va">my_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/memc_configure.html">memc_configure</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">default_params</span>, </span>
 <span>                            state <span class="op">=</span> <span class="va">default_initial</span>, </span>
 <span>                            name <span class="op">=</span> <span class="st">"my model"</span>, </span>
 <span>                            DOMuptake <span class="op">=</span> <span class="st">"MM"</span>, </span>
@@ -173,7 +173,7 @@
 <p>Complete the model run.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">36500</span>, by<span class="op">=</span><span class="fl">25</span><span class="op">)</span> </span>
-<span><span class="va">my_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve_model.html">solve_model</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">my_model</span>, time <span class="op">=</span> <span class="va">time</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">my_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/memc_solve.html">memc_solve</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">my_model</span>, time <span class="op">=</span> <span class="va">time</span><span class="op">)</span></span></code></pre></div>
 <p>Compare our toy model results with the MEND model results.</p>
 <p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%"></p>
 <p>By changing the POM and DOM decomposition flux dynamics affects model behavior! The flexibility of the flux dynamics makes <code>MEMC</code> a powerful tool for SOM model exploration. Additional features supported by <code>MEMC</code> include the ability to change model parameters, perform sensitivity analyses, and fit models with experimental/observational data (see <a href="https://microbial-explicit-model.github.io/MEMC/">online documentation</a> for examples featuring capabilities).</p>

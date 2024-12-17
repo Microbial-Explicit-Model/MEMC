@@ -66,11 +66,11 @@
 
     
     
-<p>The <code>configure_model</code> function allows users to build their
+<p>The <code>memc_configure</code> function allows users to build their
 own SOM model. All of the MEMC models use the same SOM pool structure
 but users will be able to decide which of the following dynamics.</p>
 <p><img src="pool_structure.png"></p>
-<p>The <code>configure_model</code> function allows users to build their
+<p>The <code>memc_configure</code> function allows users to build their
 own SOM model. All of the MEMC models use the same SOM pool structure
 but users will be able to decide which of the formulations (LM, MM, RMM,
 ECA, or DD) are used for POM decomposition (1), DOM uptake (2), and
@@ -79,8 +79,8 @@ changing the DOM uptake flux impacts the model projections.</p>
 <p>Set up the model configuration using the default paramaters and
 inital carbon pool values.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Running configure_model will print a table describing the model configuration. </span></span>
-<span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/configure_model.html">configure_model</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">default_params</span>, </span>
+<code class="sourceCode R"><span><span class="co"># Running memc_configure will print a table describing the model configuration. </span></span>
+<span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_configure.html">memc_configure</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">default_params</span>, </span>
 <span>                            state <span class="op">=</span> <span class="va">default_initial</span>, </span>
 <span>                            name <span class="op">=</span> <span class="st">"Model 1"</span>, </span>
 <span>                            DOMuptake <span class="op">=</span> <span class="st">"MM"</span>, </span>
@@ -89,9 +89,9 @@ inital carbon pool values.</p>
 <span><span class="co">#&gt; |model   |DOMuptake |POMdecomp |MBdecay |</span></span>
 <span><span class="co">#&gt; |:-------|:---------|:---------|:-------|</span></span>
 <span><span class="co">#&gt; |Model 1 |MM        |LM        |LM      |</span></span></code></pre></div>
-<p>Use <code>solve_model</code> to run our model.</p>
+<p>Use <code>memc_solve</code> to run our model.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mod1_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve_model.html">solve_model</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">mod1</span>, time <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">mod1_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_solve.html">memc_solve</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">mod1</span>, time <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mod1_out</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     time variable        value       units    name</span></span>
 <span><span class="co">#&gt;    &lt;num&gt;   &lt;fctr&gt;        &lt;num&gt;      &lt;char&gt;  &lt;char&gt;</span></span>
@@ -103,8 +103,8 @@ inital carbon pool values.</p>
 <span><span class="co">#&gt; 6:     5      POM  0.004727821 mg C/g soil Model 1</span></span></code></pre></div>
 <p>Now switch the DOM uptake to use the RMM dynamics.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Running configure_model will print a table describing the model configuration. </span></span>
-<span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/configure_model.html">configure_model</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">default_params</span>, </span>
+<code class="sourceCode R"><span><span class="co"># Running memc_configure will print a table describing the model configuration. </span></span>
+<span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_configure.html">memc_configure</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">default_params</span>, </span>
 <span>                            state <span class="op">=</span> <span class="va">default_initial</span>, </span>
 <span>                            name <span class="op">=</span> <span class="st">"Model 2"</span>, </span>
 <span>                            DOMuptake <span class="op">=</span> <span class="st">"RMM"</span>, </span>
@@ -113,11 +113,11 @@ inital carbon pool values.</p>
 <span><span class="co">#&gt; |model   |DOMuptake |POMdecomp |MBdecay |</span></span>
 <span><span class="co">#&gt; |:-------|:---------|:---------|:-------|</span></span>
 <span><span class="co">#&gt; |Model 2 |RMM       |LM        |LM      |</span></span>
-<span><span class="va">mod2_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve_model.html">solve_model</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">mod2</span>, time <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">mod2_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_solve.html">memc_solve</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">mod2</span>, time <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span><span class="op">)</span></span></code></pre></div>
 <p>Now try setting the DOM uptake to ECA dynamics.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Running configure_model will print a table describing the model configuration. </span></span>
-<span><span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/configure_model.html">configure_model</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">default_params</span>, </span>
+<code class="sourceCode R"><span><span class="co"># Running memc_configure will print a table describing the model configuration. </span></span>
+<span><span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_configure.html">memc_configure</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">default_params</span>, </span>
 <span>                            state <span class="op">=</span> <span class="va">default_initial</span>, </span>
 <span>                            name <span class="op">=</span> <span class="st">"Model 3"</span>, </span>
 <span>                            DOMuptake <span class="op">=</span> <span class="st">"ECA"</span>, </span>
@@ -126,7 +126,7 @@ inital carbon pool values.</p>
 <span><span class="co">#&gt; |model   |DOMuptake |POMdecomp |MBdecay |</span></span>
 <span><span class="co">#&gt; |:-------|:---------|:---------|:-------|</span></span>
 <span><span class="co">#&gt; |Model 3 |ECA       |LM        |LM      |</span></span>
-<span><span class="va">mod3_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve_model.html">solve_model</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">mod3</span>, time <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">mod3_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_solve.html">memc_solve</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">mod3</span>, time <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span><span class="op">)</span></span></code></pre></div>
 <p>Compare the model results with one another.</p>
 <p><img src="ToyModel_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
 <p>For more examples and tutorials please see our <a href="https://microbial-explicit-model.github.io/MEMC/">online
