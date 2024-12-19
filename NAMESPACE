@@ -3,6 +3,7 @@
 export(memc_colorPalette)
 export(memc_configure)
 export(memc_format_sensout)
+export(memc_models)
 export(memc_modfit)
 export(memc_sensfunc)
 export(memc_sensrange)

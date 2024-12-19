@@ -233,3 +233,22 @@ memc_colorPalette <- function(name = NULL){
 
 }
 
+#' Get a list of all available models in MEMC
+#'
+#' @returns A list of models that is easy to iterate over.
+#' @seealso \code{\link{MEND_model}}, \code{\link{COMISSION_model}},
+#' \code{\link{CORPSE_model}}, \code{\link{MEMS_model}},
+#' \code{\link{BAMS_model}}, \code{\link{MIMCS_model}}
+#' @export
+#' @examples
+#' memc_models()
+memc_models <- function(){
+    return(
+        list(MEND = MEND_model,
+             COMISSION = COMISSION_model,
+             CORPSE = CORPSE_model,
+             MEMS = MEMS_model,
+             BAMS = BAMS_model,
+             MIMICS = MIMCS_model)
+    )
+}
