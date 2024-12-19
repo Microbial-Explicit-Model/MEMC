@@ -112,7 +112,7 @@ test_that("memc_colorPalette ", {
 
 })
 
-test_that("memc_models ", {
+test_that("memc_models", {
     mods <- memc_models()
     expect_is(mods, "list")
 
