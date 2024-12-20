@@ -3,6 +3,7 @@
 #' @param obj object to plot, data frame returned by memc_solve or the object created by memc_sensfunc, or memc_sensrange
 #' @return a ggplot2 plot
 #' @importFrom assertthat assert_that has_args
+#' @export
 #' @import ggplot2
 memc_plot <- function(obj) {
   # Silence package checks
