@@ -172,9 +172,19 @@
 "BAMS_model"
 
 
-#' Data table of all the pre-defined MEMC model configurations
+#' List of all the pre-defined MEMC models
 #'
-#' @format data table containing 4 columns
+#' @format A easy-to-iterate-over list, each element of which is one of the MEMC models.
+#' @seealso \code{\link{MEND_model}}, \code{\link{COMISSION_model}},
+#' \code{\link{CORPSE_model}}, \code{\link{MEMS_model}},
+#' \code{\link{BAMS_model}}, \code{\link{MIMCS_model}}
+#' @examples
+#' print(memc_all_models)
+"memc_all_models"
+
+#' Summary data frame of all the pre-defined MEMC model configurations
+#'
+#' @format data frame containing 4 columns
 #' \describe{
 #' \item{model}{model configuration name}
 #' \item{DOMuptake}{DOM uptake by microbial biomass; see \link{dynamics} for more details.}

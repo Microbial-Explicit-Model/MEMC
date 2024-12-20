@@ -112,15 +112,3 @@ test_that("memc_colorPalette ", {
 
 })
 
-test_that("memc_models", {
-    mods <- memc_models()
-    expect_is(mods, "list")
-
-    # Check that all elements have the expected structure
-    for(m_name in names(mods)) {
-        m <- mods[[m_name]]
-        expect_identical(sort(names(m)),
-                         sort(c("name", "table", "params", "state")),
-                         info = m_name)
-    }
-})
