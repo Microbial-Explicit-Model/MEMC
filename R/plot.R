@@ -15,10 +15,6 @@ memc_plot <- function(obj) {
   # If the object was generated from memc_solve then make
   # a traditional line plot
   if (all(class(obj) == list("data.table", "data.frame"))) {
-    # Make sure that the required columns are expected
-    req_names <- c("time", "variable", "value", "units", "name")
-    assert_that(is.vector(obj))
-    assert_that(all(names(obj) %in% req_names))
     
     # Save a copy of the units
     units <- unique(obj$units)
