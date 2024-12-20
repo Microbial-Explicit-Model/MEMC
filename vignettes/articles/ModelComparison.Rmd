@@ -30,21 +30,15 @@ model_configs
 
 Run all 6 model configurations using the `memc_solve` function
 
-
 ```{r}
 # Vector for the time steps
 times <- seq(0, 600, by = 1)
 
-# Solve all the model configurations. 
-out1 <- memc_solve(mod = MEND_model, time = times)
-out2 <- memc_solve(mod = COMISSION_model, time = times)
-out3 <- memc_solve(mod = CORPSE_model, time = times)
-out4 <- memc_solve(mod = MEMS_model, time = times)
-out5 <- memc_solve(mod = BAMS_model, time = times)
-out6 <- memc_solve(mod = MIMCS_model, time = times)
+# Solve all the model configurations
+out_list <- lapply(memc_all_models, memc_solve, time = times)
 
 # Save all of the output in a single data frame for plotting. 
-out <- rbind(out1, out2, out3, out4, out5, out6)
+out <- do.call(rbind, out_list)
 ```
 
 Visualize results! 

@@ -3,9 +3,9 @@
 \docType{data}
 \name{model_configs}
 \alias{model_configs}
-\title{Data table of all the pre-defined MEMC model configurations}
+\title{Summary data frame of all the pre-defined MEMC model configurations}
 \format{
-data table containing 4 columns
+data frame containing 4 columns
 \describe{
 \item{model}{model configuration name}
 \item{DOMuptake}{DOM uptake by microbial biomass; see \link{dynamics} for more details.}
@@ -17,7 +17,7 @@ data table containing 4 columns
 model_configs
 }
 \description{
-Data table of all the pre-defined MEMC model configurations
+Summary data frame of all the pre-defined MEMC model configurations
 }
 \examples{
 print(model_configs)

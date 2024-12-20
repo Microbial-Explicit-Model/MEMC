@@ -66,12 +66,18 @@ MIMCS_model <- memc_configure(
 )
 usethis::use_data(MIMCS_model, overwrite = TRUE)
 
+# A list of all available models in MEMC
+memc_all_models <- list(MEND = MEND_model,
+                        COMISSION = COMISSION_model,
+                        CORPSE = CORPSE_model,
+                        MEMS = MEMS_model,
+                        BAMS = BAMS_model,
+                        MIMICS = MIMCS_model)
+usethis::use_data(memc_all_models, overwrite = TRUE)
 
-model_configs <- rbind(MEND_model$table,
-                       COMISSION_model$table,
-                       CORPSE_model$table,
-                       MEMS_model$table,
-                       BAMS_model$table,
-                       MIMCS_model$table)
+# A data table, built from memc_all_models, summarizing model configurations
+model_configs <- lapply(memc_all_models,
+                        function(x) x$table)
+model_configs <- do.call(rbind, model_configs)
+rownames(model_configs) <- NULL
 usethis::use_data(model_configs, overwrite = TRUE)
-

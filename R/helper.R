@@ -232,4 +232,3 @@ memc_colorPalette <- function(name = NULL){
   }
 
 }
-
