@@ -7,19 +7,15 @@
 #' @noRd
 is_memc_config <- function(obj) {
   cond <- is.list(obj)
-  cond <-
-    c(cond, has_name(
-      x = obj,
-      which = c("name", "table", "params", "state")
-    ))
 
-  # Check that the names and types of the list objects are correct
+  # Expected format of a MEMC model object
   types <- c("name" = "character", "table" = "data.frame",
              "params" = "data.frame", "state" = "numeric")
-  nms <- names(obj)
-  cond <- c(cond, length(types) == length(nms))
-  for(i in seq_along(types)) {
-      cond <- c(cond, class(obj[[nms[i]]]) == types[i])
+  # Check identical lengths
+  cond <- c(cond, length(types) == length(obj))
+  # Check individual entries of the `obj` list
+  for(i in names(types)) {
+      cond <- c(cond, class(obj[[i]]) == types[i])
   }
 
   return(all(cond))
