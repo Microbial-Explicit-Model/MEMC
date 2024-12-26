@@ -241,7 +241,7 @@ memc_solve <-
                              new = c(params, state))
 
         # Check the arguments
-#       assert_that(all(time >= 0))
+        assert_that(all(time >= 0))
         assert_that(is_memc_config(obj = mod))
         assert_that(is_param_table(table = mod$params))
         assert_that(is_state_vector(state = mod$state))
