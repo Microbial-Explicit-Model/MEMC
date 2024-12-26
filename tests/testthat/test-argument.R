@@ -81,3 +81,29 @@ test_that("is_state_vector", {
   expect_error(is_state_vector(state), "entires must be in the correct order: POM, MOM, QOM, MB, DOM, EP, EM, IC, Tot")
 
 })
+
+
+test_that("is_memc_config", {
+
+    # All the models should pass
+    mods <- memc_all_models
+    for(m in mods) {
+        expect_true(is_memc_config(m))
+    }
+
+    # Something completely different should fail
+    expect_false(is_memc_config(cars))
+
+    # Test should be sensitive to both object names, types, and length
+    m <- MEMS_model
+    expect_true(is_memc_config(m))
+    names(m)[1] <- "wrong name" # change name
+    expect_false(is_memc_config(m))
+    m <- MEMS_model
+    m[[1]] <- cars # change object
+    expect_false(is_memc_config(m))
+    m <- MEMS_model
+    m <- c(MEMS_model, list(x = 1)) # add object at end
+    expect_false(is_memc_config(m))
+
+})

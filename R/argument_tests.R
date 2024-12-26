@@ -1,11 +1,10 @@
-#' Checks that it is a MEMC model configuration
+#' Checks that an object is a MEMC model configuration
 #'
 #' @param obj list object to check to see if it is a model configuration
 #' @return TRUE or FALSE indicator.
 #' @importFrom assertthat has_name
 #' @family helper functions
 #' @noRd
-# TODO should add check to see if the types of objects are correct
 is_memc_config <- function(obj) {
   cond <- is.list(obj)
   cond <-
@@ -13,6 +12,16 @@ is_memc_config <- function(obj) {
       x = obj,
       which = c("name", "table", "params", "state")
     ))
+
+  # Check that the names and types of the list objects are correct
+  types <- c("name" = "character", "table" = "data.frame",
+             "params" = "data.frame", "state" = "numeric")
+  nms <- names(obj)
+  cond <- c(cond, length(types) == length(nms))
+  for(i in seq_along(types)) {
+      cond <- c(cond, class(obj[[nms[i]]]) == types[i])
+  }
+
   return(all(cond))
 
 }
