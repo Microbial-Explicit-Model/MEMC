@@ -169,9 +169,10 @@ carbon_pool_derivs <-
 
 #' Internal solve model function
 #'
-#' @param mod object created from \code{\link{memc_configure}}
-#' @param time numeric vector of the time stamps of when to solve the model
+#' @param mod model object created from \code{\link{memc_configure}}
+#' @param time numeric vector of the timestamps of when to solve the model
 #' @return The result from calling \code{\link[deSolve]{ode}}
+#' @seealso [memc_all_models()]
 #' @noRd
 #' @family internal
 sm_internal <- function(mod, time, ...) {
@@ -229,7 +230,8 @@ sm_format_out <- function(rslt, mod) {
 
 #' Solve a MEMC configuration
 #'
-#' @param mod model object
+#' @param mod model object, typically one of the \code{\link{memc_all_models}}
+#' or modified from \code{\link{memc_configure}}
 #' @param time a vector of the time steps
 #' @param params default set to NULL, will then use the parameter table
 #' read in with the \code{mod} object
@@ -237,11 +239,19 @@ sm_format_out <- function(rslt, mod) {
 #' in with the \code{mod} object
 #' @param ... additional arguments passed to \code{\link[deSolve]{ode}}
 #' @return A long-formatted \code{\link[data.table]{data.table}} of the
-#' simulation results; \code{time} = hour.
+#' simulation results, with columns:
+#' \item{time}{Time point, hours}
+#' \item{variable}{Name of model carbon pool}
+#' \item{value}{Value of the pool}
+#' \item{units}{Units of the pool value}
+#' \item{name}{Model name used}
+#' @seealso \code{\link{memc_configure}}
 #' @importFrom assertthat assert_that has_args
 #' @importFrom deSolve ode
 #' @export
 #' @family helper
+#' @examples
+#' memc_solve(MEND_model, time = 0:10)
 memc_solve <-
     function(mod,
              time,

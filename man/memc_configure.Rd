@@ -29,6 +29,12 @@ memc_configure(
 \description{
 Set up a model configuration
 }
+\examples{
+# Modify the MEND model
+m <- MEND_model
+m_mod <- memc_configure(m$params, m$state, "MEND_modified", POMdecomp = "LM")
+memc_solve(m_mod, 0:10)
+}
 \seealso{
 Other helper functions: 
 \code{\link{memc_update_params}()},
