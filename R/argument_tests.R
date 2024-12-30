@@ -94,7 +94,7 @@ is_state_vector <- function(state) {
   out_of_order <- names(state) == req_names
   assert_that(all(out_of_order),
               msg = paste0(
-                "entires must be in the correct order: ",
+                "entries must be in the correct order: ",
                 paste0(req_names, collapse = ", ")
               ))
 
