@@ -24,11 +24,11 @@ test_that("make_memc_objective", {
   )
   cost1 <- objective(x = MEMC::default_initial)
   expect_lte(cost1$model, zero)
-  
+
   # When there is a change in parameter value the most cost should be greater than 0.
   cost2 <- objective(x = c("V_d" = 50))
   expect_gt(cost2$model, zero)
-  
+
   # When the comparison data and model data are different from one another , as in most instances, the
   # model cost should be non 0.
   comp_data$IC <- comp_data$IC * 2
@@ -36,13 +36,13 @@ test_that("make_memc_objective", {
     make_memc_objective(comp_data, x = MEMC::default_initial, mod)
   cost3 <- objective2(x = MEMC::default_initial)
   expect_gt(abs(cost3$model), zero)
-  
+
 })
 
 test_that("memc_modfit", {
   # Try out the memc_modfit routine using comparison data from a default run.
   # The function should allow us to solve for an unknown model parameter.
-  
+
   # Solving for V_d
   default_vd <- ptable[ptable$parameter == "V_d", "value"]
   out <- memc_modfit(
@@ -53,7 +53,7 @@ test_that("memc_modfit", {
   )
   expect_lt(abs(out$par - default_vd), 1e-4)
   expect_gt(out$iterations, 1)
-  
+
   # Test to see if fitting works fo an initial carbon pool value.
   default_B <- default_initial[["MB"]]
   out <- memc_modfit(
@@ -63,7 +63,7 @@ test_that("memc_modfit", {
     lower = c(0)
   )
   expect_lt(mean(abs(out$par - c(default_B))), 1e-4)
-  
+
 })
 
 test_that("memc_sensrange", {
@@ -72,7 +72,7 @@ test_that("memc_sensrange", {
   n <- 3
   p <- c("V_p" = 1.4e+01)
   prange <- data.frame(min = p - p * frac, max = p + p * frac)
-  
+
   # Run the sense range and check the output.
   out <-
     memc_sensrange(
@@ -86,13 +86,13 @@ test_that("memc_sensrange", {
   expect_true(all(dim(out) == c(n, (length(
     time
   ) * 9) + 1)))
-  
+
   # Check to make sure that object returned by sense range can be plotted
   # using the helper function
   x <- memc_plot(obj = out)
   expect_equal(class(x), c("gg", "ggplot"))
-  
-  
+
+
   out2 <-
     memc_sensrange(
       MEND_model,
@@ -112,23 +112,23 @@ test_that("memc_sensfunc", {
             "V_p" = 1.4e+01,
             "V_m" = 2.5e-01)
   out <- memc_sensfunc(config = MEND_model, t = time, x = pars)
-  
+
   expect_equal(class(out), c("sensFun", "data.frame"))
-  
+
   x <- memc_plot(out)
   expect_equal(class(x), c("gg", "ggplot"))
-  
-  
+
+
   # Check to see that the function also works with initial states
   inital_pools <- c("MOM" = 5, "DOM" = 1)
   out2 <-
     memc_sensfunc(config = MEND_model, t = time, x = inital_pools)
   expect_equal(class(out2), c("sensFun", "data.frame"))
-  
+
   # The results from out and out2 should be different since by test
   # design the returned data frames will be different sized.
   expect_error(out - out2,
-               regexp = "'-' only defined for equally-sized data frame")
-  
-  
+               regexp = "only defined for equally-sized data frame")
+
+
 })
