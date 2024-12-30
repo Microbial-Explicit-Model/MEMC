@@ -230,9 +230,9 @@ sm_format_out <- function(rslt, mod) {
 
 #' Solve a MEMC configuration
 #'
-#' @param mod model object, typically one of the \code{\link{memc_all_models}}
-#' or modified from \code{\link{memc_configure}}
-#' @param time a vector of the time steps
+#' @param mod model object, for example one of the list entries returned
+#' by \code{\link{memc_all_models}}
+#' @param time a numeric vector of the time steps to solve over
 #' @param params default set to NULL, will then use the parameter table
 #' read in with the \code{mod} object
 #' @param state default set to NULL, will then use the state read read
@@ -264,6 +264,7 @@ memc_solve <-
                              new = c(params, state))
 
         # Check the arguments
+        assert_that(all(time >= 0))
         assert_that(is_memc_config(obj = mod))
         assert_that(is_param_table(table = mod$params))
         assert_that(is_state_vector(state = mod$state))
