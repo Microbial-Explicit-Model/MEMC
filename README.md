@@ -9,12 +9,13 @@
 
 `MEMC` is a R package that allows users to explore various
 representation of soil organic matter (SOM) flux dynamics within a
-consistent SOM pool model structure. Popular microbial-explicit SOM
-models such as MEND[^1], MIMICS[^2], and CORPSE[^3] vary significantly
-in their formulations of microbial mechanisms and underlying pool
-structure. `MEMC` provides a consistent pool structure with flexible
-flux dynamics which allows modelers to easily explore the effects of the
-different conceptualizations of microbial mechanisms.
+consistent SOM model structure. Popular microbial-explicit SOM models
+such as MEND[^1], MIMICS[^2], and CORPSE[^3] vary significantly in their
+formulations of microbial mechanisms and underlying pool structure.
+`MEMC` provides a consistent pool structure with flexible flux dynamics:
+the conceptual and mathematical formulations of key SOC tranformations
+can be rapidly changed. This allows modelers to easily explore the
+effects of different conceptualizations of microbial mechanisms.
 
 ## Installation
 
@@ -31,24 +32,22 @@ GitHub.
     # Now build and install the R package on your local machine.
     install_github('Microbial-Explicit-Model/MEMC') 
 
-Now load `MEMC` as you would any other package.
+Now load `MEMC` as you would any other package:
 
 ``` r
-# Load the installed MEMC package
 library(MEMC)
 ```
 
 ## Getting Started
 
-The package ships with several already defined model configurations. Use
-`help(configurations)` to see a list of all the available configurations
-that are ready for use. Here we demonstrate how to complete a simulation
-using the MEND_model configuration. For more examples and package
-details, please check out our [online
+The `MEMC` package ships with several already defined model
+configuration (see `help(configurations)`). Here we demonstrate how to
+run a simulation using the “MEND_model” configuration. For more examples
+and package details, please check out our [online
 documentation](https://microbial-explicit-model.github.io/MEMC/).
 Alternatively, users can look at the `model_configs` table to see all
-model configurations included in the package and the various dynamics
-that are used.
+model configurations included in the package and the microbial dynamics
+used in each configuration.
 
 ``` r
 print(model_configs)
@@ -61,8 +60,8 @@ print(model_configs)
 #> 6     MIMCS        MM        MM      DD
 ```
 
-Take a look at the pre-built MEND_model configuration (see
-`help("MEND_model")` for more details).
+Look in detail at the pre-built MEND_model configuration (see
+`help("MEND_model")` for more details):
 
 ``` r
 # Printing this MEMC model configuration will return a list defining
@@ -125,12 +124,15 @@ print(MEND_model)
 #> 18.10002
 ```
 
-Complete a model run using one of the pre-built model configurations.
+Perform a run using the MEND model:
 
 ``` r
-time <- seq(0, 36500, by=25) 
+time <- seq(0, 36500, by = 25) 
 mend_out <- memc_solve(mod = MEND_model, time = time)
 ```
+
+`memc_solve` returns a long-format data frame with the state of the
+model pool at each time point. This makes it easy to plot the results:
 
 ``` r
 ggplot(data = mend_out) + 
@@ -143,45 +145,49 @@ ggplot(data = mend_out) +
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
-With `MEMC` users are able easily run simulations with the provide model
-configurations and are able to build toy model of their own design by
-selecting any combination of the supported flux dynamics. See here for
-an example for how to use `memc_configure` to build your own SOM model.
-For this example we will use the default parameter and initial pool
-values that are included as package data (see `help("default_params)`
-and `help("default_initial)` for more information).
+## Building a Custom Model
+
+`MEMC` allows users to easily run simulations with the provided model
+configurations and also build customized models of their own design by
+selecting any combination of the supported flux dynamics, and/or
+modifying the model parameters. For this example we will use the default
+parameter and initial pool values that are included as package data (see
+`help("default_params)` and `help("default_initial)` for more
+information).
 
 ``` r
 # Use memc_configure to print a table describing the model configuration 
 my_model <- memc_configure(params = default_params, 
-                            state = default_initial, 
-                            name = "my model", 
-                            DOMuptake = "MM", 
-                            POMdecomp = "LM", 
-                            MBdecay = "LM")
+                           state = default_initial, 
+                           name = "my model", 
+                           DOMuptake = "MM", 
+                           POMdecomp = "LM", 
+                           MBdecay = "LM")
 #> |model    |DOMuptake |POMdecomp |MBdecay |
 #> |:--------|:---------|:---------|:-------|
 #> |my model |MM        |LM        |LM      |
 ```
 
-Complete the model run.
+Run our customized model…
 
 ``` r
-time <- seq(0, 36500, by=25) 
+time <- seq(0, 36500, by = 25) 
 my_out <- memc_solve(mod = my_model, time = time)
 ```
 
-Compare our toy model results with the MEND model results.
+…and compare its output with the MEND model results from above:
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
-By changing the POM and DOM decomposition flux dynamics affects model
+Changing the POM and DOM decomposition flux dynamics affects model
 behavior! The flexibility of the flux dynamics makes `MEMC` a powerful
-tool for SOM model exploration. Additional features supported by `MEMC`
-include the ability to change model parameters, perform sensitivity
-analyses, and fit models with experimental/observational data (see
-[online documentation](https://microbial-explicit-model.github.io/MEMC/)
-for examples featuring capabilities).
+tool for rapid SOM model exploration.
+
+Additional features supported by `MEMC` include the ability to change
+model parameters, perform sensitivity analyses, and fit models with
+experimental/observational data (see [online
+documentation](https://microbial-explicit-model.github.io/MEMC/) for
+examples featuring capabilities).
 
 [^1]: Wang, Gangsheng, Sindhu Jagadamma, Melanie A. Mayes, Christopher
     W. Schadt, J. Megan Steinweg, Lianhong Gu, and Wilfred M. Post.
