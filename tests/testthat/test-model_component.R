@@ -30,11 +30,11 @@ test_that("memc_solve", {
 
 })
 
-test_that("carbon_fluxes_internal", {
+test_that("c_flux_functions_internal", {
 
   p <- ptable$value
   names(p) <- ptable$parameter
-  x <- carbon_fluxes_internal(p = p)
+  x <- c_flux_functions_internal(p = p)
   expect_true(is.list(x))
   expect_true(all(sapply(x, is.function)))
 

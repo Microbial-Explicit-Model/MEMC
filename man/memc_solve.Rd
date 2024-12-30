@@ -7,9 +7,10 @@
 memc_solve(mod, time, params = NULL, state = NULL, ...)
 }
 \arguments{
-\item{mod}{model object}
+\item{mod}{model object, for example one of the list entries returned
+by \code{\link{memc_all_models}}}
 
-\item{time}{a vector of the time steps}
+\item{time}{a numeric vector of the time steps to solve over}
 
 \item{params}{default set to NULL, will then use the parameter table
 read in with the \code{mod} object}
@@ -21,9 +22,20 @@ in with the \code{mod} object}
 }
 \value{
 A long-formatted \code{\link[data.table]{data.table}} of the
-simulation results; \code{time} = hour.
+simulation results, with columns:
+\item{time}{Time point, hours}
+\item{variable}{Name of model carbon pool}
+\item{value}{Value of the pool}
+\item{units}{Units of the pool value}
+\item{name}{Model name used}
 }
 \description{
 Solve a MEMC configuration
+}
+\examples{
+memc_solve(MEND_model, time = 0:10)
+}
+\seealso{
+\code{\link{memc_configure}}
 }
 \concept{helper}

@@ -1,102 +1,112 @@
-#' Define the carbon pool fluxes
+#' Define the carbon pool flux functions based on the model dynamics
 #'
 #' @param parms MEMC parameter table
 #' @param DOMuptake string indicator for type of dynamics used for the DOM decomposition
 #' @param POMdecomp string indicator for type of dynamics used for the POM decomposition
 #' @param MBdecay string indicator for type of dynamics used to model MB decay
+#' @seealso dynamics
+#' @return A list of functions to be used for calculating each flux
+#' (the names of the list are the flux names: F1, F2, etc).
 #' @noRd
 #' @family internal
-carbon_fluxes_internal <-
+c_flux_functions_internal <-
     function(p,
              DOMuptake = "MM",
              POMdecomp = "MM",
              MBdecay = "LM") {
 
-        fluxes <- list()
+        flux_functions <- list()
         if (DOMuptake == "MM") {
-            fluxes[["F1"]] = function(MB, DOM) {
+            flux_functions[["F1"]] = function(MB, DOM) {
                 p[["V_d"]] * MB * DOM / (p[["K_d"]] + DOM)
             }
         } else if (DOMuptake == "RMM") {
-            fluxes[["F1"]] = function(MB, DOM) {
+            flux_functions[["F1"]] = function(MB, DOM) {
                 p[["V_d"]] * MB * DOM / (p[["K_d"]] + MB)
             }
         } else if (DOMuptake == "ECA") {
-            fluxes[["F1"]] = function(MB, DOM) {
+            flux_functions[["F1"]] = function(MB, DOM) {
                 p[["V_d"]] * MB * DOM / (p[["K_d"]] + DOM + MB)
             }
-        } else if (DOMuptake == "LM"){
-            fluxes[["F1"]] = function(MB, DOM) {
+        } else if (DOMuptake == "LM") {
+            flux_functions[["F1"]] = function(MB, DOM) {
                 p[["V_d"]] * DOM
             }
+        } else {
+            stop("Unknown DOMuptake!")
         }
 
         if (POMdecomp == "MM") {
-            fluxes[["F2"]] = function(EP, POM) {
+            flux_functions[["F2"]] = function(EP, POM) {
                 (p[["V_p"]] * EP * POM) / (p[["K_p"]] + POM)
             }
         } else if (POMdecomp == "RMM") {
-            fluxes[["F2"]] = function(EP, POM) {
+            flux_functions[["F2"]] = function(EP, POM) {
                 (p[["V_p"]] * EP * POM) / (p[["K_p"]] + EP)
             }
         } else if (POMdecomp == "ECA") {
-            fluxes[["F2"]] = function(EP, POM) {
+            flux_functions[["F2"]] = function(EP, POM) {
                 (p[["V_p"]] * EP * POM) / (p[["K_p"]] + POM + EP)
             }
         } else if (POMdecomp == "LM") {
-            fluxes[["F2"]] = function(EP, POM) {
+            flux_functions[["F2"]] = function(EP, POM) {
                 p[["V_p"]] * POM
             }
+        } else {
+            stop("Unknown POMdecomp!")
         }
 
-        fluxes[["F3"]] = function(EM, MOM) {
+        flux_functions[["F3"]] = function(EM, MOM) {
             (p[["V_m"]] * EM * MOM) / (p[["K_m"]] + MOM)
         }
-        fluxes[["F4"]] = function(DOM, QOM) {
+        flux_functions[["F4"]] = function(DOM, QOM) {
             p[["K_ads"]] * DOM * (1 - QOM /p[["Q_max"]])
         }
-        fluxes[["F5"]] = function(QOM) {
+        flux_functions[["F5"]] = function(QOM) {
             p[["K_des"]] * QOM / p[["Q_max"]]
         }
 
         if (MBdecay == "DD") {
-            stopifnot(exprs = {p[["dd_beta"]] > 1})
-            fluxes[["F6"]] = function(MB) {
+            stopifnot(p[["dd_beta"]] > 1)
+            flux_functions[["F6"]] = function(MB) {
                 (1 - p[["p_ep"]] - p[["p_em"]]) * 0.4 * p[["V_d"]] * (MB ^ p[["dd_beta"]])
             }
         } else if (MBdecay == "LM") {
-            stopifnot(exprs = {p[["dd_beta"]] == 1})
-            fluxes[["F6"]] = function(MB) {
+            stopifnot(p[["dd_beta"]] == 1)
+            flux_functions[["F6"]] = function(MB) {
                 (1 - p[["p_ep"]] - p[["p_em"]]) * 0.4 * p[["V_d"]] * (MB ^ p[["dd_beta"]])
             }
+        } else {
+            stop("Unknown MBdecay!")
         }
 
-        fluxes[["F7_ep"]] = function(MB) {
+        flux_functions[["F7_ep"]] = function(MB) {
             p[["p_ep"]] * MB *  0.4 * p[["V_d"]]
         }
-        fluxes[["F7_em"]] = function(MB) {
+        flux_functions[["F7_em"]] = function(MB) {
             p[["p_em"]] * MB *  0.4 * p[["V_d"]]
         }
-        fluxes[["F8_ep"]] = function(EP) {
+        flux_functions[["F8_ep"]] = function(EP) {
             p[["r_ep"]] * EP
         }
-        fluxes[["F8_em"]] = function(EM) {
+        flux_functions[["F8_em"]] = function(EM) {
             p[["r_em"]] * EM
         }
 
-        return(fluxes)
+        return(flux_functions)
 
     }
 
 
-#' Define the carbon pool model
+#' Calculate the derivatives for each carbon pool
 #'
 #' @param t numeric when to solve the model
 #' @param state MEMC vector of the pool values
 #' @param parms MEMC parameter table
-#' @param DOMuptake string indicator for type of dynamics used for the DOM decomposition
-#' @param POMdecomp string indicator for type of dynamics used for the POM decomposition
+#' @param DOMuptake string indicator for type of dynamics used to model DOM decomposition
+#' @param POMdecomp string indicator for type of dynamics used to model POM decomposition
 #' @param MBdecay string indicator for type of dynamics used to model MB decay
+#' @return The derivatives of each pool, i.e. instantaneous change, as a list.
 #' @noRd
 #' @family internal
 carbon_pool_derivs <-
@@ -107,22 +117,23 @@ carbon_pool_derivs <-
              POMdecomp,
              MBdecay) {
 
-        fluxes <- carbon_fluxes_internal(p = p,
+        # Get the carbon flux functions (`cff`) to use
+        cff <- c_flux_functions_internal(p = p,
                                          DOMuptake = DOMuptake,
                                          POMdecomp = POMdecomp,
                                          MBdecay = MBdecay)
 
         with(as.list(state), {
-            F1 <- fluxes$F1(MB = MB, DOM = DOM)
-            F2 <- fluxes$F2(EP = EP, POM = POM)
-            F3 <- fluxes$F3(EM = EM, MOM = MOM)
-            F4 <- fluxes$F4(DOM = DOM, QOM = QOM)
-            F5 <- fluxes$F5(QOM = QOM)
-            F6 <- fluxes$F6(MB = MB)
-            F7_ep <- fluxes$F7_ep(MB = MB)
-            F7_em <- fluxes$F7_em(MB = MB)
-            F8_ep <- fluxes$F8_ep(EP = EP)
-            F8_em <- fluxes$F8_em(EM = EM)
+            F1 <-    cff$F1(MB = MB, DOM = DOM) # DOM loss
+            F2 <-    cff$F2(EP = EP, POM = POM) # POM loss
+            F3 <-    cff$F3(EM = EM, MOM = MOM) # MOM loss
+            F4 <-    cff$F4(DOM = DOM, QOM = QOM)
+            F5 <-    cff$F5(QOM = QOM)
+            F6 <-    cff$F6(MB = MB) # MB decay to POM/DOM
+            F7_ep <- cff$F7_ep(MB = MB) # MB flux to EP
+            F7_em <- cff$F7_em(MB = MB) # MB flux to EM
+            F8_ep <- cff$F8_ep(EP = EP) # EP loss
+            F8_em <- cff$F8_em(EM = EM) # EM loss
 
             # Define the system of differential equations that describe
             # the changes in the carbon pool states_
@@ -137,7 +148,8 @@ carbon_pool_derivs <-
             dMB <- F1 * p[["CUE"]] - F6 - (F7_ep + F7_em)
             # DOM = dissolved organic carbon
             dDOM <-
-                p[["f_d"]] * F2 + p[["g_d"]] * F6 + F3 + (F8_em + F8_ep) - F1 - (F4 - F5) + p[["Input_DOM"]]
+                p[["f_d"]] * F2 + p[["g_d"]] * F6 + F3 + (F8_em + F8_ep) -
+                F1 - (F4 - F5) + p[["Input_DOM"]]
             # EP = carbon stored as extra-cellular enzymes
             dEP <- F7_em - F8_ep
             # EM = carbon stored as extra-cellular enzymes
@@ -145,9 +157,9 @@ carbon_pool_derivs <-
             # IC = inorganic carbon (CO2)
             dIC <- F1 * (1 - p[["CUE"]])
             # Tot = the total carbon pool
-            dTot <- -F1 * (1 - p[["CUE"]]) +  (p[["Input_POM"]] + p[["Input_DOM"]])
+            dTot <- -F1 * (1 - p[["CUE"]]) + (p[["Input_POM"]] + p[["Input_DOM"]])
 
-            # Return outputs
+            # Return derivatives (instantaneous changes in the pools)
             return(list(c(dPOM, dMOM, dQOM, dMB, dDOM, dEP, dEM, dIC, dTot)))
 
         })
@@ -157,8 +169,10 @@ carbon_pool_derivs <-
 
 #' Internal solve model function
 #'
-#' @param mod object created from \code{\link{memc_configure}}
-#' @param time numeric vector of the time stamps of when to solve the model
+#' @param mod model object created from \code{\link{memc_configure}}
+#' @param time numeric vector of the timestamps of when to solve the model
+#' @return The result from calling \code{\link[deSolve]{ode}}
+#' @seealso [memc_all_models()]
 #' @noRd
 #' @family internal
 sm_internal <- function(mod, time, ...) {
@@ -190,10 +204,11 @@ sm_internal <- function(mod, time, ...) {
 #'
 #' @param rslt object returned from \code{\link{sm_internal}}
 #' @param mod object created from \code{\link{memc_configure}}
+#' @return A nicely-formatted data frame with the results.
 #' @noRd
 #' @family internal
 sm_format_out <- function(rslt, mod) {
-    # Now format the results into a nice data frame instead of a wide  matrix.
+    # Format the results into a nice data frame instead of a wide matrix.
     out <- data.table::melt(
         data.table::as.data.table(rslt),
         measure.vars = names(mod$state),
@@ -215,19 +230,28 @@ sm_format_out <- function(rslt, mod) {
 
 #' Solve a MEMC configuration
 #'
-#' @param mod model object
-#' @param time a vector of the time steps
+#' @param mod model object, for example one of the list entries returned
+#' by \code{\link{memc_all_models}}
+#' @param time a numeric vector of the time steps to solve over
 #' @param params default set to NULL, will then use the parameter table
 #' read in with the \code{mod} object
 #' @param state default set to NULL, will then use the state read read
 #' in with the \code{mod} object
 #' @param ... additional arguments passed to \code{\link[deSolve]{ode}}
 #' @return A long-formatted \code{\link[data.table]{data.table}} of the
-#' simulation results; \code{time} = hour.
+#' simulation results, with columns:
+#' \item{time}{Time point, hours}
+#' \item{variable}{Name of model carbon pool}
+#' \item{value}{Value of the pool}
+#' \item{units}{Units of the pool value}
+#' \item{name}{Model name used}
+#' @seealso \code{\link{memc_configure}}
 #' @importFrom assertthat assert_that has_args
 #' @importFrom deSolve ode
 #' @export
 #' @family helper
+#' @examples
+#' memc_solve(MEND_model, time = 0:10)
 memc_solve <-
     function(mod,
              time,
@@ -240,6 +264,7 @@ memc_solve <-
                              new = c(params, state))
 
         # Check the arguments
+        assert_that(all(time >= 0))
         assert_that(is_memc_config(obj = mod))
         assert_that(is_param_table(table = mod$params))
         assert_that(is_state_vector(state = mod$state))

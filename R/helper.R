@@ -119,6 +119,11 @@ custom_config_table_message <- function(x) {
 #' @importFrom assertthat assert_that
 #' @export
 #' @family helper functions
+#' @examples
+#' # Modify the MEND model
+#' m <- MEND_model
+#' m_mod <- memc_configure(m$params, m$state, "MEND_modified", POMdecomp = "LM")
+#' memc_solve(m_mod, 0:10)
 memc_configure <- function(params,
                             state,
                             name = "unnamed",
