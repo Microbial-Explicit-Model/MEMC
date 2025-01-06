@@ -27,7 +27,8 @@ theme_set(theme_bw() + theme(legend.title = element_blank()))
 Start by loading the comparison data, included in the package data. 
 
 ```{r}
-comp_data <- read.csv(system.file("example/Ultisol_control.csv", package = "MEMC"))
+comp_data <- memc_data_ultisol[c(1, 4)] # see ?memc_data_ultisol
+names(comp_data) <- c("time", "IC")
 ```
 
 Set up the the MIMCS model with different initial pool sizes to be

@@ -2,14 +2,28 @@
 
 DIR <- here::here("data-raw")
 
-# Load the data example data.
-data <- read.csv(file.path(DIR, "Ultisol_control.csv"))
+# Load the data example data
+# These are from Jianqiu Zheng's google sheet, and originally from ORNL LDRD work
+# See Wang et al. 2013 10.1890/12-0681.1
+obs <- read.csv(file.path(DIR, "example-data-raw.csv"), check.names = FALSE, stringsAsFactors = FALSE)
+obs <- data.table::as.data.table(obs)
 
-# Format the data into a long data frame.
-obs_long <- melt(data, "time")
-write.csv(obs_long,
-          here::here("inst", "example", "exmaple_data.csv"),
-          row.names = FALSE)
+# Format the data into a long data frame
+memc_data_all <- data.table::melt(obs, id.vars = c("Day", "Variable"),
+                                  variable.name = "Soil", variable.factor = FALSE)
+memc_data_all <- as.data.frame(memc_data_all)
+
+# Save individual soil type datasets
+memc_data_andisol <- subset(memc_data_all, Soil == "Andisol")
+usethis::use_data(memc_data_andisol, overwrite = TRUE)
+memc_data_gelisol <- subset(memc_data_all, Soil == "Gelisol")
+usethis::use_data(memc_data_gelisol, overwrite = TRUE)
+memc_data_mollisol <- subset(memc_data_all, Soil == "Mollisol")
+usethis::use_data(memc_data_mollisol, overwrite = TRUE)
+memc_data_oxisol <- subset(memc_data_all, Soil == "Oxisol")
+usethis::use_data(memc_data_oxisol, overwrite = TRUE)
+memc_data_ultisol <- subset(memc_data_all, Soil == "Ultisol")
+usethis::use_data(memc_data_ultisol, overwrite = TRUE)
 
 # The initial values for ultisol that we were given.
 Ultisol_state <-
