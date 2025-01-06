@@ -45,7 +45,7 @@ test_that("is_param_table works", {
 
 
 test_that("is_state_vector works", {
-  state <- MEMC::default_initial
+  state <- MEMC::memc_state_ultisol
 
   # The default initial state vector should always pass this test.
   assert_that(is_state_vector(state))
@@ -63,7 +63,7 @@ test_that("is_state_vector works", {
                fixed = TRUE)
 
   state <- as.character(state)
-  names(state) <- names(MEMC::default_initial)
+  names(state) <- names(MEMC::memc_state_ultisol)
   expect_error(is_state_vector(state),
                "state is not a numeric or integer vector")
 

@@ -172,14 +172,14 @@ split_param_state <- function(x) {
   assert_that(is.character(names(x)))
   assert_that(is.numeric(x))
   assert_that(all(names(x) %in% c(
-    names(MEMC::default_initial),
+    names(MEMC::memc_state_ultisol),
     MEMC::default_params$parameter
   )),
   msg = "value not recognized as a parameter or state")
 
   params_index <-
     which(names(x) %in% MEMC::default_params$parameter)
-  state_index <- which(names(x) %in% names(MEMC::default_initial))
+  state_index <- which(names(x) %in% names(MEMC::memc_state_ultisol))
 
   if (length(params_index) == 0) {
     params <- NULL

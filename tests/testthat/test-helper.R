@@ -1,5 +1,5 @@
 ptable <- MEMC::default_params
-state <- MEMC::default_initial
+state <- MEMC::memc_state_ultisol
 
 test_that("update_params", {
   # Test that it works
@@ -29,7 +29,7 @@ test_that("update_params", {
 test_that("update_state", {
   # Test that it works
   new_state <- update_state(new_vals = c("QOM" = 10), state = state)
-  expect_equal(sum(abs(new_state - MEMC::default_initial) > 0), 1)
+  expect_equal(sum(abs(new_state - MEMC::memc_state_ultisol) > 0), 1)
 
   # Expect an error if conditions aren't met
   expect_error(update_state(c("fake" = 3), state = state))

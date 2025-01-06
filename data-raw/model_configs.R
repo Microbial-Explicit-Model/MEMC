@@ -2,7 +2,7 @@ devtools::load_all()
 
 MEND_model <- memc_configure(
   params = MEMC::default_params,
-  state = MEMC::default_initial,
+  state = MEMC::memc_state_ultisol,
   name = "MEND",
   DOMuptake = "MM",
   POMdecomp = "MM",
@@ -12,7 +12,7 @@ usethis::use_data(MEND_model, overwrite = TRUE)
 
 COMISSION_model <- memc_configure(
   params = MEMC::default_params,
-  state = MEMC::default_initial,
+  state = MEMC::memc_state_ultisol,
   name = "COMISSION",
   DOMuptake = "MM",
   POMdecomp = "RMM",
@@ -22,7 +22,7 @@ usethis::use_data(COMISSION_model, overwrite = TRUE)
 
 CORPSE_model <- memc_configure(
   params = MEMC::default_params,
-  state = MEMC::default_initial,
+  state = MEMC::memc_state_ultisol,
   name = "CORPSE",
   DOMuptake = "RMM",
   POMdecomp = "LM",
@@ -33,7 +33,7 @@ usethis::use_data(CORPSE_model, overwrite = TRUE)
 
 MEMS_model <- memc_configure(
   params = MEMC::default_params,
-  state = MEMC::default_initial,
+  state = MEMC::memc_state_ultisol,
   name = "MEMS",
   DOMuptake = "LM",
   POMdecomp = "LM",
@@ -43,7 +43,7 @@ usethis::use_data(MEMS_model, overwrite = TRUE)
 
 BAMS_model <- memc_configure(
   params = MEMC::default_params,
-  state = MEMC::default_initial,
+  state = MEMC::memc_state_ultisol,
   name = "BAMS",
   DOMuptake = "MM",
   POMdecomp = "MM",
@@ -58,7 +58,7 @@ param_df <- memc_update_params(new_params = c("dd_beta" = 2),
 
 MIMCS_model <- memc_configure(
   params = param_df,
-  state = MEMC::default_initial,
+  state = MEMC::memc_state_ultisol,
   name = "MIMCS",
   DOMuptake = "MM",
   POMdecomp = "MM",
