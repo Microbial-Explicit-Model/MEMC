@@ -9,22 +9,21 @@
 \alias{memc_data_ultisol}
 \title{Example soil incubation data from Wang et al. 2013}
 \format{
-A data frame of 45 rows and 4 columns containing respiration data
+A data frame of 45 rows and 3 columns containing respiration data
 described in \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 \describe{
 \item{Day}{Day of incubation.}
-\item{Variable}{String constant describing measurement variable.}
 \item{Soil}{String constant describing soil type.}
 \item{value}{Cumulative respiration.}
 }
 
-An object of class \code{data.frame} with 45 rows and 4 columns.
+An object of class \code{data.frame} with 45 rows and 3 columns.
 
-An object of class \code{data.frame} with 45 rows and 4 columns.
+An object of class \code{data.frame} with 45 rows and 3 columns.
 
-An object of class \code{data.frame} with 45 rows and 4 columns.
+An object of class \code{data.frame} with 45 rows and 3 columns.
 
-An object of class \code{data.frame} with 45 rows and 4 columns.
+An object of class \code{data.frame} with 45 rows and 3 columns.
 }
 \usage{
 data(memc_data_andisol)

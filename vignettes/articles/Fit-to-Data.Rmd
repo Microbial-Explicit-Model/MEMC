@@ -27,7 +27,7 @@ theme_set(theme_bw() + theme(legend.title = element_blank()))
 Start by loading the comparison data, included in the package data. 
 
 ```{r}
-comp_data <- memc_data_ultisol[c(1, 4)] # see ?memc_data_ultisol
+comp_data <- memc_data_ultisol[c(1, 3)] # see ?memc_data_ultisol
 names(comp_data) <- c("time", "IC")
 ```
 

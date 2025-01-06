@@ -6,11 +6,13 @@ DIR <- here::here("data-raw")
 # These are from Jianqiu Zheng's google sheet, and originally from ORNL LDRD work
 # See Wang et al. 2013 10.1890/12-0681.1
 obs <- read.csv(file.path(DIR, "example-data-raw.csv"), check.names = FALSE, stringsAsFactors = FALSE)
+obs$Variable <- NULL
 obs <- data.table::as.data.table(obs)
 
 # Format the data into a long data frame
-memc_data_all <- data.table::melt(obs, id.vars = c("Day", "Variable"),
-                                  variable.name = "Soil", variable.factor = FALSE)
+memc_data_all <- data.table::melt(obs, id.vars = "Day",
+                                  variable.name = "Soil",
+                                  variable.factor = FALSE)
 memc_data_all <- as.data.frame(memc_data_all)
 
 # Save individual soil type datasets
