@@ -27,7 +27,7 @@ theme_set(theme_bw() + theme(legend.title = element_blank()))
 Start by loading the comparison data, included in the package data. 
 
 ```{r}
-comp_data <- memc_data_ultisol[c(1, 3)] # see ?memc_data_ultisol
+comp_data <- MEMC::memc_data_ultisol[c(1, 3)]
 names(comp_data) <- c("time", "IC")
 ```
 
@@ -40,9 +40,7 @@ my_mod_config <- MEMC::MIMCS_model
 
 # Update the MEND model initial state conditions to reflect 
 # the experimental setup
-my_mod_config$state <- c(POM = 4.71, MOM = 17.67, QOM = 0, 
-                         MB = 0.52, DOM = 0.148, EP = 0.052, 
-                         EM = 0.052, IC = 0, Tot = 23.484)
+my_mod_config$state <- MEMC::memc_state_ultisol
 ```
 
 Run the model with the original parameter values. 
