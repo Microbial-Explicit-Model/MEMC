@@ -100,7 +100,7 @@ update_config <- function(mod, new = NULL) {
 #' @param DOMuptake string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"
 #' @param POMdecomp string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"
 #' @param MBdecay string indicating microbial decay, one  of the following ""LM" or "DD"
-#' @return single_model object of the name, dynamics, parameters and starting state values
+#' @return memc_single_model object of the name, dynamics, parameters and starting state values
 #' @importFrom assertthat assert_that
 #' @export
 #' @family helper functions
@@ -142,7 +142,7 @@ memc_configure <- function(params,
     "params" = params,
     "state" = state
   )
-  class(model_object) <- "single_model"
+  class(model_object) <- "memc_single_model"
   
   return(model_object)
   
@@ -251,16 +251,16 @@ summary.all_models <- function(object, ...) {
 }
 
 
-#' Summary table for a single_model
+#' Summary table for a single memc model
 #'
-#' Provides a summary of dynamics used in `single_model`.
+#' Provides a summary of dynamics used in `memc_single_model`.
 #'
-#' @param object An object of class `single_model`.
+#' @param object An object of class `memc_single_model`.
 #' @param ... Additional arguments (ignored).
 #' @export
-summary.single_model <- function(object, ...) {
-  if (!inherits(object, "single_model"))
-    stop("Object is not of class 'single_model'")
+summary.memc_single_model <- function(object, ...) {
+  if (!inherits(object, "memc_single_model"))
+    stop("Object is not of class 'memc_single_model'")
   
   out <- knitr::kable(object$table)
   return(out)
@@ -291,12 +291,12 @@ print.all_models <- function(x, ...) {
 #'
 #' Provides details of all single model configuration
 #'
-#' @param x An object of class `single_model`.
+#' @param x An object of class `memc_single_model`.
 #' @param ... Additional arguments (ignored).
 #' @export
-print.single_model <- function(x, ...) {
-  if (!inherits(x, "single_model"))
-    stop("Object is not of class 'single_model'")
+print.memc_single_model <- function(x, ...) {
+  if (!inherits(x, "memc_single_model"))
+    stop("Object is not of class 'memc_single_model'")
   
   # Remove attributes by unclassing to simplify the user experience
   object_no_attributes <- unclass(x)

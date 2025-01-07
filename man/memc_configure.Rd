@@ -27,7 +27,7 @@ memc_configure(
 \item{MBdecay}{string indicating microbial decay, one  of the following ""LM" or "DD"}
 }
 \value{
-single_model object of the name, dynamics, parameters and starting state values
+memc_single_model object of the name, dynamics, parameters and starting state values
 }
 \description{
 Set up a model configuration

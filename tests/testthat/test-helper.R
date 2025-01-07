@@ -1,5 +1,5 @@
 ptable <- memc_params
-state <- MEMC::memc_initial_state
+state <- memc_initial_state
 
 test_that("update_params", {
   # Test that it works
@@ -35,8 +35,8 @@ test_that("update_state", {
 
 test_that("bad model configuration will fail", {
   out1 <- memc_configure(ptable, state)
-  expect_equivalent(class(out1), "single_model")
-  
+  expect_equivalent(class(out1), "memc_single_model")
+
   out2 <-
     memc_configure(
       ptable,
@@ -128,7 +128,7 @@ test_that("custom summary and print functions work as expected", {
   
   
   # Confirm that the class of the a single model object
-  expect_s3_class(MEND_model, "single_model")
+  expect_s3_class(MEND_model, "memc_single_model")
   
   # Check to make sure that the custom summary and print function return 
   # what we are expecting it to 
