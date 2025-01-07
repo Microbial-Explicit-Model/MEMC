@@ -7,10 +7,10 @@
 #' @format A data frame of 20 rows and 4 columns containing the model
 #' parameter values from \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 #' \describe{
-#' \item{parameter}{String character of the MEMC parameter.}
-#' \item{description}{String character describing the parameter.}
-#' \item{units}{String character of the parameter units.}
-#' \item{value}{Paramter values equal table 2 of Wang et al. 2013}
+#' \item{parameter}{String indicating MEMC parameter.}
+#' \item{description}{String describing the parameter.}
+#' \item{units}{String of the parameter units.}
+#' \item{value}{Parameter values from Table 2 of Wang et al. 2013}
 #' }
 #' @family inputs
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}

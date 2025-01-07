@@ -36,7 +36,7 @@ test_that("update_state", {
 test_that("bad model configuration will fail", {
   out1 <- memc_configure(ptable, state)
   expect_equivalent(class(out1), "memc_single_model")
-
+  
   out2 <-
     memc_configure(
       ptable,
@@ -53,7 +53,7 @@ test_that("bad model configuration will fail", {
   
   # Errors should be thrown
   expect_error(
-    memc_configure(ptable[1:9, ], state),
+    memc_configure(ptable[1:9,], state),
     "param_table is missing a parameter value(s) for: p_em, r_ep, r_em, Q_max, K_ads, K_des, dd_beta, Input_POM, Input_DOM, CUE",
     fixed = TRUE
   )
@@ -102,7 +102,6 @@ test_that("split_param_state", {
   
 })
 
-
 test_that("memc_colorPalette ", {
   out <- memc_colorPalette()
   expect_vector(out)
@@ -116,13 +115,13 @@ test_that("custom summary and print functions work as expected", {
   # Confirm that the class of the memc_all_models object
   expect_s3_class(memc_all_models, "memc_all_models")
   
-  # Check to make sure that our custom summary function returns what we 
-  # are expecting it to 
+  # Check to make sure that our custom summary function returns what we
+  # are expecting it to
   x <- summary(memc_all_models)
   expect_s3_class(x, "knitr_kable")
   
-  # But when printing the memc_all_models the users should 
-  # not see the custom class 
+  # But when printing the memc_all_models the users should
+  # not see the custom class
   x <- capture.output(class(print(memc_all_models)))
   expect_equivalent(tail(x, n = 1), "[1] \"list\"")
   
@@ -130,8 +129,8 @@ test_that("custom summary and print functions work as expected", {
   # Confirm that the class of the a single model object
   expect_s3_class(MEND_model, "memc_single_model")
   
-  # Check to make sure that the custom summary and print function return 
-  # what we are expecting it to 
+  # Check to make sure that the custom summary and print function return
+  # what we are expecting it to
   x <- summary(MEND_model)
   expect_s3_class(x, "knitr_kable")
   
