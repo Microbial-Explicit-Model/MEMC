@@ -114,7 +114,7 @@ test_that("memc_colorPalette ", {
 
 test_that("custom summary and print functions work as expected", {
   # Confirm that the class of the memc_all_models object
-  expect_s3_class(memc_all_models, "all_models")
+  expect_s3_class(memc_all_models, "memc_all_models")
   
   # Check to make sure that our custom summary function returns what we 
   # are expecting it to 

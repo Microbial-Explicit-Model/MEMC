@@ -231,12 +231,12 @@ memc_colorPalette <- function(name = NULL) {
 #'
 #' Provides a summary of dynamics used in `memc_all_models`.
 #'
-#' @param object An object of class `all_models`.
+#' @param object An object of class `memc_all_models`.
 #' @param ... Additional arguments (ignored).
 #' @export
-summary.all_models <- function(object, ...) {
-  if (!inherits(object, "all_models"))
-    stop("Object is not of class 'all_models'")
+summary.memc_all_models <- function(object, ...) {
+  if (!inherits(object, "memc_all_models"))
+    stop("Object is not of class 'memc_all_models'")
   
   tables <-
     sapply(object, function(x)
@@ -272,12 +272,12 @@ summary.memc_single_model <- function(object, ...) {
 #'
 #' Provides details of all the configurations included in `memc_all_models`.
 #'
-#' @param x An object of class `all_models`.
+#' @param x An object of class `memc_all_models`.
 #' @param ... Additional arguments (ignored).
 #' @export
-print.all_models <- function(x, ...) {
-  if (!inherits(x, "all_models"))
-    stop("Object is not of class 'all_models'")
+print.memc_all_models <- function(x, ...) {
+  if (!inherits(x, "memc_all_models"))
+    stop("Object is not of class 'memc_all_models'")
   
   # Remove attributes by unclassing to simplify the user experience
   object_no_attributes <- unclass(x)

@@ -79,5 +79,5 @@ memc_all_models <- list(MEND = MEND_model,
                         MEMS = MEMS_model,
                         BAMS = BAMS_model,
                         MIMICS = MIMCS_model)
-class(memc_all_models) <- "all_models"
+class(memc_all_models) <- "memc_all_models"
 usethis::use_data(memc_all_models, overwrite = TRUE)
