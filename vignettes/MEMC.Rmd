@@ -42,10 +42,10 @@ The package ships with several already defined model configurations; use `help(c
 included as internal MEMC package data, with each using different 
 representations for DOM uptake, POM decomposition, and MB decay.
 
-The MEMC model configurations are described in the `model_configs` table. 
+All MEMC model configurations are listed in the `memc_all_models` and are listed in the summary table. 
 
 ```{r}
-print(model_configs)
+summary(memc_all_models)
 ```
 
 Let's try using MEND, the microbial enzyme-mediated decomposition model 
@@ -109,20 +109,20 @@ example will use these values.
 Before setting up the model configuration, take a look at these defaults:
 
 ```{r}
-print(default_initial) # this is MEMC::default_initial
+print(memc_initial_state) # this is MEMC::memc_initial_state
 ```
 
 
 ```{r}
-print(default_params) # MEMC::default_params
+print(memc_params) # data(memc_params) or MEMC::memc_params
 ```
 
 Set up the model configuration:
 
 ```{r}
 # Running memc_configure will print a table describing the model configuration. 
-my_model <- memc_configure(params = default_params, 
-                            state = default_initial, 
+my_model <- memc_configure(params = memc_params, 
+                            state = memc_initial_state, 
                             name = "my model", 
                             DOMuptake = "MM", 
                             POMdecomp = "LM", 

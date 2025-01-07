@@ -1,69 +1,75 @@
 devtools::load_all()
 
 MEND_model <- memc_configure(
-  params = MEMC::default_params,
-  state = MEMC::default_initial,
+  params = memc_params,
+  state = memc_initial_state,
   name = "MEND",
   DOMuptake = "MM",
   POMdecomp = "MM",
   MBdecay = "LM"
 )
+class(MEND_model) <- "memc_single_model"
 usethis::use_data(MEND_model, overwrite = TRUE)
 
 COMISSION_model <- memc_configure(
-  params = MEMC::default_params,
-  state = MEMC::default_initial,
+  params = memc_params,
+  state = memc_initial_state,
   name = "COMISSION",
   DOMuptake = "MM",
   POMdecomp = "RMM",
   MBdecay = "LM"
 )
+class(COMISSION_model) <- "memc_single_model"
 usethis::use_data(COMISSION_model, overwrite = TRUE)
 
 CORPSE_model <- memc_configure(
-  params = MEMC::default_params,
-  state = MEMC::default_initial,
+  params = memc_params,
+  state = memc_initial_state,
   name = "CORPSE",
   DOMuptake = "RMM",
   POMdecomp = "LM",
   MBdecay = "LM"
 )
+class(CORPSE_model) <- "memc_single_model"
 usethis::use_data(CORPSE_model, overwrite = TRUE)
 
 
 MEMS_model <- memc_configure(
-  params = MEMC::default_params,
-  state = MEMC::default_initial,
+  params = memc_params,
+  state = memc_initial_state,
   name = "MEMS",
   DOMuptake = "LM",
   POMdecomp = "LM",
   MBdecay = "LM"
 )
+class(MEMS_model) <- "memc_single_model"
 usethis::use_data(MEMS_model, overwrite = TRUE)
 
 BAMS_model <- memc_configure(
-  params = MEMC::default_params,
-  state = MEMC::default_initial,
+  params = memc_params,
+  state = memc_initial_state,
   name = "BAMS",
   DOMuptake = "MM",
   POMdecomp = "MM",
   MBdecay = "LM"
 )
+class(BAMS_model) <- "memc_single_model"
 usethis::use_data(BAMS_model, overwrite = TRUE)
 
 
 # Update the parameter data frame to use the density dependent MB decay.
 param_df <- memc_update_params(new_params = c("dd_beta" = 2),
-                          param_table = MEMC::default_params)
+                          param_table = memc_params)
 
 MIMCS_model <- memc_configure(
   params = param_df,
-  state = MEMC::default_initial,
+  state = memc_initial_state,
   name = "MIMCS",
   DOMuptake = "MM",
   POMdecomp = "MM",
   MBdecay = "DD"
 )
+class(MIMCS_model) <- "memc_single_model"
 usethis::use_data(MIMCS_model, overwrite = TRUE)
 
 # A list of all available models in MEMC
@@ -73,11 +79,5 @@ memc_all_models <- list(MEND = MEND_model,
                         MEMS = MEMS_model,
                         BAMS = BAMS_model,
                         MIMICS = MIMCS_model)
+class(memc_all_models) <- "memc_all_models"
 usethis::use_data(memc_all_models, overwrite = TRUE)
-
-# A data table, built from memc_all_models, summarizing model configurations
-model_configs <- lapply(memc_all_models,
-                        function(x) x$table)
-model_configs <- do.call(rbind, model_configs)
-rownames(model_configs) <- NULL
-usethis::use_data(model_configs, overwrite = TRUE)

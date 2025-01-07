@@ -28,12 +28,23 @@ Set up the model configuration using the default paramaters and inital carbon po
 
 ```{r}
 # Running memc_configure will print a table describing the model configuration. 
-mod1 <- memc_configure(params = default_params, 
-                            state = default_initial, 
+mod1 <- memc_configure(params = memc_params, 
+                            state = memc_initial_state, 
                             name = "Model 1", 
                             DOMuptake = "MM", 
                             POMdecomp = "LM", 
                             MBdecay = "LM")
+```
+
+Take a look at all the details of the new model configuraiton
+```{r}
+print(mod1)
+```
+
+or the summary table of the dynamics being used. 
+
+```{r}
+summary(mod1)
 ```
 
 
@@ -49,8 +60,8 @@ Now switch the DOM uptake to use the RMM dynamics.
 
 ```{r}
 # Running memc_configure will print a table describing the model configuration. 
-mod2 <- memc_configure(params = default_params, 
-                            state = default_initial, 
+mod2 <- memc_configure(params = memc_params, 
+                            state = memc_initial_state, 
                             name = "Model 2", 
                             DOMuptake = "RMM", 
                             POMdecomp = "LM", 
@@ -64,8 +75,8 @@ Now try setting the DOM uptake to ECA dynamics.
 
 ```{r}
 # Running memc_configure will print a table describing the model configuration. 
-mod3 <- memc_configure(params = default_params, 
-                            state = default_initial, 
+mod3 <- memc_configure(params = memc_params, 
+                            state = memc_initial_state, 
                             name = "Model 3", 
                             DOMuptake = "ECA", 
                             POMdecomp = "LM", 

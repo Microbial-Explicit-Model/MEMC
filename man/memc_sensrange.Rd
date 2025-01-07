@@ -7,7 +7,7 @@
 memc_sensrange(config, t, x, parRange, dist, ...)
 }
 \arguments{
-\item{config}{a MEMC model configuration object, either one of the pre-built configurations listed in \code{model_configs} or created using \code{memc_configure}}
+\item{config}{a MEMC model configuration object, either one of the pre-built configurations listed in \code{memc_all_models} or created using \code{memc_configure}}
 
 \item{t}{vector of the time steps to run the model at}
 

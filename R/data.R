@@ -1,22 +1,22 @@
 #' The parameter values for the basic MEMC model configurations from Wang et al. 2013
 #'
 #' @docType data
-#' @usage data(default_params)
+#' @usage data(memc_params)
 #' @keywords datasets
 #'
 #' @format A data frame of 20 rows and 4 columns containing the model
 #' parameter values from \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 #' \describe{
-#' \item{parameter}{String character of the default MEND parameters.}
-#' \item{description}{String character describing the parameter.}
-#' \item{units}{String character of the parameter units.}
-#' \item{value}{Numeric values taken from the table 2 of Wang et al. 2013}
+#' \item{parameter}{String indicating MEMC parameter.}
+#' \item{description}{String describing the parameter.}
+#' \item{units}{String of the parameter units.}
+#' \item{value}{Parameter values from Table 2 of Wang et al. 2013}
 #' }
 #' @family inputs
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @examples
-#' print(default_params)
-"default_params"
+#' memc_params
+"memc_params"
 
 
 #' Soil incubation respiration fluxes from Wang et al. 2013
@@ -54,8 +54,8 @@
 #' @family inputs
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @examples
-#' print(default_initial)
-"default_initial"
+#' print(memc_initial_state)
+"memc_initial_state"
 
 
 #' The MEMC model configuration for MEND
@@ -68,8 +68,8 @@
 #' \describe{
 #' \item{name}{MEND}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
-#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
+#' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
+#' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
@@ -90,8 +90,8 @@
 #' \describe{
 #' \item{name}{COMISSION}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
-#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
+#' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
+#' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.1016/j.soilbio.2015.06.008}{Ahrens et al. 2015}
@@ -112,8 +112,8 @@
 #' \describe{
 #' \item{name}{CORPSE}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
-#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
+#' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
+#' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.1007/s10533-018-0509-z}{Sulman et al. 2018}
@@ -134,8 +134,8 @@
 #' \describe{
 #' \item{name}{MIMCS}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
-#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
+#' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
+#' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.1002/2015GB005188}{Wieder et al. 2015}
@@ -156,8 +156,8 @@
 #' \describe{
 #' \item{name}{MEMS}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
-#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
+#' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
+#' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
@@ -178,8 +178,8 @@
 #' \describe{
 #' \item{name}{BAMS}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
-#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
+#' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
+#' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
@@ -197,19 +197,8 @@
 #' \code{\link{CORPSE_model}}, \code{\link{MEMS_model}},
 #' \code{\link{BAMS_model}}, \code{\link{MIMCS_model}}
 #' @examples
-#' print(memc_all_models)
-"memc_all_models"
-
-#' Summary data frame of all the pre-defined MEMC model configurations
+#' memc_all_models
 #'
-#' @format data frame containing 4 columns
-#' \describe{
-#' \item{model}{model configuration name}
-#' \item{DOMuptake}{DOM uptake by microbial biomass; see \link{dynamics} for more details.}
-#' \item{POMdecomp}{POM decomposition; see \link{dynamics} for more details.}
-#' \item{MBdecay}{microbial biomass decay; see \link{default_initial} for more details.}
-#' }
-#' @family configurations
-#' @examples
-#' print(model_configs)
-"model_configs"
+#' # Return the summary table for dynamics used in model configurations
+#' summary(memc_all_models)
+"memc_all_models"

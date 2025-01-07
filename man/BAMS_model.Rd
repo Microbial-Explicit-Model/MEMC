@@ -9,8 +9,8 @@ An object created from \code{\link{memc_configure}}, containing the following el
 \describe{
 \item{name}{BAMS}
 \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
-\item{params}{data table of the model parameters; see \link{default_params} for more details.}
-\item{state}{vector of the initial state values; see \link{default_initial} for more details.}
+\item{params}{data table of the model parameters; see \link{memc_params} for more details.}
+\item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 }
 }
 \usage{
@@ -35,8 +35,7 @@ Other configurations:
 \code{\link{CORPSE_model}},
 \code{\link{MEMS_model}},
 \code{\link{MEND_model}},
-\code{\link{MIMCS_model}},
-\code{\link{model_configs}}
+\code{\link{MIMCS_model}}
 }
 \concept{configurations}
 \keyword{datasets}

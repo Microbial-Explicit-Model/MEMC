@@ -56,7 +56,7 @@ Use `memc_modfit` to fit the model to the observed data.
 Description of inputs to MEMC function `memc_modfit` are as follows: 
 
 * config: a MEMC model configuration object, either one of the pre-built
-configurations listed in model_configs or created using configure_model
+configurations listed in memc_all_models or created using configure_model
 * comp_data: a data frame containing the comparison data that the model
 will be fit to 
 
