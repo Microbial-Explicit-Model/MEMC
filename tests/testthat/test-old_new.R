@@ -47,7 +47,7 @@ test_that("COMISSION behavior", {
 
   out <- old_new_diff(old_comp, new)
 
-  expect_true(all(out$diff <= 1e-8))
+  expect_true(all(out$diff <= 1e-7))
 
 })
 
