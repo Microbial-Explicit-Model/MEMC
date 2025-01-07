@@ -50,15 +50,17 @@ model configurations included in the package and the microbial dynamics
 used in each configuration.
 
 ``` r
-print(memc_all_models)
-#>       model DOMuptake POMdecomp MBdecay
-#> 1      MEND        MM        MM      LM
-#> 2 COMISSION        MM       RMM      LM
-#> 3    CORPSE       RMM        LM      LM
-#> 4      MEMS        LM        LM      LM
-#> 5      BAMS        MM        MM      LM
-#> 6     MIMCS        MM        MM      DD
+summary(memc_all_models)
 ```
+
+| model     | DOMuptake | POMdecomp | MBdecay |
+|:----------|:----------|:----------|:--------|
+| MEND      | MM        | MM        | LM      |
+| COMISSION | MM        | RMM       | LM      |
+| CORPSE    | RMM       | LM        | LM      |
+| MEMS      | LM        | LM        | LM      |
+| BAMS      | MM        | MM        | LM      |
+| MIMCS     | MM        | MM        | DD      |
 
 Look in detail at the pre-built MEND_model configuration (see
 `help("MEND_model")` for more details):
@@ -152,8 +154,7 @@ configurations and also build customized models of their own design by
 selecting any combination of the supported flux dynamics, and/or
 modifying the model parameters. For this example we will use the default
 parameter and initial pool values that are included as package data (see
-`help("memc_params)` and `help("default_initial)` for more
-information).
+`help("memc_params)` and `help("default_initial)` for more information).
 
 ``` r
 # Use memc_configure to print a table describing the model configuration 

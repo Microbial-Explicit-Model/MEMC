@@ -78,7 +78,7 @@ model configurations included in the package and the microbial dynamics
 used in each configuration. 
 
 ```{r}
-print(memc_all_models)
+summary(memc_all_models)
 ```
 
 Look in detail at the pre-built MEND_model configuration (see

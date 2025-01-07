@@ -5,8 +5,13 @@ title: "Compare All MEMC Models"
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>", 
+   table.knit_hooks = function(x) {
+  
+      kableExtra::kable_styling(x, bootstrap_options = c("striped", "hover"), padding = 10) 
+  }
 )
+
 ```
 
 Compare all of the default results from the MEMC model configurations included within the package. This example will show users how to run MEMC model configurations and how to visualize the results. 
@@ -25,7 +30,7 @@ theme_set(theme_bw())
 Take look at the table of package model configurations. 
 
 ```{r}
-memc_all_models
+summary(memc_all_models)
 ```
 
 Run all 6 model configurations using the `memc_solve` function

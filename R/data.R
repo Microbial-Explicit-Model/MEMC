@@ -197,5 +197,8 @@
 #' \code{\link{CORPSE_model}}, \code{\link{MEMS_model}},
 #' \code{\link{BAMS_model}}, \code{\link{MIMCS_model}}
 #' @examples
-#' print(memc_all_models)
+#' memc_all_models
+#'
+#' # Return the summary table for dynamics used in model configurations
+#' summary(memc_all_models)
 "memc_all_models"
