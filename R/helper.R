@@ -241,10 +241,6 @@ memc_colorPalette <- function(name = NULL) {
   
 }
 
-# |model    |DOMuptake |POMdecomp |MBdecay |
-#   |:--------|:---------|:---------|:-------|
-#   |my model |MM        |LM        |LM      |
-
 #' Summary table of memc_all_models
 #'
 #' Provides a summary of dynamics used in `memc_all_models`.
