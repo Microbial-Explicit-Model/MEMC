@@ -232,7 +232,7 @@ sm_format_out <- function(rslt, mod) {
 #'
 #' @param mod model object, for example one of the list entries returned
 #' by \code{\link{memc_all_models}}
-#' @param time a numeric vector of the time steps to solve over
+#' @param time hourly time steps for model run
 #' @param params default set to NULL, will then use the parameter table
 #' read in with the \code{mod} object
 #' @param state default set to NULL, will then use the state read read

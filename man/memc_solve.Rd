@@ -10,7 +10,7 @@ memc_solve(mod, time, params = NULL, state = NULL, ...)
 \item{mod}{model object, for example one of the list entries returned
 by \code{\link{memc_all_models}}}
 
-\item{time}{a numeric vector of the time steps to solve over}
+\item{time}{hourly time steps for model run}
 
 \item{params}{default set to NULL, will then use the parameter table
 read in with the \code{mod} object}
