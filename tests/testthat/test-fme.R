@@ -1,5 +1,5 @@
 ptable <- memc_params
-state  <- MEMC::default_initial
+state  <- MEMC::memc_initial_state
 mod <- memc_configure(params = ptable, state = state)
 zero <- 1e-6
 
@@ -19,10 +19,10 @@ test_that("make_memc_objective", {
   # We would expect the cost of model input to output to be 0.
   objective <- make_memc_objective(
     comp_data = comp_data,
-    x = MEMC::default_initial,
+    x = MEMC::memc_initial_state,
     config = mod
   )
-  cost1 <- objective(x = MEMC::default_initial)
+  cost1 <- objective(x = MEMC::memc_initial_state)
   expect_lte(cost1$model, zero)
 
   # When there is a change in parameter value the most cost should be greater than 0.
@@ -33,8 +33,8 @@ test_that("make_memc_objective", {
   # model cost should be non 0.
   comp_data$IC <- comp_data$IC * 2
   objective2 <-
-    make_memc_objective(comp_data, x = MEMC::default_initial, mod)
-  cost3 <- objective2(x = MEMC::default_initial)
+    make_memc_objective(comp_data, x = MEMC::memc_initial_state, mod)
+  cost3 <- objective2(x = MEMC::memc_initial_state)
   expect_gt(abs(cost3$model), zero)
 
 })
@@ -55,7 +55,7 @@ test_that("memc_modfit", {
   expect_gt(out$iterations, 1)
 
   # Test to see if fitting works fo an initial carbon pool value.
-  default_B <- default_initial[["MB"]]
+  default_B <- memc_initial_state[["MB"]]
   out <- memc_modfit(
     config = mod,
     x = c("MB" = 5),

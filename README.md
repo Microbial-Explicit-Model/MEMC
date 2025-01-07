@@ -161,12 +161,12 @@ configurations and also build customized models of their own design by
 selecting any combination of the supported flux dynamics, and/or
 modifying the model parameters. For this example we will use the default
 parameter and initial pool values that are included as package data (see
-`help("memc_params)` and `help("default_initial)` for more information).
+`help("memc_params)` and `help("memc_initial_state)` for more information).
 
 ``` r
 # Use memc_configure to print a table describing the model configuration 
 my_model <- memc_configure(params = memc_params, 
-                           state = default_initial, 
+                           state = memc_initial_state, 
                            name = "my model", 
                            DOMuptake = "MM", 
                            POMdecomp = "LM", 

@@ -32,9 +32,9 @@ The `MEMC` package includes default parameter and initial pool values that are i
 Start by taking a look at the default model parameter values. 
 
 ```{r}
-print(default_initial)
+print(memc_initial_state)
 # Alternatively can use the :: to access the MEMC package data. 
-# print(MEMC::default_initial)
+# print(MEMC::memc_initial_state)
 ```
 
 
@@ -82,7 +82,7 @@ new_km <- memc_update_params(new_params = c("K_m" = 100), param_table = memc_par
 
 # Set up the new model configuration with the 
 mod_km <- memc_configure(params = new_km, 
-                        state = default_initial,
+                        state = memc_initial_state,
                         name = "Km = 100", 
                         DOMuptake = "MM",
                         POMdecomp = "MM",

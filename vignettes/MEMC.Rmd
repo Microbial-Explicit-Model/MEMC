@@ -109,7 +109,7 @@ example will use these values.
 Before setting up the model configuration, take a look at these defaults:
 
 ```{r}
-print(default_initial) # this is MEMC::default_initial
+print(memc_initial_state) # this is MEMC::memc_initial_state
 ```
 
 
@@ -122,7 +122,7 @@ Set up the model configuration:
 ```{r}
 # Running memc_configure will print a table describing the model configuration. 
 my_model <- memc_configure(params = memc_params, 
-                            state = default_initial, 
+                            state = memc_initial_state, 
                             name = "my model", 
                             DOMuptake = "MM", 
                             POMdecomp = "LM", 

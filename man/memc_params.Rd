@@ -28,7 +28,7 @@ memc_params
 }
 \seealso{
 Other inputs: 
-\code{\link{default_initial}}
+\code{\link{memc_initial_state}}
 }
 \concept{inputs}
 \keyword{datasets}

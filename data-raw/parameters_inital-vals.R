@@ -26,7 +26,7 @@ EM = 0.00001
 IC = 0
 Tot = 18.10002
 
-default_initial <-
+memc_initial_state <-
   c(
     POM = POM,
     MOM = MOM,
@@ -38,4 +38,4 @@ default_initial <-
     IC = IC,
     Tot = Tot
   )
-usethis::use_data(default_initial, overwrite = TRUE, internal = FALSE)
+usethis::use_data(memc_initial_state, overwrite = TRUE, internal = FALSE)

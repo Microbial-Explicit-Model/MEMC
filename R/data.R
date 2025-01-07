@@ -54,8 +54,8 @@
 #' @family inputs
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @examples
-#' print(default_initial)
-"default_initial"
+#' print(memc_initial_state)
+"memc_initial_state"
 
 
 #' The MEMC model configuration for MEND
@@ -69,7 +69,7 @@
 #' \item{name}{MEND}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
 #' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
-#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
+#' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
@@ -91,7 +91,7 @@
 #' \item{name}{COMISSION}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
 #' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
-#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
+#' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.1016/j.soilbio.2015.06.008}{Ahrens et al. 2015}
@@ -113,7 +113,7 @@
 #' \item{name}{CORPSE}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
 #' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
-#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
+#' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.1007/s10533-018-0509-z}{Sulman et al. 2018}
@@ -135,7 +135,7 @@
 #' \item{name}{MIMCS}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
 #' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
-#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
+#' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.1002/2015GB005188}{Wieder et al. 2015}
@@ -157,7 +157,7 @@
 #' \item{name}{MEMS}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
 #' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
-#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
+#' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
@@ -179,7 +179,7 @@
 #' \item{name}{BAMS}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
 #' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
-#' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
+#' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
 #' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
