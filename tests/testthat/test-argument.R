@@ -2,7 +2,7 @@
 
 
 test_that("is_param_table works", {
-  params <- MEMC::default_params
+  params <- MEMC::memc_params
 
   # The default parameter table should always pass this test.
   expect_true(is_param_table(params))

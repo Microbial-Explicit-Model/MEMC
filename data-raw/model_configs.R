@@ -1,7 +1,7 @@
 devtools::load_all()
 
 MEND_model <- memc_configure(
-  params = MEMC::default_params,
+  params = MEMC::memc_params,
   state = MEMC::default_initial,
   name = "MEND",
   DOMuptake = "MM",
@@ -11,7 +11,7 @@ MEND_model <- memc_configure(
 usethis::use_data(MEND_model, overwrite = TRUE)
 
 COMISSION_model <- memc_configure(
-  params = MEMC::default_params,
+  params = MEMC::memc_params,
   state = MEMC::default_initial,
   name = "COMISSION",
   DOMuptake = "MM",
@@ -21,7 +21,7 @@ COMISSION_model <- memc_configure(
 usethis::use_data(COMISSION_model, overwrite = TRUE)
 
 CORPSE_model <- memc_configure(
-  params = MEMC::default_params,
+  params = MEMC::memc_params,
   state = MEMC::default_initial,
   name = "CORPSE",
   DOMuptake = "RMM",
@@ -32,7 +32,7 @@ usethis::use_data(CORPSE_model, overwrite = TRUE)
 
 
 MEMS_model <- memc_configure(
-  params = MEMC::default_params,
+  params = MEMC::memc_params,
   state = MEMC::default_initial,
   name = "MEMS",
   DOMuptake = "LM",
@@ -42,7 +42,7 @@ MEMS_model <- memc_configure(
 usethis::use_data(MEMS_model, overwrite = TRUE)
 
 BAMS_model <- memc_configure(
-  params = MEMC::default_params,
+  params = MEMC::memc_params,
   state = MEMC::default_initial,
   name = "BAMS",
   DOMuptake = "MM",
@@ -54,7 +54,7 @@ usethis::use_data(BAMS_model, overwrite = TRUE)
 
 # Update the parameter data frame to use the density dependent MB decay.
 param_df <- memc_update_params(new_params = c("dd_beta" = 2),
-                          param_table = MEMC::default_params)
+                          param_table = MEMC::memc_params)
 
 MIMCS_model <- memc_configure(
   params = param_df,

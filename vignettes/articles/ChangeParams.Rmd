@@ -39,9 +39,9 @@ print(default_initial)
 
 
 ```{r}
-print(default_params)
+print(memc_params)
 # Alternatively can use the :: to access the MEMC package data. 
-# print(MEMC::default_params)
+# print(MEMC::memc_params)
 ```
 
 # Run deafult MEMC MEND 
@@ -78,7 +78,7 @@ ggplot(data = rbind(out1, out2)) +
 `memc_update_params` is a helper function that can change the parameter values in the parameter table. You will need to set up a new model configuration with the new parameter table. 
 
 ```{r}
-new_km <- memc_update_params(new_params = c("K_m" = 100), param_table = default_params)
+new_km <- memc_update_params(new_params = c("K_m" = 100), param_table = memc_params)
 
 # Set up the new model configuration with the 
 mod_km <- memc_configure(params = new_km, 

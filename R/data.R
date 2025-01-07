@@ -1,7 +1,7 @@
 #' The parameter values for the basic MEMC model configurations from Wang et al. 2013
 #'
 #' @docType data
-#' @usage data(default_params)
+#' @usage data(memc_params)
 #' @keywords datasets
 #'
 #' @format A data frame of 20 rows and 4 columns containing the model
@@ -15,8 +15,8 @@
 #' @family inputs
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @examples
-#' print(default_params)
-"default_params"
+#' print(memc_params)
+"memc_params"
 
 
 #' Soil incubation respiration fluxes from Wang et al. 2013
@@ -68,7 +68,7 @@
 #' \describe{
 #' \item{name}{MEND}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
+#' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
 #' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
 #' }
 #' @family configurations
@@ -90,7 +90,7 @@
 #' \describe{
 #' \item{name}{COMISSION}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
+#' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
 #' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
 #' }
 #' @family configurations
@@ -112,7 +112,7 @@
 #' \describe{
 #' \item{name}{CORPSE}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
+#' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
 #' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
 #' }
 #' @family configurations
@@ -134,7 +134,7 @@
 #' \describe{
 #' \item{name}{MIMCS}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
+#' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
 #' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
 #' }
 #' @family configurations
@@ -156,7 +156,7 @@
 #' \describe{
 #' \item{name}{MEMS}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
+#' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
 #' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
 #' }
 #' @family configurations
@@ -178,7 +178,7 @@
 #' \describe{
 #' \item{name}{BAMS}
 #' \item{table}{table of the dynamics used by this model configuration; see \link{dynamics} for more details.}
-#' \item{params}{data table of the model parameters; see \link{default_params} for more details.}
+#' \item{params}{data table of the model parameters; see \link{memc_params} for more details.}
 #' \item{state}{vector of the initial state values; see \link{default_initial} for more details.}
 #' }
 #' @family configurations

@@ -114,14 +114,14 @@ print(default_initial) # this is MEMC::default_initial
 
 
 ```{r}
-print(default_params) # MEMC::default_params
+print(memc_params) # MEMC::memc_params
 ```
 
 Set up the model configuration:
 
 ```{r}
 # Running memc_configure will print a table describing the model configuration. 
-my_model <- memc_configure(params = default_params, 
+my_model <- memc_configure(params = memc_params, 
                             state = default_initial, 
                             name = "my model", 
                             DOMuptake = "MM", 

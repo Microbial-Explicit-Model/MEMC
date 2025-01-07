@@ -1,4 +1,4 @@
-ptable <- MEMC::default_params
+ptable <- MEMC::memc_params
 state <- MEMC::default_initial
 
 test_that("update_params", {
@@ -10,7 +10,7 @@ test_that("update_params", {
       "Input_POM" = 10
     ), param_table = ptable)
   expect_equal(sum(abs(
-    new_table$value - MEMC::default_params$value
+    new_table$value - MEMC::memc_params$value
   ) > 0), 3)
 
   # Expect an error if conditions aren't met

@@ -7,9 +7,9 @@ DIR <- here::here("data-raw")
 # model parameters through steady‐state and dynamic analyses. Ecological Applications,
 # 23: 255-272. doi:10.1890/12-0681.1
 
-default_params <-
-  read.csv(file.path(DIR, "default_params.csv"), stringsAsFactors = FALSE)
-usethis::use_data(default_params, overwrite = TRUE, internal = FALSE)
+memc_params <-
+  read.csv(file.path(DIR, "memc_params.csv"), stringsAsFactors = FALSE)
+usethis::use_data(memc_params, overwrite = TRUE, internal = FALSE)
 
 
 # Initial state values also come from  MEND 2013.

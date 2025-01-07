@@ -32,7 +32,7 @@ print(default_initial)
 }
 \seealso{
 Other inputs: 
-\code{\link{default_params}}
+\code{\link{memc_params}}
 }
 \concept{inputs}
 \keyword{datasets}
