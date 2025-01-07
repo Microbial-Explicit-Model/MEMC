@@ -19,6 +19,24 @@
 "default_params"
 
 
+#' Soil incubation respiration fluxes from Wang et al. 2013
+#'
+#' @docType data
+#' @usage data(memc_data_ultisol)
+#' @keywords datasets
+#' @format A data frame of 45 rows (15 time points x three replicates)
+#' and 3 columns containing respiration data.
+#' \describe{
+#' \item{Day}{Day of incubation.}
+#' \item{Soil}{String constant describing soil type.}
+#' \item{value}{Cumulative respiration, mg C/g soil.}
+#' }
+#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+#' @examples
+#' memc_data_ultisol
+"memc_data_ultisol"
+
+
 #' The default initial carbon pool values used by the default MEMC model configurations
 #'
 #' @format A named vector of the initial states of the carbon pools.

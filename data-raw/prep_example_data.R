@@ -2,14 +2,22 @@
 
 DIR <- here::here("data-raw")
 
-# Load the data example data.
-data <- read.csv(file.path(DIR, "Ultisol_control.csv"))
+# Load the data example flux data
+# These are from Jianqiu Zheng's google sheet, and originally from ORNL LDRD work
+# See Wang et al. 2013 10.1890/12-0681.1
+obs <- data.table::fread(file.path(DIR, "example-data-fluxes.csv"))
+obs$Variable <- NULL
 
-# Format the data into a long data frame.
-obs_long <- melt(data, "time")
-write.csv(obs_long,
-          here::here("inst", "example", "exmaple_data.csv"),
-          row.names = FALSE)
+# Format the data into a long data frame
+memc_data_all <- data.table::melt(obs, id.vars = "Day",
+                                  variable.name = "Soil",
+                                  variable.factor = FALSE)
+memc_data_all <- as.data.frame(memc_data_all)
+
+# Save individual soil type datasets
+memc_data_ultisol <- subset(memc_data_all, Soil == "Ultisol")
+usethis::use_data(memc_data_ultisol, overwrite = TRUE)
+
 
 # The initial values for ultisol that we were given.
 Ultisol_state <-
