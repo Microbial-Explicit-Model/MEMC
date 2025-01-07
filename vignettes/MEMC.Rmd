@@ -114,7 +114,7 @@ print(default_initial) # this is MEMC::default_initial
 
 
 ```{r}
-print(memc_params) # MEMC::memc_params
+print(memc_params) # data(memc_params) or MEMC::memc_params
 ```
 
 Set up the model configuration:

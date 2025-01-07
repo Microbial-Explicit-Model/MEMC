@@ -8,10 +8,10 @@
 A data frame of 20 rows and 4 columns containing the model
 parameter values from \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
 \describe{
-\item{parameter}{String character of the default MEND parameters.}
+\item{parameter}{String character of the MEMC parameter.}
 \item{description}{String character describing the parameter.}
 \item{units}{String character of the parameter units.}
-\item{value}{Numeric values taken from the table 2 of Wang et al. 2013}
+\item{value}{Paramter values equal table 2 of Wang et al. 2013}
 }
 }
 \usage{
@@ -21,7 +21,7 @@ data(memc_params)
 The parameter values for the basic MEMC model configurations from Wang et al. 2013
 }
 \examples{
-print(memc_params)
+memc_params
 }
 \references{
 \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}

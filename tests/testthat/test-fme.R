@@ -1,4 +1,4 @@
-ptable <- MEMC::memc_params
+ptable <- memc_params
 state  <- MEMC::default_initial
 mod <- memc_configure(params = ptable, state = state)
 zero <- 1e-6

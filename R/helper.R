@@ -178,7 +178,7 @@ split_param_state <- function(x) {
   msg = "value not recognized as a parameter or state")
 
   params_index <-
-    which(names(x) %in% MEMC::memc_params$parameter)
+    which(names(x) %in%  MEMC::memc_params$parameter)
   state_index <- which(names(x) %in% names(MEMC::default_initial))
 
   if (length(params_index) == 0) {
