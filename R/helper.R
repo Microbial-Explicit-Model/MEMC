@@ -223,7 +223,7 @@ memc_colorPalette <- function(name = NULL){
                  "COMISSION" = "#D783FD",
                  "MEMS" = "#1494FC")
 
-  assert_that(nrow(MEMC::model_configs) == length(color_vec),
+  assert_that(length(MEMC::memc_all_models) == length(color_vec),
               msg = "Problem with color palette size")
 
   if(is.null(name)){
