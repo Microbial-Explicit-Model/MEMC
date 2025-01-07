@@ -74,10 +74,3 @@ memc_all_models <- list(MEND = MEND_model,
                         BAMS = BAMS_model,
                         MIMICS = MIMCS_model)
 usethis::use_data(memc_all_models, overwrite = TRUE)
-
-# A data table, built from memc_all_models, summarizing model configurations
-model_configs <- lapply(memc_all_models,
-                        function(x) x$table)
-model_configs <- do.call(rbind, model_configs)
-rownames(model_configs) <- NULL
-usethis::use_data(model_configs, overwrite = TRUE)

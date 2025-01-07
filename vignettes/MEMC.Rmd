@@ -42,10 +42,10 @@ The package ships with several already defined model configurations; use `help(c
 included as internal MEMC package data, with each using different 
 representations for DOM uptake, POM decomposition, and MB decay.
 
-The MEMC model configurations are described in the `model_configs` table. 
+The MEMC model configurations are described in the `memc_all_models` table. 
 
 ```{r}
-print(model_configs)
+print(memc_all_models)
 ```
 
 Let's try using MEND, the microbial enzyme-mediated decomposition model 

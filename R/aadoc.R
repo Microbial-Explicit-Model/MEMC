@@ -8,7 +8,7 @@
 #' \code{CORPSE_model}, \code{MEND_model},
 #' \code{MIMCS_model}, and \code{MEMS_model}.
 #' All supported model configurations are listed
-#' in \code{model_configs}.
+#' in \code{memc_all_models}.
 #'
 #' These model configurations can be used with the \code{memc_solve} function to
 #' complete the desired model simulations.

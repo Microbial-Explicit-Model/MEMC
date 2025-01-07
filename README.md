@@ -45,12 +45,12 @@ configuration (see `help(configurations)`). Here we demonstrate how to
 run a simulation using the “MEND_model” configuration. For more examples
 and package details, please check out our [online
 documentation](https://microbial-explicit-model.github.io/MEMC/).
-Alternatively, users can look at the `model_configs` table to see all
+Alternatively, users can look at the `memc_all_models` table to see all
 model configurations included in the package and the microbial dynamics
 used in each configuration.
 
 ``` r
-print(model_configs)
+print(memc_all_models)
 #>       model DOMuptake POMdecomp MBdecay
 #> 1      MEND        MM        MM      LM
 #> 2 COMISSION        MM       RMM      LM

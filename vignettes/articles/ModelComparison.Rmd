@@ -25,7 +25,7 @@ theme_set(theme_bw())
 Take look at the table of package model configurations. 
 
 ```{r}
-model_configs
+memc_all_models
 ```
 
 Run all 6 model configurations using the `memc_solve` function

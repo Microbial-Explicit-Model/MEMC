@@ -199,17 +199,3 @@
 #' @examples
 #' print(memc_all_models)
 "memc_all_models"
-
-#' Summary data frame of all the pre-defined MEMC model configurations
-#'
-#' @format data frame containing 4 columns
-#' \describe{
-#' \item{model}{model configuration name}
-#' \item{DOMuptake}{DOM uptake by microbial biomass; see \link{dynamics} for more details.}
-#' \item{POMdecomp}{POM decomposition; see \link{dynamics} for more details.}
-#' \item{MBdecay}{microbial biomass decay; see \link{default_initial} for more details.}
-#' }
-#' @family configurations
-#' @examples
-#' print(model_configs)
-"model_configs"
