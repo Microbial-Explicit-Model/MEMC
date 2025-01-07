@@ -92,22 +92,6 @@ update_config <- function(mod, new = NULL) {
 }
 
 
-#' Message the configuration table
-#'
-#' @param x knitr_kable \code{make_config_table}
-#' @return Message to the console (as a side effect).
-#' @importFrom assertthat assert_that
-#' @noRd
-custom_config_table_message <- function(x) {
-  # Make sure that the table was created by make_config_table
-  assert_that(is.data.frame(x))
-  out <- knitr::kable(x)
-  
-  # Message!
-  message(paste0(out, collapse = '\n'))
-  
-}
-
 #' Set up a model configuration
 #'
 #' @param params data.table containing the following columns: parameter, value, and units.
@@ -116,6 +100,7 @@ custom_config_table_message <- function(x) {
 #' @param DOMuptake string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"
 #' @param POMdecomp string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"
 #' @param MBdecay string indicating microbial decay, one  of the following ""LM" or "DD"
+#' @return single_model object of the name, dynamics, parameters and starting state values
 #' @importFrom assertthat assert_that
 #' @export
 #' @family helper functions
@@ -123,6 +108,7 @@ custom_config_table_message <- function(x) {
 #' # Modify the MEND model
 #' m <- MEND_model
 #' m_mod <- memc_configure(m$params, m$state, "MEND_modified", POMdecomp = "LM")
+#' summary(m_mod)
 #' memc_solve(m_mod, 0:10)
 memc_configure <- function(params,
                            state,
@@ -149,7 +135,6 @@ memc_configure <- function(params,
     "POMdecomp" = POMdecomp,
     "MBdecay" = MBdecay
   )
-  custom_config_table_message(table)
   
   model_object <- list(
     "name" = name,
@@ -157,6 +142,7 @@ memc_configure <- function(params,
     "params" = params,
     "state" = state
   )
+  class(model_object) <- "single_model"
   
   return(model_object)
   
@@ -265,19 +251,55 @@ summary.all_models <- function(object, ...) {
 }
 
 
+#' Summary table for a single_model
+#'
+#' Provides a summary of dynamics used in `single_model`.
+#'
+#' @param object An object of class `single_model`.
+#' @param ... Additional arguments (ignored).
+#' @export
+summary.single_model <- function(object, ...) {
+  if (!inherits(object, "single_model"))
+    stop("Object is not of class 'single_model'")
+  
+  out <- knitr::kable(object$table)
+  return(out)
+  
+}
+
+
 #' Return the memc_all_models object
 #'
 #' Provides details of all the configurations included in `memc_all_models`.
 #'
-#' @param object An object of class `all_models`.
+#' @param x An object of class `all_models`.
 #' @param ... Additional arguments (ignored).
 #' @export
-print.all_models <- function(object, ...) {
-  if (!inherits(object, "all_models"))
+print.all_models <- function(x, ...) {
+  if (!inherits(x, "all_models"))
     stop("Object is not of class 'all_models'")
   
   # Remove attributes by unclassing to simplify the user experience
-  object_no_attributes <- unclass(object)
+  object_no_attributes <- unclass(x)
+  print.default(object_no_attributes)
+  invisible(object_no_attributes)
+  
+}
+
+
+#' Return a full memc model object
+#'
+#' Provides details of all single model configuration
+#'
+#' @param x An object of class `single_model`.
+#' @param ... Additional arguments (ignored).
+#' @export
+print.single_model <- function(x, ...) {
+  if (!inherits(x, "single_model"))
+    stop("Object is not of class 'single_model'")
+  
+  # Remove attributes by unclassing to simplify the user experience
+  object_no_attributes <- unclass(x)
   print.default(object_no_attributes)
   invisible(object_no_attributes)
   

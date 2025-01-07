@@ -35,6 +35,8 @@ test_that("update_state", {
 
 test_that("bad model configuration will fail", {
   out1 <- memc_configure(ptable, state)
+  expect_equivalent(class(out1), "single_model")
+  
   out2 <-
     memc_configure(
       ptable,
@@ -121,8 +123,20 @@ test_that("custom summary and print functions work as expected", {
   
   # But when printing the memc_all_models the users should 
   # not see the custom class 
-  expect_equivalent(class(print(memc_all_models)), "list")
+  x <- capture.output(class(print(memc_all_models)))
+  expect_equivalent(tail(x, n = 1), "[1] \"list\"")
   
+  
+  # Confirm that the class of the a single model object
+  expect_s3_class(MEND_model, "single_model")
+  
+  # Check to make sure that the custom summary and print function return 
+  # what we are expecting it to 
+  x <- summary(MEND_model)
+  expect_s3_class(x, "knitr_kable")
+  
+  x <- capture.output(class(print(MEND_model)))
+  expect_equivalent(tail(x, n = 1), "[1] \"list\"")
   
   
 })

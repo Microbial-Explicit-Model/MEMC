@@ -36,6 +36,17 @@ mod1 <- memc_configure(params = memc_params,
                             MBdecay = "LM")
 ```
 
+Take a look at all the details of the new model configuraiton
+```{r}
+print(mod1)
+```
+
+or the summary table of the dynamics being used. 
+
+```{r}
+summary(mod1)
+```
+
 
 Use `memc_solve` to run our model. 
 

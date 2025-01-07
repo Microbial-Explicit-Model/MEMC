@@ -85,10 +85,23 @@ Look in detail at the pre-built MEND_model configuration (see
 `help("MEND_model")` for more details):
 
 ```{r}
-# Printing this MEMC model configuration will return a list defining
-# the run name, a table of the flux dynamics, parameter values, and 
-# initial SOM pool sizes. 
-print(MEND_model)
+# Printing the summary table for a MEMC model configuration, this will indicate
+# the dynamics that will be used in the model run. 
+summary(MEND_model)
+```
+
+
+Parameter value 
+```{r}
+# The parameter values can be view using by indexing into the MEND_model object
+print(MEND_model$params) 
+```
+
+
+Initial pool states for when simulation time is equal to 0. 
+```{r}
+# Similarly the initial pool values are accessed using 
+print(MEND_model$state)
 ```
 
 Perform a run using the MEND model:
@@ -128,6 +141,7 @@ my_model <- memc_configure(params = memc_params,
                            DOMuptake = "MM", 
                            POMdecomp = "LM", 
                            MBdecay = "LM")
+summary(my_model)
 ```
 
 Run our customized model...

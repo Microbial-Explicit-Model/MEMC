@@ -14,7 +14,10 @@ memc_all_models
 List of all the pre-defined MEMC models
 }
 \examples{
-print(memc_all_models)
+memc_all_models
+
+# Return the summary table for dynamics used in model configurations
+summary(memc_all_models)
 }
 \seealso{
 \code{\link{MEND_model}}, \code{\link{COMISSION_model}},
