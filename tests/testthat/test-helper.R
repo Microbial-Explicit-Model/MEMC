@@ -112,3 +112,4 @@ test_that("memc_colorPalette ", {
 
 })
 
+
