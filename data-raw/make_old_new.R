@@ -5,6 +5,7 @@ TEST_DIR <- file.path(BASE_DIR, "tests", "testthat")
 time <- floor(seq(0, 36500, length.out = 25))
 
 # Run the different outputs.
+library(MEMC)
 mend_out <- memc_solve(mod = MEND_model, time)
 names(mend_out) <-
   c("time", "variable", "old_value", "units", "name")
