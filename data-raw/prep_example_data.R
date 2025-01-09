@@ -9,31 +9,33 @@ obs <- data.table::fread(file.path(DIR, "example-data-fluxes.csv"))
 obs$Variable <- NULL
 
 # Format the data into a long data frame
-memc_data_all <- data.table::melt(obs, id.vars = "Day",
-                                  variable.name = "Soil",
-                                  variable.factor = FALSE)
+memc_data_all <- data.table::melt(
+  obs,
+  id.vars = "Day",
+  variable.name = "Soil",
+  variable.factor = FALSE
+)
 memc_data_all <- as.data.frame(memc_data_all)
 
 # Save individual soil type datasets
-memc_data_ultisol <- subset(memc_data_all, Soil == "Ultisol")
-usethis::use_data(memc_data_ultisol, overwrite = TRUE)
-
+memc_ultisol_data <- subset(memc_data_all, Soil == "Ultisol")
 
 # The initial values for ultisol that we were given.
-Ultisol_state <-
-  c(
-    P = 4.71,
-    M = 17.67,
-    Q = 0,
-    D = 0.148,
-    B = 0.82,
-    EP = 0.0082,
-    EM = 0.0082,
-    IC = 0,
-    Tot = 23.484
-  )
-state <- data.frame(state = names(Ultisol_state),
-                    value = Ultisol_state)
-write.csv(state,
-          here::here("inst", "example", "exmaple_initial.csv"),
-          row.names = FALSE)
+memc_ultisol_state <- c(
+  POM = 4.71,
+  MOM = 17.67,
+  QOM = 0,
+  MB = 0.82,
+  DOM = 0.148,
+  EP = 0.0082,
+  EM = 0.0082,
+  IC = 0,
+  Tot = 23.484
+)
+
+
+memc_incubation_ultisol <- list()
+memc_incubation_ultisol[["state"]] <- memc_ultisol_state
+memc_incubation_ultisol[["data"]] <- memc_ultisol_data
+
+usethis::use_data(memc_incubation_ultisol, overwrite = TRUE)
