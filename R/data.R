@@ -4,16 +4,15 @@
 #' @usage data(memc_params)
 #' @keywords datasets
 #'
-#' @format A data frame of 20 rows and 4 columns containing the model
-#' parameter values from \href{doi.org/10.1890/12-0681.1}{Wang et al. 2013}.
+#' @format A data frame of 20 rows and 4 columns containing the default MEMC
+#' parameter values 
 #' \describe{
 #' \item{parameter}{String indicating MEMC parameter.}
 #' \item{description}{String describing the parameter.}
 #' \item{units}{String of the parameter units.}
-#' \item{value}{Parameter values from Table 2 of Wang et al. 2013}
+#' \item{value}{Parameter values}
 #' }
 #' @family inputs
-#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @examples
 #' memc_params
 "memc_params"
