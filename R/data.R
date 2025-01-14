@@ -204,3 +204,39 @@
 #' # Return the summary table for dynamics used in model configurations
 #' summary(memc_all_models)
 "memc_all_models"
+
+
+#' Example incubation time series and initial conditions
+#' 
+#' A list containing incubation data and initial states for different soil types, ultisol, andisol, gelisol, and mollisol.
+#'
+#' @format A list of 4 elements, each corresponding to a soil type:
+#' \describe{
+#'   \item{ultisol}{A list with two components:
+#'     \describe{
+#'       \item{\code{data}}{A data frame with 45 observations and 3 variables:
+#'         \describe{
+#'           \item{\code{Day}}{integer indicateing the time since the start of the incubation experiment.}
+#'           \item{\code{Soil}}{chracter indicating the soil type, always "Ultisol".}
+#'           \item{\code{IC}}{numeric value for inorganic carbon (mg C g\eqn{^{-1}} soil).}
+#'         }}
+#'       \item{\code{state}}{vector of the initial state values; see \link{memc_initial_state} for more details.}
+#'     }}
+#'   \item{andisol}{similar structure to \code{ultisol}, but data pertains to "Andisol" soil type.}
+#'   \item{gelisol}{similar structure to \code{ultisol}, but data pertains to "Gelisol" soil type.}
+#'   \item{mollisol}{similar structure to \code{ultisol}, but data pertains to "Mollisol" soil type.}
+#' }
+#'
+#' @details Each soil type has two main components:
+#' \itemize{
+#'   \item \code{data}: Time-series data of carbon pools during the incubation experiment.
+#'   \item \code{state}: Initial conditions of soil carbon pools. 
+#' }
+#'
+#' @examples
+#' # Access the incubation data for Ultisol
+#' memc_incubation$ultisol$data
+#'
+#' # Access the initial state for Gelisol
+#' memc_incubation$gelisol$state
+"memc_incubation"

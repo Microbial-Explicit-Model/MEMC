@@ -13,29 +13,36 @@ memc_data_all <- data.table::melt(
   obs,
   id.vars = "Day",
   variable.name = "Soil",
-  variable.factor = FALSE
+  variable.factor = FALSE, 
+  value.name = "IC"
 )
 memc_data_all <- as.data.frame(memc_data_all)
 
-# Save individual soil type datasets
-memc_ultisol_data <- subset(memc_data_all, Soil == "Ultisol")
-
-# The initial values for ultisol that we were given.
-memc_ultisol_state <- c(
-  POM = 4.71,
-  MOM = 17.67,
-  QOM = 0,
-  MB = 0.82,
-  DOM = 0.148,
-  EP = 0.0082,
-  EM = 0.0082,
-  IC = 0,
-  Tot = 23.484
-)
+# Load the example data for the initial pool sizes. 
+# These are from Jianqiu Zheng's google sheet, and originally from ORNL LDRD work
+# See Wang et al. 2013 10.1890/12-0681.1
+inital_pools <- data.table::fread(file.path(DIR, "example-initial-state.csv"))
 
 
-memc_incubation_ultisol <- list()
-memc_incubation_ultisol[["state"]] <- memc_ultisol_state
-memc_incubation_ultisol[["data"]] <- memc_ultisol_data
+# Create the object to save incubation information in 
+memc_incubation <- list()
 
-usethis::use_data(memc_incubation_ultisol, overwrite = TRUE)
+memc_incubation$ultisol$data <- subset(memc_data_all, Soil == "Ultisol")
+memc_incubation$ultisol$state <- as.numeric(subset(inital_pools, Soil == "Ultisol")[ ,-c("Soil")])
+
+memc_incubation$andisol$data <- subset(memc_data_all, Soil == "Andisol")
+memc_incubation$andisol$state <- as.numeric(subset(inital_pools, Soil == "Andisol")[ ,-c("Soil")])
+
+memc_incubation$gelisol$data <- subset(memc_data_all, Soil == "Gelisol")
+memc_incubation$gelisol$state <- as.numeric(subset(inital_pools, Soil == "Gelisol")[ ,-c("Soil")])
+
+memc_incubation$mollisol$data <- subset(memc_data_all, Soil == "Mollisol")
+memc_incubation$mollisol$state <- as.numeric(subset(inital_pools, Soil == "Mollisol")[ ,-c("Soil")])
+
+
+names(memc_incubation$ultisol$state) <- names(memc_incubation$andisol$state) <- 
+  names(memc_incubation$gelisol$state) <- names(memc_incubation$mollisol$state) <- names(memc_initial_state)
+  
+  
+  
+usethis::use_data(memc_incubation, overwrite = TRUE)
