@@ -206,37 +206,113 @@
 "memc_all_models"
 
 
-#' Example incubation time series and initial conditions
-#' 
-#' A list containing incubation data and initial states for different soil types, ultisol, andisol, gelisol, and mollisol.
+#' Example data, time series and initial conditions for Ultisol from Wang et al. 2013 (10.1890/12-0681.1)
 #'
-#' @format A list of 4 elements, each corresponding to a soil type:
+#' A list containing incubation data and initial states.
+#'
+#' @format A list of 2 elements:
 #' \describe{
-#'   \item{ultisol}{A list with two components:
+#'   \item{\code{data}}{data frame of  time-series data for carbon pools from the incubation experiment.
+#'     The data frame contains the following variables:
 #'     \describe{
-#'       \item{\code{data}}{A data frame with 45 observations and 3 variables:
-#'         \describe{
-#'           \item{\code{Day}}{integer indicateing the time since the start of the incubation experiment.}
-#'           \item{\code{Soil}}{chracter indicating the soil type, always "Ultisol".}
-#'           \item{\code{IC}}{numeric value for inorganic carbon (mg C g\eqn{^{-1}} soil).}
-#'         }}
-#'       \item{\code{state}}{vector of the initial state values; see \link{memc_initial_state} for more details.}
-#'     }}
-#'   \item{andisol}{similar structure to \code{ultisol}, but data pertains to "Andisol" soil type.}
-#'   \item{gelisol}{similar structure to \code{ultisol}, but data pertains to "Gelisol" soil type.}
-#'   \item{mollisol}{similar structure to \code{ultisol}, but data pertains to "Mollisol" soil type.}
+#'       \item{\code{Day}}{numeric, indicating the time since the start of the incubation experiment.}
+#'       \item{\code{Soil}}{Character indicating the soil type (e.g., "Ultisol").}
+#'       \item{\code{IC}}{Numeric value for inorganic carbon (mg C g\eqn{^{-1}} soil).}
+#'     }
+#'   }
+#'   \item{\code{state}}{named numeric vector of initial state values for the soil carbon pools.}
 #' }
 #'
-#' @details Each soil type has two main components:
-#' \itemize{
-#'   \item \code{data}: Time-series data of carbon pools during the incubation experiment.
-#'   \item \code{state}: Initial conditions of soil carbon pools. 
-#' }
+#' @details The `data` element contains time-series observations, while the `state` element represents the initial conditions for the soil carbon pools.
 #'
 #' @examples
-#' # Access the incubation data for Ultisol
-#' memc_incubation$ultisol$data
+#' # Access the incubation data
+#' memc_incubation_ultisol$data
 #'
-#' # Access the initial state for Gelisol
-#' memc_incubation$gelisol$state
-"memc_incubation"
+#' # Access the initial state
+#' memc_incubation_ultisol$state
+"memc_incubation_ultisol"
+
+
+#' Example data, time series and initial conditions for Andisol from Wang et al. 2013 (10.1890/12-0681.1)
+#'
+#' A list containing incubation data and initial states.
+#'
+#' @format A list of 2 elements:
+#' \describe{
+#'   \item{\code{data}}{data frame of  time-series data for carbon pools from the incubation experiment.
+#'     The data frame contains the following variables:
+#'     \describe{
+#'       \item{\code{Day}}{numeric, indicating the time since the start of the incubation experiment.}
+#'       \item{\code{Soil}}{Character indicating the soil type (e.g., "Andisol").}
+#'       \item{\code{IC}}{Numeric value for inorganic carbon (mg C g\eqn{^{-1}} soil).}
+#'     }
+#'   }
+#'   \item{\code{state}}{named numeric vector of initial state values for the soil carbon pools.}
+#' }
+#'
+#' @details The `data` element contains time-series observations, while the `state` element represents the initial conditions for the soil carbon pools.
+#'
+#' @examples
+#' # Access the incubation data
+#' memc_incubation_andisol$data
+#'
+#' # Access the initial state
+#' memc_incubation_andisol$state
+"memc_incubation_andisol"
+
+
+#' Example data, time series and initial conditions for Gelisol from Wang et al. 2013 (10.1890/12-0681.1)
+#'
+#' A list containing incubation data and initial states.
+#'
+#' @format A list of 2 elements:
+#' \describe{
+#'   \item{\code{data}}{data frame of  time-series data for carbon pools from the incubation experiment.
+#'     The data frame contains the following variables:
+#'     \describe{
+#'       \item{\code{Day}}{numeric, indicating the time since the start of the incubation experiment.}
+#'       \item{\code{Soil}}{Character indicating the soil type (e.g., "Gelisol").}
+#'       \item{\code{IC}}{Numeric value for inorganic carbon (mg C g\eqn{^{-1}} soil).}
+#'     }
+#'   }
+#'   \item{\code{state}}{named numeric vector of initial state values for the soil carbon pools.}
+#' }
+#'
+#' @details The `data` element contains time-series observations, while the `state` element represents the initial conditions for the soil carbon pools.
+#'
+#' @examples
+#' # Access the incubation data
+#' memc_incubation_gelisol$data
+#'
+#' # Access the initial state
+#' memc_incubation_gelisol$state
+"memc_incubation_gelisol"
+
+
+#' Example data, time series and initial conditions for Mollisol from Wang et al. 2013 (10.1890/12-0681.1)
+#'
+#' A list containing incubation data and initial states.
+#'
+#' @format A list of 2 elements:
+#' \describe{
+#'   \item{\code{data}}{data frame of  time-series data for carbon pools from the incubation experiment.
+#'     The data frame contains the following variables:
+#'     \describe{
+#'       \item{\code{Day}}{numeric, indicating the time since the start of the incubation experiment.}
+#'       \item{\code{Soil}}{Character indicating the soil type (e.g., "Mollisol").}
+#'       \item{\code{IC}}{Numeric value for inorganic carbon (mg C g\eqn{^{-1}} soil).}
+#'     }
+#'   }
+#'   \item{\code{state}}{named numeric vector of initial state values for the soil carbon pools.}
+#' }
+#'
+#' @details The `data` element contains time-series observations, while the `state` element represents the initial conditions for the soil carbon pools.
+#'
+#' @examples
+#' # Access the incubation data
+#' memc_incubation_mollisol$data
+#'
+#' # Access the initial state
+#' memc_incubation_mollisol$state
+"memc_incubation_mollisol"
