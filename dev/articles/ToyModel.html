@@ -80,17 +80,88 @@ changing the DOM uptake flux impacts the model projections.</p>
 inital carbon pool values.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Running memc_configure will print a table describing the model configuration. </span></span>
-<span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_configure.html">memc_configure</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">default_params</span>, </span>
-<span>                            state <span class="op">=</span> <span class="va">default_initial</span>, </span>
+<span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_configure.html">memc_configure</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">memc_params</span>, </span>
+<span>                            state <span class="op">=</span> <span class="va">memc_initial_state</span>, </span>
 <span>                            name <span class="op">=</span> <span class="st">"Model 1"</span>, </span>
 <span>                            DOMuptake <span class="op">=</span> <span class="st">"MM"</span>, </span>
 <span>                            POMdecomp <span class="op">=</span> <span class="st">"LM"</span>, </span>
-<span>                            MBdecay <span class="op">=</span> <span class="st">"LM"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; |model   |DOMuptake |POMdecomp |MBdecay |</span></span>
-<span><span class="co">#&gt; |:-------|:---------|:---------|:-------|</span></span>
-<span><span class="co">#&gt; |Model 1 |MM        |LM        |LM      |</span></span></code></pre></div>
-<p>Use <code>memc_solve</code> to run our model.</p>
+<span>                            MBdecay <span class="op">=</span> <span class="st">"LM"</span><span class="op">)</span></span></code></pre></div>
+<p>Take a look at all the details of the new model configuraiton</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $name</span></span>
+<span><span class="co">#&gt; [1] "Model 1"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $table</span></span>
+<span><span class="co">#&gt;     model DOMuptake POMdecomp MBdecay</span></span>
+<span><span class="co">#&gt; 1 Model 1        MM        LM      LM</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $params</span></span>
+<span><span class="co">#&gt;    parameter                                              description</span></span>
+<span><span class="co">#&gt; 1        V_p        maximum specific decomposition rate for POM by EP</span></span>
+<span><span class="co">#&gt; 2        K_p        half-saturation constant for decomposition of POM</span></span>
+<span><span class="co">#&gt; 3        V_m        maximum specific decomposition rate for MOM by EM</span></span>
+<span><span class="co">#&gt; 4        K_m        half-saturation constant for decomposition of MOM</span></span>
+<span><span class="co">#&gt; 5        V_d       maximum specific uptake rate of D for growth of MB</span></span>
+<span><span class="co">#&gt; 6        K_d half-saturation constant of uptake of D for growth of MB</span></span>
+<span><span class="co">#&gt; 7        f_d                fraction of decomposed P allocated to DOM</span></span>
+<span><span class="co">#&gt; 8        g_d                      fraction of dead B allocated to DOM</span></span>
+<span><span class="co">#&gt; 9       p_ep                      fraction of mR for production of EP</span></span>
+<span><span class="co">#&gt; 10      p_em                      fraction of mR for production of EM</span></span>
+<span><span class="co">#&gt; 11      r_ep                                      turnover rate of EP</span></span>
+<span><span class="co">#&gt; 12      r_em                                      turnover rate of EM</span></span>
+<span><span class="co">#&gt; 13     Q_max                            maximum DOC sorption capacity</span></span>
+<span><span class="co">#&gt; 14     K_ads                                 specific adsorption rate</span></span>
+<span><span class="co">#&gt; 15     K_des                                          desorption rate</span></span>
+<span><span class="co">#&gt; 16   dd_beta            strength of density dependent microbial decay</span></span>
+<span><span class="co">#&gt; 17 Input_POM                                               POM input </span></span>
+<span><span class="co">#&gt; 18 Input_DOM                                                DOM input</span></span>
+<span><span class="co">#&gt; 19       CUE                                    carbon use efficiency</span></span>
+<span><span class="co">#&gt;              units   value</span></span>
+<span><span class="co">#&gt; 1  mgC mgC^-1 d^-1  14.000</span></span>
+<span><span class="co">#&gt; 2     mgC / g soil  50.000</span></span>
+<span><span class="co">#&gt; 3  mgC mgC^-1 d^-1   0.250</span></span>
+<span><span class="co">#&gt; 4      mg C/g soil 250.000</span></span>
+<span><span class="co">#&gt; 5  mgC mgC^-1 d^-1   3.000</span></span>
+<span><span class="co">#&gt; 6      mg C/g soil   0.250</span></span>
+<span><span class="co">#&gt; 7             &lt;NA&gt;   0.500</span></span>
+<span><span class="co">#&gt; 8             &lt;NA&gt;   0.500</span></span>
+<span><span class="co">#&gt; 9             &lt;NA&gt;   0.010</span></span>
+<span><span class="co">#&gt; 10            &lt;NA&gt;   0.010</span></span>
+<span><span class="co">#&gt; 11 mgC mgC^-1 d^-1   0.001</span></span>
+<span><span class="co">#&gt; 12 mgC mgC^-1 d^-1   0.001</span></span>
+<span><span class="co">#&gt; 13    mgC / g soil   3.400</span></span>
+<span><span class="co">#&gt; 14 mgC mgC^-1 d^-1   0.006</span></span>
+<span><span class="co">#&gt; 15 mgC mgC^-1 d^-1   0.001</span></span>
+<span><span class="co">#&gt; 16            &lt;NA&gt;   1.000</span></span>
+<span><span class="co">#&gt; 17            mg C   0.000</span></span>
+<span><span class="co">#&gt; 18            mg C   0.000</span></span>
+<span><span class="co">#&gt; 19                   0.400</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $state</span></span>
+<span><span class="co">#&gt;      POM      MOM      QOM       MB      DOM       EP       EM       IC </span></span>
+<span><span class="co">#&gt; 10.00000  5.00000  0.10000  2.00000  1.00000  0.00001  0.00001  0.00000 </span></span>
+<span><span class="co">#&gt;      Tot </span></span>
+<span><span class="co">#&gt; 18.10002</span></span></code></pre></div>
+<p>or the summary table of the dynamics being used.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">model</th>
+<th align="left">DOMuptake</th>
+<th align="left">POMdecomp</th>
+<th align="left">MBdecay</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">Model 1</td>
+<td align="left">MM</td>
+<td align="left">LM</td>
+<td align="left">LM</td>
+</tr></tbody>
+</table>
+<p>Use <code>memc_solve</code> to run our model.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod1_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_solve.html">memc_solve</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">mod1</span>, time <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mod1_out</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     time variable        value       units    name</span></span>
@@ -102,33 +173,27 @@ inital carbon pool values.</p>
 <span><span class="co">#&gt; 5:     4      POM  0.010945045 mg C/g soil Model 1</span></span>
 <span><span class="co">#&gt; 6:     5      POM  0.004727821 mg C/g soil Model 1</span></span></code></pre></div>
 <p>Now switch the DOM uptake to use the RMM dynamics.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Running memc_configure will print a table describing the model configuration. </span></span>
-<span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_configure.html">memc_configure</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">default_params</span>, </span>
-<span>                            state <span class="op">=</span> <span class="va">default_initial</span>, </span>
+<span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_configure.html">memc_configure</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">memc_params</span>, </span>
+<span>                            state <span class="op">=</span> <span class="va">memc_initial_state</span>, </span>
 <span>                            name <span class="op">=</span> <span class="st">"Model 2"</span>, </span>
 <span>                            DOMuptake <span class="op">=</span> <span class="st">"RMM"</span>, </span>
 <span>                            POMdecomp <span class="op">=</span> <span class="st">"LM"</span>, </span>
 <span>                            MBdecay <span class="op">=</span> <span class="st">"LM"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; |model   |DOMuptake |POMdecomp |MBdecay |</span></span>
-<span><span class="co">#&gt; |:-------|:---------|:---------|:-------|</span></span>
-<span><span class="co">#&gt; |Model 2 |RMM       |LM        |LM      |</span></span>
 <span><span class="va">mod2_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_solve.html">memc_solve</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">mod2</span>, time <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span><span class="op">)</span></span></code></pre></div>
 <p>Now try setting the DOM uptake to ECA dynamics.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Running memc_configure will print a table describing the model configuration. </span></span>
-<span><span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_configure.html">memc_configure</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">default_params</span>, </span>
-<span>                            state <span class="op">=</span> <span class="va">default_initial</span>, </span>
+<span><span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_configure.html">memc_configure</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">memc_params</span>, </span>
+<span>                            state <span class="op">=</span> <span class="va">memc_initial_state</span>, </span>
 <span>                            name <span class="op">=</span> <span class="st">"Model 3"</span>, </span>
 <span>                            DOMuptake <span class="op">=</span> <span class="st">"ECA"</span>, </span>
 <span>                            POMdecomp <span class="op">=</span> <span class="st">"LM"</span>, </span>
 <span>                            MBdecay <span class="op">=</span> <span class="st">"LM"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; |model   |DOMuptake |POMdecomp |MBdecay |</span></span>
-<span><span class="co">#&gt; |:-------|:---------|:---------|:-------|</span></span>
-<span><span class="co">#&gt; |Model 3 |ECA       |LM        |LM      |</span></span>
 <span><span class="va">mod3_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/memc_solve.html">memc_solve</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">mod3</span>, time <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span><span class="op">)</span></span></code></pre></div>
 <p>Compare the model results with one another.</p>
-<p><img src="ToyModel_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
+<p><img src="ToyModel_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
 <p>For more examples and tutorials please see our <a href="https://microbial-explicit-model.github.io/MEMC/">online
 documentation</a>.</p>
   </main>

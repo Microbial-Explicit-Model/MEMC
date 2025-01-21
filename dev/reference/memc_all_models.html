@@ -60,16 +60,16 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">memc_all_models</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">memc_all_models</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $MEND$name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "MEND"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $MEND$table</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   model DOMuptake POMdecomp MBdecay</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  MEND        MM        MM      LM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $MEND$params</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $params</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    parameter                                              description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        V_p        maximum specific decomposition rate for POM by EP</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2        K_p        half-saturation constant for decomposition of POM</span>
@@ -111,7 +111,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18            mg C   0.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19                   0.400</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $MEND$state</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $state</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      POM      MOM      QOM       MB      DOM       EP       EM       IC </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10.00000  5.00000  0.10000  2.00000  1.00000  0.00001  0.00001  0.00000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Tot </span>
@@ -119,14 +119,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $COMISSION</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $COMISSION$name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COMISSION"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $COMISSION$table</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       model DOMuptake POMdecomp MBdecay</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 COMISSION        MM       RMM      LM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $COMISSION$params</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $params</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    parameter                                              description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        V_p        maximum specific decomposition rate for POM by EP</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2        K_p        half-saturation constant for decomposition of POM</span>
@@ -168,7 +168,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18            mg C   0.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19                   0.400</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $COMISSION$state</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $state</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      POM      MOM      QOM       MB      DOM       EP       EM       IC </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10.00000  5.00000  0.10000  2.00000  1.00000  0.00001  0.00001  0.00000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Tot </span>
@@ -176,14 +176,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $CORPSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $CORPSE$name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CORPSE"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $CORPSE$table</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    model DOMuptake POMdecomp MBdecay</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 CORPSE       RMM        LM      LM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $CORPSE$params</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $params</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    parameter                                              description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        V_p        maximum specific decomposition rate for POM by EP</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2        K_p        half-saturation constant for decomposition of POM</span>
@@ -225,7 +225,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18            mg C   0.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19                   0.400</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $CORPSE$state</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $state</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      POM      MOM      QOM       MB      DOM       EP       EM       IC </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10.00000  5.00000  0.10000  2.00000  1.00000  0.00001  0.00001  0.00000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Tot </span>
@@ -233,14 +233,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $MEMS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $MEMS$name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "MEMS"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $MEMS$table</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   model DOMuptake POMdecomp MBdecay</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  MEMS        LM        LM      LM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $MEMS$params</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $params</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    parameter                                              description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        V_p        maximum specific decomposition rate for POM by EP</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2        K_p        half-saturation constant for decomposition of POM</span>
@@ -282,7 +282,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18            mg C   0.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19                   0.400</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $MEMS$state</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $state</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      POM      MOM      QOM       MB      DOM       EP       EM       IC </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10.00000  5.00000  0.10000  2.00000  1.00000  0.00001  0.00001  0.00000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Tot </span>
@@ -290,14 +290,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $BAMS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $BAMS$name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BAMS"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $BAMS$table</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   model DOMuptake POMdecomp MBdecay</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  BAMS        MM        MM      LM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $BAMS$params</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $params</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    parameter                                              description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        V_p        maximum specific decomposition rate for POM by EP</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2        K_p        half-saturation constant for decomposition of POM</span>
@@ -339,7 +339,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18            mg C   0.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19                   0.400</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $BAMS$state</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $state</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      POM      MOM      QOM       MB      DOM       EP       EM       IC </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10.00000  5.00000  0.10000  2.00000  1.00000  0.00001  0.00001  0.00000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Tot </span>
@@ -347,14 +347,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $MIMICS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $MIMICS$name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "MIMCS"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $MIMICS$table</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   model DOMuptake POMdecomp MBdecay</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MIMCS        MM        MM      DD</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $MIMICS$params</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $params</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    parameter                                              description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        V_p        maximum specific decomposition rate for POM by EP</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2        K_p        half-saturation constant for decomposition of POM</span>
@@ -396,13 +396,26 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18            mg C   0.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19                   0.400</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $MIMICS$state</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $state</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      POM      MOM      QOM       MB      DOM       EP       EM       IC </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10.00000  5.00000  0.10000  2.00000  1.00000  0.00001  0.00001  0.00000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Tot </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18.10002 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Return the summary table for dynamics used in model configurations</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">memc_all_models</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |model     |DOMuptake |POMdecomp |MBdecay |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:---------|:---------|:---------|:-------|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |MEND      |MM        |MM        |LM      |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |COMISSION |MM        |RMM       |LM      |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |CORPSE    |RMM       |LM        |LM      |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |MEMS      |LM        |LM        |LM      |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |BAMS      |MM        |MM        |LM      |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |MIMCS     |MM        |MM        |DD      |</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

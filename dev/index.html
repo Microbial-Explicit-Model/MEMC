@@ -75,30 +75,78 @@
 <div class="section level2">
 <h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
-<p>The <code>MEMC</code> package ships with several already defined model configuration (see <code><a href="reference/configurations.html">help(configurations)</a></code>). Here we demonstrate how to run a simulation using the “MEND_model” configuration. For more examples and package details, please check out our <a href="https://microbial-explicit-model.github.io/MEMC/">online documentation</a>. Alternatively, users can look at the <code>model_configs</code> table to see all model configurations included in the package and the microbial dynamics used in each configuration.</p>
+<p>The <code>MEMC</code> package ships with several already defined model configuration (see <code><a href="reference/configurations.html">help(configurations)</a></code>). Here we demonstrate how to run a simulation using the “MEND_model” configuration. For more examples and package details, please check out our <a href="https://microbial-explicit-model.github.io/MEMC/">online documentation</a>. Alternatively, users can look at the <code>memc_all_models</code> table to see all model configurations included in the package and the microbial dynamics used in each configuration.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">model_configs</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       model DOMuptake POMdecomp MBdecay</span></span>
-<span><span class="co">#&gt; 1      MEND        MM        MM      LM</span></span>
-<span><span class="co">#&gt; 2 COMISSION        MM       RMM      LM</span></span>
-<span><span class="co">#&gt; 3    CORPSE       RMM        LM      LM</span></span>
-<span><span class="co">#&gt; 4      MEMS        LM        LM      LM</span></span>
-<span><span class="co">#&gt; 5      BAMS        MM        MM      LM</span></span>
-<span><span class="co">#&gt; 6     MIMCS        MM        MM      DD</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">memc_all_models</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">model</th>
+<th align="left">DOMuptake</th>
+<th align="left">POMdecomp</th>
+<th align="left">MBdecay</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">MEND</td>
+<td align="left">MM</td>
+<td align="left">MM</td>
+<td align="left">LM</td>
+</tr>
+<tr class="even">
+<td align="left">COMISSION</td>
+<td align="left">MM</td>
+<td align="left">RMM</td>
+<td align="left">LM</td>
+</tr>
+<tr class="odd">
+<td align="left">CORPSE</td>
+<td align="left">RMM</td>
+<td align="left">LM</td>
+<td align="left">LM</td>
+</tr>
+<tr class="even">
+<td align="left">MEMS</td>
+<td align="left">LM</td>
+<td align="left">LM</td>
+<td align="left">LM</td>
+</tr>
+<tr class="odd">
+<td align="left">BAMS</td>
+<td align="left">MM</td>
+<td align="left">MM</td>
+<td align="left">LM</td>
+</tr>
+<tr class="even">
+<td align="left">MIMCS</td>
+<td align="left">MM</td>
+<td align="left">MM</td>
+<td align="left">DD</td>
+</tr>
+</tbody>
+</table>
 <p>Look in detail at the pre-built MEND_model configuration (see <code><a href="reference/MEND_model.html">help("MEND_model")</a></code> for more details):</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Printing this MEMC model configuration will return a list defining</span></span>
-<span><span class="co"># the run name, a table of the flux dynamics, parameter values, and </span></span>
-<span><span class="co"># initial SOM pool sizes. </span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">MEND_model</span><span class="op">)</span></span>
-<span><span class="co">#&gt; $name</span></span>
-<span><span class="co">#&gt; [1] "MEND"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $table</span></span>
-<span><span class="co">#&gt;   model DOMuptake POMdecomp MBdecay</span></span>
-<span><span class="co">#&gt; 1  MEND        MM        MM      LM</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $params</span></span>
+<code class="sourceCode R"><span><span class="co"># Printing the summary table for a MEMC model configuration, this will indicate</span></span>
+<span><span class="co"># the dynamics that will be used in the model run. </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">MEND_model</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">model</th>
+<th align="left">DOMuptake</th>
+<th align="left">POMdecomp</th>
+<th align="left">MBdecay</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">MEND</td>
+<td align="left">MM</td>
+<td align="left">MM</td>
+<td align="left">LM</td>
+</tr></tbody>
+</table>
+<p>Parameter value</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># The parameter values can be view using by indexing into the MEND_model object</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">MEND_model</span><span class="op">$</span><span class="va">params</span><span class="op">)</span> </span>
 <span><span class="co">#&gt;    parameter                                              description</span></span>
 <span><span class="co">#&gt; 1        V_p        maximum specific decomposition rate for POM by EP</span></span>
 <span><span class="co">#&gt; 2        K_p        half-saturation constant for decomposition of POM</span></span>
@@ -138,48 +186,47 @@
 <span><span class="co">#&gt; 16            &lt;NA&gt;   1.000</span></span>
 <span><span class="co">#&gt; 17            mg C   0.000</span></span>
 <span><span class="co">#&gt; 18            mg C   0.000</span></span>
-<span><span class="co">#&gt; 19                   0.400</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $state</span></span>
+<span><span class="co">#&gt; 19                   0.400</span></span></code></pre></div>
+<p>Initial pool states for when simulation time is equal to 0.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Similarly the initial pool values are accessed using </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">MEND_model</span><span class="op">$</span><span class="va">state</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      POM      MOM      QOM       MB      DOM       EP       EM       IC </span></span>
 <span><span class="co">#&gt; 10.00000  5.00000  0.10000  2.00000  1.00000  0.00001  0.00001  0.00000 </span></span>
 <span><span class="co">#&gt;      Tot </span></span>
 <span><span class="co">#&gt; 18.10002</span></span></code></pre></div>
 <p>Perform a run using the MEND model:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">36500</span>, by <span class="op">=</span> <span class="fl">25</span><span class="op">)</span> </span>
 <span><span class="va">mend_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/memc_solve.html">memc_solve</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">MEND_model</span>, time <span class="op">=</span> <span class="va">time</span><span class="op">)</span></span></code></pre></div>
 <p><code>memc_solve</code> returns a long-format data frame with the state of the model pool at each time point. This makes it easy to plot the results:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">mend_out</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">value</span>, color <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="st">"variable"</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">labs</span><span class="op">(</span>y <span class="op">=</span> <span class="st">"mg C/g soil"</span>, </span>
-<span>       x <span class="op">=</span> <span class="st">"time (hour)"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"time (days)"</span>,</span>
 <span>       title <span class="op">=</span> <span class="st">"MEND Run Results"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="building-a-custom-model">Building a Custom Model<a class="anchor" aria-label="anchor" href="#building-a-custom-model"></a>
 </h2>
-<p><code>MEMC</code> allows users to easily run simulations with the provided model configurations and also build customized models of their own design by selecting any combination of the supported flux dynamics, and/or modifying the model parameters. For this example we will use the default parameter and initial pool values that are included as package data (see <code>help("default_params)</code> and <code>help("default_initial)</code> for more information).</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p><code>MEMC</code> allows users to easily run simulations with the provided model configurations and also build customized models of their own design by selecting any combination of the supported flux dynamics, and/or modifying the model parameters. For this example we will use the default parameter and initial pool values that are included as package data (see <code>help("memc_params)</code> and <code>help("memc_initial_state)</code> for more information).</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Use memc_configure to print a table describing the model configuration </span></span>
-<span><span class="va">my_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/memc_configure.html">memc_configure</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">default_params</span>, </span>
-<span>                           state <span class="op">=</span> <span class="va">default_initial</span>, </span>
+<span><span class="va">my_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/memc_configure.html">memc_configure</a></span><span class="op">(</span>params <span class="op">=</span> <span class="va">memc_params</span>, </span>
+<span>                           state <span class="op">=</span> <span class="va">memc_initial_state</span>, </span>
 <span>                           name <span class="op">=</span> <span class="st">"my model"</span>, </span>
 <span>                           DOMuptake <span class="op">=</span> <span class="st">"MM"</span>, </span>
 <span>                           POMdecomp <span class="op">=</span> <span class="st">"LM"</span>, </span>
-<span>                           MBdecay <span class="op">=</span> <span class="st">"LM"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; |model    |DOMuptake |POMdecomp |MBdecay |</span></span>
-<span><span class="co">#&gt; |:--------|:---------|:---------|:-------|</span></span>
-<span><span class="co">#&gt; |my model |MM        |LM        |LM      |</span></span></code></pre></div>
+<span>                           MBdecay <span class="op">=</span> <span class="st">"LM"</span><span class="op">)</span></span></code></pre></div>
 <p>Run our customized model…</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">36500</span>, by <span class="op">=</span> <span class="fl">25</span><span class="op">)</span> </span>
 <span><span class="va">my_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/memc_solve.html">memc_solve</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">my_model</span>, time <span class="op">=</span> <span class="va">time</span><span class="op">)</span></span></code></pre></div>
 <p>…and compare its output with the MEND model results from above:</p>
-<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-11-1.png" width="100%"></p>
 <p>Changing the POM and DOM decomposition flux dynamics affects model behavior! The flexibility of the flux dynamics makes <code>MEMC</code> a powerful tool for rapid SOM model exploration.</p>
 <p>Additional features supported by <code>MEMC</code> include the ability to change model parameters, perform sensitivity analyses, and fit models with experimental/observational data (see <a href="https://microbial-explicit-model.github.io/MEMC/">online documentation</a> for examples featuring capabilities).</p>
 </div>
