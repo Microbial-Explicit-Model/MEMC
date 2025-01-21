@@ -45,8 +45,8 @@ is_param_table <- function(table) {
   )
 
   # Make sure that the parameter table contains values for all the required parameters.
-  req_entries <- MEMC::default_params$parameter
-  missing <- req_entries[!req_entries %in% table$parameter]
+  req_entries <- MEMC::memc_params$parameter
+  missing <- setdiff(req_entries, table$parameter)
   assert_that(
     length(missing) == 0,
     msg = paste0(
@@ -56,8 +56,7 @@ is_param_table <- function(table) {
   )
 
   # Make sure there aren't any sneaky unknown parameters being read in.
-  extra_params <-
-    table$parameter[!table$parameter %in% MEMC::default_params$parameter]
+  extra_params <- setdiff(table$parameter, req_entries)
   assert_that(
     length(extra_params) == 0,
     msg = paste0(
@@ -84,7 +83,7 @@ is_state_vector <- function(state) {
   assert_that(is.numeric(state))
 
   req_names <- c("POM", "MOM", "QOM", "MB", "DOM", "EP", "EM", "IC", "Tot")
-  missing <- req_names[!req_names %in% names(state)]
+  missing <- setdiff(req_names, names(state))
   assert_that(length(missing) == 0,
               msg = paste0(
                 "state is missing a value(s) for: ",

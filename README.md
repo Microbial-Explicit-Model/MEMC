@@ -45,37 +45,41 @@ configuration (see `help(configurations)`). Here we demonstrate how to
 run a simulation using the “MEND_model” configuration. For more examples
 and package details, please check out our [online
 documentation](https://microbial-explicit-model.github.io/MEMC/).
-Alternatively, users can look at the `model_configs` table to see all
+Alternatively, users can look at the `memc_all_models` table to see all
 model configurations included in the package and the microbial dynamics
 used in each configuration.
 
 ``` r
-print(model_configs)
-#>       model DOMuptake POMdecomp MBdecay
-#> 1      MEND        MM        MM      LM
-#> 2 COMISSION        MM       RMM      LM
-#> 3    CORPSE       RMM        LM      LM
-#> 4      MEMS        LM        LM      LM
-#> 5      BAMS        MM        MM      LM
-#> 6     MIMCS        MM        MM      DD
+summary(memc_all_models)
 ```
+
+| model     | DOMuptake | POMdecomp | MBdecay |
+|:----------|:----------|:----------|:--------|
+| MEND      | MM        | MM        | LM      |
+| COMISSION | MM        | RMM       | LM      |
+| CORPSE    | RMM       | LM        | LM      |
+| MEMS      | LM        | LM        | LM      |
+| BAMS      | MM        | MM        | LM      |
+| MIMCS     | MM        | MM        | DD      |
 
 Look in detail at the pre-built MEND_model configuration (see
 `help("MEND_model")` for more details):
 
 ``` r
-# Printing this MEMC model configuration will return a list defining
-# the run name, a table of the flux dynamics, parameter values, and 
-# initial SOM pool sizes. 
-print(MEND_model)
-#> $name
-#> [1] "MEND"
-#> 
-#> $table
-#>   model DOMuptake POMdecomp MBdecay
-#> 1  MEND        MM        MM      LM
-#> 
-#> $params
+# Printing the summary table for a MEMC model configuration, this will indicate
+# the dynamics that will be used in the model run. 
+summary(MEND_model)
+```
+
+| model | DOMuptake | POMdecomp | MBdecay |
+|:------|:----------|:----------|:--------|
+| MEND  | MM        | MM        | LM      |
+
+Parameter value
+
+``` r
+# The parameter values can be view using by indexing into the MEND_model object
+print(MEND_model$params) 
 #>    parameter                                              description
 #> 1        V_p        maximum specific decomposition rate for POM by EP
 #> 2        K_p        half-saturation constant for decomposition of POM
@@ -116,8 +120,13 @@ print(MEND_model)
 #> 17            mg C   0.000
 #> 18            mg C   0.000
 #> 19                   0.400
-#> 
-#> $state
+```
+
+Initial pool states for when simulation time is equal to 0.
+
+``` r
+# Similarly the initial pool values are accessed using 
+print(MEND_model$state)
 #>      POM      MOM      QOM       MB      DOM       EP       EM       IC 
 #> 10.00000  5.00000  0.10000  2.00000  1.00000  0.00001  0.00001  0.00000 
 #>      Tot 
@@ -139,11 +148,11 @@ ggplot(data = mend_out) +
   geom_line(aes(time, value, color = name), linewidth = 0.75) + 
   facet_wrap("variable", scales = "free") + 
   labs(y = "mg C/g soil", 
-       x = "time (hour)",
+       x = "time (days)",
        title = "MEND Run Results")
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
 
 ## Building a Custom Model
 
@@ -152,20 +161,16 @@ configurations and also build customized models of their own design by
 selecting any combination of the supported flux dynamics, and/or
 modifying the model parameters. For this example we will use the default
 parameter and initial pool values that are included as package data (see
-`help("default_params)` and `help("default_initial)` for more
-information).
+`help("memc_params)` and `help("memc_initial_state)` for more information).
 
 ``` r
 # Use memc_configure to print a table describing the model configuration 
-my_model <- memc_configure(params = default_params, 
-                           state = default_initial, 
+my_model <- memc_configure(params = memc_params, 
+                           state = memc_initial_state, 
                            name = "my model", 
                            DOMuptake = "MM", 
                            POMdecomp = "LM", 
                            MBdecay = "LM")
-#> |model    |DOMuptake |POMdecomp |MBdecay |
-#> |:--------|:---------|:---------|:-------|
-#> |my model |MM        |LM        |LM      |
 ```
 
 Run our customized model…
@@ -177,7 +182,7 @@ my_out <- memc_solve(mod = my_model, time = time)
 
 …and compare its output with the MEND model results from above:
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
 
 Changing the POM and DOM decomposition flux dynamics affects model
 behavior! The flexibility of the flux dynamics makes `MEMC` a powerful

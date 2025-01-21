@@ -23,7 +23,7 @@ memc_plot <- function(obj) {
     ggplot(data = obj) +
       geom_line(aes(time, value, color = name)) +
       facet_wrap("variable", scales = "free") +
-      labs(x = "Time (hours)", y = units) +
+      labs(x = "Time (days)", y = units) +
       scale_color_manual(values = memc_colorPalette()) +
       theme_bw() +
       theme(legend.title = element_blank()) ->
@@ -41,7 +41,7 @@ memc_plot <- function(obj) {
       geom_ribbon(aes(time, ymin = Min, ymax = Max), alpha = 0.5) +
       facet_wrap("variable", scales = "free") +
       theme_bw() +
-      labs(x = "Time (hours)", y = NULL) ->
+      labs(x = "Time (days)", y = NULL) ->
       plot
   }
   
@@ -52,7 +52,7 @@ memc_plot <- function(obj) {
     ggplot(data = to_plot) +
       geom_line(aes(time, value, color = parameter)) +
       facet_wrap("variable", scales = "free") +
-      labs(x = "Time (hours)", y = "Difference in Output") +
+      labs(x = "Time (days)", y = "Difference in Output") +
       theme_bw() +
       theme(legend.title = element_blank()) ->
       plot

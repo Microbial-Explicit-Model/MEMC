@@ -10,7 +10,7 @@ memc_solve(mod, time, params = NULL, state = NULL, ...)
 \item{mod}{model object, for example one of the list entries returned
 by \code{\link{memc_all_models}}}
 
-\item{time}{a numeric vector of the time steps to solve over}
+\item{time}{daily time steps for model run}
 
 \item{params}{default set to NULL, will then use the parameter table
 read in with the \code{mod} object}
@@ -23,7 +23,7 @@ in with the \code{mod} object}
 \value{
 A long-formatted \code{\link[data.table]{data.table}} of the
 simulation results, with columns:
-\item{time}{Time point, hours}
+\item{time}{Time point, days}
 \item{variable}{Name of model carbon pool}
 \item{value}{Value of the pool}
 \item{units}{Units of the pool value}

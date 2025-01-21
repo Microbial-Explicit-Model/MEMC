@@ -52,7 +52,7 @@ results.
 The inputs to MEMC's `memc_sensrange` function are: 
 
 * `config`: a MEMC model configuration object, either one of the
-pre-built configurations listed in `model_configs` or created using
+pre-built configurations listed in `memc_all_models` or created using
 `memc_configure`
 * `t`: vector of the time steps to run the model at 
 *`pars`: vector of the parameters that will be varied 
@@ -99,7 +99,7 @@ of so-called sensitivity functions based on `FME::sensFun`.
 
 The inputs to MEMC's `memc_sensfun` function are: 
 * `config`: a MEMC model configuration object, either one of the
-pre-built configurations listed in `model_configs` or created using
+pre-built configurations listed in `memc_all_models` or created using
 `memc_configure`
 * `t`: numeric vector of the time steps to run the model at
 * `pars`: vector specifying the model parameters to test
@@ -196,7 +196,7 @@ ggplot(data = out) +
   geom_line(aes(time, Mean, color = name)) + 
   facet_wrap("variable", scales = "free") + 
   labs(y = "mg C/g soil", 
-       x = "Time (hour)",
+       x = "Time (days)",
        title = "Global Sensitivity to Vd, Vp & Vm", 
        subtitle = "q25/q75") + 
   theme(legend.title = element_blank()) + 
@@ -235,7 +235,7 @@ ggplot(data = out) +
   geom_line(aes(time, value, color = name)) +
   facet_wrap("parameter", scales = "free") + 
   labs(title = "Local Senstivity to DOM", 
-       x = "Time (hour)", y = "" ) 
+       x = "Time (days)", y = "" ) 
 ```
 
 # Model Sensitivity to Inital Pool Sizes

@@ -2,30 +2,66 @@
 
 DIR <- here::here("data-raw")
 
-# Load the data example data.
-data <- read.csv(file.path(DIR, "Ultisol_control.csv"))
+# Load the data example flux data
+# These are from Jianqiu Zheng's google sheet, and originally from ORNL LDRD work
+# See Wang et al. 2013 10.1890/12-0681.1
+obs <- data.table::fread(file.path(DIR, "example-data-fluxes.csv"))
+obs$Variable <- NULL
 
-# Format the data into a long data frame.
-obs_long <- melt(data, "time")
-write.csv(obs_long,
-          here::here("inst", "example", "exmaple_data.csv"),
-          row.names = FALSE)
+# Format the data into a long data frame
+memc_data_all <- data.table::melt(
+  obs,
+  id.vars = "Day",
+  variable.name = "Soil",
+  variable.factor = FALSE,
+  value.name = "IC"
+)
+memc_data_all <- as.data.frame(memc_data_all)
 
-# The initial values for ultisol that we were given.
-Ultisol_state <-
-  c(
-    P = 4.71,
-    M = 17.67,
-    Q = 0,
-    D = 0.148,
-    B = 0.82,
-    EP = 0.0082,
-    EM = 0.0082,
-    IC = 0,
-    Tot = 23.484
-  )
-state <- data.frame(state = names(Ultisol_state),
-                    value = Ultisol_state)
-write.csv(state,
-          here::here("inst", "example", "exmaple_initial.csv"),
-          row.names = FALSE)
+# Load the example data for the initial pool sizes.
+# These are from Jianqiu Zheng's google sheet, and originally from ORNL LDRD work
+# See Wang et al. 2013 10.1890/12-0681.1
+inital_pools <-
+  data.table::fread(file.path(DIR, "example-initial-state.csv"))
+
+
+# Each incubation data set, the time series and the initial pools will
+# stored within a list.
+
+memc_incubation_ultisol <- memc_incubation_andisol <-
+  memc_incubation_gelisol <- memc_incubation_mollisol <- list()
+
+memc_incubation_ultisol$data <-
+  subset(memc_data_all, Soil == "Ultisol")
+memc_incubation_ultisol$state <-
+  as.numeric(subset(inital_pools, Soil == "Ultisol")[, -c("Soil")])
+
+memc_incubation_andisol$data <-
+  subset(memc_data_all, Soil == "Andisol")
+memc_incubation_andisol$state <-
+  as.numeric(subset(inital_pools, Soil == "Andisol")[, -c("Soil")])
+
+
+memc_incubation_gelisol$data <-
+  subset(memc_data_all, Soil == "Gelisol")
+memc_incubation_gelisol$state <-
+  as.numeric(subset(inital_pools, Soil == "Gelisol")[, -c("Soil")])
+
+memc_incubation_mollisol$data <-
+  subset(memc_data_all, Soil == "Mollisol")
+memc_incubation_mollisol$state <-
+  as.numeric(subset(inital_pools, Soil == "Mollisol")[, -c("Soil")])
+
+# Make sure all names are formatted 
+names(memc_incubation_ultisol$state) <-
+  names(memc_incubation_andisol$state) <-
+  names(memc_incubation_gelisol$state) <-
+  names(memc_incubation_mollisol$state) <- names(memc_initial_state)
+
+# Save the incubation data
+usethis::use_data(memc_incubation_ultisol, overwrite = TRUE, internal = FALSE)
+usethis::use_data(memc_incubation_andisol, overwrite = TRUE, internal = FALSE)
+usethis::use_data(memc_incubation_gelisol, overwrite = TRUE, internal = FALSE)
+usethis::use_data(memc_incubation_mollisol, overwrite = TRUE, internal = FALSE)
+
+

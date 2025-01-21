@@ -27,7 +27,8 @@ theme_set(theme_bw() + theme(legend.title = element_blank()))
 Start by loading the comparison data, included in the package data. 
 
 ```{r}
-comp_data <- read.csv(system.file("example/Ultisol_control.csv", package = "MEMC"))
+comp_data <- memc_incubation_ultisol$data[c(1, 3)]
+names(comp_data) <- c("time", "IC")
 ```
 
 Set up the the MIMCS model with different initial pool sizes to be
@@ -39,9 +40,7 @@ my_mod_config <- MEMC::MIMCS_model
 
 # Update the MEND model initial state conditions to reflect 
 # the experimental setup
-my_mod_config$state <- c(POM = 4.71, MOM = 17.67, QOM = 0, 
-                         MB = 0.52, DOM = 0.148, EP = 0.052, 
-                         EM = 0.052, IC = 0, Tot = 23.484)
+my_mod_config$state <- memc_incubation_ultisol$state
 ```
 
 Run the model with the original parameter values. 
@@ -55,7 +54,7 @@ Use `memc_modfit` to fit the model to the observed data.
 Description of inputs to MEMC function `memc_modfit` are as follows: 
 
 * config: a MEMC model configuration object, either one of the pre-built
-configurations listed in model_configs or created using configure_model
+configurations listed in memc_all_models or created using configure_model
 * comp_data: a data frame containing the comparison data that the model
 will be fit to 
 
@@ -87,5 +86,5 @@ ggplot(data = out[out$variable == "IC", ]) +
   geom_line(aes(time, value, color = par)) +
   geom_point(data = comp_data, aes(time, IC)) +
   facet_wrap("variable", scales = "free") + 
-  labs(x = "Time (hour)", y = "mg C/g soil", title = "MIMCS") 
+  labs(x = "Time (days)", y = "mg C/g soil", title = "MIMCS") 
 ```
