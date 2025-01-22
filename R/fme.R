@@ -8,21 +8,19 @@
 #' @noRd
 #' @family fme
 make_memc_objective <- function(comp_data, x, config) {
-
   assert_that("time" %in% names(comp_data), msg = "comp_data must contain time column")
   comp_data_vars <- names(comp_data)[names(comp_data) != "time"]
   assert_that(all(comp_data_vars %in% names(MEMC::memc_initial_state)),
               msg = "comp_data must contain a MEMC variable")
-
+  
   fxn <- function(x) {
-
     # the time steps to evaluate the model at
     t <- seq(0, max(comp_data$time))
-
+    
     # solve the model
-    new_config <- update_config(mod = config, new = x)
+    new_config <- memc_update_config(mod = config, new = x)
     out <- sm_internal(new_config, t)
-
+    
     # make sure that the model solved for all time steps
     model_time <- unique(out['time'])
     run_complete <- all(t %in% model_time)
@@ -31,14 +29,14 @@ make_memc_objective <- function(comp_data, x, config) {
     # TODO  add something that makes a fake output table? to use in the model cost?
     # Limit model output to only the time steps of the comparison data.
     #out <- out[out['time'] %in% comp_data$time, ]
-
+    
     # calculate the model cost using the FME modCost function
     return(FME::modCost(model = out, obs = comp_data))
-
+    
   }
-
+  
   return(fxn)
-
+  
 }
 
 
@@ -71,9 +69,9 @@ memc_modfit <-
       lower = lower,
       upper = upper
     )
-
+    
     return(out)
-
+    
   }
 
 
@@ -107,15 +105,19 @@ memc_modfit <-
 #'    geom_ribbon(aes(time, ymin = Min, ymax = Max), alpha = 0.5) +
 #'    facet_wrap("variable", scales = "free")
 #'}
-memc_sensrange <- function(config, t, x, parRange, dist, ...){
-
-  func <- function(pars){
-    new_mod <- update_config(mod = config, new = pars)
+memc_sensrange <- function(config, t, x, parRange, dist, ...) {
+  func <- function(pars) {
+    new_mod <- memc_update_config(mod = config, new = pars)
     sm_internal(mod = new_mod, time = t)
   }
-
-  out <- FME::sensRange(func, parms = x, dist = dist, parRange = parRange, ...)
-
+  
+  out <-
+    FME::sensRange(func,
+                   parms = x,
+                   dist = dist,
+                   parRange = parRange,
+                   ...)
+  
   return(out)
 }
 
@@ -144,15 +146,14 @@ memc_sensrange <- function(config, t, x, parRange, dist, ...){
 #'    geom_line(aes(time, value, color = parameter)) +
 #'    facet_wrap("variable", scales = "free")
 #'}
-memc_sensfunc <- function(config, t, x, ...){
-
-  func <- function(x){
-    new_mod <- update_config(mod = config, new = x)
+memc_sensfunc <- function(config, t, x, ...) {
+  func <- function(x) {
+    new_mod <- memc_update_config(mod = config, new = x)
     sm_internal(mod = new_mod, time = t)
   }
-
+  
   out <- FME::sensFun(func, x, ...)
-
+  
 }
 
 
@@ -179,30 +180,35 @@ memc_sensfunc <- function(config, t, x, ...){
 #'    geom_ribbon(aes(time, ymin = Min, ymax = Max), alpha = 0.5) +
 #'    facet_wrap("variable", scales = "free")
 #'}
- memc_format_sensout <- function(obj){
-
+memc_format_sensout <- function(obj) {
   cond <- any(class(obj)[[1]] %in% c("sensRange", "sensFun"))
   assert_that(cond)
-
-  if(class(obj)[[1]] == "sensRange"){
+  
+  if (class(obj)[[1]] == "sensRange") {
     out <- summary(obj)
     names(out)[1] <- "time"
-    vars <- gsub(pattern = "\\.|[[:digit:]]+", replacement = "", x = row.names(out))
+    vars <-
+      gsub(pattern = "\\.|[[:digit:]]+",
+           replacement = "",
+           x = row.names(out))
     out$variable <- vars
     row.names(out) <- NULL
   }
-
-  if(class(obj)[[1]] == "sensFun"){
-
+  
+  if (class(obj)[[1]] == "sensFun") {
     out <- data.table::as.data.table(obj)
     names(out)[1] <- "time"
     names(out)[2] <- "variable"
     params <- names(out)[3:ncol(out)]
-
-    out <- data.table::melt(out, id.vars = c("time", "variable"),
-                            value.name = "value", variable.name = "parameter")
-
+    
+    out <- data.table::melt(
+      out,
+      id.vars = c("time", "variable"),
+      value.name = "value",
+      variable.name = "parameter"
+    )
+    
   }
-
+  
   return(out)
 }

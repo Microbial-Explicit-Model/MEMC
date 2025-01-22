@@ -73,7 +73,7 @@ test_that("bad model configuration will fail", {
   
   # Only change one parameter value and one state value
   new_out <-
-    update_config(mod = out1, new = c("V_d" = 50, "MB" = 50))
+    memc_update_config(mod = out1, new = c("V_d" = 50, "MB" = 50))
   expect_equal(sum(new_out$params$value != out1$params$value), 1)
   expect_equal(sum(new_out$state != out1$state), 1)
   

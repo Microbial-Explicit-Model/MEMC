@@ -41,6 +41,7 @@ memc_solve(m_mod, 0:10)
 }
 \seealso{
 Other helper functions: 
+\code{\link{memc_update_config}()},
 \code{\link{memc_update_params}()},
 \code{\link{update_state}()}
 }

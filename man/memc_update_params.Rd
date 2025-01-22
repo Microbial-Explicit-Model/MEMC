@@ -20,6 +20,7 @@ Update the parameter table with new values
 \seealso{
 Other helper functions: 
 \code{\link{memc_configure}()},
+\code{\link{memc_update_config}()},
 \code{\link{update_state}()}
 }
 \concept{helper functions}
