@@ -36,7 +36,7 @@ consistent with the experiment setup.
 
 ```{r, message=FALSE, warning=FALSE}
 # Save a copy of the mimics model configuration. 
-my_mod_config <- MEMC::MIMCS_model
+my_mod_config <- MEMC::MIMCS_config
 
 # Update the MEND model initial state conditions to reflect 
 # the experimental setup
@@ -54,7 +54,7 @@ Use `memc_modfit` to fit the model to the observed data.
 Description of inputs to MEMC function `memc_modfit` are as follows: 
 
 * config: a MEMC model configuration object, either one of the pre-built
-configurations listed in memc_all_models or created using configure_model
+configurations listed in memc_all_configs or created using configure_config
 * comp_data: a data frame containing the comparison data that the model
 will be fit to 
 

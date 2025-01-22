@@ -45,7 +45,7 @@ make_memc_objective <- function(comp_data, x, config) {
 #' Fit a MEMC model to a comparison data
 #'
 #' @param x MEMC model parameters or initial conditions that will be fit to the data, users will need to provide an initial guess for these values.
-#' @param config MEMC model configuration object, either one of the pre-built configurations listed in \code{memc_all_models} or created using \code{memc_configure}
+#' @param config MEMC model configuration object, either one of the pre-built configurations listed in \code{memc_all_configs} or created using \code{memc_configure}
 #' @param comp_data data frame containing the comparison data that the model will
 #'  be fit this data frame must contain a column for time, the other columns must be named for the MEMC model variables.
 #' @param lower lower bounds on the parameters; if unbounded set equal to -Inf
@@ -81,7 +81,7 @@ memc_modfit <-
 #'
 #' Given a MEM model configuration, estimate the global parameter sensitivity.
 #'
-#' @param config a MEMC model configuration object, either one of the pre-built configurations listed in \code{memc_all_models} or created using \code{memc_configure}
+#' @param config a MEMC model configuration object, either one of the pre-built configurations listed in \code{memc_all_configs} or created using \code{memc_configure}
 #' @param t vector of the time steps to run the model at
 #' @param x vector of the parameters or initial model pool sizes that will be varied
 #' @param parRange data frame of the min/max parameter values
@@ -97,7 +97,7 @@ memc_modfit <-
 #' prange <- data.frame(min = pars - pars * 0.75,
 #' max = pars + pars * 0.75)
 #' t <- floor(seq(0, 365, length.out = 10))
-#' out <- memc_sensrange(config = MEND_model, t = t, x = pars,
+#' out <- memc_sensrange(config = MEND_config, t = t, x = pars,
 #' parRange = prange, dist = "latin", num = 10)
 #' plot(summary(out))
 #' # Using the helper functions.
@@ -124,7 +124,7 @@ memc_sensrange <- function(config, t, x, parRange, dist, ...){
 #'
 #' Estimate the local effect of a parameter on a MEMC model output
 #'
-#' @param config a MEMC model configuration object, either one of the pre-built configurations listed in \code{memc_all_models} or created using \code{memc_configure}
+#' @param config a MEMC model configuration object, either one of the pre-built configurations listed in \code{memc_all_configs} or created using \code{memc_configure}
 #' @param t vector of the time steps to run the model at
 #' @param x vector of the parameters or initial state values to test
 #' @param ... additional arguments passed to \code{\link[FME]{sensFun}}
@@ -135,7 +135,7 @@ memc_sensrange <- function(config, t, x, parRange, dist, ...){
 #'\dontrun{
 #' # Test the sensitivity of the MEND output for V_p, K_p, V_m
 #' pars <- c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01)
-#' out <- memc_sensfunc(config = MEND_model, t = t, x = pars)
+#' out <- memc_sensfunc(config = MEND_config, t = t, x = pars)
 #' pairs(out)
 #' plot(out)
 #' # Using the helper functions to make nice ggplots
@@ -171,7 +171,7 @@ memc_sensfunc <- function(config, t, x, ...){
 #' prange <- data.frame(min = pars - pars * 0.75,
 #' max = pars + pars * 0.75)
 #' t <- floor(seq(0, 365, length.out = 10))
-#' out <- memc_format_sensout(config = MEND_model, t = t, pars = pars,
+#' out <- memc_format_sensout(config = MEND_config, t = t, pars = pars,
 #' parRange = prange, dist = "latin", num = 10)
 #' to_plot <- memc_format_sensout(out)
 #' ggplot(data = to_plot) +

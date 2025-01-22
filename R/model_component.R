@@ -172,7 +172,7 @@ carbon_pool_derivs <-
 #' @param mod model object created from \code{\link{memc_configure}}
 #' @param time numeric vector of the timestamps of when to solve the model
 #' @return The result from calling \code{\link[deSolve]{ode}}
-#' @seealso [memc_all_models()]
+#' @seealso [memc_all_configs()]
 #' @noRd
 #' @family internal
 sm_internal <- function(mod, time, ...) {
@@ -231,7 +231,7 @@ sm_format_out <- function(rslt, mod) {
 #' Solve a MEMC configuration
 #'
 #' @param mod model object, for example one of the list entries returned
-#' by \code{\link{memc_all_models}}
+#' by \code{\link{memc_all_configs}}
 #' @param time daily time steps for model run
 #' @param params default set to NULL, will then use the parameter table
 #' read in with the \code{mod} object
@@ -251,7 +251,7 @@ sm_format_out <- function(rslt, mod) {
 #' @export
 #' @family helper
 #' @examples
-#' memc_solve(MEND_model, time = 0:10)
+#' memc_solve(MEND_config, time = 0:10)
 memc_solve <-
     function(mod,
              time,

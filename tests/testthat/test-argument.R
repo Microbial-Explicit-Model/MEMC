@@ -88,7 +88,7 @@ test_that("is_state_vector", {
 test_that("is_memc_config", {
 
     # All the models should pass
-    for(m in memc_all_models) {
+    for(m in memc_all_configs) {
         expect_true(is_memc_config(m))
     }
 
@@ -96,21 +96,21 @@ test_that("is_memc_config", {
     expect_false(is_memc_config(cars))
 
     # Test should be sensitive to object names, types, and length
-    m <- MEMS_model
+    m <- MEMS_config
     expect_true(is_memc_config(m))
 
     names(m)[1] <- "wrong name" # change name
     expect_false(is_memc_config(m))
 
-    m <- MEMS_model
+    m <- MEMS_config
     m[[1]] <- cars # change object
     expect_false(is_memc_config(m))
 
-    m <- c(MEMS_model, list(x = 1)) # add object at end
+    m <- c(MEMS_config, list(x = 1)) # add object at end
     expect_false(is_memc_config(m))
 
     # However, the order of objects shouldn't matter
-    m <- MEMS_model
+    m <- MEMS_config
     x <- m[[1]]
     x_name <- names(m)[1]
     m[[1]] <- m[[2]]

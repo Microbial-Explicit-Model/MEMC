@@ -27,14 +27,14 @@ memc_configure(
 \item{MBdecay}{string indicating microbial decay, one  of the following ""LM" or "DD"}
 }
 \value{
-memc_single_model object of the name, dynamics, parameters and starting state values
+memc_single_config object of the name, dynamics, parameters and starting state values
 }
 \description{
 Set up a model configuration
 }
 \examples{
 # Modify the MEND model
-m <- MEND_model
+m <- MEND_config
 m_mod <- memc_configure(m$params, m$state, "MEND_modified", POMdecomp = "LM")
 summary(m_mod)
 memc_solve(m_mod, 0:10)

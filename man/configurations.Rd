@@ -6,19 +6,19 @@
 \description{
 The various model configurations that are
 shipped with the MEMC package, such as:
-\code{BAMS_model}, \code{COMISSION_model},
-\code{CORPSE_model}, \code{MEND_model},
-\code{MIMCS_model}, and \code{MEMS_model}.
+\code{BAMS_config}, \code{COMISSION_config},
+\code{CORPSE_config}, \code{MEND_config},
+\code{MIMCS_config}, and \code{MEMS_config}.
 All supported model configurations are listed
-in \code{memc_all_models}.
+in \code{memc_all_configs}.
 }
 \details{
 These model configurations can be used with the \code{memc_solve} function to
 complete the desired model simulations.
 }
 \examples{
-## Using memc_solve with the MEND_model configuration.
-out <- memc_solve(mod = MEND_model, time = 0:10)
+## Using memc_solve with the MEND_config configuration.
+out <- memc_solve(mod = MEND_config, time = 0:10)
 }
 \seealso{
 dynamics, fluxes

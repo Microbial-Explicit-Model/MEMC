@@ -25,7 +25,7 @@ pars <- c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01)
 prange <- data.frame(min = pars - pars * 0.75,
 max = pars + pars * 0.75)
 t <- floor(seq(0, 365, length.out = 10))
-out <- memc_format_sensout(config = MEND_model, t = t, pars = pars,
+out <- memc_format_sensout(config = MEND_config, t = t, pars = pars,
 parRange = prange, dist = "latin", num = 10)
 to_plot <- memc_format_sensout(out)
 ggplot(data = to_plot) +

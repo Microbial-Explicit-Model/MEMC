@@ -1,8 +1,8 @@
 # this really needs to be expanded upon! but for now making sure that
 # running under different conditions has an affect on the output
-ptable <- MEMC::MEND_model$params
-state <- MEMC::MEND_model$state
-mod <- MEMC::MEND_model
+ptable <- MEMC::MEND_config$params
+state <- MEMC::MEND_config$state
+mod <- MEMC::MEND_config
 time <- seq(0, 1000, length.out = 10)
 
 zero <- 1e-5

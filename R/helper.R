@@ -100,13 +100,13 @@ update_config <- function(mod, new = NULL) {
 #' @param DOMuptake string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"
 #' @param POMdecomp string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"
 #' @param MBdecay string indicating microbial decay, one  of the following ""LM" or "DD"
-#' @return memc_single_model object of the name, dynamics, parameters and starting state values
+#' @return memc_single_config object of the name, dynamics, parameters and starting state values
 #' @importFrom assertthat assert_that
 #' @export
 #' @family helper functions
 #' @examples
 #' # Modify the MEND model
-#' m <- MEND_model
+#' m <- MEND_config
 #' m_mod <- memc_configure(m$params, m$state, "MEND_modified", POMdecomp = "LM")
 #' summary(m_mod)
 #' memc_solve(m_mod, 0:10)
@@ -142,7 +142,7 @@ memc_configure <- function(params,
     "params" = params,
     "state" = state
   )
-  class(model_object) <- "memc_single_model"
+  class(model_object) <- "memc_single_config"
 
   return(model_object)
 
@@ -195,7 +195,7 @@ split_param_state <- function(x) {
 #' @export
 #' @examples
 #' \dontrun{
-#' out <- memc_solve(model = MEND_model, time = 0:100)
+#' out <- memc_solve(model = MEND_config, time = 0:100)
 #' ggplot(data = out, aes(time, value)) +
 #' geom_line(color = name) +
 #' scale_color_manual(values = memc_colorPalette("MEND")) +
@@ -212,7 +212,7 @@ memc_colorPalette <- function(name = NULL) {
     "MEMS" = "#1494FC"
   )
 
-  assert_that(length(MEMC::memc_all_models) == length(color_vec),
+  assert_that(length(MEMC::memc_all_configs) == length(color_vec),
               msg = "Problem with color palette size")
 
   if (is.null(name)) {
@@ -227,16 +227,16 @@ memc_colorPalette <- function(name = NULL) {
 
 }
 
-#' Summary table of memc_all_models
+#' Summary table of memc_all_configs
 #'
-#' Provides a summary of dynamics used in `memc_all_models`.
+#' Provides a summary of dynamics used in `memc_all_configs`.
 #'
-#' @param object An object of class `memc_all_models`.
+#' @param object An object of class `memc_all_configs`.
 #' @param ... Additional arguments (ignored).
 #' @export
-summary.memc_all_models <- function(object, ...) {
-  if (!inherits(object, "memc_all_models"))
-    stop("Object is not of class 'memc_all_models'")
+summary.memc_all_configs <- function(object, ...) {
+  if (!inherits(object, "memc_all_configs"))
+    stop("Object is not of class 'memc_all_configs'")
 
   tables <-
     sapply(object, function(x) x["table"],
@@ -253,14 +253,14 @@ summary.memc_all_models <- function(object, ...) {
 
 #' Summary table for a single memc model
 #'
-#' Provides a summary of dynamics used in `memc_single_model`.
+#' Provides a summary of dynamics used in `memc_single_config`.
 #'
-#' @param object An object of class `memc_single_model`.
+#' @param object An object of class `memc_single_config`.
 #' @param ... Additional arguments (ignored).
 #' @export
-summary.memc_single_model <- function(object, ...) {
-  if (!inherits(object, "memc_single_model"))
-    stop("Object is not of class 'memc_single_model'")
+summary.memc_single_config <- function(object, ...) {
+  if (!inherits(object, "memc_single_config"))
+    stop("Object is not of class 'memc_single_config'")
 
   out <- knitr::kable(object$table)
   return(out)
@@ -268,16 +268,16 @@ summary.memc_single_model <- function(object, ...) {
 }
 
 
-#' Return the memc_all_models object
+#' Return the memc_all_configs object
 #'
-#' Provides details of all the configurations included in `memc_all_models`.
+#' Provides details of all the configurations included in `memc_all_configs`.
 #'
-#' @param x An object of class `memc_all_models`.
+#' @param x An object of class `memc_all_configs`.
 #' @param ... Additional arguments (ignored).
 #' @export
-print.memc_all_models <- function(x, ...) {
-  if (!inherits(x, "memc_all_models"))
-    stop("Object is not of class 'memc_all_models'")
+print.memc_all_configs <- function(x, ...) {
+  if (!inherits(x, "memc_all_configs"))
+    stop("Object is not of class 'memc_all_configs'")
 
   # Remove attributes by unclassing to simplify the user experience
   object_no_attributes <- unclass(x)
@@ -291,12 +291,12 @@ print.memc_all_models <- function(x, ...) {
 #'
 #' Provides details of all single model configuration
 #'
-#' @param x An object of class `memc_single_model`.
+#' @param x An object of class `memc_single_config`.
 #' @param ... Additional arguments (ignored).
 #' @export
-print.memc_single_model <- function(x, ...) {
-  if (!inherits(x, "memc_single_model"))
-    stop("Object is not of class 'memc_single_model'")
+print.memc_single_config <- function(x, ...) {
+  if (!inherits(x, "memc_single_config"))
+    stop("Object is not of class 'memc_single_config'")
 
   # Remove attributes by unclassing to simplify the user experience
   object_no_attributes <- unclass(x)

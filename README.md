@@ -42,15 +42,15 @@ library(MEMC)
 
 The `MEMC` package ships with several already defined model
 configuration (see `help(configurations)`). Here we demonstrate how to
-run a simulation using the “MEND_model” configuration. For more examples
+run a simulation using the “MEND_config” configuration. For more examples
 and package details, please check out our [online
 documentation](https://microbial-explicit-model.github.io/MEMC/).
-Alternatively, users can look at the `memc_all_models` table to see all
+Alternatively, users can look at the `memc_all_configs` table to see all
 model configurations included in the package and the microbial dynamics
 used in each configuration.
 
 ``` r
-summary(memc_all_models)
+summary(memc_all_configs)
 ```
 
 | model     | DOMuptake | POMdecomp | MBdecay |
@@ -62,13 +62,13 @@ summary(memc_all_models)
 | BAMS      | MM        | MM        | LM      |
 | MIMCS     | MM        | MM        | DD      |
 
-Look in detail at the pre-built MEND_model configuration (see
-`help("MEND_model")` for more details):
+Look in detail at the pre-built MEND_config configuration (see
+`help("MEND_config")` for more details):
 
 ``` r
 # Printing the summary table for a MEMC model configuration, this will indicate
 # the dynamics that will be used in the model run. 
-summary(MEND_model)
+summary(MEND_config)
 ```
 
 | model | DOMuptake | POMdecomp | MBdecay |
@@ -78,8 +78,8 @@ summary(MEND_model)
 Parameter value
 
 ``` r
-# The parameter values can be view using by indexing into the MEND_model object
-print(MEND_model$params) 
+# The parameter values can be view using by indexing into the MEND_config object
+print(MEND_config$params) 
 #>    parameter                                              description
 #> 1        V_p        maximum specific decomposition rate for POM by EP
 #> 2        K_p        half-saturation constant for decomposition of POM
@@ -126,7 +126,7 @@ Initial pool states for when simulation time is equal to 0.
 
 ``` r
 # Similarly the initial pool values are accessed using 
-print(MEND_model$state)
+print(MEND_config$state)
 #>      POM      MOM      QOM       MB      DOM       EP       EM       IC 
 #> 10.00000  5.00000  0.10000  2.00000  1.00000  0.00001  0.00001  0.00000 
 #>      Tot 
@@ -137,7 +137,7 @@ Perform a run using the MEND model:
 
 ``` r
 time <- seq(0, 36500, by = 25) 
-mend_out <- memc_solve(mod = MEND_model, time = time)
+mend_out <- memc_solve(mod = MEND_config, time = time)
 ```
 
 `memc_solve` returns a long-format data frame with the state of the
@@ -165,7 +165,7 @@ parameter and initial pool values that are included as package data (see
 
 ``` r
 # Use memc_configure to print a table describing the model configuration 
-my_model <- memc_configure(params = memc_params, 
+my_config <- memc_configure(params = memc_params, 
                            state = memc_initial_state, 
                            name = "my model", 
                            DOMuptake = "MM", 
@@ -177,7 +177,7 @@ Run our customized model…
 
 ``` r
 time <- seq(0, 36500, by = 25) 
-my_out <- memc_solve(mod = my_model, time = time)
+my_out <- memc_solve(mod = my_config, time = time)
 ```
 
 …and compare its output with the MEND model results from above:
