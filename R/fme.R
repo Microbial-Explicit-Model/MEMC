@@ -97,13 +97,7 @@ memc_modfit <-
 #' t <- floor(seq(0, 365, length.out = 10))
 #' out <- memc_sensrange(config = MEND_config, t = t, x = pars,
 #' parRange = prange, dist = "latin", num = 10)
-#' plot(summary(out))
-#' # Using the helper functions.
-#' to_plot <- memc_format_sensout(out)
-#' ggplot(data = to_plot) +
-#'    geom_line(aes(time, Mean)) +
-#'    geom_ribbon(aes(time, ymin = Min, ymax = Max), alpha = 0.5) +
-#'    facet_wrap("variable", scales = "free")
+#' plot(out)
 #'}
 memc_sensrange <- function(config, t, x, parRange, dist, ...) {
   func <- function(pars) {
@@ -112,11 +106,27 @@ memc_sensrange <- function(config, t, x, parRange, dist, ...) {
   }
   
   out <-
-    FME::sensRange(func,
-                   parms = x,
-                   dist = dist,
-                   parRange = parRange,
-                   ...)
+    summary(FME::sensRange(
+      func,
+      parms = x,
+      dist = dist,
+      parRange = parRange,
+      ...
+    ))
+  
+  # Format the output so that it is easier to plot and
+  # manipulated
+  names(out)[1] <- "time"
+  
+  vars <-
+    gsub(pattern = "\\.|[[:digit:]]+",
+         replacement = "",
+         x = row.names(out))
+  out$variable <- vars
+  row.names(out) <- NULL
+  out <- cbind("name" = config$name, out)
+  
+  class(out) <- c("memc_sensRange", class(out))
   
   return(out)
 }
@@ -138,77 +148,31 @@ memc_sensrange <- function(config, t, x, parRange, dist, ...) {
 #' # Test the sensitivity of the MEND output for V_p, K_p, V_m
 #' pars <- c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01)
 #' out <- memc_sensfunc(config = MEND_config, t = t, x = pars)
-#' pairs(out)
 #' plot(out)
-#' # Using the helper functions to make nice ggplots
-#' to_plot <- memc_format_sensout(out)
-#' ggplot(data = to_plot) +
-#'    geom_line(aes(time, value, color = parameter)) +
-#'    facet_wrap("variable", scales = "free")
-#'}
+#' }
 memc_sensfunc <- function(config, t, x, ...) {
-  func <- function(x) {
-    new_mod <- memc_update_config(mod = config, new = x)
+  func <- function(xx) {
+    new_mod <- memc_update_config(mod = config, new = xx)
     sm_internal(mod = new_mod, time = t)
   }
   
   out <- FME::sensFun(func, x, ...)
   
-}
-
-
-#' Format the output returned by memc_sensrange or memc_sensfunc
-#' into long data format for easy plotting
-#'
-#' @param obj object returned by memc_sensrange
-#' @return A long-format data frame containing the summary
-#' from \code{FME}::\code{\link[FME]{sensRange}}.
-#' @export
-#' @family sensitivity
-#' @examples
-#'\dontrun{
-#' # Test the sensitivity of the MEND output for V_p, K_p, V_m, K_m, V_d, K_d
-#' pars <- c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01)
-#' prange <- data.frame(min = pars - pars * 0.75,
-#' max = pars + pars * 0.75)
-#' t <- floor(seq(0, 365, length.out = 10))
-#' out <- memc_format_sensout(config = MEND_config, t = t, pars = pars,
-#' parRange = prange, dist = "latin", num = 10)
-#' to_plot <- memc_format_sensout(out)
-#' ggplot(data = to_plot) +
-#'    geom_line(aes(time, Mean)) +
-#'    geom_ribbon(aes(time, ymin = Min, ymax = Max), alpha = 0.5) +
-#'    facet_wrap("variable", scales = "free")
-#'}
-memc_format_sensout <- function(obj) {
-  cond <- any(class(obj)[[1]] %in% c("sensRange", "sensFun"))
-  assert_that(cond)
+  out <- data.table::as.data.table(out)
+  names(out)[1] <- "time"
+  names(out)[2] <- "variable"
+  params <- names(out)[3:ncol(out)]
   
-  if (class(obj)[[1]] == "sensRange") {
-    out <- summary(obj)
-    names(out)[1] <- "time"
-    vars <-
-      gsub(pattern = "\\.|[[:digit:]]+",
-           replacement = "",
-           x = row.names(out))
-    out$variable <- vars
-    row.names(out) <- NULL
-  }
+  out <- data.table::melt(
+    data = out,
+    id.vars = c("time", "variable"),
+    measure.vars = params,
+    value.name = "value",
+    variable.name = "parameter"
+  )
   
-  if (class(obj)[[1]] == "sensFun") {
-    out <- data.table::as.data.table(obj)
-    names(out)[1] <- "time"
-    names(out)[2] <- "variable"
-    params <- names(out)[3:ncol(out)]
-    
-    out <- data.table::melt(
-      out,
-      id.vars = c("time", "variable"),
-      value.name = "value",
-      variable.name = "parameter"
-    )
-    
-  }
+  out <- cbind("name" = config$name, out)
+  class(out) <- c("memc_sensFunc", class(out))
   
   return(out)
 }

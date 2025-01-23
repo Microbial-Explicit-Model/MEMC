@@ -142,7 +142,8 @@ memc_configure <- function(params,
     "params" = params,
     "state" = state
   )
-  class(model_object) <- "memc_single_config"
+  class(model_object) <-
+    c("memc_single_config", class(model_object))
   
   return(model_object)
   
@@ -188,7 +189,7 @@ split_param_state <- function(x) {
   
 }
 
-#' Return the MEMC color palette for the the default MEMC model configurations
+#' Return a color palette for the the default MEMC model configurations and other simulations
 #'
 #' @param name input vector containing the model names to return the color codes for, default will return colors for all the model configurations,
 #' @return A vector containing color hex codes for the different model configurations.
@@ -196,11 +197,11 @@ split_param_state <- function(x) {
 #' @export
 #' @examples
 #' \dontrun{
-#' out <- memc_solve(model = MEND_config, time = 0:100)
-#' ggplot(data = out, aes(time, value)) +
-#' geom_line(color = name) +
-#' scale_color_manual(values = memc_colorPalette("MEND")) +
-#' facet_wrap("variable")
+#' out <- memc_solve(MEND_config, time = 0:100)
+#' ggplot(data = out) +
+#'   geom_line(aes(time, value, color = name)) +
+#'   scale_color_manual(values = memc_colorPalette()) + 
+#'   facet_wrap("variable", scales = "free")
 #' }
 memc_colorPalette <- function(name = NULL) {
   # The color Palette for the different model configurations.
@@ -214,95 +215,43 @@ memc_colorPalette <- function(name = NULL) {
   )
   
   assert_that(length(MEMC::memc_all_configs) == length(color_vec),
-              msg = "Problem with color palette size")
+              msg = "Problem with default palette size")
+  
+  # If no names are specified return the full color vector
+  if (is.null(name)) {
+    return(color_vec)
+    
+  } else {
+    # If there is no new configurations to consider then
+    # return the specific color palette otherwise use
+    # the rainbow palette to assign colors to the new
+    # configurations
+    default_configs <- intersect(name, names(color_vec))
+    new_configs <- setdiff(name, names(color_vec))
+    
+    if (identical(new_configs, character(0))) {
+      out <- color_vec[default_configs]
+      return(out)
+    } else {
+      new_colors <- grDevices::rainbow(length(new_configs))
+      out <- c(color_vec[default_configs], new_colors)
+      names(out) <- c(default_configs, new_configs)
+      return(out)
+    }
+    
+    
+  }
+  # If the name is not included as one of the default
+  # MEMC supported configurations then use the
+  # base rainbow pot
+  setdiff(name, names(MEMC::memc_all_configs))
+  
+  
   
   if (is.null(name)) {
     return(color_vec)
   } else {
-    assert_that(all(name %in% names(color_vec)),
-                msg = "MEMC color palette only supports the default model configurations")
-    index <- which(names(color_vec) %in% name)
-    subset_color_vec <- color_vec[index]
-    return(subset_color_vec)
+    
   }
-  
-}
-
-#' Summary table of memc_all_configs
-#'
-#' Provides a summary of dynamics used in `memc_all_configs`.
-#'
-#' @param object An object of class `memc_all_configs`.
-#' @param ... Additional arguments (ignored).
-#' @export
-summary.memc_all_configs <- function(object, ...) {
-  if (!inherits(object, "memc_all_configs"))
-    stop("Object is not of class 'memc_all_configs'")
-  
-  tables <-
-    sapply(object, function(x)
-      x["table"],
-      simplify = TRUE, USE.NAMES = FALSE)
-  
-  single_df <- do.call(what = "rbind", args = tables)
-  rownames(single_df) <- NULL
-  
-  out <- knitr::kable(single_df)
-  return(out)
-  
-}
-
-
-#' Summary table for a single memc model
-#'
-#' Provides a summary of dynamics used in `memc_single_config`.
-#'
-#' @param object An object of class `memc_single_config`.
-#' @param ... Additional arguments (ignored).
-#' @export
-summary.memc_single_config <- function(object, ...) {
-  if (!inherits(object, "memc_single_config"))
-    stop("Object is not of class 'memc_single_config'")
-  
-  out <- knitr::kable(object$table)
-  return(out)
-  
-}
-
-
-#' Return the memc_all_configs object
-#'
-#' Provides details of all the configurations included in `memc_all_configs`.
-#'
-#' @param x An object of class `memc_all_configs`.
-#' @param ... Additional arguments (ignored).
-#' @export
-print.memc_all_configs <- function(x, ...) {
-  if (!inherits(x, "memc_all_configs"))
-    stop("Object is not of class 'memc_all_configs'")
-  
-  # Remove attributes by unclassing to simplify the user experience
-  object_no_attributes <- unclass(x)
-  print.default(object_no_attributes)
-  invisible(object_no_attributes)
-  
-}
-
-
-#' Return a full memc model object
-#'
-#' Provides details of all single model configuration
-#'
-#' @param x An object of class `memc_single_config`.
-#' @param ... Additional arguments (ignored).
-#' @export
-print.memc_single_config <- function(x, ...) {
-  if (!inherits(x, "memc_single_config"))
-    stop("Object is not of class 'memc_single_config'")
-  
-  # Remove attributes by unclassing to simplify the user experience
-  object_no_attributes <- unclass(x)
-  print.default(object_no_attributes)
-  invisible(object_no_attributes)
   
 }

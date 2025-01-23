@@ -49,9 +49,5 @@ out <- do.call(rbind, out_list)
 Visualize results! 
 
 ```{r}
-ggplot(data = out) + 
-  geom_line(aes(x = time, y = value, color = name), linewidth = 1, alpha = 0.85) +
-  facet_wrap("variable", scales = "free") + 
-  labs(x = "Time (days)", y = "mg C/g", title = "MEMC Model Comparison") + 
-  scale_color_manual(values = memc_colorPalette())
+plot(out)
 ```

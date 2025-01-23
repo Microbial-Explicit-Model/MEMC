@@ -83,26 +83,9 @@ test_that("memc_sensrange", {
       dist = "latin",
       parRange = prange
     )
-  expect_true(all(dim(out) == c(n, (length(
-    time
-  ) * 9) + 1)))
+  
+  expect_equivalent(dim(out), c(length(time) * 9, 12))
 
-  # Check to make sure that object returned by sense range can be plotted
-  # using the helper function
-  x <- memc_plot(obj = out)
-  expect_equal(class(x), c("gg", "ggplot"))
-
-
-  out2 <-
-    memc_sensrange(
-      MEND_config,
-      t = time,
-      x = p,
-      num = 6,
-      dist = "latin",
-      parRange = prange
-    )
-  expect_true(nrow(out2) > nrow(out))
 })
 
 test_that("memc_sensfunc", {
@@ -113,17 +96,10 @@ test_that("memc_sensfunc", {
             "V_m" = 2.5e-01)
   out <- memc_sensfunc(config = MEND_config, t = time, x = pars)
 
-  expect_equal(class(out), c("sensFun", "data.frame"))
-
-  x <- memc_plot(out)
-  expect_equal(class(x), c("gg", "ggplot"))
-
-
   # Check to see that the function also works with initial states
   inital_pools <- c("MOM" = 5, "DOM" = 1)
   out2 <-
     memc_sensfunc(config = MEND_config, t = time, x = inital_pools)
-  expect_equal(class(out2), c("sensFun", "data.frame"))
 
   # The results from out and out2 should be different since by test
   # design the returned data frames will be different sized.

@@ -33,7 +33,8 @@ simulation results, with columns:
 Solve a MEMC configuration
 }
 \examples{
-memc_solve(MEND_config, time = 0:10)
+out <- memc_solve(MEND_config, time = 0:10)
+plot(out)
 }
 \seealso{
 \code{\link{memc_configure}}

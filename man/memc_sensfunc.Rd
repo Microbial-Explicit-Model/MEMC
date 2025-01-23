@@ -26,18 +26,11 @@ Estimate the local effect of a parameter on a MEMC model output
 # Test the sensitivity of the MEND output for V_p, K_p, V_m
 pars <- c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01)
 out <- memc_sensfunc(config = MEND_config, t = t, x = pars)
-pairs(out)
 plot(out)
-# Using the helper functions to make nice ggplots
-to_plot <- memc_format_sensout(out)
-ggplot(data = to_plot) +
-   geom_line(aes(time, value, color = parameter)) +
-   facet_wrap("variable", scales = "free")
 }
 }
 \seealso{
 Other sensitivity: 
-\code{\link{memc_format_sensout}()},
 \code{\link{memc_sensrange}()}
 }
 \concept{sensitivity}

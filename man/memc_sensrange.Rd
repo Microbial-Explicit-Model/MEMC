@@ -34,18 +34,11 @@ max = pars + pars * 0.75)
 t <- floor(seq(0, 365, length.out = 10))
 out <- memc_sensrange(config = MEND_config, t = t, x = pars,
 parRange = prange, dist = "latin", num = 10)
-plot(summary(out))
-# Using the helper functions.
-to_plot <- memc_format_sensout(out)
-ggplot(data = to_plot) +
-   geom_line(aes(time, Mean)) +
-   geom_ribbon(aes(time, ymin = Min, ymax = Max), alpha = 0.5) +
-   facet_wrap("variable", scales = "free")
+plot(out)
 }
 }
 \seealso{
 Other sensitivity: 
-\code{\link{memc_format_sensout}()},
 \code{\link{memc_sensfunc}()}
 }
 \concept{sensitivity}

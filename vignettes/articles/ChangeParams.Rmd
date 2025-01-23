@@ -20,9 +20,6 @@ This example will show how to update the model parameter values for any MEMC mod
 ```{r, eval=FALSE}
 # Assumes MEMC has already been installed. 
 library(MEMC) 
-
-# Use to visualize results.
-library(ggplot2) 
 ```
 
 The `MEMC` package includes default parameter and initial pool values that are included as package data that are based on Wang et al. 2015^[Wang, G., Jagadamma, S., Mayes, M. et al. Microbial dormancy improves development and experimental validation of ecosystem model. ISME J 9, 226–237 (2015). https://doi.org/10.1038/ismej.2014.120]. This example will use these values and show users how to update these values. We will also be running the MEMC MEND model configuration. \

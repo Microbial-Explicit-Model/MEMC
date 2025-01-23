@@ -35,7 +35,7 @@ test_that("update_state", {
 
 test_that("bad model configuration will fail", {
   out1 <- memc_configure(ptable, state)
-  expect_equivalent(class(out1), "memc_single_config")
+  expect_equivalent(class(out1), c("memc_single_config", "list"))
   
   out2 <-
     memc_configure(
@@ -107,35 +107,7 @@ test_that("memc_colorPalette ", {
   expect_vector(out)
   expect_equal(length(out), length(memc_all_configs))
   expect_equal(length(memc_colorPalette("MEND")), 1)
-  expect_error(memc_colorPalette("fake"))
+  expect_identical(class(memc_colorPalette("fake")), "character")
   
 })
 
-test_that("custom summary and print functions work as expected", {
-  # Confirm that the class of the memc_all_configs object
-  expect_s3_class(memc_all_configs, "memc_all_configs")
-  
-  # Check to make sure that our custom summary function returns what we
-  # are expecting it to
-  x <- summary(memc_all_configs)
-  expect_s3_class(x, "knitr_kable")
-  
-  # But when printing the memc_all_configs the users should
-  # not see the custom class
-  x <- capture.output(class(print(memc_all_configs)))
-  expect_equivalent(tail(x, n = 1), "[1] \"list\"")
-  
-  
-  # Confirm that the class of the a single model object
-  expect_s3_class(MEND_config, "memc_single_config")
-  
-  # Check to make sure that the custom summary and print function return
-  # what we are expecting it to
-  x <- summary(MEND_config)
-  expect_s3_class(x, "knitr_kable")
-  
-  x <- capture.output(class(print(MEND_config)))
-  expect_equivalent(tail(x, n = 1), "[1] \"list\"")
-  
-  
-})

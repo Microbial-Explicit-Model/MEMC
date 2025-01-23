@@ -255,7 +255,8 @@ sm_format_out <- function(rslt, mod) {
 #' @export
 #' @family helper
 #' @examples
-#' memc_solve(MEND_config, time = 0:10)
+#' out <- memc_solve(MEND_config, time = 0:10)
+#' plot(out)
 memc_solve <-
   function(mod,
            time,
@@ -274,6 +275,7 @@ memc_solve <-
     
     results <- sm_internal(mod = mod, time = time, ...)
     out <- sm_format_out(rslt = results, mod = mod)
+    class(out) <- c("memc_solve", class(out))
     
     return(out)
     

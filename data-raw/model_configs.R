@@ -8,7 +8,6 @@ MEND_config <- memc_configure(
   POMdecomp = "MM",
   MBdecay = "LM"
 )
-class(MEND_config) <- "memc_single_config"
 usethis::use_data(MEND_config, overwrite = TRUE)
 
 COMISSION_config <- memc_configure(
@@ -19,7 +18,6 @@ COMISSION_config <- memc_configure(
   POMdecomp = "RMM",
   MBdecay = "LM"
 )
-class(COMISSION_config) <- "memc_single_config"
 usethis::use_data(COMISSION_config, overwrite = TRUE)
 
 CORPSE_config <- memc_configure(
@@ -30,7 +28,6 @@ CORPSE_config <- memc_configure(
   POMdecomp = "LM",
   MBdecay = "LM"
 )
-class(CORPSE_config) <- "memc_single_config"
 usethis::use_data(CORPSE_config, overwrite = TRUE)
 
 
@@ -42,7 +39,6 @@ MEMS_config <- memc_configure(
   POMdecomp = "LM",
   MBdecay = "LM"
 )
-class(MEMS_config) <- "memc_single_config"
 usethis::use_data(MEMS_config, overwrite = TRUE)
 
 BAMS_config <- memc_configure(
@@ -53,7 +49,6 @@ BAMS_config <- memc_configure(
   POMdecomp = "MM",
   MBdecay = "LM"
 )
-class(BAMS_config) <- "memc_single_config"
 usethis::use_data(BAMS_config, overwrite = TRUE)
 
 
@@ -69,7 +64,6 @@ MIMCS_config <- memc_configure(
   POMdecomp = "MM",
   MBdecay = "DD"
 )
-class(MIMCS_config) <- "memc_single_config"
 usethis::use_data(MIMCS_config, overwrite = TRUE)
 
 # A list of all available models in MEMC
@@ -79,5 +73,5 @@ memc_all_configs <- list(MEND = MEND_config,
                         MEMS = MEMS_config,
                         BAMS = BAMS_config,
                         MIMICS = MIMCS_config)
-class(memc_all_configs) <- "memc_all_configs"
+class(memc_all_configs) <- c("memc_all_configs", class(memc_all_configs))
 usethis::use_data(memc_all_configs, overwrite = TRUE)
