@@ -95,7 +95,8 @@ print.memc_single_config <- function(x, ...) {
 #' @param ... Additional arguments (ignored).
 #' @export
 #' @import ggplot2
-#' @method plot memc_solve
+#' @method plot memc_solve 
+#' @noRd
 plot.memc_solve <- function(x, y, ...) {
   if (!inherits(x, "memc_solve"))
     stop("Object is not of class 'memc_solve'")
@@ -130,6 +131,7 @@ plot.memc_solve <- function(x, y, ...) {
 #' @export
 #' @import ggplot2
 #' @method plot memc_sensRange
+#' @noRd
 plot.memc_sensRange <- function(x, y, ...) {
   if (!inherits(x, "memc_sensRange"))
     stop("Object is not of class 'memc_sensRange'")
@@ -195,6 +197,7 @@ plot.memc_sensRange <- function(x, y, ...) {
 #' @export
 #' @import ggplot2
 #' @method plot memc_sensFunc
+#' @noRd
 plot.memc_sensFunc <- function(x, y, ...) {
   
   # Silence check warnings
@@ -223,6 +226,7 @@ plot.memc_sensFunc <- function(x, y, ...) {
 #' @param deparse.level the default deparse.level = 1 typically and deparse.level = 2 always construct labels from the argument names, see the ‘Value’ section below. 
 #' @export
 #' @method rbind memc_solve
+#' @noRd
 rbind.memc_solve <- function(..., deparse.level = 1) {
   inputs <- list(...)
   
@@ -252,6 +256,7 @@ rbind.memc_solve <- function(..., deparse.level = 1) {
 #' @param deparse.level the default deparse.level = 1 typically and deparse.level = 2 always construct labels from the argument names, see the ‘Value’ section below. 
 #' @export
 #' @method rbind memc_sensrange
+#' @noRd
 rbind.memc_sensrange <- function(..., deparse.level = 1) {
   inputs <- list(...)
   
