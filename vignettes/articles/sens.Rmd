@@ -76,7 +76,7 @@ MENDsens_out <- memc_sensrange(config = MEND_config,
 Take a quick look at the results. 
 
 ```{r}
-head(summary(MENDsens_out))
+head(MENDsens_out)
 ```
 
 Visualize results using R's base `plot` function. This is a quick way to
@@ -85,10 +85,6 @@ using [ggplot2](https://ggplot2-book.org).
 
 ```{r, fig.width=8, fig.height=8}
 plot(MENDsens_out)
-```
-
-```{r, fig.width=8, fig.height=8}
-plot(summary(MENDsens_out))
 ```
 
 ## `memc_sensfun`
@@ -123,7 +119,7 @@ To visualize the results from `memc_sensfun` we use the helper function
 that can be used by `ggplot`. 
 
 ```{r, message=FALSE}
-ggplot(data = memc_format_sensout(sens_out)) +
+ggplot(data = sens_out) +
   geom_line(aes(time, value, color = parameter)) +
   facet_wrap("variable", scales = "free")
 ```
@@ -131,9 +127,9 @@ ggplot(data = memc_format_sensout(sens_out)) +
 # Global Parameter Sensivity Model Comparison 
 
 ```{r}
-prange <- data.frame(pars =  c("V_d" = 3.0e+00,
-                               "V_p" = 1.4e+01,
-                               "V_m" = 2.5e-01), 
+prange <- data.frame(pars = c("V_d" = 3.0e+00,
+                              "V_p" = 1.4e+01,
+                              "V_m" = 2.5e-01), 
                      min = pars * 0.50, 
                      max = pars * 1.50)
 ```
@@ -182,12 +178,8 @@ MIMCSens_out <- memc_sensrange(config = MIMCS_config,
 Prepare all of the data into a single data frame for plotting. 
 
 ```{r}
-out <- rbind(cbind(memc_format_sensout(MENDsens_out), name = "MEND"),
-             cbind(memc_format_sensout(COMISSIONsens_out), name = "COMISSION"), 
-             cbind(memc_format_sensout(CORPSEsens_out), name = "CORPSE"),
-             cbind(memc_format_sensout(MEMSens_out), name = "MEMS"), 
-             cbind(memc_format_sensout(BAMSens_out), name = "BAMS"), 
-             cbind(memc_format_sensout(MIMCSens_out), name = "MIMCS"))
+out <- rbind(MENDsens_out, COMISSIONsens_out, CORPSEsens_out,
+             MEMSens_out, BAMSens_out, MIMCSens_out)
 ```
 
 ```{r}
@@ -226,8 +218,7 @@ CORPSEsens_out <- memc_sensfunc(config = CORPSE_config,
 Format output and visualize the results. 
 
 ```{r}
-out <- rbind(cbind(memc_format_sensout(CORPSEsens_out), name = "CORPSE"), 
-             cbind(memc_format_sensout(MENDsens_out), name = "MEND"))
+out <- rbind(CORPSEsens_out, MENDsens_out)
 ```
 
 ```{r, fig.width=8}
@@ -263,5 +254,5 @@ inital_pool_uncertainty <- memc_sensrange(config = MEND_config,
 ```
 
 ```{r}
-plot(summary(inital_pool_uncertainty))
+plot(inital_pool_uncertainty)
 ```
