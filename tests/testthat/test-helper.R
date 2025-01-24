@@ -35,7 +35,7 @@ test_that("update_state", {
 
 test_that("bad model configuration will fail", {
   out1 <- memc_configure(ptable, state)
-  expect_equivalent(class(out1), "memc_single_model")
+  expect_equivalent(class(out1), c("memc_single_config", "list"))
   
   out2 <-
     memc_configure(
@@ -73,7 +73,7 @@ test_that("bad model configuration will fail", {
   
   # Only change one parameter value and one state value
   new_out <-
-    update_config(mod = out1, new = c("V_d" = 50, "MB" = 50))
+    memc_update_config(mod = out1, new = c("V_d" = 50, "MB" = 50))
   expect_equal(sum(new_out$params$value != out1$params$value), 1)
   expect_equal(sum(new_out$state != out1$state), 1)
   
@@ -105,37 +105,9 @@ test_that("split_param_state", {
 test_that("memc_colorPalette ", {
   out <- memc_colorPalette()
   expect_vector(out)
-  expect_equal(length(out), length(memc_all_models))
+  expect_equal(length(out), length(memc_all_configs))
   expect_equal(length(memc_colorPalette("MEND")), 1)
-  expect_error(memc_colorPalette("fake"))
+  expect_identical(class(memc_colorPalette("fake")), "character")
   
 })
 
-test_that("custom summary and print functions work as expected", {
-  # Confirm that the class of the memc_all_models object
-  expect_s3_class(memc_all_models, "memc_all_models")
-  
-  # Check to make sure that our custom summary function returns what we
-  # are expecting it to
-  x <- summary(memc_all_models)
-  expect_s3_class(x, "knitr_kable")
-  
-  # But when printing the memc_all_models the users should
-  # not see the custom class
-  x <- capture.output(class(print(memc_all_models)))
-  expect_equivalent(tail(x, n = 1), "[1] \"list\"")
-  
-  
-  # Confirm that the class of the a single model object
-  expect_s3_class(MEND_model, "memc_single_model")
-  
-  # Check to make sure that the custom summary and print function return
-  # what we are expecting it to
-  x <- summary(MEND_model)
-  expect_s3_class(x, "knitr_kable")
-  
-  x <- capture.output(class(print(MEND_model)))
-  expect_equivalent(tail(x, n = 1), "[1] \"list\"")
-  
-  
-})

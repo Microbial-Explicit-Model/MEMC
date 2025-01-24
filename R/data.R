@@ -77,9 +77,9 @@
 #' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
 #' @examples
 #' ## Use memc_solve to run the simulation using this configuration.
-#' print(MEND_model)
-#' memc_solve(mod = MEND_model, time = 1:10)
-"MEND_model"
+#' print(MEND_config)
+#' memc_solve(mod = MEND_config, time = 1:10)
+"MEND_config"
 
 
 #' The MEMC model configuration for COMISSION
@@ -99,9 +99,9 @@
 #' @references \href{https://doi.org/10.1016/j.soilbio.2015.06.008}{Ahrens et al. 2015}
 #' @examples
 #' ## Use memc_solve to run the simulation using this configuration.
-#' print(COMISSION_model)
-#' memc_solve(mod = COMISSION_model, time = 1:10)
-"COMISSION_model"
+#' print(COMISSION_config)
+#' memc_solve(mod = COMISSION_config, time = 1:10)
+"COMISSION_config"
 
 
 #' The MEMC model configuration for CORPSE
@@ -121,9 +121,9 @@
 #' @references \href{https://doi.org/10.1007/s10533-018-0509-z}{Sulman et al. 2018}
 #' @examples
 #' ## Use memc_solve to run the simulation using this configuration.
-#' print(CORPSE_model)
-#' memc_solve(mod = CORPSE_model, time = 1:10)
-"CORPSE_model"
+#' print(CORPSE_config)
+#' memc_solve(mod = CORPSE_config, time = 1:10)
+"CORPSE_config"
 
 
 #' The MEMC model configuration for MIMCS
@@ -143,9 +143,9 @@
 #' @references \href{https://doi.org/10.1002/2015GB005188}{Wieder et al. 2015}
 #' @examples
 #' ## Use memc_solve to run the simulation using this configuration.
-#' print(MIMCS_model)
-#' memc_solve(mod = MIMCS_model, time = 1:10)
-"MIMCS_model"
+#' print(MIMCS_config)
+#' memc_solve(mod = MIMCS_config, time = 1:10)
+"MIMCS_config"
 
 
 #' The MEMC model configuration for MEMS
@@ -165,9 +165,9 @@
 #' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
 #' @examples
 #' ## Use memc_solve to run the simulation using this configuration.
-#' print(MEMS_model)
-#' memc_solve(mod = MEMS_model, time = 1:10)
-"MEMS_model"
+#' print(MEMS_config)
+#' memc_solve(mod = MEMS_config, time = 1:10)
+"MEMS_config"
 
 
 #' The MEMC model configuration for BAMS
@@ -187,23 +187,23 @@
 #' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
 #' @examples
 #' ## Use memc_solve to run the simulation using this configuration.
-#' print(BAMS_model)
-#' memc_solve(mod = MEMS_model, time = 1:10)
-"BAMS_model"
+#' print(BAMS_config)
+#' memc_solve(mod = MEMS_config, time = 1:10)
+"BAMS_config"
 
 
 #' List of all the pre-defined MEMC models
 #'
 #' @format A easy-to-iterate-over list, each element of which is one of the MEMC models.
-#' @seealso \code{\link{MEND_model}}, \code{\link{COMISSION_model}},
-#' \code{\link{CORPSE_model}}, \code{\link{MEMS_model}},
-#' \code{\link{BAMS_model}}, \code{\link{MIMCS_model}}
+#' @seealso \code{\link{MEND_config}}, \code{\link{COMISSION_config}},
+#' \code{\link{CORPSE_config}}, \code{\link{MEMS_config}},
+#' \code{\link{BAMS_config}}, \code{\link{MIMCS_config}}
 #' @examples
-#' memc_all_models
+#' memc_all_configs
 #'
 #' # Return the summary table for dynamics used in model configurations
-#' summary(memc_all_models)
-"memc_all_models"
+#' summary(memc_all_configs)
+"memc_all_configs"
 
 
 #' Example data, time series and initial conditions for Ultisol from Wang et al. 2013 (10.1890/12-0681.1)

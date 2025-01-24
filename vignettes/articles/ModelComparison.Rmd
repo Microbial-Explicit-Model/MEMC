@@ -30,7 +30,7 @@ theme_set(theme_bw())
 Take look at the table of package model configurations. 
 
 ```{r}
-summary(memc_all_models)
+summary(memc_all_configs)
 ```
 
 Run all 6 model configurations using the `memc_solve` function
@@ -40,7 +40,7 @@ Run all 6 model configurations using the `memc_solve` function
 times <- seq(0, 600, by = 1)
 
 # Solve all the model configurations
-out_list <- lapply(memc_all_models, memc_solve, time = times)
+out_list <- lapply(memc_all_configs, memc_solve, time = times)
 
 # Save all of the output in a single data frame for plotting. 
 out <- do.call(rbind, out_list)
@@ -49,9 +49,5 @@ out <- do.call(rbind, out_list)
 Visualize results! 
 
 ```{r}
-ggplot(data = out) + 
-  geom_line(aes(x = time, y = value, color = name), linewidth = 1, alpha = 0.85) +
-  facet_wrap("variable", scales = "free") + 
-  labs(x = "Time (days)", y = "mg C/g", title = "MEMC Model Comparison") + 
-  scale_color_manual(values = memc_colorPalette())
+plot(out)
 ```

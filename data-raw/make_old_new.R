@@ -5,31 +5,31 @@ TEST_DIR <- file.path(BASE_DIR, "tests", "testthat")
 time <- floor(seq(0, 36500, length.out = 25))
 
 # Run the different outputs.
-mend_out <- memc_solve(mod = MEND_model, time)
+mend_out <- memc_solve(mod = MEND_config, time)
 names(mend_out) <-
   c("time", "variable", "old_value", "units", "name")
 
-comisssion_out <- memc_solve(mod = COMISSION_model, time)
+comisssion_out <- memc_solve(mod = COMISSION_config, time)
 names(comisssion_out) <-
   c("time", "variable", "old_value", "units", "name")
 
-corpse_out <- memc_solve(CORPSE_model, time)
+corpse_out <- memc_solve(CORPSE_config, time)
 names(corpse_out) <-
   c("time", "variable", "old_value", "units", "name")
 
-corpse_out <- memc_solve(CORPSE_model, time)
+corpse_out <- memc_solve(CORPSE_config, time)
 names(corpse_out) <-
   c("time", "variable", "old_value", "units", "name")
 
-mimcs_out <- memc_solve(MIMCS_model, time)
+mimcs_out <- memc_solve(MIMCS_config, time)
 names(mimcs_out) <-
   c("time", "variable", "old_value", "units", "name")
 
-mems_out <- memc_solve(MEMS_model, time)
+mems_out <- memc_solve(MEMS_config, time)
 names(mems_out) <-
   c("time", "variable", "old_value", "units", "name")
 
-bams_out <- memc_solve(BAMS_model, time)
+bams_out <- memc_solve(BAMS_config, time)
 names(bams_out) <-
   c("time", "variable", "old_value", "units", "name")
 

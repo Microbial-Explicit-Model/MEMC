@@ -2,7 +2,7 @@
 % Please edit documentation in R/helper.R
 \name{memc_colorPalette}
 \alias{memc_colorPalette}
-\title{Return the MEMC color palette for the the default MEMC model configurations}
+\title{Return a color palette for the the default MEMC model configurations and other simulations}
 \usage{
 memc_colorPalette(name = NULL)
 }
@@ -13,14 +13,14 @@ memc_colorPalette(name = NULL)
 A vector containing color hex codes for the different model configurations.
 }
 \description{
-Return the MEMC color palette for the the default MEMC model configurations
+Return a color palette for the the default MEMC model configurations and other simulations
 }
 \examples{
 \dontrun{
-out <- memc_solve(model = MEND_model, time = 0:100)
-ggplot(data = out, aes(time, value)) +
-geom_line(color = name) +
-scale_color_manual(values = memc_colorPalette("MEND")) +
-facet_wrap("variable")
+out <- memc_solve(MEND_config, time = 0:100)
+ggplot(data = out) +
+  geom_line(aes(time, value, color = name)) +
+  scale_color_manual(values = memc_colorPalette()) + 
+  facet_wrap("variable", scales = "free")
 }
 }

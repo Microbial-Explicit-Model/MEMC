@@ -17,6 +17,7 @@ Update the state vector values; this is for internal function use
 \seealso{
 Other helper functions: 
 \code{\link{memc_configure}()},
+\code{\link{memc_update_config}()},
 \code{\link{memc_update_params}()}
 }
 \concept{helper functions}

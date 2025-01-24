@@ -8,7 +8,7 @@ memc_solve(mod, time, params = NULL, state = NULL, ...)
 }
 \arguments{
 \item{mod}{model object, for example one of the list entries returned
-by \code{\link{memc_all_models}}}
+by \code{\link{memc_all_configs}}}
 
 \item{time}{daily time steps for model run}
 
@@ -33,7 +33,8 @@ simulation results, with columns:
 Solve a MEMC configuration
 }
 \examples{
-memc_solve(MEND_model, time = 0:10)
+out <- memc_solve(MEND_config, time = 0:10)
+plot(out)
 }
 \seealso{
 \code{\link{memc_configure}}

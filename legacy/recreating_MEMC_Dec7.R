@@ -48,7 +48,7 @@ out_com <- memc_solve(mod = JZ_com, time = seq(0,36500, by=1))
 
 
 # new_params <- memc_update_params(new_params = c("V_d"=0.5, "V_p"=0.001, "V_m"=0.001), param_table = param_dt)
-# mod <- CORPSE_model
+# mod <- CORPSE_config
 # mod$name <- "LIN"
 # mod$params <- new_params
 # mod$state <- c(4.7100, 17.6700, 0.0000,  0.520,  0.1480,  0.0520,  0.0520,  0.0000, 23.4840)

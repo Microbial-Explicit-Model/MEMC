@@ -20,9 +20,6 @@ This example will show how to update the model parameter values for any MEMC mod
 ```{r, eval=FALSE}
 # Assumes MEMC has already been installed. 
 library(MEMC) 
-
-# Use to visualize results.
-library(ggplot2) 
 ```
 
 The `MEMC` package includes default parameter and initial pool values that are included as package data that are based on Wang et al. 2015^[Wang, G., Jagadamma, S., Mayes, M. et al. Microbial dormancy improves development and experimental validation of ecosystem model. ISME J 9, 226–237 (2015). https://doi.org/10.1038/ismej.2014.120]. This example will use these values and show users how to update these values. We will also be running the MEMC MEND model configuration. \
@@ -50,7 +47,7 @@ Run the pre-configured MEMC MEND model with the default parameter values.
 
 ```{r}
 time <- 0:600 
-mod1 <- MEND_model
+mod1 <- MEND_config
 out1 <- memc_solve(mod = mod1, time = time)
 out1$name <- "Km = 250 (default)"
 ```
@@ -60,7 +57,7 @@ out1$name <- "Km = 250 (default)"
 Users can update the parameters directly via `memc_solve`. Any parameter(s) value(s) fed into the `memc_solve` params argument will overwrite the parameter values defined the model configuration.
 
 ```{r}
-out2 <- memc_solve(mod = MEND_model, time = time, params = c("K_m" = 10))
+out2 <- memc_solve(mod = MEND_config, time = time, params = c("K_m" = 10))
 out2$name <- "Km = 10 (lower)"
 ```
 

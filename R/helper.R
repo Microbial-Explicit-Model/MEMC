@@ -19,10 +19,10 @@ memc_update_params <- function(new_params, param_table) {
       paste0(dne, collapse = ', ')
     )
   )
-
+  
   assert_that(all(pnames %in% param_table$parameter), msg = "new_params must refer to a parameter already existing in param_table")
   assert_that(is.numeric(new_params))
-
+  
   # Update the param_table with the new values! To avoid a dependency on
   # the order in which the new_params are read into the function, use a for
   # loop to iterate over all the parameters to be updated.
@@ -30,9 +30,9 @@ memc_update_params <- function(new_params, param_table) {
     index <- which(param_table$parameter == p)
     param_table$value[index] <- new_params[[p]]
   }
-
+  
   return(param_table)
-
+  
 }
 
 
@@ -44,51 +44,51 @@ memc_update_params <- function(new_params, param_table) {
 #' @family helper functions
 update_state <- function(new_vals, state) {
   assert_that(is_state_vector(state))
-
+  
   req_names <-
     c("POM", "MOM", "QOM", "MB", "DOM", "EP", "EM", "IC", "Tot")
   assert_that(is.vector(new_vals))
   assert_that(all(names(new_vals) %in% req_names))
-
+  
   for (n in names(new_vals)) {
     index <- which(names(state) == n)
     state[[n]] <- new_vals[[n]]
   }
-
+  
   return(state)
-
+  
 }
 
 
-#' Update a model configuration; this is for internal function use
+#' Update a model configuration
 #'
 #' @param mod a MEMC model configuration object created by \code{memc_configure}
 #' @param new vector containing the parameters and or initial pool values
 #' @importFrom assertthat assert_that
 #' @family helper functions
-#' @noRd
-update_config <- function(mod, new = NULL) {
+#' @export
+memc_update_config <- function(mod, new = NULL) {
   assert_that(is_memc_config(mod))
-
+  
   if (is.null(new)) {
     return(mod)
   }
-
+  
   x <- split_param_state(new)
-
+  
   if (length(x$params) >= 1) {
     mod[["params"]] <-
       memc_update_params(new_params = x$params, param_table = mod[["params"]])
   }
-
+  
   if (length(x$state) >= 1) {
     mod[["state"]] <-
       update_state(new_vals = x$state, state = mod[["state"]])
-
+    
   }
-
+  
   return(mod)
-
+  
 }
 
 
@@ -100,13 +100,13 @@ update_config <- function(mod, new = NULL) {
 #' @param DOMuptake string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"
 #' @param POMdecomp string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"
 #' @param MBdecay string indicating microbial decay, one  of the following ""LM" or "DD"
-#' @return memc_single_model object of the name, dynamics, parameters and starting state values
+#' @return memc_single_config object of the name, dynamics, parameters and starting state values
 #' @importFrom assertthat assert_that
 #' @export
 #' @family helper functions
 #' @examples
 #' # Modify the MEND model
-#' m <- MEND_model
+#' m <- MEND_config
 #' m_mod <- memc_configure(m$params, m$state, "MEND_modified", POMdecomp = "LM")
 #' summary(m_mod)
 #' memc_solve(m_mod, 0:10)
@@ -127,7 +127,7 @@ memc_configure <- function(params,
               msg = 'POMdecomp must be "MM", "RMM", "ECA", "LM"')
   assert_that(sum(MBdecay %in% c("LM", "DD")) == 1,
               msg = 'MBdecay must be "LM" or "DD"')
-
+  
   # Format the table
   table <- data.frame(
     "model" = name,
@@ -135,17 +135,18 @@ memc_configure <- function(params,
     "POMdecomp" = POMdecomp,
     "MBdecay" = MBdecay
   )
-
+  
   model_object <- list(
     "name" = name,
     "table" = table,
     "params" = params,
     "state" = state
   )
-  class(model_object) <- "memc_single_model"
-
+  class(model_object) <-
+    c("memc_single_config", class(model_object))
+  
   return(model_object)
-
+  
 }
 
 
@@ -164,30 +165,31 @@ split_param_state <- function(x) {
     MEMC::memc_params$parameter
   )),
   msg = "value not recognized as a parameter or state")
-
+  
   params_index <-
     which(names(x) %in%  MEMC::memc_params$parameter)
-  state_index <- which(names(x) %in% names(MEMC::memc_initial_state))
-
+  state_index <-
+    which(names(x) %in% names(MEMC::memc_initial_state))
+  
   if (length(params_index) == 0) {
     params <- NULL
   } else {
     params <- x[params_index]
   }
-
+  
   if (length(state_index) == 0) {
     state <- NULL
   } else {
     state <- x[state_index]
   }
-
+  
   out <- list(params = params, state = state)
-
+  
   return(out)
-
+  
 }
 
-#' Return the MEMC color palette for the the default MEMC model configurations
+#' Return a color palette for the the default MEMC model configurations and other simulations
 #'
 #' @param name input vector containing the model names to return the color codes for, default will return colors for all the model configurations,
 #' @return A vector containing color hex codes for the different model configurations.
@@ -195,11 +197,11 @@ split_param_state <- function(x) {
 #' @export
 #' @examples
 #' \dontrun{
-#' out <- memc_solve(model = MEND_model, time = 0:100)
-#' ggplot(data = out, aes(time, value)) +
-#' geom_line(color = name) +
-#' scale_color_manual(values = memc_colorPalette("MEND")) +
-#' facet_wrap("variable")
+#' out <- memc_solve(MEND_config, time = 0:100)
+#' ggplot(data = out) +
+#'   geom_line(aes(time, value, color = name)) +
+#'   scale_color_manual(values = memc_colorPalette()) + 
+#'   facet_wrap("variable", scales = "free")
 #' }
 memc_colorPalette <- function(name = NULL) {
   # The color Palette for the different model configurations.
@@ -211,96 +213,45 @@ memc_colorPalette <- function(name = NULL) {
     "COMISSION" = "#D783FD",
     "MEMS" = "#1494FC"
   )
-
-  assert_that(length(MEMC::memc_all_models) == length(color_vec),
-              msg = "Problem with color palette size")
-
+  
+  assert_that(length(MEMC::memc_all_configs) == length(color_vec),
+              msg = "Problem with default palette size")
+  
+  # If no names are specified return the full color vector
+  if (is.null(name)) {
+    return(color_vec)
+    
+  } else {
+    # If there is no new configurations to consider then
+    # return the specific color palette otherwise use
+    # the rainbow palette to assign colors to the new
+    # configurations
+    default_configs <- intersect(name, names(color_vec))
+    new_configs <- setdiff(name, names(color_vec))
+    
+    if (identical(new_configs, character(0))) {
+      out <- color_vec[default_configs]
+      return(out)
+    } else {
+      new_colors <- grDevices::rainbow(length(new_configs))
+      out <- c(color_vec[default_configs], new_colors)
+      names(out) <- c(default_configs, new_configs)
+      return(out)
+    }
+    
+    
+  }
+  # If the name is not included as one of the default
+  # MEMC supported configurations then use the
+  # base rainbow pot
+  setdiff(name, names(MEMC::memc_all_configs))
+  
+  
+  
   if (is.null(name)) {
     return(color_vec)
   } else {
-    assert_that(all(name %in% names(color_vec)),
-                msg = "MEMC color palette only supports the default model configurations")
-    index <- which(names(color_vec) %in% name)
-    subset_color_vec <- color_vec[index]
-    return(subset_color_vec)
+    
   }
-
-}
-
-#' Summary table of memc_all_models
-#'
-#' Provides a summary of dynamics used in `memc_all_models`.
-#'
-#' @param object An object of class `memc_all_models`.
-#' @param ... Additional arguments (ignored).
-#' @export
-summary.memc_all_models <- function(object, ...) {
-  if (!inherits(object, "memc_all_models"))
-    stop("Object is not of class 'memc_all_models'")
-
-  tables <-
-    sapply(object, function(x) x["table"],
-           simplify = TRUE, USE.NAMES = FALSE)
-
-  single_df <- do.call(what = "rbind", args = tables)
-  rownames(single_df) <- NULL
-
-  out <- knitr::kable(single_df)
-  return(out)
-
-}
-
-
-#' Summary table for a single memc model
-#'
-#' Provides a summary of dynamics used in `memc_single_model`.
-#'
-#' @param object An object of class `memc_single_model`.
-#' @param ... Additional arguments (ignored).
-#' @export
-summary.memc_single_model <- function(object, ...) {
-  if (!inherits(object, "memc_single_model"))
-    stop("Object is not of class 'memc_single_model'")
-
-  out <- knitr::kable(object$table)
-  return(out)
-
-}
-
-
-#' Return the memc_all_models object
-#'
-#' Provides details of all the configurations included in `memc_all_models`.
-#'
-#' @param x An object of class `memc_all_models`.
-#' @param ... Additional arguments (ignored).
-#' @export
-print.memc_all_models <- function(x, ...) {
-  if (!inherits(x, "memc_all_models"))
-    stop("Object is not of class 'memc_all_models'")
-
-  # Remove attributes by unclassing to simplify the user experience
-  object_no_attributes <- unclass(x)
-  print.default(object_no_attributes)
-  invisible(object_no_attributes)
-
-}
-
-
-#' Return a full memc model object
-#'
-#' Provides details of all single model configuration
-#'
-#' @param x An object of class `memc_single_model`.
-#' @param ... Additional arguments (ignored).
-#' @export
-print.memc_single_model <- function(x, ...) {
-  if (!inherits(x, "memc_single_model"))
-    stop("Object is not of class 'memc_single_model'")
-
-  # Remove attributes by unclassing to simplify the user experience
-  object_no_attributes <- unclass(x)
-  print.default(object_no_attributes)
-  invisible(object_no_attributes)
-
+  
 }

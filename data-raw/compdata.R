@@ -7,9 +7,9 @@ devtools::load_all()
 t <- seq(0, 1e3, by = 10)
 
 # Solve for MEND
-mend_out <- memc_solve(mod = MEND_model, time = t)
-comission_out <- memc_solve(mod = COMISSION_model, time = t)
-corpse_out <- memc_solve(CORPSE_model, t)
+mend_out <- memc_solve(mod = MEND_config, time = t)
+comission_out <- memc_solve(mod = COMISSION_config, time = t)
+corpse_out <- memc_solve(CORPSE_config, t)
 
 # Write output to the test file.
 out <- rbind(mend_out, comission_out, corpse_out)

@@ -89,12 +89,7 @@ Compare the model results with one another.
 
 
 ```{r, echo = FALSE}
-ggplot(data = rbind(mod1_out, mod2_out, mod3_out)) + 
-  geom_line(aes(time, value, color = name, linetype = name), linewidth = 0.75) + 
-  facet_wrap("variable", scales = "free") + 
-  labs(y = "mg C/g soil", 
-       title = "Comparing Model Results") +
-  theme(legend.title = element_blank())
+plot(rbind(mod1_out, mod2_out, mod3_out))
 ```
 
 
