@@ -53,7 +53,7 @@
 
 <dl><dt id="arg-mod">mod<a class="anchor" aria-label="anchor" href="#arg-mod"></a></dt>
 <dd><p>model object, for example one of the list entries returned
-by <code><a href="memc_all_models.html">memc_all_models</a></code></p></dd>
+by <code><a href="memc_all_configs.html">memc_all_configs</a></code></p></dd>
 
 
 <dt id="arg-time">time<a class="anchor" aria-label="anchor" href="#arg-time"></a></dt>
@@ -101,109 +101,9 @@ simulation results, with columns:</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">memc_solve</span><span class="op">(</span><span class="va">MEND_model</span>, time <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      time variable        value       units   name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;num&gt;   &lt;fctr&gt;        &lt;num&gt;      &lt;char&gt; &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:     0      POM 1.000000e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:     1      POM 1.085536e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:     2      POM 1.115375e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:     3      POM 1.122363e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     4      POM 1.120608e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     5      POM 1.115458e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:     6      POM 1.108957e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:     7      POM 1.101908e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:     8      POM 1.094641e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:     9      POM 1.087294e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:    10      POM 1.079933e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:     0      MOM 5.000000e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:     1      MOM 5.012398e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:     2      MOM 5.040316e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:     3      MOM 5.074505e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:     4      MOM 5.111070e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:     5      MOM 5.148468e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:     6      MOM 5.186081e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:     7      MOM 5.223655e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:     8      MOM 5.261082e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21:     9      MOM 5.298312e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22:    10      MOM 5.335321e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23:     0      QOM 1.000000e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24:     1      QOM 1.012582e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25:     2      QOM 1.016135e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26:     3      QOM 1.020186e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27:     4      QOM 1.025091e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28:     5      QOM 1.031229e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29:     6      QOM 1.038915e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30:     7      QOM 1.048370e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31:     8      QOM 1.059725e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32:     9      QOM 1.073049e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33:    10      QOM 1.088369e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34:     0       MB 2.000000e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35:     1       MB 9.347011e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36:     2       MB 3.618926e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37:     3       MB 1.436626e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38:     4       MB 5.935201e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39:     5       MB 2.582606e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40:     6       MB 1.190014e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41:     7       MB 5.802372e-03 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42:     8       MB 2.981106e-03 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43:     9       MB 1.604872e-03 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44:    10       MB 9.003539e-04 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45:     0      DOM 1.000000e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46:     1      DOM 6.365408e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47:     2      DOM 6.954756e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48:     3      DOM 8.099383e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49:     4      DOM 9.902432e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50:     5      DOM 1.232404e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51:     6      DOM 1.521146e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52:     7      DOM 1.839678e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53:     8      DOM 2.175026e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54:     9      DOM 2.518673e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55:    10      DOM 2.865449e-01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56:     0       EP 1.000000e-05 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57:     1       EP 1.796429e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58:     2       EP 2.517575e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59:     3       EP 2.797598e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60:     4       EP 2.908749e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61:     5       EP 2.953941e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62:     6       EP 2.972442e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63:     7       EP 2.979606e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64:     8       EP 2.981688e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65:     9       EP 2.981363e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66:    10       EP 2.979841e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67:     0       EM 1.000000e-05 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68:     1       EM 1.796429e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69:     2       EM 2.517575e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70:     3       EM 2.797598e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71:     4       EM 2.908749e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72:     5       EM 2.953941e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73:     6       EM 2.972442e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74:     7       EM 2.979606e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75:     8       EM 2.981688e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76:     9       EM 2.981363e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77:    10       EM 2.979841e-02 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78:     0       IC 0.000000e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79:     1       IC 1.096718e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80:     2       IC 1.322545e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81:     3       IC 1.419253e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 82:     4       IC 1.463805e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 83:     5       IC 1.485707e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 84:     6       IC 1.497016e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 85:     7       IC 1.503081e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 86:     8       IC 1.506442e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 87:     9       IC 1.508364e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 88:    10       IC 1.509494e+00 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89:     0      Tot 1.810002e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90:     1      Tot 1.700330e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 91:     2      Tot 1.677747e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 92:     3      Tot 1.668077e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 93:     4      Tot 1.663621e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 94:     5      Tot 1.661431e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 95:     6      Tot 1.660300e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 96:     7      Tot 1.659694e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 97:     8      Tot 1.659358e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 98:     9      Tot 1.659166e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 99:    10      Tot 1.659053e+01 mg C/g soil   MEND</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      time variable        value       units   name</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">memc_solve</span><span class="op">(</span><span class="va">MEND_config</span>, time <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="memc_solve-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

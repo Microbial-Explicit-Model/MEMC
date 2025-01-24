@@ -89,7 +89,7 @@ data.</p>
 consistent with the experiment setup.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Save a copy of the mimics model configuration. </span></span>
-<span><span class="va">my_mod_config</span> <span class="op">&lt;-</span> <span class="fu">MEMC</span><span class="fu">::</span><span class="va"><a href="../reference/MIMCS_model.html">MIMCS_model</a></span></span>
+<span><span class="va">my_mod_config</span> <span class="op">&lt;-</span> <span class="fu">MEMC</span><span class="fu">::</span><span class="va"><a href="../reference/MIMCS_config.html">MIMCS_config</a></span></span>
 <span></span>
 <span><span class="co"># Update the MEND model initial state conditions to reflect </span></span>
 <span><span class="co"># the experimental setup</span></span>
@@ -103,8 +103,8 @@ data.</p>
 as follows:</p>
 <ul>
 <li>config: a MEMC model configuration object, either one of the
-pre-built configurations listed in memc_all_models or created using
-configure_model</li>
+pre-built configurations listed in memc_all_configs or created using
+configure_config</li>
 <li>comp_data: a data frame containing the comparison data that the
 model will be fit to</li>
 </ul>
