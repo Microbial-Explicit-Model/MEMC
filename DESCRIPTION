@@ -1,7 +1,7 @@
 Package: MEMC
 Type: Package
 Title: Microbial Explicit Model Comparison
-Version: 0.1.0.999999
+Version: 0.1.1
 Authors@R: c(
     person("Kalyn", "Dorheim", email = "kalyn.dorheim@pnnl.gov", 
         role = "aut", comment = c(ORCID = "0000-0001-8093-8397")),
