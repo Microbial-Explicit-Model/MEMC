@@ -1,0 +1,20 @@
+pandoc: 3.1.11
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  articles/Background: Background.html
+  articles/ChangeParams: ChangeParams.html
+  articles/ContributionGuide: ContributionGuide.html
+  articles/Fit-to-Data: Fit-to-Data.html
+  articles/Install-Build: Install-Build.html
+  articles/Manual: Manual.html
+  MEMC: MEMC.html
+  articles/ModelComparison: ModelComparison.html
+  articles/RoadMap: RoadMap.html
+  articles/sens: sens.html
+  articles/StyleGuide: StyleGuide.html
+  articles/ToyModel: ToyModel.html
+last_built: 2025-03-03T20:35Z
+urls:
+  reference: https://microbial-explicit-model.github.io/MEMC/reference
+  article: https://microbial-explicit-model.github.io/MEMC/articles
