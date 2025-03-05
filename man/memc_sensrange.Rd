@@ -39,6 +39,6 @@ plot(out)
 }
 \seealso{
 Other sensitivity: 
-\code{\link{memc_sensfunc}()}
+\code{\link{memc_sensfun}()}
 }
 \concept{sensitivity}

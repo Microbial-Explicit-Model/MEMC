@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
 
 The objective of this example is demonstrate how to easily conduct a
 sensitivity analysis and visualize results using `memc_sensrange`,
-`memc_sensfunc`, and `memc_format_sensout`. This is a demonstration of
+`memc_sensfun`, and `memc_format_sensout`. This is a demonstration of
 package capabilities more than a rigorous analysis. The first section
 will demonstrate how to use the MEMC functions related to sensitivity
 analyses, and the second will show how alternative model configurations
@@ -101,7 +101,7 @@ pre-built configurations listed in `memc_all_configs` or created using
 * `pars`: vector specifying the model parameters to test
 
 ```{r}
-sens_out <- memc_sensfunc(config = MEND_config,
+sens_out <- memc_sensfun(config = MEND_config,
                           t = seq(0, 365),
                           x = c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01))
 ```
@@ -204,12 +204,12 @@ MEND and CORPSE.
 
 ```{r}
 time <- 0:100
-MENDsens_out <- memc_sensfunc(config = MEND_config,
+MENDsens_out <- memc_sensfun(config = MEND_config,
                               t = time,
                               x = c("V_d" = 3.0e+00,"K_d" = 0.250), 
                               sensvar = "DOM")
 
-CORPSEsens_out <- memc_sensfunc(config = CORPSE_config,
+CORPSEsens_out <- memc_sensfun(config = CORPSE_config,
                                 t = time,
                                 x = c("V_d" = 3.0e+00,"K_d" = 0.250), 
                                 sensvar = "DOM")

@@ -91,8 +91,8 @@ test_that("class memc_sensrange ", {
   pars <- c("V_d" = 3.0e+00,
             "V_p" = 1.4e+01,
             "V_m" = 2.5e-01)
-  out <- memc_sensfunc(config = MEND_config, t = 1:10, x = pars)
-  expect_s3_class(out, c("memc_sensFunc", "data.table", "data.frame"))
+  out <- memc_sensfun(config = MEND_config, t = 1:10, x = pars)
+  expect_s3_class(out, c("memc_sensfun", "data.table", "data.frame"))
   expect_equal(class(plot(out)), c("gg", "ggplot"))
   
 })
