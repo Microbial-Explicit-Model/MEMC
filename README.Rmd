@@ -107,7 +107,7 @@ print(MEND_config$state)
 Perform a run using the MEND model:
 
 ```{r, warning=FALSE}
-time <- seq(0, 36500, by = 25) 
+time <- seq(0, 365, by = 25) 
 mend_out <- memc_solve(mod = MEND_config, time = time)
 ```
 
@@ -147,7 +147,7 @@ summary(my_config)
 Run our customized model...
 
 ```{r, warning=FALSE}
-time <- seq(0, 36500, by = 25) 
+time <- seq(0, 365, by = 25) 
 my_out <- memc_solve(mod = my_config, time = time)
 ```
 
