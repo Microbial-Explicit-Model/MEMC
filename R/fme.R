@@ -147,10 +147,10 @@ memc_sensrange <- function(config, t, x, parRange, dist, ...) {
 #'\dontrun{
 #' # Test the sensitivity of the MEND output for V_p, K_p, V_m
 #' pars <- c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01)
-#' out <- memc_sensfunc(config = MEND_config, t = t, x = pars)
+#' out <- memc_sensfun(config = MEND_config, t = t, x = pars)
 #' plot(out)
 #' }
-memc_sensfunc <- function(config, t, x, ...) {
+memc_sensfun <- function(config, t, x, ...) {
   func <- function(xx) {
     new_mod <- memc_update_config(mod = config, new = xx)
     sm_internal(mod = new_mod, time = t)
@@ -172,7 +172,7 @@ memc_sensfunc <- function(config, t, x, ...) {
   )
   
   out <- cbind("name" = config$name, out)
-  class(out) <- c("memc_sensFunc", class(out))
+  class(out) <- c("memc_sensfun", class(out))
   
   return(out)
 }

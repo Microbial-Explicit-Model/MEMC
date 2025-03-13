@@ -20,8 +20,8 @@ navbar:
       menu:
         - text: "Run all model configurations"
           href: articles/ModelComparison.html
-        - text: "Sensitivity analysis "
-          href: articles/sens.html
+        - text: "Local sensitivity analysis"
+          href: articles/sensLocal.html
     - text: "Functions"
       href: reference/index.html
     - text: "News"

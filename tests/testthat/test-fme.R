@@ -88,18 +88,18 @@ test_that("memc_sensrange", {
 
 })
 
-test_that("memc_sensfunc", {
+test_that("memc_sensfun", {
   # Test that the function runs and returns the expected output that
   # can be plotted.
   pars <- c("V_d" = 3.0e+00,
             "V_p" = 1.4e+01,
             "V_m" = 2.5e-01)
-  out <- memc_sensfunc(config = MEND_config, t = time, x = pars)
+  out <- memc_sensfun(config = MEND_config, t = time, x = pars)
 
   # Check to see that the function also works with initial states
   inital_pools <- c("MOM" = 5, "DOM" = 1)
   out2 <-
-    memc_sensfunc(config = MEND_config, t = time, x = inital_pools)
+    memc_sensfun(config = MEND_config, t = time, x = inital_pools)
 
   # The results from out and out2 should be different since by test
   # design the returned data frames will be different sized.

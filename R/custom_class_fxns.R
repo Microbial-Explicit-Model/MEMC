@@ -188,23 +188,23 @@ plot.memc_sensRange <- function(x, y, ...) {
 
 
 
-#' Quick plot the results returned from memc_sensFunc
+#' Quick plot the results returned from memc_sensfun
 #'
 #'
-#' @param x An object of class `memc_sensFunc`.
+#' @param x An object of class `memc_sensfun`.
 #' @param y Ignored
 #' @param ... additional arguments 
 #' @export
 #' @import ggplot2
-#' @method plot memc_sensFunc
+#' @method plot memc_sensfun
 #' @noRd
-plot.memc_sensFunc <- function(x, y, ...) {
+plot.memc_sensfun <- function(x, y, ...) {
   
   # Silence check warnings
   time <- value <- parameter <- NULL
   
-  if (!inherits(x, "memc_sensFunc"))
-    stop("Object is not of class 'memc_sensFunc'")
+  if (!inherits(x, "memc_sensfun"))
+    stop("Object is not of class 'memc_sensfun'")
 
   ggplot(data = x) +
     geom_line(aes(time, value, color = parameter)) +
