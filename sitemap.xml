@@ -15,7 +15,7 @@
 <url><loc>https://microbial-explicit-model.github.io/MEMC/articles/StyleGuide.html</loc></url>
 <url><loc>https://microbial-explicit-model.github.io/MEMC/articles/ToyModel.html</loc></url>
 <url><loc>https://microbial-explicit-model.github.io/MEMC/articles/index.html</loc></url>
-<url><loc>https://microbial-explicit-model.github.io/MEMC/articles/sens.html</loc></url>
+<url><loc>https://microbial-explicit-model.github.io/MEMC/articles/sensLocal.html</loc></url>
 <url><loc>https://microbial-explicit-model.github.io/MEMC/authors.html</loc></url>
 <url><loc>https://microbial-explicit-model.github.io/MEMC/index.html</loc></url>
 <url><loc>https://microbial-explicit-model.github.io/MEMC/news/index.html</loc></url>
@@ -39,7 +39,7 @@
 <url><loc>https://microbial-explicit-model.github.io/MEMC/reference/memc_initial_state.html</loc></url>
 <url><loc>https://microbial-explicit-model.github.io/MEMC/reference/memc_modfit.html</loc></url>
 <url><loc>https://microbial-explicit-model.github.io/MEMC/reference/memc_params.html</loc></url>
-<url><loc>https://microbial-explicit-model.github.io/MEMC/reference/memc_sensfunc.html</loc></url>
+<url><loc>https://microbial-explicit-model.github.io/MEMC/reference/memc_sensfun.html</loc></url>
 <url><loc>https://microbial-explicit-model.github.io/MEMC/reference/memc_sensrange.html</loc></url>
 <url><loc>https://microbial-explicit-model.github.io/MEMC/reference/memc_solve.html</loc></url>
 <url><loc>https://microbial-explicit-model.github.io/MEMC/reference/memc_update_config.html</loc></url>
