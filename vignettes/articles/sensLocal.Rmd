@@ -15,7 +15,8 @@ The objective of this example is demonstrate how to use `memc_sensfun` to conduc
 The `memc_sensfun` function is a wrapper for `sensFun` from the FME package, designed to help `memc` users easily perform a local sensitivity analysis on any `memc` parameter or initial condition. The official [FME](https://cran.r-project.org/web/packages/FME/FME.pdf) provides more details, but in short,  `memc_sensfun` runs a memc configuration multiple times: first as a reference run, then as a series of perturbation runs—one for each parameter of interest. During each perturbation run, a single parameter is changed slightly while others remain constant. The output of `memc_sensfun` includes the numerical approximations of partial derivatives, representing the sensitivity of the model output to each perturbed parameter.
 
 
-Start by loading the pacakges used in the demonstration. 
+Start by loading the packages used in the demonstration. 
+
 
 ```{r setup}
 library(MEMC) 
