@@ -22,6 +22,8 @@ navbar:
           href: articles/ModelComparison.html
         - text: "Local sensitivity analysis"
           href: articles/sensLocal.html
+        - text: "Global sensitivity analysis"
+          href: articles/sensRange.html
     - text: "Functions"
       href: reference/index.html
     - text: "News"

@@ -1,0 +1,62 @@
+---
+title: "Global Sensitivity"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The objective of this example is demonstrate how to use `memc_sensrange` to conduct a global sensitivity analysis and visualize the results to demonstrate package capabilities. 
+
+
+The `memc_sensrange` function is a wrapper for `sensRange` from the FME package, designed to help `memc` users easily perform an analysis to estimate the global effect of `memc` parameter or initial condition on model output. The official [FME](https://cran.r-project.org/web/packages/FME/FME.pdf) provides more details, but in short,  `memc_sensrange` runs a memc configuration using parameter combinations drawn from some predefined distribution, running the model with each of these parameter combinations producing an envelope of model results. 
+
+
+Start by loading the packages used in the demonstration. 
+
+```{r setup}
+library(MEMC) 
+
+
+library(ggplot2)
+theme_set(theme_bw())
+```
+
+
+Select the `memc` parameters or initial conditions to include in the local sensitivity analysis. Any of the parameters included in `memc_params` or `memc_initial_state` may be considered. In this example we will consider how the memc MEND configuration is sensitive to $V_d$ and $K_d$, the maximum and half saturation rates of DOM decomposition. 
+
+Set up a data frame of the parameter range to sample from, here we arbitrarily set the upper and lower bounds as $\pm$ 50%  of the default parameter value. 
+
+```{r}
+pars <- c("V_d" = 3.0e+00,"V_p" = 1.4e+01,"V_m" = 2.5e-01)
+prange <- data.frame(min = pars - pars * 0.5,
+                     max = pars + pars * 1.5)
+```
+
+
+```{r}
+MENDsens_out <- memc_sensrange(config = MEND_config,   # memc configuration
+                               t = 0:100,              # the time steps 
+                               x = pars,               # default parameter values
+                               parRange = prange,      # parameter range to sample from
+                               dist = "latin",         # sampling distribution to use, "latin" hyper cube or "norm"al 
+                               n = 50)                 # the number of model runs/parameters to sample
+
+```
+
+
+The returned data frame includes the mean, standard deviation, range, and several interquartile values for the organic material pools.
+
+```{r}
+head(MENDsens_out)
+```
+
+Quickly visualize results with the ribbon bounds controlled by the lower and upper bound arguments.
+
+```{r}
+plot(MENDsens_out, lower = "Min", upper = "Max")
+```
+
