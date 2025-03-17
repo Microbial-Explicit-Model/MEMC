@@ -36,6 +36,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-examples">
 <li><a class="dropdown-item" href="../articles/ModelComparison.html">Run all model configurations</a></li>
     <li><a class="dropdown-item" href="../articles/sensLocal.html">Local sensitivity analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/sensRange.html">Global sensitivity analysis</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Functions</a></li>
@@ -79,7 +80,7 @@ each perturbation run, a single parameter is changed slightly while
 others remain constant. The output of <code>memc_sensfun</code> includes
 the numerical approximations of partial derivatives, representing the
 sensitivity of the model output to each perturbed parameter.</p>
-<p>Start by loading the pacakges used in the demonstration.</p>
+<p>Start by loading the packages used in the demonstration.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://microbial-explicit-model.github.io/MEMC">MEMC</a></span><span class="op">)</span> </span>
 <span></span>
