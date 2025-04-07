@@ -27,7 +27,9 @@ print(BAMS_config)
 memc_solve(mod = MEMS_config, time = 1:10)
 }
 \references{
-\href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
+Robertson et al.: Unifying soil organic matter formation and
+persistence frameworks: the MEMS model, Biogeosciences, 16, 1225–1248, 2019.
+\url{https://doi.org/10.5194/bg-16-1225-2019}
 }
 \seealso{
 Other configurations: 

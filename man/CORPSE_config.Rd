@@ -27,7 +27,9 @@ print(CORPSE_config)
 memc_solve(mod = CORPSE_config, time = 1:10)
 }
 \references{
-\href{https://doi.org/10.1007/s10533-018-0509-z}{Sulman et al. 2018}
+Sulman et al.: Multiple models and experiments underscore large
+uncertainty in soil carbon dynamics, Biogeochemistry, 141, 109–123, 2018.
+\url{https://doi.org/10.1007/s10533-018-0509-z}
 }
 \seealso{
 Other configurations: 

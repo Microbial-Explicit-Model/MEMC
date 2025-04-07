@@ -27,7 +27,9 @@ print(MIMCS_config)
 memc_solve(mod = MIMCS_config, time = 1:10)
 }
 \references{
-\href{https://doi.org/10.1002/2015GB005188}{Wieder et al. 2015}
+Wieder, W. R., et al.: Explicitly representing soil microbial
+processes in Earth system models, Global Biogeochem. Cycles, 29, 1782–1800,
+2015. \url{https://doi.org/10.1002/2015GB005188}
 }
 \seealso{
 Other configurations: 

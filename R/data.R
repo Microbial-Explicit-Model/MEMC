@@ -1,4 +1,4 @@
-#' The parameter values for the basic MEMC model configurations from Wang et al. 2013
+#' Parameter values for the MEMC model configuration
 #'
 #' @docType data
 #' @usage data(memc_params)
@@ -13,6 +13,9 @@
 #' \item{value}{Parameter values}
 #' }
 #' @family inputs
+#' @references Wang et al.: Development of microbial-enzyme-mediated
+#' decomposition model parameters through steady-state and dynamic analyses,
+#' Ecol. Appl., 23, 255–272, 2013. \url{https://doi.org/10.1890/12-0681.1}
 #' @examples
 #' memc_params
 "memc_params"
@@ -33,7 +36,9 @@
 #' }}
 #' \item{state}{A named vector of the initial states of the carbon pools associated with the observations}
 #' }
-#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+#' @references Wang et al.: Development of microbial-enzyme-mediated
+#' decomposition model parameters through steady-state and dynamic analyses,
+#' Ecol. Appl., 23, 255–272, 2013. \url{https://doi.org/10.1890/12-0681.1}
 #' @examples
 #' memc_incubation_ultisol
 "memc_incubation_ultisol"
@@ -54,7 +59,9 @@
 #' \item{Tot}{Total carbon in the patch}
 #' }
 #' @family inputs
-#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+#' @references Wang et al.: Development of microbial-enzyme-mediated
+#' decomposition model parameters through steady-state and dynamic analyses,
+#' Ecol. Appl., 23, 255–272, 2013. \url{https://doi.org/10.1890/12-0681.1}
 #' @examples
 #' print(memc_initial_state)
 "memc_initial_state"
@@ -74,7 +81,9 @@
 #' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
-#' @references \href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+#' @references Wang et al.: Development of microbial-enzyme-mediated
+#' decomposition model parameters through steady-state and dynamic analyses,
+#' Ecol. Appl., 23, 255–272, 2013. \url{https://doi.org/10.1890/12-0681.1}
 #' @examples
 #' ## Use memc_solve to run the simulation using this configuration.
 #' print(MEND_config)
@@ -96,7 +105,10 @@
 #' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
-#' @references \href{https://doi.org/10.1016/j.soilbio.2015.06.008}{Ahrens et al. 2015}
+#' @references Ahrens et al.: Contribution of sorption, DOC transport and
+#' microbial interactions to the 14C age of a soil organic carbon profile:
+#' Insights from a calibrated process model, Soil Biol. Biochem., 88, 390–402,
+#' 2015. \url{https://doi.org/10.1016/j.soilbio.2015.06.008}
 #' @examples
 #' ## Use memc_solve to run the simulation using this configuration.
 #' print(COMISSION_config)
@@ -118,7 +130,9 @@
 #' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
-#' @references \href{https://doi.org/10.1007/s10533-018-0509-z}{Sulman et al. 2018}
+#' @references Sulman et al.: Multiple models and experiments underscore large
+#' uncertainty in soil carbon dynamics, Biogeochemistry, 141, 109–123, 2018.
+#' \url{https://doi.org/10.1007/s10533-018-0509-z}
 #' @examples
 #' ## Use memc_solve to run the simulation using this configuration.
 #' print(CORPSE_config)
@@ -140,7 +154,9 @@
 #' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
-#' @references \href{https://doi.org/10.1002/2015GB005188}{Wieder et al. 2015}
+#' @references Wieder, W. R., et al.: Explicitly representing soil microbial
+#' processes in Earth system models, Global Biogeochem. Cycles, 29, 1782–1800,
+#' 2015. \url{https://doi.org/10.1002/2015GB005188}
 #' @examples
 #' ## Use memc_solve to run the simulation using this configuration.
 #' print(MIMCS_config)
@@ -162,7 +178,9 @@
 #' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
-#' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
+#' @references Robertson et al.: Unifying soil organic matter formation and
+#' persistence frameworks: the MEMS model, Biogeosciences, 16, 1225–1248, 2019.
+#' \url{https://doi.org/10.5194/bg-16-1225-2019}
 #' @examples
 #' ## Use memc_solve to run the simulation using this configuration.
 #' print(MEMS_config)
@@ -184,7 +202,9 @@
 #' \item{state}{vector of the initial state values; see \link{memc_initial_state} for more details.}
 #' }
 #' @family configurations
-#' @references \href{https://doi.org/10.5194/bg-16-1225-2019}{Robertson et al. 2019}
+#' @references Robertson et al.: Unifying soil organic matter formation and
+#' persistence frameworks: the MEMS model, Biogeosciences, 16, 1225–1248, 2019.
+#' \url{https://doi.org/10.5194/bg-16-1225-2019}
 #' @examples
 #' ## Use memc_solve to run the simulation using this configuration.
 #' print(BAMS_config)
