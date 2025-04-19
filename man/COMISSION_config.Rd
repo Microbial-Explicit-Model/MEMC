@@ -27,7 +27,10 @@ print(COMISSION_config)
 memc_solve(mod = COMISSION_config, time = 1:10)
 }
 \references{
-\href{https://doi.org/10.1016/j.soilbio.2015.06.008}{Ahrens et al. 2015}
+Ahrens et al.: Contribution of sorption, DOC transport and
+microbial interactions to the 14C age of a soil organic carbon profile:
+Insights from a calibrated process model, Soil Biol. Biochem., 88, 390–402,
+2015. \url{https://doi.org/10.1016/j.soilbio.2015.06.008}
 }
 \seealso{
 Other configurations: 

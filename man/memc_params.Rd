@@ -3,7 +3,7 @@
 \docType{data}
 \name{memc_params}
 \alias{memc_params}
-\title{The parameter values for the basic MEMC model configurations from Wang et al. 2013}
+\title{Parameter values for the MEMC model configuration}
 \format{
 A data frame of 20 rows and 4 columns containing the default MEMC
 parameter values
@@ -18,10 +18,15 @@ parameter values
 data(memc_params)
 }
 \description{
-The parameter values for the basic MEMC model configurations from Wang et al. 2013
+Parameter values for the MEMC model configuration
 }
 \examples{
 memc_params
+}
+\references{
+Wang et al.: Development of microbial-enzyme-mediated
+decomposition model parameters through steady-state and dynamic analyses,
+Ecol. Appl., 23, 255–272, 2013. \url{https://doi.org/10.1890/12-0681.1}
 }
 \seealso{
 Other inputs: 

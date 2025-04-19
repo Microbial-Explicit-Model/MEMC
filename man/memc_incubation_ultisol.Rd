@@ -49,6 +49,8 @@ memc_incubation_ultisol$data
 memc_incubation_ultisol$state
 }
 \references{
-\href{https://doi.org/10.1890/12-0681.1}{Wang et al. 2013}
+Wang et al.: Development of microbial-enzyme-mediated
+decomposition model parameters through steady-state and dynamic analyses,
+Ecol. Appl., 23, 255–272, 2013. \url{https://doi.org/10.1890/12-0681.1}
 }
 \keyword{datasets}
