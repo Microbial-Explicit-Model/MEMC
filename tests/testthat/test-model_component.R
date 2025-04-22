@@ -16,7 +16,7 @@ test_that("carbon_pool_derivs", {
   x <- carbon_pool_derivs(t = 1,
                           state = mod[["state"]],
                           p = p,
-                          DOMuptake = mod$table$DOMuptake,
+                          F1 = mod$table$F1,
                           POMdecomp = mod$table$POMdecomp,
                           MBdecay = mod$table$MBdecay)
   expect_true(is.list(x))
@@ -77,13 +77,13 @@ test_that("changing dynamics should change results", {
   # Change DOM decomposition dynamics
   config <- memc_configure(params = ptable,
                             state = state,
-                            DOMuptake = "RMM")
+                           F1 = "RMM")
   out1 <- memc_solve(mod = config, time)
   expect_gte(mean((default$value - out1$value)^2), zero)
 
   config <- memc_configure(params = ptable,
                             state = state,
-                            DOMuptake = "ECA")
+                           F1 = "ECA")
   out2 <- memc_solve(mod = config, time)
   expect_gte(mean((default$value - out2$value)^2), zero)
 

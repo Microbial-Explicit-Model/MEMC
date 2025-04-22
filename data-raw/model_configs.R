@@ -4,7 +4,7 @@ MEND_config <- memc_configure(
   params = memc_params,
   state = memc_initial_state,
   name = "MEND",
-  DOMuptake = "MM",
+  F1 = "MM",
   POMdecomp = "MM",
   MBdecay = "LM"
 )
@@ -14,7 +14,7 @@ COMISSION_config <- memc_configure(
   params = memc_params,
   state = memc_initial_state,
   name = "COMISSION",
-  DOMuptake = "MM",
+  F1 = "MM",
   POMdecomp = "RMM",
   MBdecay = "LM"
 )
@@ -24,7 +24,7 @@ CORPSE_config <- memc_configure(
   params = memc_params,
   state = memc_initial_state,
   name = "CORPSE",
-  DOMuptake = "RMM",
+  F1 = "RMM",
   POMdecomp = "LM",
   MBdecay = "LM"
 )
@@ -35,7 +35,7 @@ MEMS_config <- memc_configure(
   params = memc_params,
   state = memc_initial_state,
   name = "MEMS",
-  DOMuptake = "LM",
+  F1 = "LM",
   POMdecomp = "LM",
   MBdecay = "LM"
 )
@@ -45,7 +45,7 @@ BAMS_config <- memc_configure(
   params = memc_params,
   state = memc_initial_state,
   name = "BAMS",
-  DOMuptake = "MM",
+  F1 = "MM",
   POMdecomp = "MM",
   MBdecay = "LM"
 )
@@ -60,7 +60,7 @@ MIMCS_config <- memc_configure(
   params = param_df,
   state = memc_initial_state,
   name = "MIMCS",
-  DOMuptake = "MM",
+  F1 = "MM",
   POMdecomp = "MM",
   MBdecay = "DD"
 )

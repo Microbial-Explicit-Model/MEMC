@@ -81,7 +81,7 @@ new_km <- memc_update_params(new_params = c("K_m" = 100), param_table = memc_par
 mod_km <- memc_configure(params = new_km, 
                         state = memc_initial_state,
                         name = "Km = 100", 
-                        DOMuptake = "MM",
+                        F1 = "MM",
                         POMdecomp = "MM",
                         MBdecay = "LM")
 

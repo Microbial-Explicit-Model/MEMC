@@ -138,7 +138,7 @@ and `help("memc_initial_state)` for more information).
 my_config <- memc_configure(params = memc_params, 
                            state = memc_initial_state, 
                            name = "my model", 
-                           DOMuptake = "MM", 
+                           F1 = "MM", 
                            POMdecomp = "LM", 
                            MBdecay = "LM")
 summary(my_config)

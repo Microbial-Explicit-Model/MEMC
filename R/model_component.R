@@ -1,7 +1,7 @@
 #' Define the carbon pool flux functions based on the model dynamics
 #'
 #' @param parms MEMC parameter table
-#' @param DOMuptake string indicator for type of dynamics used for the DOM decomposition
+#' @param F1 string indicator for type of dynamics used for the DOM decomposition
 #' @param POMdecomp string indicator for type of dynamics used for the POM decomposition
 #' @param MBdecay string indicator for type of dynamics used to model MB decay
 #' @seealso dynamics
@@ -11,28 +11,28 @@
 #' @family internal
 c_flux_functions_internal <-
   function(p,
-           DOMuptake = "MM",
+           F1 = "MM",
            POMdecomp = "MM",
            MBdecay = "LM") {
     flux_functions <- list()
-    if (DOMuptake == "MM") {
+    if (F1 == "MM") {
       flux_functions[["F1"]] = function(MB, DOM) {
         p[["V_d"]] * MB * DOM / (p[["K_d"]] + DOM)
       }
-    } else if (DOMuptake == "RMM") {
+    } else if (F1 == "RMM") {
       flux_functions[["F1"]] = function(MB, DOM) {
         p[["V_d"]] * MB * DOM / (p[["K_d"]] + MB)
       }
-    } else if (DOMuptake == "ECA") {
+    } else if (F1 == "ECA") {
       flux_functions[["F1"]] = function(MB, DOM) {
         p[["V_d"]] * MB * DOM / (p[["K_d"]] + DOM + MB)
       }
-    } else if (DOMuptake == "LM") {
+    } else if (F1 == "LM") {
       flux_functions[["F1"]] = function(MB, DOM) {
         p[["V_d"]] * DOM
       }
     } else {
-      stop("Unknown DOMuptake!")
+      stop("Unknown F1!")
     }
     
     if (POMdecomp == "MM") {
@@ -102,7 +102,7 @@ c_flux_functions_internal <-
 #' @param t numeric when to solve the model
 #' @param state MEMC vector of the pool values
 #' @param parms MEMC parameter table
-#' @param DOMuptake string indicator for type of dynamics used to model DOM decomposition
+#' @param F1 string indicator for type of dynamics used to model DOM decomposition
 #' @param POMdecomp string indicator for type of dynamics used to model POM decomposition
 #' @param MBdecay string indicator for type of dynamics used to model MB decay
 #' @return The derivatives of each pool, i.e. instantaneous change, as a list.
@@ -112,13 +112,13 @@ carbon_pool_derivs <-
   function(t,
            state,
            p,
-           DOMuptake,
+           F1,
            POMdecomp,
            MBdecay) {
     # Get the carbon flux functions (`cff`) to use
     cff <- c_flux_functions_internal(
       p = p,
-      DOMuptake = DOMuptake,
+      F1 = F1,
       POMdecomp = POMdecomp,
       MBdecay = MBdecay
     )
@@ -193,7 +193,7 @@ sm_internal <- function(mod, time, ...) {
     times = time,
     func = carbon_pool_derivs,
     parms = p,
-    DOMuptake = mod[["table"]][["DOMuptake"]],
+    F1 = mod[["table"]][["F1"]],
     POMdecomp = mod[["table"]][["POMdecomp"]],
     MBdecay = mod[["table"]][["MBdecay"]],
     ...

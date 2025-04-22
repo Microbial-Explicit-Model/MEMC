@@ -53,7 +53,7 @@ used in each configuration.
 summary(memc_all_configs)
 ```
 
-| model     | DOMuptake | POMdecomp | MBdecay |
+| model     | F1        | POMdecomp | MBdecay |
 |:----------|:----------|:----------|:--------|
 | MEND      | MM        | MM        | LM      |
 | COMISSION | MM        | RMM       | LM      |
@@ -168,7 +168,7 @@ parameter and initial pool values that are included as package data (see
 my_config <- memc_configure(params = memc_params, 
                            state = memc_initial_state, 
                            name = "my model", 
-                           DOMuptake = "MM", 
+                           F1 = "MM", 
                            POMdecomp = "LM", 
                            MBdecay = "LM")
 ```

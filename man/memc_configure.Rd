@@ -8,7 +8,7 @@ memc_configure(
   params,
   state,
   name = "unnamed",
-  DOMuptake = "MM",
+  F1 = "MM",
   POMdecomp = "MM",
   MBdecay = "LM"
 )
@@ -20,7 +20,7 @@ memc_configure(
 
 \item{name}{string name of the model configuration, default set to "MEND".}
 
-\item{DOMuptake}{string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"}
+\item{F1}{string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"}
 
 \item{POMdecomp}{string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"}
 

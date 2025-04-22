@@ -124,7 +124,7 @@ Set up the model configuration:
 my_config <- memc_configure(params = memc_params, 
                             state = memc_initial_state, 
                             name = "my model", 
-                            DOMuptake = "MM", 
+                            F1 = "MM", 
                             POMdecomp = "LM", 
                             MBdecay = "LM")
 ```
