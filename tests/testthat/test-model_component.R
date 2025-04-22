@@ -18,7 +18,7 @@ test_that("carbon_pool_derivs", {
                           p = p,
                           F1 = mod$table$F1,
                           F2 = mod$table$F2,
-                          MBdecay = mod$table$MBdecay)
+                          F8 = mod$table$F8)
   expect_true(is.list(x))
   expect_true(is.numeric(unlist(x)))
   
@@ -111,7 +111,7 @@ test_that("changing dynamics should change results", {
   # Change microbial biomass decay dynamics
   config <- memc_configure(params = ptable,
                            state = state,
-                           MBdecay = "DD")
+                           F8 = "DD")
   expect_error(memc_solve(mod = config, time), label = 'p[["dd_beta"]] not greater than 1')
   
   out6 <- memc_solve(mod = config,

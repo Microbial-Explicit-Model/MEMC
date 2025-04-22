@@ -70,7 +70,7 @@
 #                          name = "JZ mend",
 #                          F1 = "MM",
 #                          F2 = "MM",
-#                          MBdecay = "DD")
+#                          F8 = "DD")
 #   out_JZ_mend <- memc_solve(mod = mod, time = times)
 #
 #   diff_df <- compare_results(jz = jz_results, memc = out_JZ_mend)
@@ -112,7 +112,7 @@
 #                          name = "JZ com",
 #                          F1 = "MM",
 #                          F2 = "RMM",
-#                          MBdecay = "DD")
+#                          F8 = "DD")
 #   out_JZ_com <- memc_solve(mod = mod, time = times)
 #
 #   diff_df <- compare_results(jz = jz_results, memc = out_JZ_com)
@@ -155,7 +155,7 @@
 #                          name = "JZ LIN",
 #                          F1 = "RMM",
 #                          F2 = "LM",
-#                          MBdecay = "DD")
+#                          F8 = "DD")
 #   out_JZ_lin <- memc_solve(mod = mod, time = unique(jz_results$time))
 #   diff_df <- compare_results(jz = jz_results, memc = out_JZ_lin)
 #   expect_true(all(diff_df$diff <= tol))
@@ -197,7 +197,7 @@
 #                          name = "JZ TOY",
 #                          F1 = "RMM",
 #                          F2 = "MM",
-#                          MBdecay = "DD")
+#                          F8 = "DD")
 #   out_JZ_toy <- memc_solve(mod = mod, time = unique(jz_results$time))
 #
 #   diff_df <- compare_results(jz = jz_results, memc = out_JZ_toy)

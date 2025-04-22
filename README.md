@@ -53,7 +53,7 @@ used in each configuration.
 summary(memc_all_configs)
 ```
 
-| model     | F1        | F2        | MBdecay |
+| model     | F1        | F2        | F8 |
 |:----------|:----------|:----------|:--------|
 | MEND      | MM        | MM        | LM      |
 | COMISSION | MM        | RMM       | LM      |
@@ -71,7 +71,7 @@ Look in detail at the pre-built MEND_config configuration (see
 summary(MEND_config)
 ```
 
-| model | F1        | F2        | MBdecay |
+| model | F1        | F2        | F8 |
 |:------|:----------|:----------|:--------|
 | MEND  | MM        | MM        | LM      |
 
@@ -170,7 +170,7 @@ my_config <- memc_configure(params = memc_params,
                            name = "my model", 
                            F1 = "MM", 
                            F2 = "LM", 
-                           MBdecay = "LM")
+                           F8 = "LM")
 ```
 
 Run our customized model…

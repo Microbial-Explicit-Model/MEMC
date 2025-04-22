@@ -43,13 +43,13 @@ test_that("bad model configuration will fail", {
       state,
       F1 = "RMM",
       F2 = "ECA",
-      MBdecay = "DD"
+      F8 = "DD"
     )
   
   # Expect changes to be made to the dynamics table
   expect_true(out1[["table"]][["F1"]] != out2[["table"]][["F1"]])
   expect_true(out1[["table"]][["F2"]] != out2[["table"]][["F2"]])
-  expect_true(out1[["table"]][["MBdecay"]] != out2[["table"]][["MBdecay"]])
+  expect_true(out1[["table"]][["F8"]] != out2[["table"]][["F8"]])
   
   # Errors should be thrown
   expect_error(
@@ -67,8 +67,8 @@ test_that("bad model configuration will fail", {
     'F2 must be "MM", "RMM", "ECA", "LM"',
     fixed = TRUE
   )
-  expect_error(memc_configure(ptable, state, MBdecay = "fake"),
-               'MBdecay must be "LM" or "DD"',
+  expect_error(memc_configure(ptable, state, F8 = "fake"),
+               'F8 must be "LM" or "DD"',
                fixed = TRUE)
   
   # Only change one parameter value and one state value

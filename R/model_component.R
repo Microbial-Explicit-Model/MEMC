@@ -3,7 +3,7 @@
 #' @param parms MEMC parameter table
 #' @param F1 string indicator for type of dynamics used for the DOM decomposition
 #' @param F2 string indicator for type of dynamics used for the POM decomposition
-#' @param MBdecay string indicator for type of dynamics used to model MB decay
+#' @param F8 string indicator for type of dynamics used to model MB mortality
 #' @seealso dynamics
 #' @return A list of functions to be used for calculating each flux
 #' (the names of the list are the flux names: F1, F2, etc).
@@ -13,7 +13,7 @@ c_flux_functions_internal <-
   function(p,
            F1 = "MM",
            F2 = "MM",
-           MBdecay = "LM") {
+           F8 = "LM") {
     flux_functions <- list()
     if (F1 == "MM") {
       flux_functions[["F1"]] = function(MB, DOM) {
@@ -65,18 +65,18 @@ c_flux_functions_internal <-
       p[["K_des"]] * QOM / p[["Q_max"]]
     }
     
-    if (MBdecay == "DD") {
+    if (F8 == "DD") {
       stopifnot(p[["dd_beta"]] > 1)
       flux_functions[["F6"]] = function(MB) {
         (1 - p[["p_ep"]] - p[["p_em"]]) * 0.4 * p[["V_d"]] * (MB ^ p[["dd_beta"]])
       }
-    } else if (MBdecay == "LM") {
+    } else if (F8 == "LM") {
       stopifnot(p[["dd_beta"]] == 1)
       flux_functions[["F6"]] = function(MB) {
         (1 - p[["p_ep"]] - p[["p_em"]]) * 0.4 * p[["V_d"]] * (MB ^ p[["dd_beta"]])
       }
     } else {
-      stop("Unknown MBdecay!")
+      stop("Unknown F8!")
     }
     
     flux_functions[["F7_ep"]] = function(MB) {
@@ -104,7 +104,7 @@ c_flux_functions_internal <-
 #' @param parms MEMC parameter table
 #' @param F1 string indicator for type of dynamics used to model DOM decomposition
 #' @param F2 string indicator for type of dynamics used to model POM decomposition
-#' @param MBdecay string indicator for type of dynamics used to model MB decay
+#' @param F8 string indicator for type of dynamics used to model MB mortality
 #' @return The derivatives of each pool, i.e. instantaneous change, as a list.
 #' @noRd
 #' @family internal
@@ -114,13 +114,13 @@ carbon_pool_derivs <-
            p,
            F1,
            F2,
-           MBdecay) {
+           F8) {
     # Get the carbon flux functions (`cff`) to use
     cff <- c_flux_functions_internal(
       p = p,
       F1 = F1,
       F2 = F2,
-      MBdecay = MBdecay
+      F8 = F8
     )
     
     with(as.list(state), {
@@ -195,7 +195,7 @@ sm_internal <- function(mod, time, ...) {
     parms = p,
     F1 = mod[["table"]][["F1"]],
     F2 = mod[["table"]][["F2"]],
-    MBdecay = mod[["table"]][["MBdecay"]],
+    F8 = mod[["table"]][["F8"]],
     ...
   )
   

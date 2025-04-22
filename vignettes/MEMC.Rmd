@@ -126,7 +126,7 @@ my_config <- memc_configure(params = memc_params,
                             name = "my model", 
                             F1 = "MM", 
                             F2 = "LM", 
-                            MBdecay = "LM")
+                            F8 = "LM")
 ```
 
 Use `memc_solve` to run our model...

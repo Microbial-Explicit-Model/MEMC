@@ -29,7 +29,7 @@ times <- 0:36500
 #                            name = "MEND",
 #                            F1 = "MM",
 #                            F2 = "MM",
-#                            MBdecay = "DD")
+#                            F8 = "DD")
 # out_mend <- memc_solve(mod = JZ_mend, time = times)
 
 
@@ -40,7 +40,7 @@ JZ_com <- memc_configure(params = param_dt,
                            name = "COM",
                            F1 = "MM",
                            F2 = "MM",
-                           MBdecay = "DD")
+                         F8 = "DD")
 out_com <- memc_solve(mod = JZ_com, time = seq(0,36500, by=1))
 
 

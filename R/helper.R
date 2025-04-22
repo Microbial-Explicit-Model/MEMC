@@ -99,7 +99,7 @@ memc_update_config <- function(mod, new = NULL) {
 #' @param name string name of the model configuration, default set to "MEND".
 #' @param F1 string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"
 #' @param F2 string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"
-#' @param MBdecay string indicating microbial decay, one  of the following ""LM" or "DD"
+#' @param F8 string indicating microbial biomass mortality, one  of the following ""LM" or "DD"
 #' @return memc_single_config object of the name, dynamics, parameters and starting state values
 #' @importFrom assertthat assert_that
 #' @export
@@ -115,25 +115,25 @@ memc_configure <- function(params,
                            name = "unnamed",
                            F1 = "MM",
                            F2 = "MM",
-                           MBdecay = "LM") {
+                           F8 = "LM") {
   # Check the arguments
   assert_that(is_param_table(params))
   assert_that(all(sapply(
-    list(F2, F1, MBdecay), is.character
+    list(F2, F1, F8), is.character
   )))
   assert_that(sum(F1 %in% c("MM", "RMM", "ECA", "LM")) == 1,
               msg = 'F1 must be "MM", "RMM", "ECA"')
   assert_that(sum(F2 %in% c("MM", "RMM", "ECA", "LM")) == 1,
               msg = 'F2 must be "MM", "RMM", "ECA", "LM"')
-  assert_that(sum(MBdecay %in% c("LM", "DD")) == 1,
-              msg = 'MBdecay must be "LM" or "DD"')
+  assert_that(sum(F8 %in% c("LM", "DD")) == 1,
+              msg = 'F8 must be "LM" or "DD"')
   
   # Format the table
   table <- data.frame(
     "model" = name,
     "F1" = F1,
     "F2" = F2,
-    "MBdecay" = MBdecay
+    "F8" = F8
   )
   
   model_object <- list(

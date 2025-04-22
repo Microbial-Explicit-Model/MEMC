@@ -6,7 +6,7 @@ MEND_config <- memc_configure(
   name = "MEND",
   F1 = "MM",
   F2 = "MM",
-  MBdecay = "LM"
+  F8 = "LM"
 )
 usethis::use_data(MEND_config, overwrite = TRUE)
 
@@ -16,7 +16,7 @@ COMISSION_config <- memc_configure(
   name = "COMISSION",
   F1 = "MM",
   F2 = "RMM",
-  MBdecay = "LM"
+  F8 = "LM"
 )
 usethis::use_data(COMISSION_config, overwrite = TRUE)
 
@@ -26,7 +26,7 @@ CORPSE_config <- memc_configure(
   name = "CORPSE",
   F1 = "RMM",
   F2 = "LM",
-  MBdecay = "LM"
+  F8 = "LM"
 )
 usethis::use_data(CORPSE_config, overwrite = TRUE)
 
@@ -37,7 +37,7 @@ MEMS_config <- memc_configure(
   name = "MEMS",
   F1 = "LM",
   F2 = "LM",
-  MBdecay = "LM"
+  F8 = "LM"
 )
 usethis::use_data(MEMS_config, overwrite = TRUE)
 
@@ -47,7 +47,7 @@ BAMS_config <- memc_configure(
   name = "BAMS",
   F1 = "MM",
   F2 = "MM",
-  MBdecay = "LM"
+  F8 = "LM"
 )
 usethis::use_data(BAMS_config, overwrite = TRUE)
 
@@ -62,7 +62,7 @@ MIMCS_config <- memc_configure(
   name = "MIMCS",
   F1 = "MM",
   F2 = "MM",
-  MBdecay = "DD"
+  F8 = "DD"
 )
 usethis::use_data(MIMCS_config, overwrite = TRUE)
 
