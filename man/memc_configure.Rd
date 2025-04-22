@@ -9,7 +9,7 @@ memc_configure(
   state,
   name = "unnamed",
   F1 = "MM",
-  POMdecomp = "MM",
+  F2 = "MM",
   MBdecay = "LM"
 )
 }
@@ -22,7 +22,7 @@ memc_configure(
 
 \item{F1}{string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"}
 
-\item{POMdecomp}{string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"}
+\item{F2}{string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"}
 
 \item{MBdecay}{string indicating microbial decay, one  of the following ""LM" or "DD"}
 }
@@ -35,7 +35,7 @@ Set up a model configuration
 \examples{
 # Modify the MEND model
 m <- MEND_config
-m_mod <- memc_configure(m$params, m$state, "MEND_modified", POMdecomp = "LM")
+m_mod <- memc_configure(m$params, m$state, "MEND_modified", F2 = "LM")
 summary(m_mod)
 memc_solve(m_mod, 0:10)
 }

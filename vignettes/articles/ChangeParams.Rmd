@@ -82,7 +82,7 @@ mod_km <- memc_configure(params = new_km,
                         state = memc_initial_state,
                         name = "Km = 100", 
                         F1 = "MM",
-                        POMdecomp = "MM",
+                        F2 = "MM",
                         MBdecay = "LM")
 
 out3 <- memc_solve(mod = mod_km, time = time)

@@ -98,7 +98,7 @@ memc_update_config <- function(mod, new = NULL) {
 #' @param state a vector of the initial state values, must be named
 #' @param name string name of the model configuration, default set to "MEND".
 #' @param F1 string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"
-#' @param POMdecomp string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"
+#' @param F2 string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"
 #' @param MBdecay string indicating microbial decay, one  of the following ""LM" or "DD"
 #' @return memc_single_config object of the name, dynamics, parameters and starting state values
 #' @importFrom assertthat assert_that
@@ -107,24 +107,24 @@ memc_update_config <- function(mod, new = NULL) {
 #' @examples
 #' # Modify the MEND model
 #' m <- MEND_config
-#' m_mod <- memc_configure(m$params, m$state, "MEND_modified", POMdecomp = "LM")
+#' m_mod <- memc_configure(m$params, m$state, "MEND_modified", F2 = "LM")
 #' summary(m_mod)
 #' memc_solve(m_mod, 0:10)
 memc_configure <- function(params,
                            state,
                            name = "unnamed",
                            F1 = "MM",
-                           POMdecomp = "MM",
+                           F2 = "MM",
                            MBdecay = "LM") {
   # Check the arguments
   assert_that(is_param_table(params))
   assert_that(all(sapply(
-    list(POMdecomp, F1, MBdecay), is.character
+    list(F2, F1, MBdecay), is.character
   )))
   assert_that(sum(F1 %in% c("MM", "RMM", "ECA", "LM")) == 1,
               msg = 'F1 must be "MM", "RMM", "ECA"')
-  assert_that(sum(POMdecomp %in% c("MM", "RMM", "ECA", "LM")) == 1,
-              msg = 'POMdecomp must be "MM", "RMM", "ECA", "LM"')
+  assert_that(sum(F2 %in% c("MM", "RMM", "ECA", "LM")) == 1,
+              msg = 'F2 must be "MM", "RMM", "ECA", "LM"')
   assert_that(sum(MBdecay %in% c("LM", "DD")) == 1,
               msg = 'MBdecay must be "LM" or "DD"')
   
@@ -132,7 +132,7 @@ memc_configure <- function(params,
   table <- data.frame(
     "model" = name,
     "F1" = F1,
-    "POMdecomp" = POMdecomp,
+    "F2" = F2,
     "MBdecay" = MBdecay
   )
   

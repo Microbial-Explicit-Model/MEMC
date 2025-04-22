@@ -32,7 +32,7 @@ mod1 <- memc_configure(params = memc_params,
                             state = memc_initial_state, 
                             name = "Model 1", 
                             F1 = "MM", 
-                            POMdecomp = "LM", 
+                            F2 = "LM", 
                             MBdecay = "LM")
 ```
 
@@ -64,7 +64,7 @@ mod2 <- memc_configure(params = memc_params,
                             state = memc_initial_state, 
                             name = "Model 2", 
                             F1 = "RMM", 
-                            POMdecomp = "LM", 
+                            F2 = "LM", 
                             MBdecay = "LM")
 mod2_out <- memc_solve(mod = mod2, time = 0:50)
 ```
@@ -79,7 +79,7 @@ mod3 <- memc_configure(params = memc_params,
                             state = memc_initial_state, 
                             name = "Model 3", 
                             F1 = "ECA", 
-                            POMdecomp = "LM", 
+                            F2 = "LM", 
                             MBdecay = "LM")
 mod3_out <- memc_solve(mod = mod3, time = 0:50)
 ```

@@ -53,7 +53,7 @@ used in each configuration.
 summary(memc_all_configs)
 ```
 
-| model     | F1        | POMdecomp | MBdecay |
+| model     | F1        | F2        | MBdecay |
 |:----------|:----------|:----------|:--------|
 | MEND      | MM        | MM        | LM      |
 | COMISSION | MM        | RMM       | LM      |
@@ -71,7 +71,7 @@ Look in detail at the pre-built MEND_config configuration (see
 summary(MEND_config)
 ```
 
-| model | DOMuptake | POMdecomp | MBdecay |
+| model | F1        | F2        | MBdecay |
 |:------|:----------|:----------|:--------|
 | MEND  | MM        | MM        | LM      |
 
@@ -169,7 +169,7 @@ my_config <- memc_configure(params = memc_params,
                            state = memc_initial_state, 
                            name = "my model", 
                            F1 = "MM", 
-                           POMdecomp = "LM", 
+                           F2 = "LM", 
                            MBdecay = "LM")
 ```
 

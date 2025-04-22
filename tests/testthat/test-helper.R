@@ -42,13 +42,13 @@ test_that("bad model configuration will fail", {
       ptable,
       state,
       F1 = "RMM",
-      POMdecomp = "ECA",
+      F2 = "ECA",
       MBdecay = "DD"
     )
   
   # Expect changes to be made to the dynamics table
   expect_true(out1[["table"]][["F1"]] != out2[["table"]][["F1"]])
-  expect_true(out1[["table"]][["POMdecomp"]] != out2[["table"]][["POMdecomp"]])
+  expect_true(out1[["table"]][["F2"]] != out2[["table"]][["F2"]])
   expect_true(out1[["table"]][["MBdecay"]] != out2[["table"]][["MBdecay"]])
   
   # Errors should be thrown
@@ -63,8 +63,8 @@ test_that("bad model configuration will fail", {
     fixed = TRUE
   )
   expect_error(
-    memc_configure(ptable, state, POMdecomp = "fake"),
-    'POMdecomp must be "MM", "RMM", "ECA", "LM"',
+    memc_configure(ptable, state, F2 = "fake"),
+    'F2 must be "MM", "RMM", "ECA", "LM"',
     fixed = TRUE
   )
   expect_error(memc_configure(ptable, state, MBdecay = "fake"),

@@ -68,8 +68,8 @@
 #   mod <- memc_configure(params = param_dt,
 #                          state = jz_initial_conditions,
 #                          name = "JZ mend",
-#                          DOMdecomp = "MM",
-#                          POMdecomp = "MM",
+#                          F1 = "MM",
+#                          F2 = "MM",
 #                          MBdecay = "DD")
 #   out_JZ_mend <- memc_solve(mod = mod, time = times)
 #
@@ -110,8 +110,8 @@
 #   mod <- memc_configure(params = params_to_use,
 #                          state = state,
 #                          name = "JZ com",
-#                          DOMdecomp = "MM",
-#                          POMdecomp = "RMM",
+#                          F1 = "MM",
+#                          F2 = "RMM",
 #                          MBdecay = "DD")
 #   out_JZ_com <- memc_solve(mod = mod, time = times)
 #
@@ -153,8 +153,8 @@
 #   mod <- memc_configure(params = params_to_use,
 #                          state = state,
 #                          name = "JZ LIN",
-#                          DOMdecomp = "RMM",
-#                          POMdecomp = "LM",
+#                          F1 = "RMM",
+#                          F2 = "LM",
 #                          MBdecay = "DD")
 #   out_JZ_lin <- memc_solve(mod = mod, time = unique(jz_results$time))
 #   diff_df <- compare_results(jz = jz_results, memc = out_JZ_lin)
@@ -195,8 +195,8 @@
 #   mod <- memc_configure(params = params_to_use,
 #                          state = state,
 #                          name = "JZ TOY",
-#                          DOMdecomp = "RMM",
-#                          POMdecomp = "MM",
+#                          F1 = "RMM",
+#                          F2 = "MM",
 #                          MBdecay = "DD")
 #   out_JZ_toy <- memc_solve(mod = mod, time = unique(jz_results$time))
 #

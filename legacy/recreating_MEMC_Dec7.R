@@ -27,8 +27,8 @@ times <- 0:36500
 # JZ_mend <- memc_configure(params = param_dt,
 #                            state = jz_initial_conditions,
 #                            name = "MEND",
-#                            DOMdecomp = "MM",
-#                            POMdecomp = "MM",
+#                            F1 = "MM",
+#                            F2 = "MM",
 #                            MBdecay = "DD")
 # out_mend <- memc_solve(mod = JZ_mend, time = times)
 
@@ -38,8 +38,8 @@ new_params <- memc_update_params(new_params = c("V_d"=1, "V_p"=5, "V_m"=1), para
 JZ_com <- memc_configure(params = param_dt,
                            state = c(P=4.71, M=17.67, Q=0, D=0.148, B=0.8200, EP=0.0082, EM=0.0082, IC=0, Tot=23.484),
                            name = "COM",
-                           DOMdecomp = "MM",
-                           POMdecomp = "MM",
+                           F1 = "MM",
+                           F2 = "MM",
                            MBdecay = "DD")
 out_com <- memc_solve(mod = JZ_com, time = seq(0,36500, by=1))
 
@@ -61,8 +61,8 @@ new_params <- memc_update_params(new_params = c("V_d"=0.5, "V_p"=0.001, "V_m"=0.
 JZ_toy <- memc_configure(params = new_params,
                           state = c(P=4.71, M=17.67, Q=0, D=0.148, B=0.520, EP=0.052, EM=0.052, IC=0, Tot=23.484),
                           name = "TOY",
-                          DOMdecomp = "RMM",
-                          POMdecomp = "MM")
+                          F1 = "RMM",
+                          F2 = "MM")
 out_toy <- memc_solve(mod = JZ_toy, time = seq(0,36500, by=1))
 
 

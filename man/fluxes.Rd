@@ -9,7 +9,7 @@ Description of the flexible SOM fluxes that users may change with \code{\link{me
 \details{
 \describe{The MEMC package supports flexible definitions for the following SOM fluxes:
 \item{F1}{dissolved organic uptake by microbial biomass, the flux describing the DOM that is broken down for microbial biomoass uptake.}
-\item{POMdecomp}{particulate oranic matter decomposition, the flux describing the POM that is broken down into DOM.}
+\item{F2}{particulate oranic matter decomposition, the flux describing the POM that is broken down into DOM.}
 \item{MBdecay}{microbial biomass decay, the flux descirbing the micorbial biomass mortality/turn over.}
 }
 }

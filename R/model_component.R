@@ -2,7 +2,7 @@
 #'
 #' @param parms MEMC parameter table
 #' @param F1 string indicator for type of dynamics used for the DOM decomposition
-#' @param POMdecomp string indicator for type of dynamics used for the POM decomposition
+#' @param F2 string indicator for type of dynamics used for the POM decomposition
 #' @param MBdecay string indicator for type of dynamics used to model MB decay
 #' @seealso dynamics
 #' @return A list of functions to be used for calculating each flux
@@ -12,7 +12,7 @@
 c_flux_functions_internal <-
   function(p,
            F1 = "MM",
-           POMdecomp = "MM",
+           F2 = "MM",
            MBdecay = "LM") {
     flux_functions <- list()
     if (F1 == "MM") {
@@ -35,24 +35,24 @@ c_flux_functions_internal <-
       stop("Unknown F1!")
     }
     
-    if (POMdecomp == "MM") {
+    if (F2 == "MM") {
       flux_functions[["F2"]] = function(EP, POM) {
         (p[["V_p"]] * EP * POM) / (p[["K_p"]] + POM)
       }
-    } else if (POMdecomp == "RMM") {
+    } else if (F2 == "RMM") {
       flux_functions[["F2"]] = function(EP, POM) {
         (p[["V_p"]] * EP * POM) / (p[["K_p"]] + EP)
       }
-    } else if (POMdecomp == "ECA") {
+    } else if (F2 == "ECA") {
       flux_functions[["F2"]] = function(EP, POM) {
         (p[["V_p"]] * EP * POM) / (p[["K_p"]] + POM + EP)
       }
-    } else if (POMdecomp == "LM") {
+    } else if (F2 == "LM") {
       flux_functions[["F2"]] = function(EP, POM) {
         p[["V_p"]] * POM
       }
     } else {
-      stop("Unknown POMdecomp!")
+      stop("Unknown F2!")
     }
     
     flux_functions[["F3"]] = function(EM, MOM) {
@@ -103,7 +103,7 @@ c_flux_functions_internal <-
 #' @param state MEMC vector of the pool values
 #' @param parms MEMC parameter table
 #' @param F1 string indicator for type of dynamics used to model DOM decomposition
-#' @param POMdecomp string indicator for type of dynamics used to model POM decomposition
+#' @param F2 string indicator for type of dynamics used to model POM decomposition
 #' @param MBdecay string indicator for type of dynamics used to model MB decay
 #' @return The derivatives of each pool, i.e. instantaneous change, as a list.
 #' @noRd
@@ -113,13 +113,13 @@ carbon_pool_derivs <-
            state,
            p,
            F1,
-           POMdecomp,
+           F2,
            MBdecay) {
     # Get the carbon flux functions (`cff`) to use
     cff <- c_flux_functions_internal(
       p = p,
       F1 = F1,
-      POMdecomp = POMdecomp,
+      F2 = F2,
       MBdecay = MBdecay
     )
     
@@ -194,7 +194,7 @@ sm_internal <- function(mod, time, ...) {
     func = carbon_pool_derivs,
     parms = p,
     F1 = mod[["table"]][["F1"]],
-    POMdecomp = mod[["table"]][["POMdecomp"]],
+    F2 = mod[["table"]][["F2"]],
     MBdecay = mod[["table"]][["MBdecay"]],
     ...
   )
