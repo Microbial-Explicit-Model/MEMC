@@ -97,7 +97,7 @@ test_that("memc_sensfun", {
   out <- memc_sensfun(config = MEND_config, t = time, x = pars)
 
   # Check to see that the function also works with initial states
-  inital_pools <- c("MOM" = 5, "DOM" = 1)
+  inital_pools <- c("MOC" = 5, "DOC" = 1)
   out2 <-
     memc_sensfun(config = MEND_config, t = time, x = inital_pools)
 

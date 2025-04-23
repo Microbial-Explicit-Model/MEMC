@@ -6,13 +6,13 @@
 #
 # tol <- 1e-4
 #
-# jz_initial_conditions <- c(POM = 4.71, MOM = 17.67, QOM = 0, MB = 0.82,
-#                            DOM = 0.148, EP = 0.0082, EM = 0.0082, IC = 0,
+# jz_initial_conditions <- c(POC = 4.71, MOC = 17.67, QOC = 0, MB = 0.82,
+#                            DOC = 0.148, EP = 0.0082, EM = 0.0082, IC = 0,
 #                            Tot = 23.484)
 #
 # params <- c("V_p", "K_p", "V_m", "K_m", "V_d", "K_d", "f_d", "g_d", "p_ep",
 #             "p_em", "r_ep", "r_em", "Q_max", "K_ads",
-#             "K_des", "dd_beta", "Input_POM", "Input_DOM", "CUE")
+#             "K_des", "dd_beta", "Input_POC", "Input_DOC", "CUE")
 # desc <- c("maximum specific decomposition rate for P by EP", "half-saturation constant for decomposition of P",
 #           "maximum specific decomposition rate for M by EM",
 #           "half-saturation constant for decomposition of M",
@@ -22,11 +22,11 @@
 #           "fraction of mR for production of EP", "fraction of mR for production of EM",
 #           "turnover rate of EP", "turnover rate of EM", "maximum DOC sorption capacity",
 #           "specific adsorption rate", "desorption rate", "strength of density dependent microbial decay",
-#           "POM input", "DOM input", "M input", "carbon use efficiency")
+#           "POC input", "DOC input", "M input", "carbon use efficiency")
 # value <- c("V_p" = 14, "K_p" = 50, "V_m" = 0.25, "K_m" = 250, "V_d" = 3, "K_d"= 0.25,
 #            "f_d" = 0.5, "g_d" = 0.5, "p_ep" = 0.01, "p_em" = 0.01, "r_ep" = 1e-3,
 #            "r_em" = 1e-3 , "Q_max" = 3.4, "K_ads" = 0.006, "K_des"= 0.001, "dd_beta" = 2,
-#            "Input_POM" = 0, "Input_DOM" = 0, "CUE" = 0.4)
+#            "Input_POC" = 0, "Input_DOC" = 0, "CUE" = 0.4)
 # units <- c("mgC mgC^-1 h^-1", "mgC / g soil", "mgC mgC^-1 h^-1", "mg C/g soil",
 #            "mgC mgC^-1 h^-1", "mg C/g soil", NA,
 #            NA, NA, NA, "mgC mgC^-1 h^-1", "mgC mgC^-1 h^-1", "mgC / g soil",
@@ -101,7 +101,7 @@
 #   jz_results <- data.table(read.csv("jz_comps/jz_com.csv"))
 #   names(jz_results) <- c("time", "variable", "jz_value", "units", "model")
 #
-#   state<-c(POM=4.71, MOM=17.67, QOM=0,  MB=0.52, DOM=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484) #Ultisol
+#   state<-c(POC=4.71, MOC=17.67, QOC=0,  MB=0.52, DOC=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484) #Ultisol
 #
 #   # Most of parameters were defined the same way, update the ones that are different.
 #   params_to_use <- memc_update_params(new_params = c("V_d" = 1, "V_p" = 5, "V_m" = 1), param_table = param_dt)
@@ -128,7 +128,7 @@
 #   #             linetype = 2, size = 1) +
 #   #   facet_wrap("variable", scales = "free")
 #   #
-#   # ggplot(data = diff_df %>% filter(time <= 100) #%>%  filter(!variable %in% c("IC", "MOM", "Tot"))
+#   # ggplot(data = diff_df %>% filter(time <= 100) #%>%  filter(!variable %in% c("IC", "MOC", "Tot"))
 #   #        ) +
 #   #   geom_line(aes(x = time, y = diff, color = variable)) +
 #   #  # facet_wrap("variable", scales = "free") +
@@ -141,7 +141,7 @@
 # test_that("LIN", {
 #
 #   # Most of parameters were defined the same way, update the ones that are different.
-#   state<-c(POM=4.71, MOM=17.67, QOM=0, MB=0.52,  DOM=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484)
+#   state<-c(POC=4.71, MOC=17.67, QOC=0, MB=0.52,  DOC=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484)
 #   params_to_use <- memc_update_params(new_params = c("V_d" = 0.5, "V_p" = 0.001, "V_m" = 0.001),
 #                                  param_table = param_dt)
 #
@@ -183,7 +183,7 @@
 # test_that("TOY", {
 #
 #   # Most of parameters were defined the same way, update the ones that are different.
-#   state<-c(POM=4.71, MOM=17.67, QOM=0,  MB=0.52, DOM=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484) #Ultisol
+#   state<-c(POC=4.71, MOC=17.67, QOC=0,  MB=0.52, DOC=0.148, EP=0.052, EM=0.052, IC=0, Tot=23.484) #Ultisol
 #   params_to_use <- memc_update_params(new_params = c("V_d" = 0.5, "V_p" = 0.001, "V_m" = 0.001),
 #                                  param_table = param_dt)
 #

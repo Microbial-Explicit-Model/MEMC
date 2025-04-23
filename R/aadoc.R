@@ -27,7 +27,7 @@ NULL
 #' from when setting up a model configuration using the \code{\link{memc_configure}} function.
 #'
 #' @section Dynamics:
-#' \describe{The MEMC package allows users to select the dynamics used for F1 (DOM uptake by microbes), F2 (POM decomposition), and
+#' \describe{The MEMC package allows users to select the dynamics used for F1 (DOC uptake by microbes), F2 (POC decomposition), and
 #' MB mortality from the following list:
 #' \item{MM}{Michaelis–Menten kinetics}
 #' \item{RMM}{Reverse Michaelis-Menten kinetics, as in (Schimel and Weintraub, 2003) and (Sulman et al. 2014)}
@@ -50,8 +50,8 @@ NULL
 #' Description of the flexible SOM fluxes that users may change with \code{\link{memc_configure}} function.
 #'
 #' \describe{The MEMC package supports flexible definitions for the following SOM fluxes:
-#' \item{F1}{dissolved organic uptake by microbial biomass, the flux describing the DOM that is broken down for microbial biomoass uptake.}
-#' \item{F2}{particulate oranic matter decomposition, the flux describing the POM that is broken down into DOM.}
+#' \item{F1}{dissolved organic uptake by microbial biomass, the flux describing the DOC that is broken down for microbial biomoass uptake.}
+#' \item{F2}{particulate oranic carbon decomposition, the flux describing the POC that is broken down into DOC.}
 #' \item{F8}{microbial biomass decay, the flux descirbing the micorbial biomass mortality/turn over.}
 #' }
 #' @name fluxes

@@ -23,8 +23,8 @@ theme_set(theme_bw())
 [![Documentation](https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/pkgdown.yaml)
 
 `MEMC` is a R package that allows users to explore various
-representation of soil organic matter (SOM) flux dynamics within a
-consistent SOM model structure. Popular microbial-explicit SOM
+representation of soil organic carbon (SOC) flux dynamics within a
+consistent SOM model structure. Popular microbial-explicit SOC
 models such as MEND^[Wang, Gangsheng, Sindhu Jagadamma, Melanie A.
 Mayes, Christopher W. Schadt, J. Megan Steinweg, Lianhong Gu, and
 Wilfred M. Post. 2015. “Microbial Dormancy Improves Development and
@@ -40,7 +40,7 @@ Uncertainty in Soil Carbon Dynamics.” Biogeochemistry 141 (2): 109–23.]
 vary significantly in their formulations of microbial mechanisms and
 underlying pool structure. `MEMC` provides a consistent pool structure
 with flexible flux dynamics: the conceptual and mathematical formulations
-of key SOC tranformations can be rapidly changed. 
+of key SOC transformations can be rapidly changed. 
 This allows modelers to easily explore the
 effects of different conceptualizations of microbial mechanisms.  
 
@@ -163,7 +163,7 @@ ggplot(data = rbind(mend_out, my_out)) +
   theme(legend.title = element_blank())
 ```
 
-Changing the POM and DOM decomposition flux dynamics affects model
+Changing the POC and DOC decomposition flux dynamics affects model
 behavior! The flexibility of the flux dynamics makes `MEMC` a powerful
 tool for rapid SOM model exploration. 
 

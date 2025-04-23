@@ -20,7 +20,7 @@ theme_set(theme_bw(base_size = 14))
 ```
 
 `MEMC` is a R package that allows users to explore various
-representation of soil organic matter (SOM) flux dynamics within a
+representation of soil organic carbon (SOC) flux dynamics within a
 consistent SOM pool model structure.
 
 ## Installation
@@ -40,7 +40,7 @@ library(MEMC)
 
 The package ships with several already defined model configurations; use `help(configurations)` to see a list. Currently there are six configurations 
 included as internal MEMC package data, with each using different 
-representations for DOM uptake, POM decomposition, and MB decay.
+representations for DOC uptake, POC decomposition, and MB decay.
 
 All MEMC model configurations are listed in the `memc_all_configs` and are listed in the summary table. 
 

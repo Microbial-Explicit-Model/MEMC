@@ -1,8 +1,8 @@
 #' Define the carbon pool flux functions based on the model dynamics
 #'
 #' @param parms MEMC parameter table
-#' @param F1 string indicator for type of dynamics used for the DOM decomposition
-#' @param F2 string indicator for type of dynamics used for the POM decomposition
+#' @param F1 string indicator for type of dynamics used for the DOC decomposition
+#' @param F2 string indicator for type of dynamics used for the POC decomposition
 #' @param F8 string indicator for type of dynamics used to model MB mortality
 #' @seealso dynamics
 #' @return A list of functions to be used for calculating each flux
@@ -16,53 +16,53 @@ c_flux_functions_internal <-
            F8 = "LM") {
     flux_functions <- list()
     if (F1 == "MM") {
-      flux_functions[["F1"]] = function(MB, DOM) {
-        p[["V_d"]] * MB * DOM / (p[["K_d"]] + DOM)
+      flux_functions[["F1"]] = function(MB, DOC) {
+        p[["V_d"]] * MB * DOC / (p[["K_d"]] + DOC)
       }
     } else if (F1 == "RMM") {
-      flux_functions[["F1"]] = function(MB, DOM) {
-        p[["V_d"]] * MB * DOM / (p[["K_d"]] + MB)
+      flux_functions[["F1"]] = function(MB, DOC) {
+        p[["V_d"]] * MB * DOC / (p[["K_d"]] + MB)
       }
     } else if (F1 == "ECA") {
-      flux_functions[["F1"]] = function(MB, DOM) {
-        p[["V_d"]] * MB * DOM / (p[["K_d"]] + DOM + MB)
+      flux_functions[["F1"]] = function(MB, DOC) {
+        p[["V_d"]] * MB * DOC / (p[["K_d"]] + DOC + MB)
       }
     } else if (F1 == "LM") {
-      flux_functions[["F1"]] = function(MB, DOM) {
-        p[["V_d"]] * DOM
+      flux_functions[["F1"]] = function(MB, DOC) {
+        p[["V_d"]] * DOC
       }
     } else {
       stop("Unknown F1!")
     }
     
     if (F2 == "MM") {
-      flux_functions[["F2"]] = function(EP, POM) {
-        (p[["V_p"]] * EP * POM) / (p[["K_p"]] + POM)
+      flux_functions[["F2"]] = function(EP, POC) {
+        (p[["V_p"]] * EP * POC) / (p[["K_p"]] + POC)
       }
     } else if (F2 == "RMM") {
-      flux_functions[["F2"]] = function(EP, POM) {
-        (p[["V_p"]] * EP * POM) / (p[["K_p"]] + EP)
+      flux_functions[["F2"]] = function(EP, POC) {
+        (p[["V_p"]] * EP * POC) / (p[["K_p"]] + EP)
       }
     } else if (F2 == "ECA") {
-      flux_functions[["F2"]] = function(EP, POM) {
-        (p[["V_p"]] * EP * POM) / (p[["K_p"]] + POM + EP)
+      flux_functions[["F2"]] = function(EP, POC) {
+        (p[["V_p"]] * EP * POC) / (p[["K_p"]] + POC + EP)
       }
     } else if (F2 == "LM") {
-      flux_functions[["F2"]] = function(EP, POM) {
-        p[["V_p"]] * POM
+      flux_functions[["F2"]] = function(EP, POC) {
+        p[["V_p"]] * POC
       }
     } else {
       stop("Unknown F2!")
     }
     
-    flux_functions[["F3"]] = function(EM, MOM) {
-      (p[["V_m"]] * EM * MOM) / (p[["K_m"]] + MOM)
+    flux_functions[["F3"]] = function(EM, MOC) {
+      (p[["V_m"]] * EM * MOC) / (p[["K_m"]] + MOC)
     }
-    flux_functions[["F4"]] = function(DOM, QOM) {
-      p[["K_ads"]] * DOM * (1 - QOM / p[["Q_max"]])
+    flux_functions[["F4"]] = function(DOC, QOC) {
+      p[["K_ads"]] * DOC * (1 - QOC / p[["Q_max"]])
     }
-    flux_functions[["F5"]] = function(QOM) {
-      p[["K_des"]] * QOM / p[["Q_max"]]
+    flux_functions[["F5"]] = function(QOC) {
+      p[["K_des"]] * QOC / p[["Q_max"]]
     }
     
     if (F8 == "DD") {
@@ -102,8 +102,8 @@ c_flux_functions_internal <-
 #' @param t numeric when to solve the model
 #' @param state MEMC vector of the pool values
 #' @param parms MEMC parameter table
-#' @param F1 string indicator for type of dynamics used to model DOM decomposition
-#' @param F2 string indicator for type of dynamics used to model POM decomposition
+#' @param F1 string indicator for type of dynamics used to model DOC decomposition
+#' @param F2 string indicator for type of dynamics used to model POC decomposition
 #' @param F8 string indicator for type of dynamics used to model MB mortality
 #' @return The derivatives of each pool, i.e. instantaneous change, as a list.
 #' @noRd
@@ -124,12 +124,12 @@ carbon_pool_derivs <-
     )
     
     with(as.list(state), {
-      F1 <-    cff$F1(MB = MB, DOM = DOM) # DOM loss
-      F2 <-    cff$F2(EP = EP, POM = POM) # POM loss
-      F3 <-    cff$F3(EM = EM, MOM = MOM) # MOM loss
-      F4 <-    cff$F4(DOM = DOM, QOM = QOM)
-      F5 <-    cff$F5(QOM = QOM)
-      F6 <-    cff$F6(MB = MB) # MB decay to POM/DOM
+      F1 <-    cff$F1(MB = MB, DOC = DOC) # DOC loss
+      F2 <-    cff$F2(EP = EP, POC = POC) # POC loss
+      F3 <-    cff$F3(EM = EM, MOC = MOC) # MOC loss
+      F4 <-    cff$F4(DOC = DOC, QOC = QOC)
+      F5 <-    cff$F5(QOC = QOC)
+      F6 <-    cff$F6(MB = MB) # MB decay to POC/DOC
       F7_ep <- cff$F7_ep(MB = MB) # MB flux to EP
       F7_em <- cff$F7_em(MB = MB) # MB flux to EM
       F8_ep <- cff$F8_ep(EP = EP) # EP loss
@@ -138,18 +138,18 @@ carbon_pool_derivs <-
       # Define the system of differential equations that describe
       # the changes in the carbon pool states_
       # -----------------------------------------------------------
-      # POM = particulate organic carbon
-      dPOM <- (1 - p[["g_d"]]) * F6 - F2 + p[["Input_POM"]]
-      # MOM = mineral-associated organic carbon (MOC)
-      dMOM <- (1 - p[["f_d"]]) * F2 - F3
-      # QOMO = active layer of MOC
-      dQOM <- F4 - F5
+      # POC = particulate organic carbon
+      dPOC <- (1 - p[["g_d"]]) * F6 - F2 + p[["Input_POC"]]
+      # MOC = mineral-associated organic carbon (MOC)
+      dMOC <- (1 - p[["f_d"]]) * F2 - F3
+      # QOCO = active layer of MOC
+      dQOC <- F4 - F5
       # MB = microbial biomass carbon
       dMB <- F1 * p[["CUE"]] - F6 - (F7_ep + F7_em)
-      # DOM = dissolved organic carbon
-      dDOM <-
+      # DOC = dissolved organic carbon
+      dDOC <-
         p[["f_d"]] * F2 + p[["g_d"]] * F6 + F3 + (F8_em + F8_ep) -
-        F1 - (F4 - F5) + p[["Input_DOM"]]
+        F1 - (F4 - F5) + p[["Input_DOC"]]
       # EP = carbon stored as extra-cellular enzymes
       dEP <- F7_em - F8_ep
       # EM = carbon stored as extra-cellular enzymes
@@ -158,11 +158,11 @@ carbon_pool_derivs <-
       dIC <- F1 * (1 - p[["CUE"]])
       # Tot = the total carbon pool
       dTot <-
-        -F1 * (1 - p[["CUE"]]) + (p[["Input_POM"]] + p[["Input_DOM"]])
+        -F1 * (1 - p[["CUE"]]) + (p[["Input_POC"]] + p[["Input_DOC"]])
       
       # Return derivatives (instantaneous changes in the pools)
       return(list(c(
-        dPOM, dMOM, dQOM, dMB, dDOM, dEP, dEM, dIC, dTot
+        dPOC, dMOC, dQOC, dMB, dDOC, dEP, dEM, dIC, dTot
       )))
       
     })

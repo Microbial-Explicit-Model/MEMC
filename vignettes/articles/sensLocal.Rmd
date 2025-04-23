@@ -26,7 +26,7 @@ library(ggplot2)
 theme_set(theme_bw())
 ```
 
-Select the `memc` parameters or initial conditions to include in the local sensitivity analysis. Any of the parameters included in `memc_params` or `memc_initial_state` may be considered. In this example we will consider how the memc MEND configuration is sensitive to $V_d$ and $K_d$, the maximum and half saturation rates of DOM decomposition. 
+Select the `memc` parameters or initial conditions to include in the local sensitivity analysis. Any of the parameters included in `memc_params` or `memc_initial_state` may be considered. In this example we will consider how the memc MEND configuration is sensitive to $V_d$ and $K_d$, the maximum and half saturation rates of DOC decomposition. 
 
 
 Create a vector of the parameter values of interest, the ones we would like to consider in the local sensitivity analysis and set equal to the the parameter values used by the `memc_config` that will be used to run `memc_sensfun`. 
@@ -69,7 +69,7 @@ plot(out2)
 
 
 
-Figures 1 and 2 are quite different from one another, let's focus on the DOM and IC pools in a side by side comparison. But first recall what is different between these two configurations. By taking a look at their configuration tables. It appears that these models differ in how the represent DOM uptake and POM decomposition. 
+Figures 1 and 2 are quite different from one another, let's focus on the DOC and IC pools in a side by side comparison. But first recall what is different between these two configurations. By taking a look at their configuration tables. It appears that these models differ in how the represent DOC uptake and POC decomposition. 
 
 ```{r}
 rbind(MEND_config$table, 
@@ -79,8 +79,8 @@ rbind(MEND_config$table,
 
 ```{r}
 # Save results for the two carbon pools are we are interested in. 
-out1_to_compare <- out1[out1$variable %in% c("DOM", "IC"), ]
-out2_to_compare <- out2[out2$variable %in% c("DOM", "IC"), ]
+out1_to_compare <- out1[out1$variable %in% c("DOC", "IC"), ]
+out2_to_compare <- out2[out2$variable %in% c("DOC", "IC"), ]
 
 # Combine into a single data frame for plotting 
 to_plot <- rbind(out1_to_compare, out2_to_compare)

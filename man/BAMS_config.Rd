@@ -18,7 +18,7 @@ BAMS_config
 }
 \description{
 The BAMS configuration is based off of Tang et al. 2022. This model
-uses MM for the DOM uptake, MM for POM decomposition, and LM for MB
+uses MM for the DOC uptake, MM for POC decomposition, and LM for MB
 decay; see \link{dynamics} for more details.
 }
 \examples{

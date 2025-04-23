@@ -8,7 +8,7 @@
 [![Documentation](https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Microbial-Explicit-Model/MEMC/actions/workflows/pkgdown.yaml)
 
 `MEMC` is a R package that allows users to explore various
-representation of soil organic matter (SOM) flux dynamics within a
+representation of soil organic carbon (SOC) flux dynamics within a
 consistent SOM model structure. Popular microbial-explicit SOM models
 such as MEND[^1], MIMICS[^2], and CORPSE[^3] vary significantly in their
 formulations of microbial mechanisms and underlying pool structure.
@@ -81,14 +81,14 @@ Parameter value
 # The parameter values can be view using by indexing into the MEND_config object
 print(MEND_config$params) 
 #>    parameter                                              description
-#> 1        V_p        maximum specific decomposition rate for POM by EP
-#> 2        K_p        half-saturation constant for decomposition of POM
-#> 3        V_m        maximum specific decomposition rate for MOM by EM
-#> 4        K_m        half-saturation constant for decomposition of MOM
+#> 1        V_p        maximum specific decomposition rate for POC by EP
+#> 2        K_p        half-saturation constant for decomposition of POC
+#> 3        V_m        maximum specific decomposition rate for MOC by EM
+#> 4        K_m        half-saturation constant for decomposition of MOC
 #> 5        V_d       maximum specific uptake rate of D for growth of MB
 #> 6        K_d half-saturation constant of uptake of D for growth of MB
-#> 7        f_d                fraction of decomposed P allocated to DOM
-#> 8        g_d                      fraction of dead B allocated to DOM
+#> 7        f_d                fraction of decomposed P allocated to DOC
+#> 8        g_d                      fraction of dead B allocated to DOC
 #> 9       p_ep                      fraction of mR for production of EP
 #> 10      p_em                      fraction of mR for production of EM
 #> 11      r_ep                                      turnover rate of EP
@@ -97,8 +97,8 @@ print(MEND_config$params)
 #> 14     K_ads                                 specific adsorption rate
 #> 15     K_des                                          desorption rate
 #> 16   dd_beta            strength of density dependent microbial decay
-#> 17 Input_POM                                               POM input 
-#> 18 Input_DOM                                                DOM input
+#> 17 Input_POC                                               POC input 
+#> 18 Input_DOC                                                DOC input
 #> 19       CUE                                    carbon use efficiency
 #>              units   value
 #> 1  mgC mgC^-1 h^-1  14.000
@@ -127,7 +127,7 @@ Initial pool states for when simulation time is equal to 0.
 ``` r
 # Similarly the initial pool values are accessed using 
 print(MEND_config$state)
-#>      POM      MOM      QOM       MB      DOM       EP       EM       IC 
+#>      POC      MOC      QOC       MB      DOC       EP       EM       IC 
 #> 10.00000  5.00000  0.10000  2.00000  1.00000  0.00001  0.00001  0.00000 
 #>      Tot 
 #> 18.10002
@@ -184,7 +184,7 @@ my_out <- memc_solve(mod = my_config, time = time)
 
 <img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
 
-Changing the POM and DOM decomposition flux dynamics affects model
+Changing the POC and DOC decomposition flux dynamics affects model
 behavior! The flexibility of the flux dynamics makes `MEMC` a powerful
 tool for rapid SOM model exploration.
 

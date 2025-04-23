@@ -46,7 +46,7 @@ update_state <- function(new_vals, state) {
   assert_that(is_state_vector(state))
   
   req_names <-
-    c("POM", "MOM", "QOM", "MB", "DOM", "EP", "EM", "IC", "Tot")
+    c("POC", "MOC", "QOC", "MB", "DOC", "EP", "EM", "IC", "Tot")
   assert_that(is.vector(new_vals))
   assert_that(all(names(new_vals) %in% req_names))
   
@@ -97,8 +97,8 @@ memc_update_config <- function(mod, new = NULL) {
 #' @param params data.table containing the following columns: parameter, value, and units.
 #' @param state a vector of the initial state values, must be named
 #' @param name string name of the model configuration, default set to "MEND".
-#' @param F1 string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"
-#' @param F2 string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"
+#' @param F1 string indicating the dynamics used to model microbial decomposition of DOC, one  of the following "MM", "RMM", or "ECA"
+#' @param F2 string indicating the dynamics used to model microbial decomposition of POC, one  of the following "MM", "RMM", "ECA", or "LM"
 #' @param F8 string indicating microbial biomass mortality, one  of the following ""LM" or "DD"
 #' @return memc_single_config object of the name, dynamics, parameters and starting state values
 #' @importFrom assertthat assert_that

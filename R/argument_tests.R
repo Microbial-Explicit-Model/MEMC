@@ -82,7 +82,7 @@ is_state_vector <- function(state) {
   assert_that(is.vector(state))
   assert_that(is.numeric(state))
 
-  req_names <- c("POM", "MOM", "QOM", "MB", "DOM", "EP", "EM", "IC", "Tot")
+  req_names <- c("POC", "MOC", "QOC", "MB", "DOC", "EP", "EM", "IC", "Tot")
   missing <- setdiff(req_names, names(state))
   assert_that(length(missing) == 0,
               msg = paste0(

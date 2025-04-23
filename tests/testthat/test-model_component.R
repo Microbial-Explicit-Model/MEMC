@@ -74,7 +74,7 @@ test_that("changing dynamics should change results", {
   config <- memc_configure(params = ptable, state = state)
   default <- memc_solve(mod = config, time)
   
-  # Change DOM decomposition dynamics
+  # Change DOC decomposition dynamics
   config <- memc_configure(params = ptable,
                            state = state,
                            F1 = "RMM")
@@ -88,7 +88,7 @@ test_that("changing dynamics should change results", {
   expect_gte(mean((default$value - out2$value)^2), zero)
   
   
-  # Change DOM decomposition dynamics
+  # Change DOC decomposition dynamics
   config <- memc_configure(params = ptable,
                            state = state,
                            F2 = "RMM")

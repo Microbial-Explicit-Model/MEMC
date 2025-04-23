@@ -20,7 +20,7 @@ WRITE_TO <- here::here("tests", "testthat", "jz_comps")
 # Match the MEMC output
 format_out <- function(df) {
   # Now format the results into a nice data frame instead of a wide  matrix.
-  names <- c("POM", "MOM", "QOM", "DOM", "MB", "EP", "EM", "IC", "Tot")
+  names <- c("POC", "MOC", "QOC", "DOC", "MB", "EP", "EM", "IC", "Tot")
   
   out <- data.table::melt(
     data.table::as.data.table(df),
@@ -45,7 +45,7 @@ solveMEND <- function(pars,times){
         #default paramters
    # Carbon use effciency
         kD = 0.25
-        kP = 50 #half saturation constant for POM
+        kP = 50 #half saturation constant for POC
         kM = 250
         Kads = 0.006 
         Kdes = 0.001 
@@ -58,35 +58,35 @@ solveMEND <- function(pars,times){
         gD=0.5
         CUE=0.4
         Input=0 #input per day
-    F1 <- Vd* MB *DOM /( kD + DOM)  ## microbial uptake 
-    F2 <- Vp* EP * POM / (kP + POM) # POM decomposition
-    F3 <- Vm * EM * MOM / (kM + MOM) #MOAM decomposition
-    F6 <- Kads * DOM *(1- QOM/ Qmax) ##adsorption
-    F7 <- Kdes * QOM/Qmax  ##desorption
+    F1 <- Vd* MB *DOC /( kD + DOC)  ## microbial uptake 
+    F2 <- Vp* EP * POC / (kP + POC) # POC decomposition
+    F3 <- Vm * EM * MOC / (kM + MOC) #MOAM decomposition
+    F6 <- Kads * DOC *(1- QOC/ Qmax) ##adsorption
+    F7 <- Kdes * QOC/Qmax  ##desorption
     F8 <- (1- pEP- pEM)* MB *0.4*Vd*MB #microbial biomass decay (mr=0.4*vd)
     F9ep <- pEP * MB *0.4*Vd  #enzyme production (mr=0.4vd)
     F9em <- pEM * MB *0.4*Vd
     F10ep <- rEP * EP  #enzyme decay
     F10em <- rEM * EM
     
-    dPOM <- (1 - gD) * F8- F2+Input
-    dMOM <- (1 - fD) * F2 - F3+Input
+    dPOC <- (1 - gD) * F8- F2+Input
+    dMOC <- (1 - fD) * F2 - F3+Input
     dMB <- F1*CUE - F8 - (F9em + F9ep) # Microbial growth= microbial uptake *CUE
-    dDOM <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)
-    dQOM <- F6 - F7
+    dDOC <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)
+    dQOC <- F6 - F7
     dEP <- F9ep - F10ep
     dEM <- F9em - F10em
     dIC <- F1*(1-CUE)   #CO2 fllux
     dTot <- -F1*(1-CUE)+Input*2
-    return(list(c(dPOM, dMOM, dQOM, dDOM, dMB,dEP,dEM, dIC, dTot)))
+    return(list(c(dPOC, dMOC, dQOC, dDOC, dMB,dEP,dEM, dIC, dTot)))
       })
  }
 
 
-#state<-c(POM=3.25, MOM=27.97, QOM=0, DOM=0.21, MB=0.64, EP=0.064, EM=0.064, IC=0, Tot=32.198)#Mollisol
-#state<-c(POM=4.25, MOM=11.04, QOM=0, DOM=0.17, MB=0.05, EP=0.005, EM=0.005, IC=0, Tot=15.52)#Gelisol
-state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.82, EP=0.0082, EM=0.0082, IC=0, Tot=23.484)#Ultisol
-#state<-c(POM=20.06, MOM=64.86, QOM=0, DOM=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
+#state<-c(POC=3.25, MOC=27.97, QOC=0, DOC=0.21, MB=0.64, EP=0.064, EM=0.064, IC=0, Tot=32.198)#Mollisol
+#state<-c(POC=4.25, MOC=11.04, QOC=0, DOC=0.17, MB=0.05, EP=0.005, EM=0.005, IC=0, Tot=15.52)#Gelisol
+state<-c(POC=4.71, MOC=17.67, QOC=0, DOC=0.148, MB=0.82, EP=0.0082, EM=0.0082, IC=0, Tot=23.484)#Ultisol
+#state<-c(POC=20.06, MOC=64.86, QOC=0, DOC=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
 
 
 return(ode(y=state, times=times, func=derivs, parms=pars))
@@ -116,7 +116,7 @@ solveCOM <- function(pars,times){
         #default paramters
    # Carbon use effciency
         kD = 0.25
-        kP = 50 #half saturation constant for POM
+        kP = 50 #half saturation constant for POC
         kM = 250
         Kads = 0.006 
         Kdes = 0.001 
@@ -129,35 +129,35 @@ solveCOM <- function(pars,times){
         gD=0.5
         CUE=0.4
         Input=0 #input per day
-    F1 <- Vd* MB *DOM /( kD + DOM)  ## microbial uptake 
-    F2 <- Vp* EP* POM / (kP + EP) # POM decomposition
-    F3 <- Vm * EM * MOM / (kM + MOM) #MOAM decomposition
-    F6 <- Kads * DOM *(1- QOM/ Qmax) ##adsorption
-    F7 <- Kdes * QOM/Qmax  ##desorption
+    F1 <- Vd* MB *DOC /( kD + DOC)  ## microbial uptake 
+    F2 <- Vp* EP* POC / (kP + EP) # POC decomposition
+    F3 <- Vm * EM * MOC / (kM + MOC) #MOAM decomposition
+    F6 <- Kads * DOC *(1- QOC/ Qmax) ##adsorption
+    F7 <- Kdes * QOC/Qmax  ##desorption
     F8 <- (1- pEP- pEM)* MB *0.4*Vd *MB #microbial biomass decay (biomass decay rate=0.2*growth rate)
     F9ep <- pEP * MB *0.4*Vd  #enzyme production (maintaince respiration=0.1*total respiration)
     F9em <- pEM * MB *0.4*Vd
     F10ep <- rEP * EP  #enzyme decay
     F10em <- rEM * EM
     
-    dPOM <- (1 - gD) * F8- F2 +Input
-    dMOM <- (1 - fD) * F2 - F3+Input
+    dPOC <- (1 - gD) * F8- F2 +Input
+    dMOC <- (1 - fD) * F2 - F3+Input
     dMB <- F1*CUE - F8 - (F9em + F9ep) # Microbial growth= microbial uptake *CUE
-    dDOM <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)
-    dQOM <- F6 - F7
+    dDOC <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)
+    dQOC <- F6 - F7
     dEP <- F9ep - F10ep
     dEM <- F9em - F10em
     dIC <- F1*(1-CUE)   #CO2 fllux
     dTot <- -F1*(1-CUE)+Input*2
-    return(list(c(dPOM, dMOM, dQOM, dDOM, dMB,dEP,dEM, dIC, dTot)))
+    return(list(c(dPOC, dMOC, dQOC, dDOC, dMB,dEP,dEM, dIC, dTot)))
       })
  }
 
 
-#state<-c(POM=3.25, MOM=27.97, QOM=0, DOM=0.21, MB=0.64, EP=0.064, EM=0.064, IC=0, Tot=32.198)#Mollisol
-#state<-c(POM=4.25, MOM=11.04, QOM=0, DOM=0.17, MB=0.05, EP=0.005, EM=0.005, IC=0, Tot=15.52)#Gelisol
-state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
-#state<-c(POM=20.06, MOM=64.86, QOM=0, DOM=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
+#state<-c(POC=3.25, MOC=27.97, QOC=0, DOC=0.21, MB=0.64, EP=0.064, EM=0.064, IC=0, Tot=32.198)#Mollisol
+#state<-c(POC=4.25, MOC=11.04, QOC=0, DOC=0.17, MB=0.05, EP=0.005, EM=0.005, IC=0, Tot=15.52)#Gelisol
+state<-c(POC=4.71, MOC=17.67, QOC=0, DOC=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
+#state<-c(POC=20.06, MOC=64.86, QOC=0, DOC=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
 
 #solved the mode
 return(ode(y=state, times=times, func=derivs, parms=pars))
@@ -178,7 +178,7 @@ write.csv(x = jz_com, file = file.path(WRITE_TO, "jz_com.csv"), row.names = FALS
 ```
 
 
-##CORPSE model (uses linear kinetics for POM decomposition)
+##CORPSE model (uses linear kinetics for POC decomposition)
 ```{r linear}
 pars<- list (Vd=0.5,Vp=0.001, Vm=0.001)
 solveLIN<- function(pars,times){
@@ -186,7 +186,7 @@ solveLIN<- function(pars,times){
       with(as.list(c(state, pars)),{
         #default paramters
   kD = 0.25
-        kP = 50 #half saturation constant for POM
+        kP = 50 #half saturation constant for POC
         kM = 250
         Kads = 0.006 
         Kdes = 0.001 
@@ -199,35 +199,35 @@ solveLIN<- function(pars,times){
         gD=0.5
         CUE=0.4
         Input=0 #input per day
-    F1 <- Vd* MB *DOM /( kD + MB)  ## microbial uptake 
-    F2 <- Vp* POM # POM decomposition
-    F3 <- Vm  * EM * MOM / (kM + MOM) #MOAM decomposition
-    F6 <- Kads * DOM *(1- QOM/ Qmax) ##adsorption
-    F7 <- Kdes * QOM/Qmax  ##desorption
+    F1 <- Vd* MB *DOC /( kD + MB)  ## microbial uptake 
+    F2 <- Vp* POC # POC decomposition
+    F3 <- Vm  * EM * MOC / (kM + MOC) #MOAM decomposition
+    F6 <- Kads * DOC *(1- QOC/ Qmax) ##adsorption
+    F7 <- Kdes * QOC/Qmax  ##desorption
     F8 <- (1- pEP- pEM)* MB *0.4*Vd *MB #microbial biomass decay (biomass decay rate=0.2*growth rate)
     F9ep <- pEP * MB *0.4*Vd  #enzyme production (maintaince respiration=0.1*total respiration)
     F9em <- pEM * MB *0.4*Vd
     F10ep <- rEP * EP  #enzyme decay
     F10em <- rEM * EM
     
-    dPOM <- (1 - gD) * F8- F2+Input
-    dMOM <- (1 - fD) * F2 - F3+Input
+    dPOC <- (1 - gD) * F8- F2+Input
+    dMOC <- (1 - fD) * F2 - F3+Input
     dMB <- F1*CUE - F8 - (F9em + F9ep) # Microbial growth= microbial uptake *CUE
-    dDOM <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)+Input
-    dQOM <- F6 - F7
+    dDOC <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)+Input
+    dQOC <- F6 - F7
     dEP <- F9ep - F10ep
     dEM <- F9em - F10em
     dIC <- F1*(1-CUE)   #CO2 fllux
     dTot <- -F1*(1-CUE)+Input*3
-    return(list(c(dPOM, dMOM, dQOM, dDOM, dMB,dEP,dEM, dIC, dTot)))
+    return(list(c(dPOC, dMOC, dQOC, dDOC, dMB,dEP,dEM, dIC, dTot)))
       })
  }
 
 
-#state<-c(POM=3.25, MOM=27.97, QOM=0, DOM=0.21, MB=0.64, EP=0.064, EM=0.064, IC=0, Tot=32.198)#Mollisol
-#state<-c(POM=4.25, MOM=11.04, QOM=0, DOM=0.17, MB=0.05, EP=0.005, EM=0.005, IC=0, Tot=15.52)#Gelisol
-state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
-#state<-c(POM=20.06, MOM=64.86, QOM=0, DOM=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
+#state<-c(POC=3.25, MOC=27.97, QOC=0, DOC=0.21, MB=0.64, EP=0.064, EM=0.064, IC=0, Tot=32.198)#Mollisol
+#state<-c(POC=4.25, MOC=11.04, QOC=0, DOC=0.17, MB=0.05, EP=0.005, EM=0.005, IC=0, Tot=15.52)#Gelisol
+state<-c(POC=4.71, MOC=17.67, QOC=0, DOC=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
+#state<-c(POC=20.06, MOC=64.86, QOC=0, DOC=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
 
 #solved the mode
   ox<-ode(y=state, times=times, func=derivs, parms=pars)
@@ -248,7 +248,7 @@ write.csv(x = jz_LIN, file = file.path(WRITE_TO, "jz_lin.csv"), row.names = FALS
 ```
 
 
-###toy model (uses MM and rMM for POM and DOM decomp, respectively)
+###toy model (uses MM and rMM for POC and DOC decomp, respectively)
 ```{r toy}
 ##solving simple MEND model
 pars<- list (Vd=0.5,Vp=0.001, Vm=0.001)
@@ -257,7 +257,7 @@ solveTOY<- function(pars,times){
       with(as.list(c(state, pars)),{
         #default paramters
   kD = 0.25
-        kP = 50 #half saturation constant for POM
+        kP = 50 #half saturation constant for POC
         kM = 250
         Kads = 0.006 
         Kdes = 0.001 
@@ -270,35 +270,35 @@ solveTOY<- function(pars,times){
         gD=0.5
         CUE=0.4
         Input=0 #input per day
-    F1 <- Vd* MB *DOM /( kD + MB)  ## microbial uptake 
-    F2 <- Vp* EP * POM / (kP + POM) # POM decomposition
-    F3 <- Vm  * EM * MOM / (kM + MOM) #MOAM decomposition
-    F6 <- Kads * DOM *(1- QOM/ Qmax) ##adsorption
-    F7 <- Kdes * QOM/Qmax  ##desorption
+    F1 <- Vd* MB *DOC /( kD + MB)  ## microbial uptake 
+    F2 <- Vp* EP * POC / (kP + POC) # POC decomposition
+    F3 <- Vm  * EM * MOC / (kM + MOC) #MOAM decomposition
+    F6 <- Kads * DOC *(1- QOC/ Qmax) ##adsorption
+    F7 <- Kdes * QOC/Qmax  ##desorption
     F8 <- (1- pEP- pEM)* MB *0.4*Vd *MB #microbial biomass decay (biomass decay rate=0.2*growth rate)
     F9ep <- pEP * MB *0.4*Vd  #enzyme production (maintaince respiration=0.1*total respiration)
     F9em <- pEM * MB *0.4*Vd
     F10ep <- rEP * EP  #enzyme decay
     F10em <- rEM * EM
     
-    dPOM <- (1 - gD) * F8- F2+Input
-    dMOM <- (1 - fD) * F2 - F3+Input
+    dPOC <- (1 - gD) * F8- F2+Input
+    dMOC <- (1 - fD) * F2 - F3+Input
     dMB <- F1*CUE - F8 - (F9em + F9ep) # Microbial growth= microbial uptake *CUE
-    dDOM <- fD * F2 + gD * F8 + F3 + (F10em + F10ep) - F1 - (F6 - F7)+Input
-    dQOM <- F6 - F7
+    dDOC <- fD * F2 + gD * F8 + F3 + (F10em + F10ep) - F1 - (F6 - F7)+Input
+    dQOC <- F6 - F7
     dEP <- F9ep - F10ep
     dEM <- F9em - F10em
     dIC <- F1*(1-CUE)   #CO2 fllux
     dTot <- -F1*(1-CUE)+Input*3
-    return(list(c(dPOM, dMOM, dQOM, dDOM, dMB,dEP,dEM, dIC, dTot)))
+    return(list(c(dPOC, dMOC, dQOC, dDOC, dMB,dEP,dEM, dIC, dTot)))
       })
  }
 
 
-#state<-c(POM=3.25, MOM=27.97, QOM=0, DOM=0.21, MB=0.64, EP=0.064, EM=0.064, IC=0, Tot=32.198)#Mollisol
-#state<-c(POM=4.25, MOM=11.04, QOM=0, DOM=0.17, MB=0.05, EP=0.005, EM=0.005, IC=0, Tot=15.52)#Gelisol
-state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
-#state<-c(POM=20.06, MOM=64.86, QOM=0, DOM=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
+#state<-c(POC=3.25, MOC=27.97, QOC=0, DOC=0.21, MB=0.64, EP=0.064, EM=0.064, IC=0, Tot=32.198)#Mollisol
+#state<-c(POC=4.25, MOC=11.04, QOC=0, DOC=0.17, MB=0.05, EP=0.005, EM=0.005, IC=0, Tot=15.52)#Gelisol
+state<-c(POC=4.71, MOC=17.67, QOC=0, DOC=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
+#state<-c(POC=20.06, MOC=64.86, QOC=0, DOC=0.64, MB=0.86, EP=0.086, EM=0.086, IC=0, Tot=86.592)#Andisol
 
 #solved the mode
   ox<-ode(y=state, times=times, func=derivs, parms=pars)
@@ -380,12 +380,12 @@ pars[c("Vd","Vp","Vm")]<-Fit$par
 output<-solveCOM(pars, times)  
 
 mfit<-as.data.frame(output[, 1:10])
-colnames(mfit) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
+colnames(mfit) <- c("time", "POC","MOC","QOC","DOC","MB","EP","EM","IC","Tot")
 head(mfit)
 
-write.csv(mfit, "Ul_POM_LIN.csv")
+write.csv(mfit, "Ul_POC_LIN.csv")
 
-# pdf("Andisol_POM_LIN.pdf", width=6, height=4)
+# pdf("Andisol_POC_LIN.pdf", width=6, height=4)
 # par(xpd = T, mar = par()$mar + c(0,0,0,10))
 # plot(Data$time,Data$IC, xlab = "Time (d)", ylab = "Respiration (mgC g-1 soil)", pch=16, cex=1.2,col="#e08214", xlim=c(0,365), ylim=c(0,5),cex.lab=1.2, cex.axis=1.2)
 # lines(mfit$time, mfit$IC, lwd=2, col="#e08214")
@@ -424,7 +424,7 @@ SF<-summary(Fit)
 mean<-t(SF$par[,1])
 covar<-SF$cov.scaled*2.4^2/3
 
-print(system.time(sR <- sensRange(func = solveLIN, times = 0:365,  parms = pars, dist ="norm",parMean=mean, parCovar=covar, sensvar = c("DOM", "POM","MOM","MB"), parRange = parRanges, num = 100)))
+print(system.time(sR <- sensRange(func = solveLIN, times = 0:365,  parms = pars, dist ="norm",parMean=mean, parCovar=covar, sensvar = c("DOC", "POC","MOC","MB"), parRange = parRanges, num = 100)))
 
 head(summary(sR))
 
@@ -440,12 +440,12 @@ plot(summ.sR, xlab = "time, hour", ylab = "mM", mfrow = NULL,quant = TRUE, col =
 
 
 #----------
-##random sampling
+##ranDOC sampling
 SF<-summary(Fit)
 mean<-t(SF$par[,1])
 covar<-SF$cov.scaled*2.4^2/3
 
-print(system.time(sR <- sensRange(func = solveCOM, times = 0:365, parms = pars, dist ="unif",parMean=mean, parCovar=covar, sensvar = c("DOM", "POM","MOM","MB"), parRange = parRanges, num = 100)))
+print(system.time(sR <- sensRange(func = solveCOM, times = 0:365, parms = pars, dist ="unif",parMean=mean, parCovar=covar, sensvar = c("DOC", "POC","MOC","MB"), parRange = parRanges, num = 100)))
 
 head(summary(sR))
 
@@ -474,25 +474,25 @@ times <- seq(0, 3650, by = 1) ## output times
 pars1<- list (Vd=4.25,Vp=33.41,Vm=0.38)
 output1<-solveMEND(pars1, times)  
 mfit1<-as.data.frame(output1[, 1:10])
-colnames(mfit1) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
+colnames(mfit1) <- c("time", "POC","MOC","QOC","DOC","MB","EP","EM","IC","Tot")
 head(mfit1)
 
 pars2<- list (Vd=2.43,Vp=26.32,Vm=0.40)
 output2<-solveCOM(pars2, times)  
 mfit2<-as.data.frame(output2[, 1:10])
-colnames(mfit2) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
+colnames(mfit2) <- c("time", "POC","MOC","QOC","DOC","MB","EP","EM","IC","Tot")
 head(mfit2)
 
 pars3<- list (Vd=0.14,Vp=2.085,Vm=1.25)
 output3<-solveLIN(pars3, times)  
 mfit3<-as.data.frame(output3[, 1:10])
-colnames(mfit3) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
+colnames(mfit3) <- c("time", "POC","MOC","QOC","DOC","MB","EP","EM","IC","Tot")
 head(mfit3)
 
 pars4<- list (Vd=13.24,Vp=16.99,Vm=0)
 output4<-solveTOY(pars4, times)  
 mfit4<-as.data.frame(output4[, 1:10])
-colnames(mfit4) <- c("time", "POM","MOM","QOM","DOM","MB","EP","EM","IC","Tot")
+colnames(mfit4) <- c("time", "POC","MOC","QOC","DOC","MB","EP","EM","IC","Tot")
 head(mfit4)
 
 # pdf("allmodel.pdf", width=6, height=4)
@@ -510,27 +510,27 @@ lines(mfit1$time, mfit1$IC, lwd=3, col="#fdb863")+lines(mfit2$time, mfit2$IC, lw
 legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=3, lty=1,col=c("#fdb863","#e08214","#b35806"))
 # dev.off()
 # 
-# pdf("POM.pdf", width=6, height=4)
+# pdf("POC.pdf", width=6, height=4)
 # par(xpd = T, mar = par()$mar + c(0,0,0,10))
-plot(mfit1$time, mfit1$POM, xlab = "Time (d)", ylab = "POM (mgC g-1 soil)",type="l",lwd=2,col="#fdb863",xlim=c(0,365), ylim=c(0,5))
-lines(mfit2$time, mfit2$POM, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$POM, lwd=2, col="#b35806")
+plot(mfit1$time, mfit1$POC, xlab = "Time (d)", ylab = "POC (mgC g-1 soil)",type="l",lwd=2,col="#fdb863",xlim=c(0,365), ylim=c(0,5))
+lines(mfit2$time, mfit2$POC, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$POC, lwd=2, col="#b35806")
 legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
 # dev.off()
 
-# pdf("MOM.pdf", width=6, height=4)
+# pdf("MOC.pdf", width=6, height=4)
 # par(xpd = T, mar = par()$mar + c(0,0,0,10))
-plot(mfit1$time, mfit1$MOM, xlab = "Time (d)", ylab = "MOM (mgC g-1 soil)",type="l",lwd=2,col="#fdb863",xlim=c(0,365), ylim=c(15,25))
-lines(mfit2$time, mfit2$MOM, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$MOM, lwd=2, col="#b35806")
+plot(mfit1$time, mfit1$MOC, xlab = "Time (d)", ylab = "MOC (mgC g-1 soil)",type="l",lwd=2,col="#fdb863",xlim=c(0,365), ylim=c(15,25))
+lines(mfit2$time, mfit2$MOC, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$MOC, lwd=2, col="#b35806")
 legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
 # dev.off()
 
 
 
 ###with fresh C input
-# pdf("pct_MOM_input05.pdf", width=6, height=4)
+# pdf("pct_MOC_input05.pdf", width=6, height=4)
 # par(xpd = T, mar = par()$mar + c(0,0,0,10))
-plot(mfit1$time, mfit1$MOM/mfit1$Tot, xlab = "Time (d)", ylab = "MOM%",type="l",lwd=2,col="#fdb863",xlim=c(0,3650), ylim=c(0,1))
-# lines(mfit2$time, mfit2$MOM/mfit2$Tot, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$MOM/mfit3$Tot, lwd=2, col="#b35806")
+plot(mfit1$time, mfit1$MOC/mfit1$Tot, xlab = "Time (d)", ylab = "MOC%",type="l",lwd=2,col="#fdb863",xlim=c(0,3650), ylim=c(0,1))
+# lines(mfit2$time, mfit2$MOC/mfit2$Tot, lwd=2, col="#e08214")+lines(mfit3$time, mfit3$MOC/mfit3$Tot, lwd=2, col="#b35806")
 # legend("bottomright",inset = c(- 0.6, 0), c("MEND","COMISSION","CORPSE"), lwd=2, lty=1,col=c("#fdb863","#e08214","#b35806"))
 # dev.off()
 
@@ -544,10 +544,10 @@ plot(mfit1$time, mfit1$Tot, xlab = "Time (d)", ylab = "Total SOM (mgC g-1 soil)"
 
 
 ##print model information
-cat("Model----------POMdecom----------DOMdecom----------MBdecay \nMEND-----------MM----------------MM-----------------Linear \nCOMISSION------rMM---------------MM-----------------Linear \nCORPSE---------Linear------------rMM----------------Linear " )
+cat("Model----------POCdecom----------DOCdecom----------MBdecay \nMEND-----------MM----------------MM-----------------Linear \nCOMISSION------rMM---------------MM-----------------Linear \nCORPSE---------Linear------------rMM----------------Linear " )
 
 ##print toy model setup
-cat("Model----------POMdecom----------DOMdecom----------MBdecay \nMEND-----------MM----------------MM-----------------Linear \nCOMISSION------rMM---------------MM-----------------Linear \nCORPSE---------Linear------------rMM----------------Linear \n*TOY1*---------MM----------------rMM----------------Linear " )
+cat("Model----------POCdecom----------DOCdecom----------MBdecay \nMEND-----------MM----------------MM-----------------Linear \nCOMISSION------rMM---------------MM-----------------Linear \nCORPSE---------Linear------------rMM----------------Linear \n*TOY1*---------MM----------------rMM----------------Linear " )
 
 
 

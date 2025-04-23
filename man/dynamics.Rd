@@ -9,8 +9,8 @@ from when setting up a model configuration using the \code{\link{memc_configure}
 }
 \section{Dynamics}{
 
-\describe{The MEMC package allows users to select the dynamics used for F1 (DOM uptake by microbes), F2 (POM decomposition), and
-MBdecay from the following list:
+\describe{The MEMC package allows users to select the dynamics used for F1 (DOC uptake by microbes), F2 (POC decomposition), and
+MB mortality from the following list:
 \item{MM}{Michaelis–Menten kinetics}
 \item{RMM}{Reverse Michaelis-Menten kinetics, as in (Schimel and Weintraub, 2003) and (Sulman et al. 2014)}
 \item{ECA}{Equilibrium Chemistry Approximation, based on RESOM (Tang and Riley, 2014)}
