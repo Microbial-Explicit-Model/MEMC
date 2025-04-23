@@ -15,21 +15,23 @@ c_flux_functions_internal <-
            F2 = "MM",
            F8 = "LM") {
     flux_functions <- list()
+    
     if (F1 == "MM") {
       flux_functions[["F1"]] = function(MB, DOC) {
-        p[["V_d"]] * MB * DOC / (p[["K_d"]] + DOC)
+        (1/p[["CUE"]]) * (p[["V_d"]] + p[["m_r"]]) * MB * DOC / (p[["K_d"]] + DOC)
       }
     } else if (F1 == "RMM") {
       flux_functions[["F1"]] = function(MB, DOC) {
-        p[["V_d"]] * MB * DOC / (p[["K_d"]] + MB)
+        (1/p[["CUE"]]) * (p[["V_d"]] + p[["m_r"]]) * MB * DOC / (p[["K_d"]] + MB)
       }
     } else if (F1 == "ECA") {
       flux_functions[["F1"]] = function(MB, DOC) {
-        p[["V_d"]] * MB * DOC / (p[["K_d"]] + DOC + MB)
+      (1/p[["CUE"]]) * (p[["V_d"]] + p[["m_r"]]) * MB * DOC / (p[["K_d"]] + DOC + MB)
+        
       }
     } else if (F1 == "LM") {
       flux_functions[["F1"]] = function(MB, DOC) {
-        p[["V_d"]] * DOC
+        (p[["V_d"]] + p[["m_r"]]) * DOC
       }
     } else {
       stop("Unknown F1!")
@@ -58,37 +60,47 @@ c_flux_functions_internal <-
     flux_functions[["F3"]] = function(EM, MOC) {
       (p[["V_m"]] * EM * MOC) / (p[["K_m"]] + MOC)
     }
-    flux_functions[["F4"]] = function(DOC, QOC) {
+    
+    flux_functions[["F4"]] = function(MB, DOC) {
+      ((1/p[["CUE"]]) - 1) * ((p[["V_d"]] * MB * DOC)/(p[["K_d"]] + DOC))
+    }  
+    
+    flux_functions[["F5"]] = function(MB, DOC) {
+      ((1/p[["CUE"]]) - 1) * ((p[["m_r"]] * MB * DOC)/(p[["K_d"]] + DOC))
+    }  
+    
+    
+    flux_functions[["F6"]] = function(DOC, QOC) {
       p[["K_ads"]] * DOC * (1 - QOC / p[["Q_max"]])
     }
-    flux_functions[["F5"]] = function(QOC) {
+    flux_functions[["F7"]] = function(QOC) {
       p[["K_des"]] * QOC / p[["Q_max"]]
     }
     
     if (F8 == "DD") {
       stopifnot(p[["dd_beta"]] > 1)
-      flux_functions[["F6"]] = function(MB) {
-        (1 - p[["p_ep"]] - p[["p_em"]]) * 0.4 * p[["V_d"]] * (MB ^ p[["dd_beta"]])
+      flux_functions[["F8"]] = function(MB) {
+        (1 - p[["p_ep"]] - p[["p_em"]]) * p[["m_r"]] * (MB ^ p[["dd_beta"]])
       }
     } else if (F8 == "LM") {
       stopifnot(p[["dd_beta"]] == 1)
-      flux_functions[["F6"]] = function(MB) {
-        (1 - p[["p_ep"]] - p[["p_em"]]) * 0.4 * p[["V_d"]] * (MB ^ p[["dd_beta"]])
+      flux_functions[["F8"]] = function(MB) {
+        (1 - p[["p_ep"]] - p[["p_em"]]) * p[["m_r"]] * (MB ^ p[["dd_beta"]])
       }
     } else {
       stop("Unknown F8!")
     }
     
-    flux_functions[["F7_ep"]] = function(MB) {
-      p[["p_ep"]] * MB *  0.4 * p[["V_d"]]
+    flux_functions[["F9_ep"]] = function(MB) {
+      p[["p_ep"]] * p[["m_r"]] * MB
     }
-    flux_functions[["F7_em"]] = function(MB) {
-      p[["p_em"]] * MB *  0.4 * p[["V_d"]]
+    flux_functions[["F9_em"]] = function(MB) {
+      p[["p_em"]] * p[["m_r"]] * MB
     }
-    flux_functions[["F8_ep"]] = function(EP) {
+    flux_functions[["F10_ep"]] = function(EP) {
       p[["r_ep"]] * EP
     }
-    flux_functions[["F8_em"]] = function(EM) {
+    flux_functions[["F10_em"]] = function(EM) {
       p[["r_em"]] * EM
     }
     
@@ -124,41 +136,42 @@ carbon_pool_derivs <-
     )
     
     with(as.list(state), {
-      F1 <-    cff$F1(MB = MB, DOC = DOC) # DOC loss
-      F2 <-    cff$F2(EP = EP, POC = POC) # POC loss
-      F3 <-    cff$F3(EM = EM, MOC = MOC) # MOC loss
-      F4 <-    cff$F4(DOC = DOC, QOC = QOC)
-      F5 <-    cff$F5(QOC = QOC)
-      F6 <-    cff$F6(MB = MB) # MB decay to POC/DOC
-      F7_ep <- cff$F7_ep(MB = MB) # MB flux to EP
-      F7_em <- cff$F7_em(MB = MB) # MB flux to EM
-      F8_ep <- cff$F8_ep(EP = EP) # EP loss
-      F8_em <- cff$F8_em(EM = EM) # EM loss
+      F1 <-     cff$F1(MB = MB, DOC = DOC) # DOC uptake by microbes
+      F2 <-     cff$F2(EP = EP, POC = POC) # POC decomposition
+      F3 <-     cff$F3(EM = EM, MOC = MOC) # MOC loss
+      F4 <-     cff$F4(DOC = DOC, MB = MB)
+      F5 <-     cff$F5(DOC = DOC, MB = MB)
+      F6 <-     cff$F6(QOC= QOC, DOC = DOC)
+      F7 <-     cff$F7(QOC=QOC)
+      F8 <-     cff$F8(MB = MB)
+      F9_ep <-  cff$F9_ep(MB = MB)
+      F9_em <-  cff$F9_em(MB = MB)
+      F10_ep <- cff$F10_ep(EP = EP)
+      F10_em <- cff$F10_em(EM = EM)
+      
       
       # Define the system of differential equations that describe
-      # the changes in the carbon pool states_
+      # the changes in the carbon pool states.
       # -----------------------------------------------------------
       # POC = particulate organic carbon
-      dPOC <- (1 - p[["g_d"]]) * F6 - F2 + p[["Input_POC"]]
+      dPOC <- p[["Input_POC"]] + (1 - p[["g_d"]]) * F8 - F2
       # MOC = mineral-associated organic carbon (MOC)
       dMOC <- (1 - p[["f_d"]]) * F2 - F3
       # QOCO = active layer of MOC
-      dQOC <- F4 - F5
+      dQOC <- F6 - F7
       # MB = microbial biomass carbon
-      dMB <- F1 * p[["CUE"]] - F6 - (F7_ep + F7_em)
+      dMB <- F1 - (F4 + F5) - F8 - (F9_ep + F9_em)
       # DOC = dissolved organic carbon
-      dDOC <-
-        p[["f_d"]] * F2 + p[["g_d"]] * F6 + F3 + (F8_em + F8_ep) -
-        F1 - (F4 - F5) + p[["Input_DOC"]]
+      dDOC <- p[["Input_DOC"]] + p[["f_d"]] * F2 + p[["g_d"]] * F8 +
+        F3 + (F10_em + F10_ep) - F1 - (F6 - F7) 
       # EP = carbon stored as extra-cellular enzymes
-      dEP <- F7_em - F8_ep
+      dEP <- F9_em - F10_ep
       # EM = carbon stored as extra-cellular enzymes
-      dEM <- F7_em - F8_em
+      dEM <- F9_em - F10_em
       # IC = inorganic carbon (CO2)
-      dIC <- F1 * (1 - p[["CUE"]])
+      dIC <- (F4 + F5)
       # Tot = the total carbon pool
-      dTot <-
-        -F1 * (1 - p[["CUE"]]) + (p[["Input_POC"]] + p[["Input_DOC"]])
+      dTot <- p[["Input_POC"]] + p[["Input_DOC"]] - (F4 - F5)
       
       # Return derivatives (instantaneous changes in the pools)
       return(list(c(

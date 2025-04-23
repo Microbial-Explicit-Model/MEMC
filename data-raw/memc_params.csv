@@ -18,3 +18,4 @@ dd_beta,strength of density dependent microbial decay,NA,1
 Input_POC,POM input ,mg C,0
 Input_DOC,DOM input,mg C,0
 CUE,carbon use efficiency,,0.4
+m_r,specific maintenance factor or rate,mgC mgC^-1 d^-1,0.006028527
