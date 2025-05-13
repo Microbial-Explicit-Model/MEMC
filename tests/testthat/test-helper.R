@@ -98,7 +98,7 @@ test_that("split_param_state", {
   expect_equal(names(out$state), "MB")
   
   expect_error(split_param_state(x = c("fake" = 10)),
-               "value not recognized as a parameter or state")
+               "fake: not recognized as a parameter or state")
   
 })
 

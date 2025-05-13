@@ -160,11 +160,14 @@ memc_configure <- function(params,
 split_param_state <- function(x) {
   assert_that(is.character(names(x)))
   assert_that(is.numeric(x))
-  assert_that(all(names(x) %in% c(
-    names(MEMC::memc_initial_state),
-    MEMC::memc_params$parameter
-  )),
-  msg = "value not recognized as a parameter or state")
+  
+  # If there are unknown entries, something that is not a parameter 
+  # or state then throw an error. 
+  unkown <- setdiff(names(x), c(names(MEMC::memc_initial_state), 
+                      MEMC::memc_params$parameter))
+  if(length(unkown)!= 0){
+   stop(paste0(unkown, collapse = ", "), ": not recognized as a parameter or state") 
+  }
   
   params_index <-
     which(names(x) %in%  MEMC::memc_params$parameter)
