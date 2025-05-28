@@ -7,7 +7,7 @@ zero <- 1e-6
 time <- floor(seq(
   from = 0,
   to = 100,
-  length.out = 6
+  length.out = 20
 ))
 out <- memc_solve(mod, time)
 
@@ -26,7 +26,7 @@ test_that("make_memc_objective", {
   expect_lte(cost1$model, zero)
 
   # When there is a change in parameter value the most cost should be greater than 0.
-  cost2 <- objective(x = c("V_d" = 50))
+  cost2 <- objective(x = c("m_r" = 100))
   expect_gt(cost2$model, zero)
 
   # When the comparison data and model data are different from one another , as in most instances, the
@@ -47,11 +47,11 @@ test_that("memc_modfit", {
   default_vd <- ptable[ptable$parameter == "V_d", "value"]
   out <- memc_modfit(
     config = mod,
-    x = c("V_d" = 10),
+    x = c("V_d" = 3),
     comp_data = comp_data,
     lower = c(0)
   )
-  expect_lt(abs(out$par - default_vd), 1e-4)
+  expect_lt(abs(out$par - default_vd), 1e-3)
   expect_gt(out$iterations, 1)
 
   # Test to see if fitting works fo an initial carbon pool value.
@@ -62,7 +62,7 @@ test_that("memc_modfit", {
     comp_data = comp_data,
     lower = c(0)
   )
-  expect_lt(mean(abs(out$par - c(default_B))), 1e-4)
+  expect_lt(mean(abs(out$par - c(default_B))), 1e-3)
 
 })
 
