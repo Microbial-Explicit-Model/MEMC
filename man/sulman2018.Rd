@@ -55,6 +55,7 @@ dat <- merge(x, x_control)
 dat$log_response <- log(dat$value) - log(dat$control_value)
 library(ggplot2)
 ggplot(dat, aes(month, log_response, color = model)) +
- geom_line() + facet_wrap(~name, scales = "free")
+ geom_line() + facet_wrap(~name, scales = "free") +
+ scale_color_manual(values = c("CORPSE" = "blue", "MEND" = "red", "MIMICS" = "purple"))
 }
 \keyword{datasets}
