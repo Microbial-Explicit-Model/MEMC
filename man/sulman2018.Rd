@@ -21,9 +21,9 @@ A data frame of 7 columns:
 }
 }
 \source{
-Sulman et al.: Multiple models and experiments underscore large
-uncertainty in soil carbon dynamics, Biogeochemistry, 141, 109–123, 2018.
-\url{https://doi.org/10.1007/s10533-018-0509-z}.
+Sulman et al.: Multiple models and experiments underscore
+large uncertainty in soil carbon dynamics, \emph{Biogeochemistry}
+141:109–123, 2018. \url{https://doi.org/10.1007/s10533-018-0509-z}.
 
 Downloaded 31 May 2025 from \url{https://doi.org/10.6084/m9.figshare.6981842}.
 }
@@ -36,9 +36,10 @@ looking at the effects of litter addition and removal treatments.
 }
 \note{
 This dataset is a small extract from the Sulman (2018) data,
-as it contains results from only three models (CORPSE, MEND, and MIMICS)
-and three treatments (control, no litter, and litter addition), and
-only for the medium-clay, high-quality litter scenario.
+as it contains results from only three models (CORPSE, MEND, and
+MIMICS) and four treatments (control, no litter, 30% litter
+addition, and 100% litter addition), and only for the medium-clay,
+high-quality litter scenario.
 }
 \examples{
 # Access the data
