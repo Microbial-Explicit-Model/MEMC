@@ -8,9 +8,9 @@ memc_configure(
   params,
   state,
   name = "unnamed",
-  DOMuptake = "MM",
-  POMdecomp = "MM",
-  MBdecay = "LM"
+  F1 = "MM",
+  F2 = "MM",
+  F8 = "LM"
 )
 }
 \arguments{
@@ -20,11 +20,11 @@ memc_configure(
 
 \item{name}{string name of the model configuration, default set to "MEND".}
 
-\item{DOMuptake}{string indicating the dynamics used to model microbial decomposition of DOM, one  of the following "MM", "RMM", or "ECA"}
+\item{F1}{string indicating the dynamics used to model microbial decomposition of DOC, one  of the following "MM", "RMM", or "ECA"}
 
-\item{POMdecomp}{string indicating the dynamics used to model microbial decomposition of POM, one  of the following "MM", "RMM", "ECA", or "LM"}
+\item{F2}{string indicating the dynamics used to model microbial decomposition of POC, one  of the following "MM", "RMM", "ECA", or "LM"}
 
-\item{MBdecay}{string indicating microbial decay, one  of the following ""LM" or "DD"}
+\item{F8}{string indicating microbial biomass mortality, one  of the following ""LM" or "DD"}
 }
 \value{
 memc_single_config object of the name, dynamics, parameters and starting state values
@@ -35,7 +35,7 @@ Set up a model configuration
 \examples{
 # Modify the MEND model
 m <- MEND_config
-m_mod <- memc_configure(m$params, m$state, "MEND_modified", POMdecomp = "LM")
+m_mod <- memc_configure(m$params, m$state, "MEND_modified", F2 = "LM")
 summary(m_mod)
 memc_solve(m_mod, 0:10)
 }

@@ -26,9 +26,9 @@ The variations in carbon model structures and dynamics contribute to diverging l
 
 # Model Structure
 
-MEMC uses the common model structure visualized in **Figure 2**. In the first version of this package, users have the ability to decide which implementation POM decomposition (1), DOM uptake (2), and microbial biomass decay (3) as indicated in (**Figure 3**). This flexible framework allows users to isolate the effects of flux dynamics on model behavior. 
+MEMC uses the common model structure visualized in **Figure 2**. In the first version of this package, users have the ability to decide which implementation POC decomposition (1), DOC uptake (2), and microbial biomass decay (3) as indicated in (**Figure 3**). This flexible framework allows users to isolate the effects of flux dynamics on model behavior. 
 
-![**Figure 2:** Conceptual diagram of the soil organic matter pool structure used by MEMC. The pools include particulate organic matter (POM), mineral-associated organic carbon matter (MAOM),  dissolved organic carbon matter (DOM), adsorbed phase of DOM (QOM), microbial biomass (MB), POM-degrading enzymes (EP), and MOM-degrading enzymes (EM). External inputs for POM, DOM, and MOM are directly are fed into POM, DOM, and MOM, respectively. The fluxes between the pools are detonated with solid arrows, they include POM decomposition (1), DOM uptake by microbial biomass (2), mineral-associated carbon decomposition, adsorption of DOC, microbial biomass decay (3), and enzyme production used in POM and DOM decomposition and enzyme turn over. The dashed arrows indicate enzymes that affect flux rate.](pool_structure.png)
+![**Figure 2:** Conceptual diagram of the soil organic carbon pool structure used by MEMC. The pools include particulate organic carbon (POC), mineral-associated organic carbon matter (MAOM),  dissolved organic carbon (DOC), adsorbed phase of DOC (QOC), microbial biomass (MB), POC-degrading enzymes (EP), and MOC-degrading enzymes (EM). External inputs for POC and DOC are directly are fed into the pools respectively. The fluxes between the pools are detonated with solid arrows, they include POC decomposition (1), DOC uptake by microbial biomass (2), mineral-associated carbon decomposition, adsorption of DOC, microbial biomass decay (3), and enzyme production used in POC and DOC decomposition and enzyme turn over. The dashed arrows indicate enzymes that affect flux rate.](pool_structure.png)
 
 
 # Model Configurations
@@ -37,7 +37,7 @@ MEMC uses the common model structure visualized in **Figure 2**. In the first ve
 The MEMC R package ships with six model pre-configured models (MICMS, MEND, CORPSE, BAMS, COMISSION, and MEMS). All of these model implementations use the uniform pool structure from **Figure 2**  but use a different combination of C flux dynamics as indicated in **Figure 3**. 
 
 
-![**Figure 3:** Illustrates the different combinations of soil pool fluxes dynamics for POM decomposition, DOM uptake, and microbial biomass decay supported by MEMC V1. The numbers correspond to the arrows labeled in **Figure 2**. MM denotes Michaelis–Menten and Reverse MM refers to reverse Michaelis–Menten.](configs.png)
+![**Figure 3:** Illustrates the different combinations of soil pool fluxes dynamics for POC decomposition, DOC uptake, and microbial biomass decay supported by MEMC V1. The numbers correspond to the arrows labeled in **Figure 2**. MM denotes Michaelis–Menten and Reverse MM refers to reverse Michaelis–Menten.](configs.png)
 
 
 

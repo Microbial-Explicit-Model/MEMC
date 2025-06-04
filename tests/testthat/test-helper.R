@@ -7,7 +7,7 @@ test_that("update_params", {
     memc_update_params(c(
       "V_p" = 10,
       "K_d" = 10,
-      "Input_POM" = 10
+      "Input_POC" = 10
     ), param_table = ptable)
   expect_equal(sum(abs(new_table$value - memc_params$value) > 0), 3)
   
@@ -16,7 +16,7 @@ test_that("update_params", {
     memc_update_params(c(
       "fake" = 10,
       "K_d" = 10,
-      "Input_POM" = 10
+      "Input_POC" = 10
     ), param_table = ptable),
     "new_params must refer to a parameter already existing in param_table \n the following params are not recognized: fake",
     fixed = TRUE
@@ -26,7 +26,7 @@ test_that("update_params", {
 
 test_that("update_state", {
   # Test that it works
-  new_state <- update_state(new_vals = c("QOM" = 10), state = state)
+  new_state <- update_state(new_vals = c("QOC" = 10), state = state)
   expect_equal(sum(abs(new_state - MEMC::memc_initial_state) > 0), 1)
   
   # Expect an error if conditions aren't met
@@ -41,34 +41,34 @@ test_that("bad model configuration will fail", {
     memc_configure(
       ptable,
       state,
-      DOMuptake = "RMM",
-      POMdecomp = "ECA",
-      MBdecay = "DD"
+      F1 = "RMM",
+      F2 = "ECA",
+      F8 = "DD"
     )
   
   # Expect changes to be made to the dynamics table
-  expect_true(out1[["table"]][["DOMuptake"]] != out2[["table"]][["DOMuptake"]])
-  expect_true(out1[["table"]][["POMdecomp"]] != out2[["table"]][["POMdecomp"]])
-  expect_true(out1[["table"]][["MBdecay"]] != out2[["table"]][["MBdecay"]])
+  expect_true(out1[["table"]][["F1"]] != out2[["table"]][["F1"]])
+  expect_true(out1[["table"]][["F2"]] != out2[["table"]][["F2"]])
+  expect_true(out1[["table"]][["F8"]] != out2[["table"]][["F8"]])
   
   # Errors should be thrown
   expect_error(
     memc_configure(ptable[1:9,], state),
-    "param_table is missing a parameter value(s) for: p_em, r_ep, r_em, Q_max, K_ads, K_des, dd_beta, Input_POM, Input_DOM, CUE",
+    "param_table is missing a parameter value(s) for: p_em, r_ep, r_em, Q_max, K_ads, K_des, dd_beta, Input_POC, Input_DOC, CUE",
     fixed = TRUE
   )
   expect_error(
-    memc_configure(ptable, state, DOMuptake = "fake"),
-    'DOMuptake must be "MM", "RMM", "ECA"',
+    memc_configure(ptable, state, F1 = "fake"),
+    'F1 must be "MM", "RMM", "ECA"',
     fixed = TRUE
   )
   expect_error(
-    memc_configure(ptable, state, POMdecomp = "fake"),
-    'POMdecomp must be "MM", "RMM", "ECA", "LM"',
+    memc_configure(ptable, state, F2 = "fake"),
+    'F2 must be "MM", "RMM", "ECA", "LM"',
     fixed = TRUE
   )
-  expect_error(memc_configure(ptable, state, MBdecay = "fake"),
-               'MBdecay must be "LM" or "DD"',
+  expect_error(memc_configure(ptable, state, F8 = "fake"),
+               'F8 must be "LM" or "DD"',
                fixed = TRUE)
   
   # Only change one parameter value and one state value
@@ -98,7 +98,7 @@ test_that("split_param_state", {
   expect_equal(names(out$state), "MB")
   
   expect_error(split_param_state(x = c("fake" = 10)),
-               "value not recognized as a parameter or state")
+               "fake: not recognized as a parameter or state")
   
 })
 

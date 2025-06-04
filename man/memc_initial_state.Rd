@@ -7,13 +7,13 @@
 \format{
 A named vector of the initial states of the carbon pools.
 \describe{ a named vector of the Carbon pools
-\item{POM}{Particulate organic carbon or POC}
-\item{MOM}{Mineral associated organic carbon or MOC, note that this excludes QOM}
-\item{QOM}{Adsorbed phase of DOC}
+\item{POC}{Particulate organic carbon or POC}
+\item{MOC}{Mineral associated organic carbon or MOC, note that this excludes QOC}
+\item{QOC}{Adsorbed phase of DOC}
 \item{MB}{Microbial biomass carbon or MBC}
-\item{DOM}{Dissolved organic carbon or DOC}
-\item{EP}{Enzyme for decomposition of POM}
-\item{EM}{Enzyme for decomposition of MOM}
+\item{DOC}{Dissolved organic carbon or DOC}
+\item{EP}{Enzyme for decomposition of POC}
+\item{EM}{Enzyme for decomposition of MOC}
 \item{IC}{Accumulated CO2 flux}
 \item{Tot}{Total carbon in the patch}
 }
