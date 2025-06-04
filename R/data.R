@@ -336,3 +336,52 @@
 #' # Access the initial state
 #' memc_incubation_mollisol$state
 "memc_incubation_mollisol"
+
+
+#' Example data from Sulman et al. (2018)
+#'
+#' Monthly soil model outputs from a series of simple, idealized experiments
+#' looking at the effects of litter addition and removal treatments.
+#'
+#' @format A data frame of 7 columns:
+#' \describe{
+#'   \item{\code{model}}{Model name}
+#'   \item{\code{clay}}{Soil clay level (all "medium" in these data)}
+#'   \item{\code{litter}}{Litter quality level (all "highquality" in these data)}
+#'   \item{\code{experiment}}{Name of experiment: "control",
+#'      "litter_removal", "total_addition_100" (doubling),
+#'      or "total_addition_30" (30\% addition)}
+#'   \item{\code{month}}{Month number of simulation, integer}
+#'   \item{\code{name}}{Output variable: "total_protectedC",
+#'      "total_unprotectedC", "total_C", "total_microbeC",
+#'      "total_litterC", or "CO2flux" (all kgC/m2)}
+#'   \item{\code{value}}{Model output value}
+#' }
+#'
+#' @note This dataset is a small extract from the Sulman (2018) data,
+#' as it contains results from only three models (CORPSE, MEND, and
+#' MIMICS) and four treatments (control, no litter, 30% litter
+#' addition, and 100% litter addition), and only for the medium-clay,
+#' high-quality litter scenario.
+#' @source Sulman et al.: Multiple models and experiments underscore
+#' large uncertainty in soil carbon dynamics, \emph{Biogeochemistry}
+#' 141:109–123, 2018. \url{https://doi.org/10.1007/s10533-018-0509-z}.
+#' @source Downloaded 31 May 2025 from \url{https://doi.org/10.6084/m9.figshare.6981842}.
+#' @examples
+#' # Access the data
+#' sulman2018
+#'
+#' # Reconstruct figure 3 from Sulman et al. (2018)
+#' # For this, we need to combine control and treatment data...
+#' x <- subset(sulman2018, experiment == "total_addition_100")
+#' x_control <- subset(sulman2018, experiment == "control")
+#' names(x_control)[names(x_control) == "value"] <- "control_value"
+#' x_control$experiment <- NULL
+#' dat <- merge(x, x_control)
+#' # ... and compute the log response ratio
+#' dat$log_response <- log(dat$value) - log(dat$control_value)
+#' library(ggplot2)
+#' ggplot(dat, aes(month, log_response, color = model)) +
+#'  geom_line() + facet_wrap(~name, scales = "free") +
+#'  scale_color_manual(values = c("CORPSE" = "blue", "MEND" = "red", "MIMICS" = "purple"))
+"sulman2018"
