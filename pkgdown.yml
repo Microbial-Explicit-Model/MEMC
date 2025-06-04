@@ -1,5 +1,5 @@
 pandoc: 3.1.11
-pkgdown: 2.1.1
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   articles/Background: Background.html
@@ -15,7 +15,7 @@ articles:
   articles/sensRange: sensRange.html
   articles/StyleGuide: StyleGuide.html
   articles/ToyModel: ToyModel.html
-last_built: 2025-04-19T01:09Z
+last_built: 2025-06-04T21:56Z
 urls:
   reference: https://microbial-explicit-model.github.io/MEMC/reference
   article: https://microbial-explicit-model.github.io/MEMC/articles
