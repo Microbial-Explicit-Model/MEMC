@@ -18,7 +18,7 @@ MEND_config
 }
 \description{
 The MEND configuration is based off of Wang et al. 2013. This
-configuration uses MM for DOM uptake, MM for POM decomposition,
+configuration uses MM for DOC uptake, MM for POC decomposition,
 and LM for MB decay; see \link{dynamics} for more details.
 }
 \examples{

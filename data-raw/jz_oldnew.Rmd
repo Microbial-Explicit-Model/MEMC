@@ -19,7 +19,7 @@ WRITE_TO <- here::here("tests", "testthat", "jz_comps")
 # Match the MEMC output
 format_out <- function(df) {
   # Now format the results into a nice data frame instead of a wide  matrix.
-  names <- c("POM", "MOM", "QOM", "DOM", "MB", "EP", "EM", "IC", "Tot")
+  names <- c("POC", "MOC", "QOC", "DOC", "MB", "EP", "EM", "IC", "Tot")
   
   out <- data.table::melt(
     data.table::as.data.table(df),
@@ -44,7 +44,7 @@ solveMEND <- function(pars,times){
         #default paramters
    # Carbon use effciency
         kD = 0.25
-        kP = 50 #half saturation constant for POM
+        kP = 50 #half saturation constant for POC
         kM = 250
         Kads = 0.006 
         Kdes = 0.001 
@@ -57,31 +57,31 @@ solveMEND <- function(pars,times){
         gD=0.5
         CUE=0.4
         Input=0 #input per day
-    F1 <- Vd* MB *DOM /( kD + DOM)  ## microbial uptake 
-    F2 <- Vp* EP * POM / (kP + POM) # POM decomposition
-    F3 <- Vm * EM * MOM / (kM + MOM) #MOAM decomposition
-    F6 <- Kads * DOM *(1- QOM/ Qmax) ##adsorption
-    F7 <- Kdes * QOM/Qmax  ##desorption
+    F1 <- Vd* MB *DOC /( kD + DOC)  ## microbial uptake 
+    F2 <- Vp* EP * POC / (kP + POC) # POC decomposition
+    F3 <- Vm * EM * MOC / (kM + MOC) #MOAM decomposition
+    F6 <- Kads * DOC *(1- QOC/ Qmax) ##adsorption
+    F7 <- Kdes * QOC/Qmax  ##desorption
     F8 <- (1- pEP- pEM)* MB *0.4*Vd*MB #microbial biomass decay (mr=0.4*vd)
     F9ep <- pEP * MB *0.4*Vd  #enzyme production (mr=0.4vd)
     F9em <- pEM * MB *0.4*Vd
     F10ep <- rEP * EP  #enzyme decay
     F10em <- rEM * EM
     
-    dPOM <- (1 - gD) * F8- F2+Input
-    dMOM <- (1 - fD) * F2 - F3+Input
+    dPOC <- (1 - gD) * F8- F2+Input
+    dMOC <- (1 - fD) * F2 - F3+Input
     dMB <- F1*CUE - F8 - (F9em + F9ep) # Microbial growth= microbial uptake *CUE
-    dDOM <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)
-    dQOM <- F6 - F7
+    dDOC <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)
+    dQOC <- F6 - F7
     dEP <- F9ep - F10ep
     dEM <- F9em - F10em
     dIC <- F1*(1-CUE)   #CO2 fllux
     dTot <- -F1*(1-CUE)+Input*2
-    return(list(c(dPOM, dMOM, dQOM, dDOM, dMB,dEP,dEM, dIC, dTot)))
+    return(list(c(dPOC, dMOC, dQOC, dDOC, dMB,dEP,dEM, dIC, dTot)))
       })
  }
 
-state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.82, EP=0.0082, EM=0.0082, IC=0, Tot=23.484)#Ultisol
+state<-c(POC=4.71, MOC=17.67, QOC=0, DOC=0.148, MB=0.82, EP=0.0082, EM=0.0082, IC=0, Tot=23.484)#Ultisol
 
 return(ode(y=state, times=times, func=derivs, parms=pars))
 
@@ -109,7 +109,7 @@ solveCOM <- function(pars,times){
         #default paramters
    # Carbon use effciency
         kD = 0.25
-        kP = 50 #half saturation constant for POM
+        kP = 50 #half saturation constant for POC
         kM = 250
         Kads = 0.006 
         Kdes = 0.001 
@@ -122,31 +122,31 @@ solveCOM <- function(pars,times){
         gD=0.5
         CUE=0.4
         Input=0 #input per day
-    F1 <- Vd* MB *DOM /( kD + DOM)  ## microbial uptake 
-    F2 <- Vp* EP* POM / (kP + EP) # POM decomposition
-    F3 <- Vm * EM * MOM / (kM + MOM) #MOAM decomposition
-    F6 <- Kads * DOM *(1- QOM/ Qmax) ##adsorption
-    F7 <- Kdes * QOM/Qmax  ##desorption
+    F1 <- Vd* MB *DOC /( kD + DOC)  ## microbial uptake 
+    F2 <- Vp* EP* POC / (kP + EP) # POC decomposition
+    F3 <- Vm * EM * MOC / (kM + MOC) #MOAM decomposition
+    F6 <- Kads * DOC *(1- QOC/ Qmax) ##adsorption
+    F7 <- Kdes * QOC/Qmax  ##desorption
     F8 <- (1- pEP- pEM)* MB *0.4*Vd *MB #microbial biomass decay (biomass decay rate=0.2*growth rate)
     F9ep <- pEP * MB *0.4*Vd  #enzyme production (maintaince respiration=0.1*total respiration)
     F9em <- pEM * MB *0.4*Vd
     F10ep <- rEP * EP  #enzyme decay
     F10em <- rEM * EM
     
-    dPOM <- (1 - gD) * F8- F2 +Input
-    dMOM <- (1 - fD) * F2 - F3+Input
+    dPOC <- (1 - gD) * F8- F2 +Input
+    dMOC <- (1 - fD) * F2 - F3+Input
     dMB <- F1*CUE - F8 - (F9em + F9ep) # Microbial growth= microbial uptake *CUE
-    dDOM <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)
-    dQOM <- F6 - F7
+    dDOC <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)
+    dQOC <- F6 - F7
     dEP <- F9ep - F10ep
     dEM <- F9em - F10em
     dIC <- F1*(1-CUE)   #CO2 fllux
     dTot <- -F1*(1-CUE)+Input*2
-    return(list(c(dPOM, dMOM, dQOM, dDOM, dMB,dEP,dEM, dIC, dTot)))
+    return(list(c(dPOC, dMOC, dQOC, dDOC, dMB,dEP,dEM, dIC, dTot)))
       })
  }
 
-state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
+state<-c(POC=4.71, MOC=17.67, QOC=0, DOC=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
 
 #solved the mode
 return(ode(y=state, times=times, func=derivs, parms=pars))
@@ -166,7 +166,7 @@ write.csv(x = jz_com, file = file.path(WRITE_TO, "jz_com.csv"), row.names = FALS
 ```
 
 
-##CORPSE model (uses linear kinetics for POM decomposition)
+##CORPSE model (uses linear kinetics for POC decomposition)
 ```{r linear}
 pars<- list (Vd=0.5,Vp=0.001, Vm=0.001)
 solveLIN<- function(pars,times){
@@ -174,7 +174,7 @@ solveLIN<- function(pars,times){
       with(as.list(c(state, pars)),{
         #default paramters
   kD = 0.25
-        kP = 50 #half saturation constant for POM
+        kP = 50 #half saturation constant for POC
         kM = 250
         Kads = 0.006 
         Kdes = 0.001 
@@ -187,31 +187,31 @@ solveLIN<- function(pars,times){
         gD=0.5
         CUE=0.4
         Input=0 #input per day
-    F1 <- Vd* MB *DOM /( kD + MB)  ## microbial uptake 
-    F2 <- Vp* POM # POM decomposition
-    F3 <- Vm  * EM * MOM / (kM + MOM) #MOAM decomposition
-    F6 <- Kads * DOM *(1- QOM/ Qmax) ##adsorption
-    F7 <- Kdes * QOM/Qmax  ##desorption
+    F1 <- Vd* MB *DOC /( kD + MB)  ## microbial uptake 
+    F2 <- Vp* POC # POC decomposition
+    F3 <- Vm  * EM * MOC / (kM + MOC) #MOAM decomposition
+    F6 <- Kads * DOC *(1- QOC/ Qmax) ##adsorption
+    F7 <- Kdes * QOC/Qmax  ##desorption
     F8 <- (1- pEP- pEM)* MB *0.4*Vd *MB #microbial biomass decay (biomass decay rate=0.2*growth rate)
     F9ep <- pEP * MB *0.4*Vd  #enzyme production (maintaince respiration=0.1*total respiration)
     F9em <- pEM * MB *0.4*Vd
     F10ep <- rEP * EP  #enzyme decay
     F10em <- rEM * EM
     
-    dPOM <- (1 - gD) * F8- F2+Input
-    dMOM <- (1 - fD) * F2 - F3+Input
+    dPOC <- (1 - gD) * F8- F2+Input
+    dMOC <- (1 - fD) * F2 - F3+Input
     dMB <- F1*CUE - F8 - (F9em + F9ep) # Microbial growth= microbial uptake *CUE
-    dDOM <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)+Input
-    dQOM <- F6 - F7
+    dDOC <- fD * F2 + gD * F8 + F3 + (F10em + F10ep)- F1 - (F6 - F7)+Input
+    dQOC <- F6 - F7
     dEP <- F9ep - F10ep
     dEM <- F9em - F10em
     dIC <- F1*(1-CUE)   #CO2 fllux
     dTot <- -F1*(1-CUE)+Input*3
-    return(list(c(dPOM, dMOM, dQOM, dDOM, dMB,dEP,dEM, dIC, dTot)))
+    return(list(c(dPOC, dMOC, dQOC, dDOC, dMB,dEP,dEM, dIC, dTot)))
       })
  }
 
-state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
+state<-c(POC=4.71, MOC=17.67, QOC=0, DOC=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
 
 #solved the mode
   ox<-ode(y=state, times=times, func=derivs, parms=pars)
@@ -231,7 +231,7 @@ write.csv(x = jz_LIN, file = file.path(WRITE_TO, "jz_lin.csv"), row.names = FALS
 ```
 
 
-###toy model (uses MM and rMM for POM and DOM decomp, respectively)
+###toy model (uses MM and rMM for POC and DOC decomp, respectively)
 ```{r toy}
 ##solving simple MEND model
 pars<- list (Vd=0.5,Vp=0.001, Vm=0.001)
@@ -240,7 +240,7 @@ solveTOY<- function(pars,times){
       with(as.list(c(state, pars)),{
         #default paramters
   kD = 0.25
-        kP = 50 #half saturation constant for POM
+        kP = 50 #half saturation constant for POC
         kM = 250
         Kads = 0.006 
         Kdes = 0.001 
@@ -253,31 +253,31 @@ solveTOY<- function(pars,times){
         gD=0.5
         CUE=0.4
         Input=0 #input per day
-    F1 <- Vd* MB *DOM /( kD + MB)  ## microbial uptake 
-    F2 <- Vp* EP * POM / (kP + POM) # POM decomposition
-    F3 <- Vm  * EM * MOM / (kM + MOM) #MOAM decomposition
-    F6 <- Kads * DOM *(1- QOM/ Qmax) ##adsorption
-    F7 <- Kdes * QOM/Qmax  ##desorption
+    F1 <- Vd* MB *DOC /( kD + MB)  ## microbial uptake 
+    F2 <- Vp* EP * POC / (kP + POC) # POC decomposition
+    F3 <- Vm  * EM * MOC / (kM + MOC) #MOAM decomposition
+    F6 <- Kads * DOC *(1- QOC/ Qmax) ##adsorption
+    F7 <- Kdes * QOC/Qmax  ##desorption
     F8 <- (1- pEP- pEM)* MB *0.4*Vd *MB #microbial biomass decay (biomass decay rate=0.2*growth rate)
     F9ep <- pEP * MB *0.4*Vd  #enzyme production (maintaince respiration=0.1*total respiration)
     F9em <- pEM * MB *0.4*Vd
     F10ep <- rEP * EP  #enzyme decay
     F10em <- rEM * EM
     
-    dPOM <- (1 - gD) * F8- F2+Input
-    dMOM <- (1 - fD) * F2 - F3+Input
+    dPOC <- (1 - gD) * F8- F2+Input
+    dMOC <- (1 - fD) * F2 - F3+Input
     dMB <- F1*CUE - F8 - (F9em + F9ep) # Microbial growth= microbial uptake *CUE
-    dDOM <- fD * F2 + gD * F8 + F3 + (F10em + F10ep) - F1 - (F6 - F7)+Input
-    dQOM <- F6 - F7
+    dDOC <- fD * F2 + gD * F8 + F3 + (F10em + F10ep) - F1 - (F6 - F7)+Input
+    dQOC <- F6 - F7
     dEP <- F9ep - F10ep
     dEM <- F9em - F10em
     dIC <- F1*(1-CUE)   #CO2 fllux
     dTot <- -F1*(1-CUE)+Input*3
-    return(list(c(dPOM, dMOM, dQOM, dDOM, dMB,dEP,dEM, dIC, dTot)))
+    return(list(c(dPOC, dMOC, dQOC, dDOC, dMB,dEP,dEM, dIC, dTot)))
       })
  }
 
-state<-c(POM=4.71, MOM=17.67, QOM=0, DOM=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
+state<-c(POC=4.71, MOC=17.67, QOC=0, DOC=0.148, MB=0.52, EP=0.052, EM=0.052, IC=0, Tot=23.484)#Ultisol
 
 #solved the mode
   ox<-ode(y=state, times=times, func=derivs, parms=pars)

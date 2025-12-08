@@ -83,7 +83,7 @@ memc_modfit <-
 #' @param t vector of the time steps to run the model at
 #' @param x vector of the parameters or initial model pool sizes that will be varied
 #' @param parRange data frame of the min/max parameter values
-#' @param dist str for the distribution according to which the parameters will be sampled from, options" "unif" (uniformly random samples), "norm", (normally distributed random samples), "latin" (latin hypercube distribution), and "grid" (parameters arranged on a grid).
+#' @param dist str for the distribution according to which the parameters will be sampled from, options" "unif" (uniformly ranDOC samples), "norm", (normally distributed ranDOC samples), "latin" (latin hypercube distribution), and "grid" (parameters arranged on a grid).
 #' @param ... additional arguments passed to \code{\link[FME]{sensRange}}
 #' @return The results of \code{FME}::\code{\link[FME]{sensRange}}.
 #' @export

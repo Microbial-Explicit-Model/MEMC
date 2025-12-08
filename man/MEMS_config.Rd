@@ -18,7 +18,7 @@ MEMS_config
 }
 \description{
 The MEMS configuration is based off of Robertson et al. 2019. This
-model uses LM for the DOM uptake, LM for POM decomposition, and LM
+model uses LM for the DOC uptake, LM for POC decomposition, and LM
 for MB decay; see \link{dynamics} for more details.
 }
 \examples{

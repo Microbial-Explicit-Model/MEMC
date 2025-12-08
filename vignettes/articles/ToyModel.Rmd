@@ -19,7 +19,7 @@ The `memc_configure` function allows users to build their own SOM model. All of 
 
 ![](pool_structure.png)
 
-The `memc_configure` function allows users to build their own SOM model. All of the MEMC models use the same SOM pool structure but users will be able to decide which of the formulations (LM, MM, RMM, ECA, or DD) are used for POM decomposition (1), DOM uptake (2), and microbial biomass decay (3). The following example will demonstrate how changing the DOM uptake flux impacts the model projections. 
+The `memc_configure` function allows users to build their own SOM model. All of the MEMC models use the same SOM pool structure but users will be able to decide which of the formulations (LM, MM, RMM, ECA, or DD) are used for POC decomposition (1), DOC uptake (2), and microbial biomass decay (3). The following example will demonstrate how changing the DOC uptake flux impacts the model projections. 
 
 Set up the model configuration using the default paramaters and inital carbon pool values. 
 
@@ -31,9 +31,9 @@ Set up the model configuration using the default paramaters and inital carbon po
 mod1 <- memc_configure(params = memc_params, 
                             state = memc_initial_state, 
                             name = "Model 1", 
-                            DOMuptake = "MM", 
-                            POMdecomp = "LM", 
-                            MBdecay = "LM")
+                            F1 = "MM", 
+                            F2 = "LM", 
+                            F8 = "LM")
 ```
 
 Take a look at all the details of the new model configuraiton
@@ -56,21 +56,21 @@ head(mod1_out)
 ```
 
 
-Now switch the DOM uptake to use the RMM dynamics. 
+Now switch the DOC uptake to use the RMM dynamics. 
 
 ```{r}
 # Running memc_configure will print a table describing the model configuration. 
 mod2 <- memc_configure(params = memc_params, 
                             state = memc_initial_state, 
                             name = "Model 2", 
-                            DOMuptake = "RMM", 
-                            POMdecomp = "LM", 
-                            MBdecay = "LM")
+                            F1 = "RMM", 
+                            F2 = "LM", 
+                            F8 = "LM")
 mod2_out <- memc_solve(mod = mod2, time = 0:50)
 ```
 
 
-Now try setting the DOM uptake to ECA dynamics. 
+Now try setting the DOC uptake to ECA dynamics. 
 
 
 ```{r}
@@ -78,9 +78,9 @@ Now try setting the DOM uptake to ECA dynamics.
 mod3 <- memc_configure(params = memc_params, 
                             state = memc_initial_state, 
                             name = "Model 3", 
-                            DOMuptake = "ECA", 
-                            POMdecomp = "LM", 
-                            MBdecay = "LM")
+                            F1 = "ECA", 
+                            F2 = "LM", 
+                            F8 = "LM")
 mod3_out <- memc_solve(mod = mod3, time = 0:50)
 ```
 

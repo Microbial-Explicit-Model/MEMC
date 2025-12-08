@@ -1,20 +1,21 @@
 parameter,description,units,value
-V_p,maximum specific decomposition rate for POM by EP,mgC mgC^-1 d^-1,14
+V_p,maximum specific decomposition rate for POM by EP,mgC mgC^-1 d^-1,42
 K_p,half-saturation constant for decomposition of POM,mgC / g soil,50
-V_m,maximum specific decomposition rate for MOM by EM,mgC mgC^-1 d^-1,0.25
+V_m,maximum specific decomposition rate for MOM by EM,mgC mgC^-1 d^-1,0.6
 K_m,half-saturation constant for decomposition of MOM,mg C/g soil,250
-V_d,maximum specific uptake rate of D for growth of MB,mgC mgC^-1 d^-1,3.00E+00
+V_d,maximum specific uptake rate of D for growth of MB,mgC mgC^-1 d^-1,0.5168
 K_d,half-saturation constant of uptake of D for growth of MB,mg C/g soil,0.25
 f_d,fraction of decomposed P allocated to DOM,NA,0.5
 g_d,fraction of dead B allocated to DOM,NA,0.5
-p_ep,fraction of mR for production of EP,NA,0.01
-p_em,fraction of mR for production of EM,NA,0.01
+p_ep,fraction of mR for production of EP,NA,0.001
+p_em,fraction of mR for production of EM,NA,0.001
 r_ep,turnover rate of EP,mgC mgC^-1 d^-1,0.001
 r_em,turnover rate of EM,mgC mgC^-1 d^-1,0.001
-Q_max,maximum DOC sorption capacity,mgC / g soil,3.4
+Q_max,maximum DOC sorption capacity,mgC / g soil,1.2
 K_ads,specific adsorption rate,mgC mgC^-1 d^-1,0.006
 K_des,desorption rate,mgC mgC^-1 d^-1,0.001
 dd_beta,strength of density dependent microbial decay,NA,1
-Input_POM,POM input ,mg C,0
-Input_DOM,DOM input,mg C,0
+Input_POC,POM input ,mg C,0
+Input_DOC,DOM input,mg C,0
 CUE,carbon use efficiency,,0.4
+m_r,specific maintenance factor or rate,mgC mgC^-1 d^-1,0

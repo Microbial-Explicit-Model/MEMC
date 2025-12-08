@@ -18,7 +18,7 @@ CORPSE_config
 }
 \description{
 The CORPSE configuration is based off of Sulman et al. 2018. This
-model uses RMM for DOM uptake, LM for POM decomposition, and LM for
+model uses RMM for DOC uptake, LM for POC decomposition, and LM for
 MB decay; see \link{dynamics} for more details.
 }
 \examples{

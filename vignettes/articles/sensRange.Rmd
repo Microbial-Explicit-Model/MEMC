@@ -26,7 +26,7 @@ theme_set(theme_bw())
 ```
 
 
-Select the `memc` parameters or initial conditions to include in the local sensitivity analysis. Any of the parameters included in `memc_params` or `memc_initial_state` may be considered. In this example we will consider how the memc MEND configuration is sensitive to $V_d$ and $K_d$, the maximum and half saturation rates of DOM decomposition. 
+Select the `memc` parameters or initial conditions to include in the local sensitivity analysis. Any of the parameters included in `memc_params` or `memc_initial_state` may be considered. In this example we will consider how the memc MEND configuration is sensitive to $V_d$ and $K_d$, the maximum and half saturation rates of DOC decomposition. 
 
 Set up a data frame of the parameter range to sample from, here we arbitrarily set the upper and lower bounds as $\pm$ 50%  of the default parameter value. 
 

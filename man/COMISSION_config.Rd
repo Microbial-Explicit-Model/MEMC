@@ -18,7 +18,7 @@ COMISSION_config
 }
 \description{
 The COMISSION configuration is based off of Ahrens et al. 2015. The
-model uses MM for the DOM uptake, RMM for POM decomposition, and LM
+model uses MM for the DOC uptake, RMM for POC decomposition, and LM
 for MB decay; see \link{dynamics} for more details.
 }
 \examples{

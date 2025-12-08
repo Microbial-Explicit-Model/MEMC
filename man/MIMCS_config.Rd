@@ -18,7 +18,7 @@ MIMCS_config
 }
 \description{
 The MIMCS configuration is based off of Wieder et al. 2015. This
-model uses MM for the DOM uptake, MM for POM decomposition, and DD
+model uses MM for the DOC uptake, MM for POC decomposition, and DD
 for MB decay; see \link{dynamics} for more details.
 }
 \examples{

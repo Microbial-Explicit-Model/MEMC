@@ -48,13 +48,13 @@
 #'
 #' @format A named vector of the initial states of the carbon pools.
 #' \describe{ a named vector of the Carbon pools
-#' \item{POM}{Particulate organic carbon or POC}
-#' \item{MOM}{Mineral associated organic carbon or MOC, note that this excludes QOM}
-#' \item{QOM}{Adsorbed phase of DOC}
+#' \item{POC}{Particulate organic carbon or POC}
+#' \item{MOC}{Mineral associated organic carbon or MOC, note that this excludes QOC}
+#' \item{QOC}{Adsorbed phase of DOC}
 #' \item{MB}{Microbial biomass carbon or MBC}
-#' \item{DOM}{Dissolved organic carbon or DOC}
-#' \item{EP}{Enzyme for decomposition of POM}
-#' \item{EM}{Enzyme for decomposition of MOM}
+#' \item{DOC}{Dissolved organic carbon or DOC}
+#' \item{EP}{Enzyme for decomposition of POC}
+#' \item{EM}{Enzyme for decomposition of MOC}
 #' \item{IC}{Accumulated CO2 flux}
 #' \item{Tot}{Total carbon in the patch}
 #' }
@@ -70,7 +70,7 @@
 #' The MEMC model configuration for MEND
 #'
 #' The MEND configuration is based off of Wang et al. 2013. This
-#' configuration uses MM for DOM uptake, MM for POM decomposition,
+#' configuration uses MM for DOC uptake, MM for POC decomposition,
 #' and LM for MB decay; see \link{dynamics} for more details.
 #'
 #' @format An object created from \code{\link{memc_configure}}.
@@ -94,7 +94,7 @@
 #' The MEMC model configuration for COMISSION
 #'
 #' The COMISSION configuration is based off of Ahrens et al. 2015. The
-#' model uses MM for the DOM uptake, RMM for POM decomposition, and LM
+#' model uses MM for the DOC uptake, RMM for POC decomposition, and LM
 #' for MB decay; see \link{dynamics} for more details.
 #'
 #' @format An object created from \code{\link{memc_configure}}, containing the following elements.
@@ -119,7 +119,7 @@
 #' The MEMC model configuration for CORPSE
 #'
 #' The CORPSE configuration is based off of Sulman et al. 2018. This
-#' model uses RMM for DOM uptake, LM for POM decomposition, and LM for
+#' model uses RMM for DOC uptake, LM for POC decomposition, and LM for
 #' MB decay; see \link{dynamics} for more details.
 #'
 #' @format An object created from \code{\link{memc_configure}}, containing the following elements.
@@ -143,7 +143,7 @@
 #' The MEMC model configuration for MIMCS
 #'
 #' The MIMCS configuration is based off of Wieder et al. 2015. This
-#' model uses MM for the DOM uptake, MM for POM decomposition, and DD
+#' model uses MM for the DOC uptake, MM for POC decomposition, and DD
 #' for MB decay; see \link{dynamics} for more details.
 #'
 #' @format An object created from \code{\link{memc_configure}}, containing the following elements.
@@ -167,7 +167,7 @@
 #' The MEMC model configuration for MEMS
 #'
 #' The MEMS configuration is based off of Robertson et al. 2019. This
-#' model uses LM for the DOM uptake, LM for POM decomposition, and LM
+#' model uses LM for the DOC uptake, LM for POC decomposition, and LM
 #' for MB decay; see \link{dynamics} for more details.
 #'
 #' @format An object created from \code{\link{memc_configure}}, containing the following elements.
@@ -191,7 +191,7 @@
 #' The MEMC model configuration for BAMS
 #'
 #' The BAMS configuration is based off of Tang et al. 2022. This model
-#' uses MM for the DOM uptake, MM for POM decomposition, and LM for MB
+#' uses MM for the DOC uptake, MM for POC decomposition, and LM for MB
 #' decay; see \link{dynamics} for more details.
 #'
 #' @format An object created from \code{\link{memc_configure}}, containing the following elements.

@@ -26,7 +26,7 @@ Imports:
     deSolve (>= 1.30), 
     FME (>= 1.3.6.2), 
     ggplot2 (>= 3.3.5),
-    knitr (>= 1.36)
+    knitr (>= 1.50)
 RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 Config/Needs/website: ggplot2, knitr, magrittr, remotes, rsconnect

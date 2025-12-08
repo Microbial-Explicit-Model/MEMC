@@ -15,7 +15,7 @@ memc_sensrange(config, t, x, parRange, dist, ...)
 
 \item{parRange}{data frame of the min/max parameter values}
 
-\item{dist}{str for the distribution according to which the parameters will be sampled from, options" "unif" (uniformly random samples), "norm", (normally distributed random samples), "latin" (latin hypercube distribution), and "grid" (parameters arranged on a grid).}
+\item{dist}{str for the distribution according to which the parameters will be sampled from, options" "unif" (uniformly ranDOC samples), "norm", (normally distributed ranDOC samples), "latin" (latin hypercube distribution), and "grid" (parameters arranged on a grid).}
 
 \item{...}{additional arguments passed to \code{\link[FME]{sensRange}}}
 }

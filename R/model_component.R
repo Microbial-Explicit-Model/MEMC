@@ -1,9 +1,9 @@
 #' Define the carbon pool flux functions based on the model dynamics
 #'
 #' @param parms MEMC parameter table
-#' @param DOMuptake string indicator for type of dynamics used for the DOM decomposition
-#' @param POMdecomp string indicator for type of dynamics used for the POM decomposition
-#' @param MBdecay string indicator for type of dynamics used to model MB decay
+#' @param F1 string indicator for type of dynamics used for the DOC decomposition
+#' @param F2 string indicator for type of dynamics used for the POC decomposition
+#' @param F8 string indicator for type of dynamics used to model MB mortality
 #' @seealso dynamics
 #' @return A list of functions to be used for calculating each flux
 #' (the names of the list are the flux names: F1, F2, etc).
@@ -11,84 +11,96 @@
 #' @family internal
 c_flux_functions_internal <-
   function(p,
-           DOMuptake = "MM",
-           POMdecomp = "MM",
-           MBdecay = "LM") {
+           F1 = "MM",
+           F2 = "MM",
+           F8 = "LM") {
     flux_functions <- list()
-    if (DOMuptake == "MM") {
-      flux_functions[["F1"]] = function(MB, DOM) {
-        p[["V_d"]] * MB * DOM / (p[["K_d"]] + DOM)
+    
+    if (F1 == "MM") {
+      flux_functions[["F1"]] = function(MB, DOC) {
+        (1/p[["CUE"]]) * (p[["V_d"]] + p[["m_r"]]) * MB * DOC / (p[["K_d"]] + DOC)
       }
-    } else if (DOMuptake == "RMM") {
-      flux_functions[["F1"]] = function(MB, DOM) {
-        p[["V_d"]] * MB * DOM / (p[["K_d"]] + MB)
+    } else if (F1 == "RMM") {
+      flux_functions[["F1"]] = function(MB, DOC) {
+        (1/p[["CUE"]]) * (p[["V_d"]] + p[["m_r"]]) * MB * DOC / (p[["K_d"]] + MB)
       }
-    } else if (DOMuptake == "ECA") {
-      flux_functions[["F1"]] = function(MB, DOM) {
-        p[["V_d"]] * MB * DOM / (p[["K_d"]] + DOM + MB)
+    } else if (F1 == "ECA") {
+      flux_functions[["F1"]] = function(MB, DOC) {
+      (1/p[["CUE"]]) * (p[["V_d"]] + p[["m_r"]]) * MB * DOC / (p[["K_d"]] + DOC + MB)
+        
       }
-    } else if (DOMuptake == "LM") {
-      flux_functions[["F1"]] = function(MB, DOM) {
-        p[["V_d"]] * DOM
+    } else if (F1 == "LM") {
+      flux_functions[["F1"]] = function(MB, DOC) {
+        (p[["V_d"]] + p[["m_r"]]) * DOC
       }
     } else {
-      stop("Unknown DOMuptake!")
+      stop("Unknown F1!")
     }
     
-    if (POMdecomp == "MM") {
-      flux_functions[["F2"]] = function(EP, POM) {
-        (p[["V_p"]] * EP * POM) / (p[["K_p"]] + POM)
+    if (F2 == "MM") {
+      flux_functions[["F2"]] = function(EP, POC) {
+        (p[["V_p"]] * EP * POC) / (p[["K_p"]] + POC)
       }
-    } else if (POMdecomp == "RMM") {
-      flux_functions[["F2"]] = function(EP, POM) {
-        (p[["V_p"]] * EP * POM) / (p[["K_p"]] + EP)
+    } else if (F2 == "RMM") {
+      flux_functions[["F2"]] = function(EP, POC) {
+        (p[["V_p"]] * EP * POC) / (p[["K_p"]] + EP)
       }
-    } else if (POMdecomp == "ECA") {
-      flux_functions[["F2"]] = function(EP, POM) {
-        (p[["V_p"]] * EP * POM) / (p[["K_p"]] + POM + EP)
+    } else if (F2 == "ECA") {
+      flux_functions[["F2"]] = function(EP, POC) {
+        (p[["V_p"]] * EP * POC) / (p[["K_p"]] + POC + EP)
       }
-    } else if (POMdecomp == "LM") {
-      flux_functions[["F2"]] = function(EP, POM) {
-        p[["V_p"]] * POM
+    } else if (F2 == "LM") {
+      flux_functions[["F2"]] = function(EP, POC) {
+        p[["V_p"]] * POC
       }
     } else {
-      stop("Unknown POMdecomp!")
+      stop("Unknown F2!")
     }
     
-    flux_functions[["F3"]] = function(EM, MOM) {
-      (p[["V_m"]] * EM * MOM) / (p[["K_m"]] + MOM)
-    }
-    flux_functions[["F4"]] = function(DOM, QOM) {
-      p[["K_ads"]] * DOM * (1 - QOM / p[["Q_max"]])
-    }
-    flux_functions[["F5"]] = function(QOM) {
-      p[["K_des"]] * QOM / p[["Q_max"]]
+    flux_functions[["F3"]] = function(EM, MOC) {
+      (p[["V_m"]] * EM * MOC) / (p[["K_m"]] + MOC)
     }
     
-    if (MBdecay == "DD") {
+    flux_functions[["F4"]] = function(MB, DOC) {
+      ((1/p[["CUE"]]) - 1) * ((p[["V_d"]] * MB * DOC)/(p[["K_d"]] + DOC))
+    }  
+    
+    flux_functions[["F5"]] = function(MB, DOC) {
+      ((1/p[["CUE"]]) - 1) * ((p[["m_r"]] * MB * DOC)/(p[["K_d"]] + DOC))
+    }  
+    
+    
+    flux_functions[["F6"]] = function(DOC, QOC) {
+      p[["K_ads"]] * DOC * (1 - QOC / p[["Q_max"]])
+    }
+    flux_functions[["F7"]] = function(QOC) {
+      p[["K_des"]] * QOC / p[["Q_max"]]
+    }
+    
+    if (F8 == "DD") {
       stopifnot(p[["dd_beta"]] > 1)
-      flux_functions[["F6"]] = function(MB) {
-        (1 - p[["p_ep"]] - p[["p_em"]]) * 0.4 * p[["V_d"]] * (MB ^ p[["dd_beta"]])
+      flux_functions[["F8"]] = function(MB) {
+        (1 - p[["p_ep"]] - p[["p_em"]]) * p[["m_r"]] * (MB ^ p[["dd_beta"]])
       }
-    } else if (MBdecay == "LM") {
+    } else if (F8 == "LM") {
       stopifnot(p[["dd_beta"]] == 1)
-      flux_functions[["F6"]] = function(MB) {
-        (1 - p[["p_ep"]] - p[["p_em"]]) * 0.4 * p[["V_d"]] * (MB ^ p[["dd_beta"]])
+      flux_functions[["F8"]] = function(MB) {
+        (1 - p[["p_ep"]] - p[["p_em"]]) * p[["m_r"]] * (MB ^ p[["dd_beta"]])
       }
     } else {
-      stop("Unknown MBdecay!")
+      stop("Unknown F8!")
     }
     
-    flux_functions[["F7_ep"]] = function(MB) {
-      p[["p_ep"]] * MB *  0.4 * p[["V_d"]]
+    flux_functions[["F9_ep"]] = function(MB) {
+      p[["p_ep"]] * p[["m_r"]] * MB
     }
-    flux_functions[["F7_em"]] = function(MB) {
-      p[["p_em"]] * MB *  0.4 * p[["V_d"]]
+    flux_functions[["F9_em"]] = function(MB) {
+      p[["p_em"]] * p[["m_r"]] * MB
     }
-    flux_functions[["F8_ep"]] = function(EP) {
+    flux_functions[["F10_ep"]] = function(EP) {
       p[["r_ep"]] * EP
     }
-    flux_functions[["F8_em"]] = function(EM) {
+    flux_functions[["F10_em"]] = function(EM) {
       p[["r_em"]] * EM
     }
     
@@ -102,9 +114,9 @@ c_flux_functions_internal <-
 #' @param t numeric when to solve the model
 #' @param state MEMC vector of the pool values
 #' @param parms MEMC parameter table
-#' @param DOMuptake string indicator for type of dynamics used to model DOM decomposition
-#' @param POMdecomp string indicator for type of dynamics used to model POM decomposition
-#' @param MBdecay string indicator for type of dynamics used to model MB decay
+#' @param F1 string indicator for type of dynamics used to model DOC decomposition
+#' @param F2 string indicator for type of dynamics used to model POC decomposition
+#' @param F8 string indicator for type of dynamics used to model MB mortality
 #' @return The derivatives of each pool, i.e. instantaneous change, as a list.
 #' @noRd
 #' @family internal
@@ -112,57 +124,58 @@ carbon_pool_derivs <-
   function(t,
            state,
            p,
-           DOMuptake,
-           POMdecomp,
-           MBdecay) {
+           F1,
+           F2,
+           F8) {
     # Get the carbon flux functions (`cff`) to use
     cff <- c_flux_functions_internal(
       p = p,
-      DOMuptake = DOMuptake,
-      POMdecomp = POMdecomp,
-      MBdecay = MBdecay
+      F1 = F1,
+      F2 = F2,
+      F8 = F8
     )
     
     with(as.list(state), {
-      F1 <-    cff$F1(MB = MB, DOM = DOM) # DOM loss
-      F2 <-    cff$F2(EP = EP, POM = POM) # POM loss
-      F3 <-    cff$F3(EM = EM, MOM = MOM) # MOM loss
-      F4 <-    cff$F4(DOM = DOM, QOM = QOM)
-      F5 <-    cff$F5(QOM = QOM)
-      F6 <-    cff$F6(MB = MB) # MB decay to POM/DOM
-      F7_ep <- cff$F7_ep(MB = MB) # MB flux to EP
-      F7_em <- cff$F7_em(MB = MB) # MB flux to EM
-      F8_ep <- cff$F8_ep(EP = EP) # EP loss
-      F8_em <- cff$F8_em(EM = EM) # EM loss
+      F1 <-     cff$F1(MB = MB, DOC = DOC) # DOC uptake by microbes
+      F2 <-     cff$F2(EP = EP, POC = POC) # POC decomposition
+      F3 <-     cff$F3(EM = EM, MOC = MOC) # MOC loss
+      F4 <-     cff$F4(DOC = DOC, MB = MB)
+      F5 <-     cff$F5(DOC = DOC, MB = MB)
+      F6 <-     cff$F6(QOC= QOC, DOC = DOC)
+      F7 <-     cff$F7(QOC=QOC)
+      F8 <-     cff$F8(MB = MB)
+      F9_ep <-  cff$F9_ep(MB = MB)
+      F9_em <-  cff$F9_em(MB = MB)
+      F10_ep <- cff$F10_ep(EP = EP)
+      F10_em <- cff$F10_em(EM = EM)
+      
       
       # Define the system of differential equations that describe
-      # the changes in the carbon pool states_
+      # the changes in the carbon pool states.
       # -----------------------------------------------------------
-      # POM = particulate organic carbon
-      dPOM <- (1 - p[["g_d"]]) * F6 - F2 + p[["Input_POM"]]
-      # MOM = mineral-associated organic carbon (MOC)
-      dMOM <- (1 - p[["f_d"]]) * F2 - F3
-      # QOMO = active layer of MOC
-      dQOM <- F4 - F5
+      # POC = particulate organic carbon
+      dPOC <- p[["Input_POC"]] + (1 - p[["g_d"]]) * F8 - F2
+      # MOC = mineral-associated organic carbon (MOC)
+      dMOC <- (1 - p[["f_d"]]) * F2 - F3
+      # QOCO = active layer of MOC
+      dQOC <- F6 - F7
       # MB = microbial biomass carbon
-      dMB <- F1 * p[["CUE"]] - F6 - (F7_ep + F7_em)
-      # DOM = dissolved organic carbon
-      dDOM <-
-        p[["f_d"]] * F2 + p[["g_d"]] * F6 + F3 + (F8_em + F8_ep) -
-        F1 - (F4 - F5) + p[["Input_DOM"]]
+      dMB <- F1 - (F4 + F5) - F8 - (F9_ep + F9_em)
+      # DOC = dissolved organic carbon
+      dDOC <- p[["Input_DOC"]] + p[["f_d"]] * F2 + p[["g_d"]] * F8 +
+        F3 + (F10_em + F10_ep) - F1 - (F6 - F7) 
       # EP = carbon stored as extra-cellular enzymes
-      dEP <- F7_em - F8_ep
+      dEP <- F9_em - F10_ep
       # EM = carbon stored as extra-cellular enzymes
-      dEM <- F7_em - F8_em
+      dEM <- F9_em - F10_em
       # IC = inorganic carbon (CO2)
-      dIC <- F1 * (1 - p[["CUE"]])
+      dIC <- (F4 + F5)
       # Tot = the total carbon pool
-      dTot <-
-        -F1 * (1 - p[["CUE"]]) + (p[["Input_POM"]] + p[["Input_DOM"]])
+      dTot <- p[["Input_POC"]] + p[["Input_DOC"]] - (F4 - F5)
       
       # Return derivatives (instantaneous changes in the pools)
       return(list(c(
-        dPOM, dMOM, dQOM, dMB, dDOM, dEP, dEM, dIC, dTot
+        dPOC, dMOC, dQOC, dMB, dDOC, dEP, dEM, dIC, dTot
       )))
       
     })
@@ -193,9 +206,9 @@ sm_internal <- function(mod, time, ...) {
     times = time,
     func = carbon_pool_derivs,
     parms = p,
-    DOMuptake = mod[["table"]][["DOMuptake"]],
-    POMdecomp = mod[["table"]][["POMdecomp"]],
-    MBdecay = mod[["table"]][["MBdecay"]],
+    F1 = mod[["table"]][["F1"]],
+    F2 = mod[["table"]][["F2"]],
+    F8 = mod[["table"]][["F8"]],
     ...
   )
   

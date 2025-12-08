@@ -17,10 +17,10 @@ usethis::use_data(memc_params, overwrite = TRUE, internal = FALSE)
 # model parameters through steady‐state and dynamic analyses. Ecological Applications,
 # 23: 255-272. doi:10.1890/12-0681.1
 MB = 2
-DOM = 1
-POM = 10
-QOM = 0.1
-MOM = 5
+DOC = 1
+POC = 10
+QOC = 0.1
+MOC = 5
 EP = 0.00001
 EM = 0.00001
 IC = 0
@@ -28,11 +28,11 @@ Tot = 18.10002
 
 memc_initial_state <-
   c(
-    POM = POM,
-    MOM = MOM,
-    QOM = QOM,
+    POC = POC,
+    MOC = MOC,
+    QOC = QOC,
     MB = MB,
-    DOM = DOM,
+    DOC = DOC,
     EP = EP,
     EM = EM,
     IC = IC,
