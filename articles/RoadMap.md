@@ -1,0 +1,8 @@
+# Devlopment Plan
+
+![](roadmap.png)
+
+Version 2 of the MEMC Package will support more flexible dynamics, this
+will affect the model configurations and results.
+
+![](FutureDynamics.png)
