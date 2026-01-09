@@ -157,7 +157,7 @@ carbon_pool_derivs <-
       dPOC <- p[["Input_POC"]] + (1 - p[["g_d"]]) * F8 - F2
       # MOC = mineral-associated organic carbon (MOC)
       dMOC <- (1 - p[["f_d"]]) * F2 - F3
-      # QOCO = active layer of MOC
+      # QOC = active layer of MOC
       dQOC <- F6 - F7
       # MB = microbial biomass carbon
       dMB <- F1 - (F4 + F5) - F8 - (F9_ep + F9_em)
@@ -165,7 +165,7 @@ carbon_pool_derivs <-
       dDOC <- p[["Input_DOC"]] + p[["f_d"]] * F2 + p[["g_d"]] * F8 +
         F3 + (F10_em + F10_ep) - F1 - (F6 - F7) 
       # EP = carbon stored as extra-cellular enzymes
-      dEP <- F9_em - F10_ep
+      dEP <- F9_ep - F10_ep
       # EM = carbon stored as extra-cellular enzymes
       dEM <- F9_em - F10_em
       # IC = inorganic carbon (CO2)
