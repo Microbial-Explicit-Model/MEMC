@@ -160,8 +160,20 @@ ggplot(data = pool_df)  +
 
 # Calculate the flux out of DOC 
 doc_flux %>% 
+  mutate(my_diff = F_in - F_out) %>% 
+  left_join(delta_df %>% 
+              select(count, dDOC)) %>%
+  mutate(err = my_diff - dDOC) %>% 
+  pull(err) %>% 
+  abs %>% mean
+
+
+
+# Calculate the flux out of DOC 
+doc_flux %>% 
   left_join(pool_df %>% select(count, DOC)) %>% 
-  select(count, DOC, F_in, F_out) %>% head()
+  select(count, DOC, F_in, F_out) %>% head() %>% 
+  knitr::kable()
 
   
   
