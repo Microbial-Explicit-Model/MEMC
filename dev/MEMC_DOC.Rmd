@@ -1,0 +1,133 @@
+---
+title: 'MEMC: DOC?'
+output: powerpoint_presentation
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(MEMC)
+library(ggplot2)
+library(dplyr)
+```
+
+## Objective 
+
+When looking at the default (out of the box) MEMC MEND configuration run the DOC pool crashes quickly. This is unexpected behavior. This investigation aims to get at the cause of this. 
+
+- is there a problem with the initial starting conditions? 
+- is there a problem with the parameter values causing the F input and out of the DOC to be too large? 
+- is there a structural problem with the model?
+
+```{r}
+
+# Create a vector of the time steps to solve the model run at.
+t <- 0:50
+
+# Use the MEND_model configuration included in the package 
+mend_out1 <- memc_solve(mod = MEND_config, time = t)
+mend_out1$name <- "default"
+
+plot(mend_out1)
+```
+
+
+
+## What is happening to DOC beyond the inital crash? 
+
+```{r}
+mend_out1 %>% 
+  filter(time %in% 1:50) %>% 
+  filter(variable == "DOC") -> 
+  doc_post_crash
+
+fit <- lm(data = doc_post_crash, value ~ time)
+
+```
+
+After the crash which happens between time step 0 and 1 the DOC pool is increasing linearly by  2.536e-06  at each time step. 
+
+```{r}
+  plot(doc_post_crash) + 
+    labs(title = "DOC time 1:50")
+```
+
+
+## Initial Starting Conditions
+
+Since the part of the model we are interested in is 
+
+POC --> DOC --> MB 
+
+
+Let's take a look at the relative size of these pools in our default (Wang et al. 2013) set up and then in the four soil samples we have from the ORNL SFA. 
+
+<br>
+
+In this table I take a look at the ratio of the three pools of interest relative to the total pool. I am curious if the default pool is consistent with the other soil samples. 
+
+<br>
+Looking at the table the "default" initial pool size has the largest relative DOC pool. Across all the soil samples the POC pool is larger than the DOC and MB. On the gelisol sample had a MB pool that is less than the DOC pool. All the other samples have DOC >= MB. 
+
+```{r}
+rbind(
+data.frame(t(memc_initial_state)),
+data.frame(t(memc_incubation_andisol$state)), 
+data.frame(t(memc_incubation_gelisol$state)), 
+data.frame(t(memc_incubation_mollisol$state)), 
+data.frame(t(memc_incubation_ultisol$state))) %>% 
+  cbind(source = c("default", "andisol", "gelisol", "mollisol", "ultisol")) %>% 
+  select(POC, DOC, MB, Tot, source) -> 
+  inital_cond_df
+
+
+inital_cond_df %>% 
+  mutate(POC = POC / Tot, 
+         DOC = DOC/Tot, 
+         MB = MB/Tot) %>% 
+  select(source, POC, DOC, MB) %>% 
+  knitr::kable(digits = 2)
+```
+
+
+## Initial Starting Conditions Cont. 
+
+
+Does it matter when we run the MEMC mend with these different initial starting conditions?? 
+
+No, it does not. We are still seeing the almost immediate crash of the DOC pool 
+
+
+```{r}
+# Use the MEND_model configuration included in the package 
+mend_out1 <- memc_solve(mod = MEND_config, time = t)
+mend_out1$name <- "default"
+
+mend_out2 <- memc_solve(mod = MEND_config, time = t, state = memc_incubation_andisol$state)
+mend_out2$name <- "andisol"
+
+
+mend_out3 <- memc_solve(mod = MEND_config, time = t, state = memc_incubation_gelisol$state)
+mend_out3$name <- "gelisol"
+
+mend_out4 <- memc_solve(mod = MEND_config, time = t, state = memc_incubation_mollisol$state)
+mend_out4$name <- "mollisol"
+
+
+mend_out5 <- memc_solve(mod = MEND_config, time = t, state = memc_incubation_ultisol$state)
+mend_out5$name <- "ultisol"
+
+rbind(mend_out1, 
+      mend_out2, 
+      mend_out3, 
+      mend_out4, 
+      mend_out5) %>% 
+  dplyr::filter(time <= 100) %>% 
+  filter(variable %in% c("DOC")) %>% 
+  plot()
+```
+
+## What are the inital fluxes?? 
+
+
+

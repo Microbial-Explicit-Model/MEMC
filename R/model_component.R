@@ -141,14 +141,14 @@ carbon_pool_derivs <-
       F3 <-     cff$F3(EM = EM, MOC = MOC) # MOC loss
       F4 <-     cff$F4(DOC = DOC, MB = MB)
       F5 <-     cff$F5(DOC = DOC, MB = MB)
-      F6 <-     cff$F6(QOC= QOC, DOC = DOC)
-      F7 <-     cff$F7(QOC=QOC)
+      F6 <-     cff$F6(QOC = QOC, DOC = DOC)
+      F7 <-     cff$F7(QOC = QOC)
       F8 <-     cff$F8(MB = MB)
       F9_ep <-  cff$F9_ep(MB = MB)
       F9_em <-  cff$F9_em(MB = MB)
       F10_ep <- cff$F10_ep(EP = EP)
       F10_em <- cff$F10_em(EM = EM)
-      
+    
       
       # Define the system of differential equations that describe
       # the changes in the carbon pool states.
@@ -172,6 +172,57 @@ carbon_pool_derivs <-
       dIC <- (F4 + F5)
       # Tot = the total carbon pool
       dTot <- p[["Input_POC"]] + p[["Input_DOC"]] - (F4 - F5)
+      
+      
+      if(TRUE){
+        
+        # when debugging write to 
+        flux_df <- data.frame(F1 = F1,
+                              F2 = F2, 
+                              F3 = F3, 
+                              F4 = F4, 
+                              F5 = F5, 
+                              F6 = F6, 
+                              F7 = F7, 
+                              F8 = F8, 
+                              F9_ep = F9_ep,
+                              F9_em = F9_em, 
+                              F10_ep = F10_ep, 
+                              F10_em = F10_em)
+        write.table(flux_df, file = "./dev/flux.csv",
+                    append = TRUE, col.names = FALSE, row.names = FALSE, sep = ",")
+        
+        # when debugging write to 
+        delta_df <- data.frame(dPOC = dPOC,
+                               dMOC = dMOC, 
+                               dQOC = dQOC, 
+                               dMB = dMB, 
+                               dDOC = dDOC, 
+                               dEP = dEP, 
+                               dEM = dEM, 
+                               dIC = dIC, 
+                               dTot = dTot)
+        write.table(delta_df, file = "./dev/delta.csv",
+                    append = TRUE, col.names = FALSE, row.names = FALSE, sep = ",")
+
+        
+        # when debugging write to 
+        pool_df <- data.frame(POC = POC,
+                               MOC = MOC, 
+                               QOC = QOC, 
+                               MB = MB, 
+                               DOC = DOC, 
+                               EP = EP, 
+                               EM = EM, 
+                               IC = IC, 
+                               Tot = Tot)
+        write.table(pool_df, file = "./dev/pool.csv",
+                    append = TRUE, col.names = FALSE, row.names = FALSE, sep = ",")
+        
+      }
+      
+      
+      
       
       # Return derivatives (instantaneous changes in the pools)
       return(list(c(
@@ -200,6 +251,9 @@ sm_internal <- function(mod, time, ...) {
   frac_params_vals <- p[names(p) %in% frac_params]
   assert_that(all(0 < frac_params_vals & frac_params_vals < 1),
               msg = "parameters f_d, g_d, p_ep, and p_em must be between 0 and 1")
+  
+  print(mod[["state"]])
+  
   
   rslt <- deSolve::ode(
     y = mod[["state"]],
@@ -287,6 +341,10 @@ memc_solve <-
     assert_that(is_state_vector(state = mod$state))
     
     results <- sm_internal(mod = mod, time = time, ...)
+
+    if(FALSE){
+      deSolve::diagnostics(results)
+    }
     out <- sm_format_out(rslt = results, mod = mod)
     class(out) <- c("memc_solve", class(out))
     
