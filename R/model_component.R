@@ -18,16 +18,18 @@ c_flux_functions_internal <-
     
     if (F1 == "MM") {
       flux_functions[["F1"]] = function(MB, DOC) {
-        (1/p[["CUE"]]) * (p[["V_d"]] + p[["m_r"]]) * MB * DOC / (p[["K_d"]] + DOC)
+       # (1/p[["CUE"]]) * (p[["V_d"]] + p[["m_r"]]) * MB * DOC / (p[["K_d"]] + DOC)
+        p[["CUE"]] * (p[["V_d"]] + p[["m_r"]]) * ((MB * DOC) / (p[["K_d"]] + DOC))
       }
     } else if (F1 == "RMM") {
       flux_functions[["F1"]] = function(MB, DOC) {
-        (1/p[["CUE"]]) * (p[["V_d"]] + p[["m_r"]]) * MB * DOC / (p[["K_d"]] + MB)
+        #(1/p[["CUE"]]) * (p[["V_d"]] + p[["m_r"]]) * MB * DOC / (p[["K_d"]] + MB)
+        p[["CUE"]] * (p[["V_d"]] + p[["m_r"]]) * ((MB * DOC) / (p[["K_d"]] + MB))
       }
     } else if (F1 == "ECA") {
       flux_functions[["F1"]] = function(MB, DOC) {
-      (1/p[["CUE"]]) * (p[["V_d"]] + p[["m_r"]]) * MB * DOC / (p[["K_d"]] + DOC + MB)
-        
+      #(1/p[["CUE"]]) * (p[["V_d"]] + p[["m_r"]]) * MB * DOC / (p[["K_d"]] + DOC + MB)
+        p[["CUE"]] * (p[["V_d"]] + p[["m_r"]]) * ((MB * DOC) / (p[["K_d"]] + DOC + MB))
       }
     } else if (F1 == "LM") {
       flux_functions[["F1"]] = function(MB, DOC) {
@@ -62,11 +64,13 @@ c_flux_functions_internal <-
     }
     
     flux_functions[["F4"]] = function(MB, DOC) {
-      ((1/p[["CUE"]]) - 1) * ((p[["V_d"]] * MB * DOC)/(p[["K_d"]] + DOC))
+     # ((1/p[["CUE"]]) - 1) * ((p[["V_d"]] * MB * DOC)/(p[["K_d"]] + DOC))
+      ((p[["V_d"]] * MB * DOC)/(p[["K_d"]] + DOC))
     }  
     
     flux_functions[["F5"]] = function(MB, DOC) {
-      ((1/p[["CUE"]]) - 1) * ((p[["m_r"]] * MB * DOC)/(p[["K_d"]] + DOC))
+     # ((1/p[["CUE"]]) - 1) * ((p[["m_r"]] * MB * DOC)/(p[["K_d"]] + DOC))
+      ((p[["m_r"]] * MB * DOC)/(p[["K_d"]] + DOC))
     }  
     
     
@@ -148,8 +152,7 @@ carbon_pool_derivs <-
       F9_em <-  cff$F9_em(MB = MB)
       F10_ep <- cff$F10_ep(EP = EP)
       F10_em <- cff$F10_em(EM = EM)
-    
-      
+  
       # Define the system of differential equations that describe
       # the changes in the carbon pool states.
       # -----------------------------------------------------------
@@ -188,7 +191,8 @@ carbon_pool_derivs <-
                               F9_ep = F9_ep,
                               F9_em = F9_em, 
                               F10_ep = F10_ep, 
-                              F10_em = F10_em)
+                              F10_em = F10_em, 
+                              t = t)
         write.table(flux_df, file = "./dev/flux.csv",
                     append = TRUE, col.names = FALSE, row.names = FALSE, sep = ",")
         
@@ -201,7 +205,8 @@ carbon_pool_derivs <-
                                dEP = dEP, 
                                dEM = dEM, 
                                dIC = dIC, 
-                               dTot = dTot)
+                               dTot = dTot, 
+                               t = t)
         write.table(delta_df, file = "./dev/delta.csv",
                     append = TRUE, col.names = FALSE, row.names = FALSE, sep = ",")
 
@@ -215,7 +220,8 @@ carbon_pool_derivs <-
                                EP = EP, 
                                EM = EM, 
                                IC = IC, 
-                               Tot = Tot)
+                               Tot = Tot, 
+                              t = t)
         write.table(pool_df, file = "./dev/pool.csv",
                     append = TRUE, col.names = FALSE, row.names = FALSE, sep = ",")
         
